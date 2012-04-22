@@ -1,0 +1,30 @@
+body {
+  font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size:11px;
+  font-weight:normal;
+}
+.green-button{
+	height: 47px;
+}
+
+.green-button-body{
+    background: url("../images/button_body.png") repeat-x scroll left top transparent;
+    height: 47px;
+	color: #FFFFFF;
+    padding-left: 9px;
+    padding-right: 9px;
+}
+
+.green-button-left{
+	background: url("../images/green-button-sprite.png") no-repeat;
+	background-position:-1px 0px;
+    height: 47px;
+	width:21px;
+}
+
+.green-button-right{
+	background: url("../images/green-button-sprite.png")no-repeat;
+	background-position:-24px 0px;
+    height: 47px;
+    width: 39px;
+}

@@ -11,22 +11,6 @@
 	<!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
 	<!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/> -->
 
-	<!-- Other module inherits -->
-	<define-property name="test" values="true,false" />
-	<!-- Provide a default -->
-	<set-property name="test" value="false" />
-
-	<replace-with class="com.agnie.gwt.common.client.TestServiceImpl">
-		<when-type-is class="com.agnie.gwt.common.client.Service" />
-		<when-property-is name="test" value="true" />
-	</replace-with>
-
-	<replace-with class="com.agnie.gwt.common.client.ServiceImpl">
-		<when-type-is class="com.agnie.gwt.common.client.Service" />
-		<when-property-is name="test" value="false" />
-	</replace-with>
-
 	<!-- Specify the paths for translatable code -->
 	<source path='client' />
-	<source path='shared' />
 </module>

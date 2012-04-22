@@ -1,6 +1,7 @@
 .green-button{
 	height: 47px;
 	display: inline-block;
+	cursor: pointer;
 }
 .green-button-label{
 	line-height: 45px;

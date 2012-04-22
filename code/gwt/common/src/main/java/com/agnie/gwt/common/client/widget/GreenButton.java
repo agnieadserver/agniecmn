@@ -9,12 +9,14 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 public class GreenButton extends Composite implements HasClickHandlers {
 
-	private static MyResources resource = GWT.create(MyResources.class);
+	private static GreenButtonResources	resource	= GWT.create(GreenButtonResources.class);
+
 	static {
 		resource.css().ensureInjected();
 	}
@@ -22,10 +24,13 @@ public class GreenButton extends Composite implements HasClickHandlers {
 	interface MyUiBinder extends UiBinder<Widget, GreenButton> {
 	}
 
-	private static MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
+	private static MyUiBinder	uiBinder	= GWT.create(MyUiBinder.class);
 
 	@UiField
-	protected Label label;
+	protected Label				label;
+
+	@UiField
+	protected HTMLPanel			panel;
 
 	public GreenButton(String label) {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -33,15 +38,19 @@ public class GreenButton extends Composite implements HasClickHandlers {
 		this.label.setStyleName(resource.css().greenButtonLabel());
 	}
 
-	@Override
-	public HandlerRegistration addClickHandler(ClickHandler handler) {
-		return addDomHandler(handler, ClickEvent.getType());
-	}
-
 	@UiFactory
 	/* this method could be static if you like */
-	public static MyResources getResources() {
+	public static GreenButtonResources getResources() {
 		return resource;
+	}
+
+	public void setText(String text) {
+		label.setText(text);
+	}
+
+	@Override
+	public HandlerRegistration addClickHandler(ClickHandler handler) {
+		return panel.addDomHandler(handler, ClickEvent.getType());
 	}
 
 }

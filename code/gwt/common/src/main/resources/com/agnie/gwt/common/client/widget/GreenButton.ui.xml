@@ -1,8 +1,8 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-	<ui:with field='res' type='com.agnie.gwt.common.client.widget.MyResources' />
+	<ui:with field='res' type='com.agnie.gwt.common.client.widget.GreenButtonResources' />
 
-	<g:HTMLPanel>
+	<g:HTMLPanel ui:field="panel">
 		<div class='{res.css.greenButton}'>
 			<table style="border: 0px; border-collapse: collapse;"
 				cellpadding="0">

@@ -5,9 +5,9 @@ import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.resources.client.ImageResource.ImageOptions;
 import com.google.gwt.resources.client.ImageResource.RepeatStyle;
 
-public interface MyResources extends ClientBundle {
-	@Source("test-button.css")
-	MyCss css();
+public interface GreenButtonResources extends ClientBundle {
+	@Source("green-button.css")
+	GreenButtonCss css();
 
 	@Source("button_left.png")
 	ImageResource leftGrnBtn();
@@ -18,8 +18,5 @@ public interface MyResources extends ClientBundle {
 	@ImageOptions(repeatStyle = RepeatStyle.Horizontal)
 	@Source("button_body.png")
 	ImageResource bodyGrnBtn();
-
-	@Source("transperent.png")
-	ImageResource transperent();
 
 }

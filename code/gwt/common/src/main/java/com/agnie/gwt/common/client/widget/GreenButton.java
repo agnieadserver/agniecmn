@@ -1,19 +1,15 @@
 package com.agnie.gwt.common.client.widget;
 
+import com.agnie.gwt.common.client.ui.FocusWidget;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-public class GreenButton extends Composite implements HasClickHandlers {
+public class GreenButton extends FocusWidget {
 
 	private static GreenButtonResources	resource	= GWT.create(GreenButtonResources.class);
 
@@ -34,6 +30,7 @@ public class GreenButton extends Composite implements HasClickHandlers {
 
 	public GreenButton(String label) {
 		initWidget(uiBinder.createAndBindUi(this));
+		setContainer(panel);
 		this.label.setText(label);
 		this.label.setStyleName(resource.css().greenButtonLabel());
 	}
@@ -46,11 +43,6 @@ public class GreenButton extends Composite implements HasClickHandlers {
 
 	public void setText(String text) {
 		label.setText(text);
-	}
-
-	@Override
-	public HandlerRegistration addClickHandler(ClickHandler handler) {
-		return panel.addDomHandler(handler, ClickEvent.getType());
 	}
 
 }

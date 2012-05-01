@@ -20,7 +20,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class GreenButton extends FocusWidget {
 
-	private static GreenButtonResources	resource	= GWT.create(GreenButtonResources.class);
+	private static GreenButtonResources	resource	= GreenButtonResources.INSTANCE;
 
 	static {
 		resource.css().ensureInjected();

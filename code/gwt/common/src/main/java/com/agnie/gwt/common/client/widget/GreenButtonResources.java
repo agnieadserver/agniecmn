@@ -1,11 +1,15 @@
 package com.agnie.gwt.common.client.widget;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.resources.client.ImageResource.ImageOptions;
 import com.google.gwt.resources.client.ImageResource.RepeatStyle;
 
 public interface GreenButtonResources extends ClientBundle {
+
+	public static GreenButtonResources	INSTANCE	= GWT.create(GreenButtonResources.class);
+
 	@Source("green-button.css")
 	GreenButtonCss css();
 

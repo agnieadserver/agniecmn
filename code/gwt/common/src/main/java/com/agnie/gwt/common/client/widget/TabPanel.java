@@ -112,6 +112,15 @@ public class TabPanel extends Composite {
 		clickHandlers.add(handler);
 	}
 
+	/**
+	 * Add style to container div.
+	 * 
+	 * @param style
+	 */
+	public void addStyleName(String style) {
+		container.addStyleName(style);
+	}
+
 	private class InternalTabClickHandler implements ClickHandler {
 
 		private String	label;

@@ -60,6 +60,7 @@ public class TabPanel extends Composite {
 	 */
 	public void addTab(final String label) {
 		SimplePanel tab = new SimplePanel();
+		tab.setStyleName("inactive");
 		Anchor anchTab = new Anchor(label);
 		int tabIndex = tabCount++;
 		InternalTabClickHandler handler = new InternalTabClickHandler(label, tabIndex);
@@ -79,10 +80,12 @@ public class TabPanel extends Composite {
 	public void setSelected(int tabIndex) {
 		if (selectedTab != null) {
 			selectedTab.removeStyleName("selected");
+			selectedTab.addStyleName("inactive");
 		}
 		selectedTab = tabsMappedtoIndex.get(tabIndex);
 		if (selectedTab != null) {
-			selectedTab.setStyleName("selected");
+			selectedTab.removeStyleName("inactive");
+			selectedTab.addStyleName("selected");
 		} else {
 			throw new ArrayIndexOutOfBoundsException();
 		}

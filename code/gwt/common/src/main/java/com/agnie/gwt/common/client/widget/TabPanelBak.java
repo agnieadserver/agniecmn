@@ -5,8 +5,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.agnie.gwt.common.client.ui.HasTabClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -25,7 +27,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
  * 
  * default css is "tabBox". for complete set refer tab.css inside same package.
  */
-public class TabPanel extends Composite {
+public class TabPanelBak extends Composite implements HasTabClickHandler {
 
 	private SimplePanel					container;
 	private HTMLPanel					innerContainer;
@@ -35,7 +37,7 @@ public class TabPanel extends Composite {
 	private Set<TabClickHandler>		clickHandlers		= new HashSet<TabClickHandler>();
 	private SimplePanel					selectedTab;
 
-	public TabPanel() {
+	public TabPanelBak() {
 		this("tabBox");
 	}
 
@@ -44,7 +46,7 @@ public class TabPanel extends Composite {
 	 * 
 	 * @param styleClassName
 	 */
-	public TabPanel(String styleClassName) {
+	public TabPanelBak(String styleClassName) {
 		container = new SimplePanel();
 		innerContainer = new HTMLPanel("");
 		initWidget(container);
@@ -72,6 +74,22 @@ public class TabPanel extends Composite {
 		innerContainer.add(tab);
 	}
 
+	@Override
+	public HandlerRegistration addClickHandler(String label, ClickHandler handler) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HandlerRegistration addClickHandler(Integer tabIndex, ClickHandler handler) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private HandlerRegistration addClickHandler(Anchor a, ClickHandler handler) {
+		return a.addClickHandler(handler);
+	}
+
 	/**
 	 * Set the selected tab by passing the index of the tab.
 	 * 
@@ -79,13 +97,13 @@ public class TabPanel extends Composite {
 	 */
 	public void setSelected(int tabIndex) {
 		if (selectedTab != null) {
-			selectedTab.removeStyleName("selected");
+			selectedTab.removeStyleName("active");
 			selectedTab.addStyleName("inactive");
 		}
 		selectedTab = tabsMappedtoIndex.get(tabIndex);
 		if (selectedTab != null) {
 			selectedTab.removeStyleName("inactive");
-			selectedTab.addStyleName("selected");
+			selectedTab.addStyleName("active");
 		} else {
 			throw new ArrayIndexOutOfBoundsException();
 		}
@@ -98,11 +116,13 @@ public class TabPanel extends Composite {
 	 */
 	public void setSelected(String tabLabel) {
 		if (selectedTab != null) {
-			selectedTab.removeStyleName("selected");
+			selectedTab.removeStyleName("active");
+			selectedTab.addStyleName("inactive");
 		}
 		selectedTab = tabsMappedtoLabel.get(tabLabel);
 		if (selectedTab != null) {
-			selectedTab.setStyleName("selected");
+			selectedTab.removeStyleName("inactive");
+			selectedTab.setStyleName("active");
 		}
 	}
 
@@ -111,7 +131,7 @@ public class TabPanel extends Composite {
 	 * 
 	 * @param handler
 	 */
-	public void addClickHanlder(TabClickHandler handler) {
+	public void addTabClickHanlder(TabClickHandler handler) {
 		clickHandlers.add(handler);
 	}
 

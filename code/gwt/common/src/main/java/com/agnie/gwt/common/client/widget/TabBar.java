@@ -22,7 +22,6 @@ import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -211,8 +210,7 @@ public class TabBar extends Composite implements HasBeforeSelectionHandlers<Inte
 	}
 
 	/**
-	 * Programmatically selects the specified tab and fires events. Use index -1 to specify that no tab should be
-	 * selected.
+	 * Programmatically selects the specified tab and fires events. 
 	 * 
 	 * @param index
 	 *            the index of the tab to be selected

@@ -22,6 +22,7 @@ import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -111,6 +112,10 @@ public class TabBar extends Composite implements HasBeforeSelectionHandlers<Inte
 		container.setStyleName(styleClassName);
 		panel.setStyleName(TAB_INNER_CONTAINER_STYLE);
 		container.add(panel);
+	}
+
+	public void setStyleClassName(String styleClassName) {
+		container.setStyleName(styleClassName);
 	}
 
 	public HandlerRegistration addBeforeSelectionHandler(BeforeSelectionHandler<Integer> handler) {
@@ -292,6 +297,21 @@ public class TabBar extends Composite implements HasBeforeSelectionHandlers<Inte
 	private void checkTabIndex(int index) {
 		if ((index < -1) || (index >= getTabCount())) {
 			throw new IndexOutOfBoundsException();
+		}
+	}
+
+	public String getTabText(int index) {
+		if (index >= getTabCount()) {
+			return null;
+		}
+		ClickDelegatePanel delPanel = (ClickDelegatePanel) panel.getWidget(index);
+		SimplePanel focusablePanel = delPanel.getFocusablePanel();
+		Widget widget = focusablePanel.getWidget();
+		if (widget instanceof Anchor) {
+			return ((Anchor) widget).getText();
+		} else {
+			// This will be a focusable panel holding a user-supplied widget.
+			return focusablePanel.getElement().getParentElement().getInnerHTML();
 		}
 	}
 

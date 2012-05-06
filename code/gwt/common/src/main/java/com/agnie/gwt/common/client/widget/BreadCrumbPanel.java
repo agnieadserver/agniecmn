@@ -180,4 +180,8 @@ public class BreadCrumbPanel extends Composite {
 			return focusablePanel.getElement().getParentElement().getInnerHTML();
 		}
 	}
+
+	public void clear() {
+		panel.clear();
+	}
 }

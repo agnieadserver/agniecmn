@@ -7,9 +7,9 @@ import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -25,6 +25,10 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 
 		public static final String	INACTIVE_STYLE	= "inactive";
 		public static final String	ACTIVE_STYLE	= "active";
+		public static final String	DONE_STYLE		= "done";
+		public static final String	LAST_DONE_STYLE	= "last-done";
+		public static final String	FINAL_STYLE		= "final";
+
 		private SimplePanel			simplePanel;
 		private boolean				enabled			= true;
 
@@ -33,7 +37,7 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 			simplePanel = new SimplePanel();
 			simplePanel.setWidget(child);
 			initWidget(simplePanel);
-			simplePanel.setStyleName(INACTIVE_STYLE);
+			simplePanel.addStyleName(INACTIVE_STYLE);
 		}
 
 		@SuppressWarnings("unused")
@@ -54,6 +58,7 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 	private static final String	WIZARD_CONTAINER_DEFAULT_STYLE	= "wizard";
 	private HTMLPanel			panel;
 	private Widget				selected;
+	public static final String	NO_MACRO						= "#NO&";
 
 	public WizardBar() {
 		this(WIZARD_CONTAINER_DEFAULT_STYLE);
@@ -80,17 +85,32 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 		return addHandler(handler, SelectionEvent.getType());
 	}
 
+	public void addStep(String text) {
+		addStep(null, text);
+	}
+
 	/**
 	 * Adds a new Step in wizard with specified text.
 	 * 
 	 * @param text
 	 *            the new Step's text
 	 */
-	public void addStep(String text) {
-		Label item;
-		item = new Label(text);
-		item.setWordWrap(false);
-		addStep(item);
+	public void addStep(String label, String text) {
+		StringBuffer html = new StringBuffer();
+		if (label != null) {
+			html.append("<em>" + processMacro(label) + "</em>");
+		} else {
+			html.append("<em>" + (getStepCount() + 1) + "</em>");
+		}
+		html.append("<span>" + text + "</span>");
+
+		Anchor anchor = new Anchor();
+		anchor.setHTML(html.toString());
+		addStep(anchor);
+	}
+
+	private String processMacro(String text) {
+		return text.replace(NO_MACRO, "" + getStepCount() + 1);
 	}
 
 	/**
@@ -100,7 +120,14 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 	 *            the new Step's text
 	 */
 	public void addStep(Widget step) {
+		int currentCount = getStepCount();
+		// Remove "final" style class from previous step widget
+		if (currentCount != 0) {
+			ClickDelegatePanel p = (ClickDelegatePanel) panel.getWidget(currentCount - 1);
+			p.removeStyleName(ClickDelegatePanel.FINAL_STYLE);
+		}
 		ClickDelegatePanel delWidget = new ClickDelegatePanel(step);
+		delWidget.addStyleName(ClickDelegatePanel.FINAL_STYLE);
 		panel.add(delWidget);
 	}
 
@@ -172,20 +199,27 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 		panel.remove(toRemove);
 	}
 
+	/**
+	 * 
+	 * Go to next Step
+	 * 
+	 * @return <code>true</code> if successful, <code>false</code> if the change is denied by the
+	 *         {@link BeforeSelectionHandler}.
+	 */
 	public boolean nextStep() {
-		int currentStepIndex = getSelectedStep();
-		return selectStep(currentStepIndex + 1);
+		return nextStep(true);
 	}
 
 	/**
 	 * 
-	 * @param index
-	 *            the index of the Step to be selected
+	 * @param fireEvents
+	 *            true to fire events, false not to
 	 * @return <code>true</code> if successful, <code>false</code> if the change is denied by the
 	 *         {@link BeforeSelectionHandler}.
 	 */
-	private boolean selectStep(int index) {
-		return selectStep(index, true);
+	public boolean nextStep(boolean fireEvents) {
+		int currentStepIndex = getSelectedStep();
+		return selectStep(currentStepIndex + 1, fireEvents);
 	}
 
 	/**
@@ -207,6 +241,20 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 			}
 		}
 
+		int currentlySelectedIndex = getSelectedStep();
+
+		// remove active style from last selected step and add last done style for the same
+		if (currentlySelectedIndex > -1) {
+			ClickDelegatePanel p = (ClickDelegatePanel) panel.getWidget(currentlySelectedIndex);
+			p.removeStyleName(ClickDelegatePanel.ACTIVE_STYLE);
+			p.addStyleName(ClickDelegatePanel.LAST_DONE_STYLE);
+		}
+		// remove last done style from last to last selected step and add done style for the same
+		if (currentlySelectedIndex > 0) {
+			ClickDelegatePanel p = (ClickDelegatePanel) panel.getWidget(currentlySelectedIndex - 1);
+			p.removeStyleName(ClickDelegatePanel.LAST_DONE_STYLE);
+			p.addStyleName(ClickDelegatePanel.DONE_STYLE);
+		}
 		// Check for -1.
 		setSelectionStyle(selected, false);
 		if (index == -1) {

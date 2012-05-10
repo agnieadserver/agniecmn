@@ -1,0 +1,57 @@
+.main-wizard {
+	
+}
+
+.main-wizard div {
+	width: 182px;
+	background-color: #EBEBEB;
+	background-image: url("images/navBtn.gif");
+	background-position: right top;
+	background-repeat: no-repeat;
+	float: left;
+	height: 71px;
+	list-style: none outside none;
+}
+
+.main-wizard div.inactive  {
+	
+}
+
+.main-wizard div a em {
+	display: block;
+	font-style: normal;
+	font-weight: bold;
+	margin: 6px 0 0 10px;
+	width: 150px;
+}
+
+.main-wizard div a span {
+	display: block;
+	font-weight: normal;
+	margin-left: 10px;
+	width: 140px;
+}
+
+.main-wizard div.done  {
+	background-color: #7C8437;
+	background-image: url("images/navDoneBtn.gif");
+}
+
+.main-wizard div.last-done {
+	background-color: #7C8437;
+	background-image: url("images/navLastDoneBtn.gif");
+}
+
+.main-wizard div.active {
+	background-color: #C36615;
+	background-image: url("images/navCurrentBtn.gif");
+}
+
+.main-wizard div.final  {
+	background-image: none;
+}
+
+.main-wizard div:hover {
+	text-shadow: none;
+	text-decoration: none;
+}

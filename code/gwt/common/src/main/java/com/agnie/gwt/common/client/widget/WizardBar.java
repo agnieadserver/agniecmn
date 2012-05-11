@@ -14,7 +14,8 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * 
+ * This wizard bar doesn't support click action on any of the steps in any state. If required the support need to be
+ * added in this class it self.
  */
 public class WizardBar extends Composite implements HasBeforeSelectionHandlers<Integer>, HasSelectionHandlers<Integer> {
 

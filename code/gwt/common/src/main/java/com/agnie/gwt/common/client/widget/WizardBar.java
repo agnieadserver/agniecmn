@@ -111,7 +111,7 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 	}
 
 	private String processMacro(String text) {
-		return text.replace(NO_MACRO, "" + getStepCount() + 1);
+		return text.replace(NO_MACRO, "" + (getStepCount() + 1));
 	}
 
 	/**

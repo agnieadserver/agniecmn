@@ -210,6 +210,40 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 		return nextStep(true);
 	}
 
+	public boolean backStep() {
+		return backStep(true);
+	}
+
+	public boolean backStep(boolean fireEvents) {
+		int currentlySelectedIndex = getSelectedStep();
+		int index = currentlySelectedIndex - 1;
+		checkStepIndex(index);
+		if (fireEvents & !checkForBeforeSelectionEvent(index)) {
+			return false;
+		}
+
+		if (currentlySelectedIndex > -1) {
+			ClickDelegatePanel p = (ClickDelegatePanel) panel.getWidget(currentlySelectedIndex);
+			p.removeStyleName(ClickDelegatePanel.ACTIVE_STYLE);
+			p.addStyleName(ClickDelegatePanel.INACTIVE_STYLE);
+		}
+
+		if (currentlySelectedIndex > 1) {
+			ClickDelegatePanel p = (ClickDelegatePanel) panel.getWidget(currentlySelectedIndex - 2);
+			p.removeStyleName(ClickDelegatePanel.DONE_STYLE);
+			p.addStyleName(ClickDelegatePanel.LAST_DONE_STYLE);
+		}
+
+		selected = panel.getWidget(index);
+		selected.removeStyleName(ClickDelegatePanel.INACTIVE_STYLE);
+		selected.removeStyleName(ClickDelegatePanel.LAST_DONE_STYLE);
+		selected.addStyleName(ClickDelegatePanel.ACTIVE_STYLE);
+		if (fireEvents) {
+			SelectionEvent.fire(this, index);
+		}
+		return true;
+	}
+
 	/**
 	 * 
 	 * @param fireEvents
@@ -218,54 +252,38 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 	 *         {@link BeforeSelectionHandler}.
 	 */
 	public boolean nextStep(boolean fireEvents) {
-		int currentStepIndex = getSelectedStep();
-		return selectStep(currentStepIndex + 1, fireEvents);
-	}
-
-	/**
-	 * 
-	 * @param index
-	 *            the index of the Step to be selected
-	 * @param fireEvents
-	 *            true to fire events, false not to
-	 * @return <code>true</code> if successful, <code>false</code> if the change is denied by the
-	 *         {@link BeforeSelectionHandler}.
-	 */
-	private boolean selectStep(int index, boolean fireEvents) {
+		int currentlySelectedIndex = getSelectedStep();
+		int index = currentlySelectedIndex + 1;
 		checkStepIndex(index);
-
-		if (fireEvents) {
-			BeforeSelectionEvent<?> event = BeforeSelectionEvent.fire(this, index);
-			if (event != null && event.isCanceled()) {
-				return false;
-			}
+		if (fireEvents & !checkForBeforeSelectionEvent(index)) {
+			return false;
 		}
 
-		int currentlySelectedIndex = getSelectedStep();
-
-		// remove active style from last selected step and add last done style for the same
 		if (currentlySelectedIndex > -1) {
 			ClickDelegatePanel p = (ClickDelegatePanel) panel.getWidget(currentlySelectedIndex);
 			p.removeStyleName(ClickDelegatePanel.ACTIVE_STYLE);
 			p.addStyleName(ClickDelegatePanel.LAST_DONE_STYLE);
 		}
-		// remove last done style from last to last selected step and add done style for the same
 		if (currentlySelectedIndex > 0) {
 			ClickDelegatePanel p = (ClickDelegatePanel) panel.getWidget(currentlySelectedIndex - 1);
 			p.removeStyleName(ClickDelegatePanel.LAST_DONE_STYLE);
 			p.addStyleName(ClickDelegatePanel.DONE_STYLE);
 		}
-		// Check for -1.
-		setSelectionStyle(selected, false);
-		if (index == -1) {
-			selected = null;
-			return true;
-		}
 
 		selected = panel.getWidget(index);
-		setSelectionStyle(selected, true);
+		selected.removeStyleName(ClickDelegatePanel.INACTIVE_STYLE);
+		selected.addStyleName(ClickDelegatePanel.ACTIVE_STYLE);
 		if (fireEvents) {
 			SelectionEvent.fire(this, index);
+		}
+		return true;
+	}
+
+	private boolean checkForBeforeSelectionEvent(int index) {
+
+		BeforeSelectionEvent<?> event = BeforeSelectionEvent.fire(this, index);
+		if (event != null && event.isCanceled()) {
+			return false;
 		}
 		return true;
 	}
@@ -288,18 +306,6 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 	private void checkStepIndex(int index) {
 		if ((index < -1) || (index >= getStepCount())) {
 			throw new IndexOutOfBoundsException();
-		}
-	}
-
-	private void setSelectionStyle(Widget item, boolean selected) {
-		if (item != null) {
-			if (selected) {
-				item.removeStyleName(ClickDelegatePanel.INACTIVE_STYLE);
-				item.addStyleName(ClickDelegatePanel.ACTIVE_STYLE);
-			} else {
-				item.removeStyleName(ClickDelegatePanel.ACTIVE_STYLE);
-				item.addStyleName(ClickDelegatePanel.INACTIVE_STYLE);
-			}
 		}
 	}
 }

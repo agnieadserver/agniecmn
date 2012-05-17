@@ -211,10 +211,56 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 		return nextStep(true);
 	}
 
+	/**
+	 * 
+	 * Go to back Step
+	 * 
+	 * @return <code>true</code> if successful, <code>false</code> if the change is denied by the
+	 *         {@link BeforeSelectionHandler}.
+	 */
 	public boolean backStep() {
 		return backStep(true);
 	}
 
+	/**
+	 * 
+	 * Select the given step but it will not fire the selection event
+	 * 
+	 * @return <code>true</code> if successful, <code>false</code> if the change is denied by the
+	 *         {@link BeforeSelectionHandler}.
+	 */
+
+	public boolean selectStep(int index) {
+		checkStepIndex(index);
+		int currentIndex = -1;
+		if (selected != null) {
+			currentIndex = panel.getWidgetIndex(selected);
+		}
+		int diff = index - currentIndex;
+		if (diff != 0) {
+			if (diff > 0) {
+				for (int ind = 0; ind < diff; ind++) {
+					nextStep(false);
+				}
+			} else {
+				for (int ind = 0; ind > diff; ind--) {
+					backStep(false);
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * 
+	 * Go to back Step
+	 * 
+	 * @param fireEvent
+	 *            Indicator to fire the selection event or not
+	 * 
+	 * @return <code>true</code> if successful, <code>false</code> if the change is denied by the
+	 *         {@link BeforeSelectionHandler}.
+	 */
 	public boolean backStep(boolean fireEvents) {
 		int currentlySelectedIndex = getSelectedStep();
 		int index = currentlySelectedIndex - 1;

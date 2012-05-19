@@ -29,8 +29,8 @@ import com.google.gwt.user.client.ui.Widget;
  * This is generic tab panel which is bare structure. It will take the shape as per css applied.
  * 
  * <p>
- * <div class="tabBox"> <div class="tabs"> <div> <a class="gwt-Anchor" href="javascript:;">Home</a> </div> <div
- * class="selected"> <a class="gwt-Anchor" href="javascript:;">User Manager</a> </div> </div> </div>
+ * <div class="tabBox"> <div class="tabs"> <div class="inactive"> <a class="gwt-Anchor" href="javascript:;">Home</a>
+ * </div> <div class="active"> <a class="gwt-Anchor" href="javascript:;">User Manager</a> </div> </div> </div>
  * </p>
  * 
  * You can create different set of styles to have different look and feel for your tab. e.g. you can create vertical tab
@@ -40,15 +40,19 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class TabBar extends Composite implements HasBeforeSelectionHandlers<Integer>, HasSelectionHandlers<Integer> {
 
+	private static TabBarResources	resource	= TabBarResources.INSTANCE;
+
+	static {
+		resource.css().ensureInjected();
+	}
+
 	public interface Tab extends HasAllKeyHandlers, HasClickHandlers {
 	}
 
 	private class ClickDelegatePanel extends Composite implements Tab {
 
-		public static final String	INACTIVE_STYLE	= "inactive";
-		public static final String	ACTIVE_STYLE	= "active";
-		private FocusPanel			focusablePanel;
-		private boolean				enabled			= true;
+		private FocusPanel	focusablePanel;
+		private boolean		enabled	= true;
 
 		ClickDelegatePanel(Widget child) {
 
@@ -56,7 +60,7 @@ public class TabBar extends Composite implements HasBeforeSelectionHandlers<Inte
 
 			focusablePanel.setWidget(child);
 			initWidget(focusablePanel);
-			focusablePanel.setStyleName(INACTIVE_STYLE);
+			focusablePanel.setStyleName(resource.css().inactive());
 			sinkEvents(Event.ONCLICK | Event.ONKEYDOWN);
 		}
 
@@ -90,14 +94,12 @@ public class TabBar extends Composite implements HasBeforeSelectionHandlers<Inte
 
 	}
 
-	private static final String	TAB_CONTAINER_DEFAULT_STYLE	= "tabBox";
-	private static final String	TAB_INNER_CONTAINER_STYLE	= "tabs";
-	private SimplePanel			container;
-	private HTMLPanel			panel;
-	private Widget				selectedTab;
+	private SimplePanel	container;
+	private HTMLPanel	panel;
+	private Widget		selectedTab;
 
 	public TabBar() {
-		this(TAB_CONTAINER_DEFAULT_STYLE);
+		this(resource.css().tabBox());
 	}
 
 	/**
@@ -109,7 +111,7 @@ public class TabBar extends Composite implements HasBeforeSelectionHandlers<Inte
 		initWidget(container);
 		sinkEvents(Event.ONCLICK);
 		container.setStyleName(styleClassName);
-		panel.setStyleName(TAB_INNER_CONTAINER_STYLE);
+		panel.setStyleName(resource.css().tabs());
 		container.add(panel);
 	}
 
@@ -210,7 +212,7 @@ public class TabBar extends Composite implements HasBeforeSelectionHandlers<Inte
 	}
 
 	/**
-	 * Programmatically selects the specified tab and fires events. 
+	 * Programmatically selects the specified tab and fires events.
 	 * 
 	 * @param index
 	 *            the index of the tab to be selected
@@ -316,11 +318,11 @@ public class TabBar extends Composite implements HasBeforeSelectionHandlers<Inte
 	private void setSelectionStyle(Widget item, boolean selected) {
 		if (item != null) {
 			if (selected) {
-				item.removeStyleName(ClickDelegatePanel.INACTIVE_STYLE);
-				item.addStyleName(ClickDelegatePanel.ACTIVE_STYLE);
+				item.removeStyleName(resource.css().inactive());
+				item.addStyleName(resource.css().active());
 			} else {
-				item.removeStyleName(ClickDelegatePanel.ACTIVE_STYLE);
-				item.addStyleName(ClickDelegatePanel.INACTIVE_STYLE);
+				item.removeStyleName(resource.css().active());
+				item.addStyleName(resource.css().inactive());
 			}
 		}
 	}

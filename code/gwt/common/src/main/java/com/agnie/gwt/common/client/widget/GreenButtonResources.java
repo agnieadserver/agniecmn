@@ -10,7 +10,7 @@ public interface GreenButtonResources extends ClientBundle {
 
 	public static GreenButtonResources	INSTANCE	= GWT.create(GreenButtonResources.class);
 
-	@Source("green-button.css")
+	@Source("GreenButtonCss.css")
 	GreenButtonCss css();
 
 	@Source("button_left.png")

@@ -1,0 +1,68 @@
+.wizard {
+	
+}
+
+@sprite .wizard div {
+	gwt-image: 'navButton';
+	width: 182px;
+	background-position: right top;
+	background-color: #EBEBEB;
+	background-repeat: no-repeat;
+	float: left;
+	height: 71px;
+	list-style: none outside none;
+}
+
+.wizard div.inactive  {
+	
+}
+
+.wizard div a em {
+	display: block;
+	font-style: normal;
+	font-weight: bold;
+	margin: 6px 0 0 10px;
+	width: 150px;
+}
+
+.wizard div a span {
+	display: block;
+	font-weight: normal;
+	margin-left: 10px;
+	width: 140px;
+}
+
+@sprite .wizard div.done  {
+	gwt-image: 'navDoneButton';
+	background-color: #7C8437;
+	width: 182px;
+	background-position: right top;
+	
+}
+
+@sprite .wizard div.last-done {
+	gwt-image: 'navLastDoneButton';
+	background-color: #7C8437;
+	width: 182px;
+	background-position: right top;
+	
+}
+
+@sprite .wizard div.active {
+	gwt-image: 'navCurrentButton';
+	background-color: #C36615;
+	width: 182px;
+	background-position: right top;
+	
+}
+
+.wizard div.last-element  {
+	background-image: none;
+}
+
+.wizard div:hover {
+	text-shadow: none;
+	text-decoration: none;
+}
+
+@external wizard, last-element, active, last-done, done, inactive;

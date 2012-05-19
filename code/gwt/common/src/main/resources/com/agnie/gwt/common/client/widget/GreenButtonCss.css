@@ -9,7 +9,7 @@
 
 @sprite .green-button-body{
 	gwt-image: 'bodyGrnBtn';
-    height: 50px;
+    height: 47px;
 	color: #FFFFFF;
     padding-left: 9px;
     padding-right: 9px;
@@ -26,3 +26,5 @@
     height: 47px;
     width: 39px;
 }
+
+@external green-button, green-button-label, green-button-body, green-button-left, green-button-right;

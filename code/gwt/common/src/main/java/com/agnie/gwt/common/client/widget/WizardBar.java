@@ -19,26 +19,26 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class WizardBar extends Composite implements HasBeforeSelectionHandlers<Integer>, HasSelectionHandlers<Integer> {
 
+	private static WizardBarResources	resource	= WizardBarResources.INSTANCE;
+
+	static {
+		resource.css().ensureInjected();
+	}
+
 	public interface Step {
 	}
 
 	private class ClickDelegatePanel extends Composite implements Step {
 
-		public static final String	INACTIVE_STYLE	= "inactive";
-		public static final String	ACTIVE_STYLE	= "active";
-		public static final String	DONE_STYLE		= "done";
-		public static final String	LAST_DONE_STYLE	= "last-done";
-		public static final String	FINAL_STYLE		= "final";
-
-		private SimplePanel			simplePanel;
-		private boolean				enabled			= true;
+		private SimplePanel	simplePanel;
+		private boolean		enabled	= true;
 
 		ClickDelegatePanel(Widget child) {
 
 			simplePanel = new SimplePanel();
 			simplePanel.setWidget(child);
 			initWidget(simplePanel);
-			simplePanel.addStyleName(INACTIVE_STYLE);
+			simplePanel.addStyleName(resource.css().inactive());
 		}
 
 		@SuppressWarnings("unused")
@@ -56,13 +56,12 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 
 	}
 
-	private static final String	WIZARD_CONTAINER_DEFAULT_STYLE	= "wizard";
 	private HTMLPanel			panel;
 	private Widget				selected;
-	public static final String	NO_MACRO						= "#NO&";
+	public static final String	NO_MACRO	= "#NO&";
 
 	public WizardBar() {
-		this(WIZARD_CONTAINER_DEFAULT_STYLE);
+		this(resource.css().wizard());
 	}
 
 	/**
@@ -125,10 +124,10 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 		// Remove "final" style class from previous step widget
 		if (currentCount != 0) {
 			ClickDelegatePanel p = (ClickDelegatePanel) panel.getWidget(currentCount - 1);
-			p.removeStyleName(ClickDelegatePanel.FINAL_STYLE);
+			p.removeStyleName(resource.css().lastElement());
 		}
 		ClickDelegatePanel delWidget = new ClickDelegatePanel(step);
-		delWidget.addStyleName(ClickDelegatePanel.FINAL_STYLE);
+		delWidget.addStyleName(resource.css().lastElement());
 		panel.add(delWidget);
 	}
 
@@ -271,20 +270,20 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 
 		if (currentlySelectedIndex > -1) {
 			ClickDelegatePanel p = (ClickDelegatePanel) panel.getWidget(currentlySelectedIndex);
-			p.removeStyleName(ClickDelegatePanel.ACTIVE_STYLE);
-			p.addStyleName(ClickDelegatePanel.INACTIVE_STYLE);
+			p.removeStyleName(resource.css().active());
+			p.addStyleName(resource.css().inactive());
 		}
 
 		if (currentlySelectedIndex > 1) {
 			ClickDelegatePanel p = (ClickDelegatePanel) panel.getWidget(currentlySelectedIndex - 2);
-			p.removeStyleName(ClickDelegatePanel.DONE_STYLE);
-			p.addStyleName(ClickDelegatePanel.LAST_DONE_STYLE);
+			p.removeStyleName(resource.css().done());
+			p.addStyleName(resource.css().lastDone());
 		}
 
 		selected = panel.getWidget(index);
-		selected.removeStyleName(ClickDelegatePanel.INACTIVE_STYLE);
-		selected.removeStyleName(ClickDelegatePanel.LAST_DONE_STYLE);
-		selected.addStyleName(ClickDelegatePanel.ACTIVE_STYLE);
+		selected.removeStyleName(resource.css().inactive());
+		selected.removeStyleName(resource.css().lastDone());
+		selected.addStyleName(resource.css().active());
 		if (fireEvents) {
 			SelectionEvent.fire(this, index);
 		}
@@ -308,18 +307,18 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 
 		if (currentlySelectedIndex > -1) {
 			ClickDelegatePanel p = (ClickDelegatePanel) panel.getWidget(currentlySelectedIndex);
-			p.removeStyleName(ClickDelegatePanel.ACTIVE_STYLE);
-			p.addStyleName(ClickDelegatePanel.LAST_DONE_STYLE);
+			p.removeStyleName(resource.css().active());
+			p.addStyleName(resource.css().lastDone());
 		}
 		if (currentlySelectedIndex > 0) {
 			ClickDelegatePanel p = (ClickDelegatePanel) panel.getWidget(currentlySelectedIndex - 1);
-			p.removeStyleName(ClickDelegatePanel.LAST_DONE_STYLE);
-			p.addStyleName(ClickDelegatePanel.DONE_STYLE);
+			p.removeStyleName(resource.css().lastDone());
+			p.addStyleName(resource.css().done());
 		}
 
 		selected = panel.getWidget(index);
-		selected.removeStyleName(ClickDelegatePanel.INACTIVE_STYLE);
-		selected.addStyleName(ClickDelegatePanel.ACTIVE_STYLE);
+		selected.removeStyleName(resource.css().inactive());
+		selected.addStyleName(resource.css().active());
 		if (fireEvents) {
 			SelectionEvent.fire(this, index);
 		}

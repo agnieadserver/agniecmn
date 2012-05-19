@@ -66,15 +66,24 @@
 						<goals>
 							<goal>compile</goal>
 							<goal>test</goal>
-							<!--goal>i18n</goal-->
 							<goal>generateAsync</goal>
 						</goals>
 					</execution>
+					<execution>
+						<id>css-generation</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>css</goal>
+						</goals>
+					</execution>
 				</executions>
-				<!--configuration>
-					<i18nMessagesBundle>com.agnie.gwt.common.client.Messages
-					</i18nMessagesBundle>
-				</configuration-->
+				<configuration>
+					<cssFiles>
+						<cssFile>com/agnie/gwt/common/client/widget/GreenButtonCss.css</cssFile>
+						<cssFile>com/agnie/gwt/common/client/widget/TabBarCss.css</cssFile>
+						<cssFile>com/agnie/gwt/common/client/widget/WizardBarCss.css</cssFile>
+					</cssFiles>
+				</configuration>
 			</plugin>
 			<!-- requestfactory-apt runs an annotation processor (APT) to instrument 
 				its service interfaces so that RequestFactoryServer can decode client requests. 

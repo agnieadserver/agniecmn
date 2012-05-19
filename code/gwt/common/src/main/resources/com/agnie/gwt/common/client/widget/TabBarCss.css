@@ -21,7 +21,10 @@
 	border-bottom: 1px solid #FFF;
 }
 
-.tabBox .tabs div.selected {
+.tabBox .tabs div.inactive {
+}
+
+.tabBox .tabs div.active {
 	z-index: 3;
 }
 
@@ -41,7 +44,7 @@
 	behavior: url(PIE.htc);
 }
 
-.tabBox .tabs .selected a {
+.tabBox .tabs .active a {
 	background: #FFF;
 	-webkit-box-shadow: #CCC 0 0 .25em;
 	-moz-box-shadow: #CCC 0 0 .25em;
@@ -57,3 +60,5 @@
 	background: linear-gradient(#EEF, #FFF 70%);
 	-pie-background: linear-gradient(#EEF, #FFF 70%);
 }
+
+@external tabBox, tabs, active, inactive;

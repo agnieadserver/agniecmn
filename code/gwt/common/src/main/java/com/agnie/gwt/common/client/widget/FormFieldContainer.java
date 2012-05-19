@@ -8,7 +8,6 @@ import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -44,7 +43,7 @@ public class FormFieldContainer extends Composite {
 	protected SpanElement		error;
 	protected HTMLPanel			container;
 	@UiField
-	protected SimplePanel		inputContainer;
+	protected HTMLPanel			inputContainer;
 
 	public FormFieldContainer() {
 		this(null, null, false);
@@ -66,7 +65,7 @@ public class FormFieldContainer extends Composite {
 		}
 	}
 
-	@UiChild(limit = 1)
+	@UiChild
 	public void addInputFieldContainer(Widget inputFieldContainer) {
 		if (inputFieldContainer != null) {
 			inputContainer.add(inputFieldContainer);

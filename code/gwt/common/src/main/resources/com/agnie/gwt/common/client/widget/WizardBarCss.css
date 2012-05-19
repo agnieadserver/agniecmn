@@ -58,6 +58,7 @@
 
 .wizard div.last-element  {
 	background-image: none;
+	float: none;
 }
 
 .wizard div:hover {

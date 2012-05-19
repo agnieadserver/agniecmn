@@ -1,0 +1,64 @@
+.form-filed-container {
+	clear: both;
+	padding: 10px;
+	position: relative;
+}
+
+.form-filed-container:before, .form-filed-container:after {
+    content: "";
+    display: table;
+}
+
+span.required {
+    color: #990000;
+}
+
+.form-filed-label {
+    display: block;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 10px 0 0;
+    text-align: right;
+    width: 180px;
+    color: #444444;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-filed-input {
+}
+
+.form-filed-label, input, button, select, textarea {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 20px;
+}
+
+.form-filed-error {
+    border: 1px solid red;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 0 0px, 0 0 39px red inset;
+    clear: both;
+    color: #3E3E3E;
+    font-size: 15px;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.form-filed-error-text {
+    background-color: transparent;
+    background-image: none;
+    border: medium none;
+    line-height: 16px;
+    margin-bottom: 5px;
+    padding: 0;
+    margin-left: 190px;
+    margin-top: 5px;
+    color: #990000;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    list-style-type: none;
+}
+
+@external form-filed-container, form-filed-label, form-filed-error, required, form-filed-error-text, form-filed-input;

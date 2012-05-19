@@ -1,0 +1,18 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	<ui:with field='res'
+		type='com.agnie.gwt.common.client.widget.FormFieldResources' />
+
+	<g:HTMLPanel>
+		<div class='{res.css.formFiledLabel}'>
+			<span ui:field="label"></span>
+			<span ui:field="required" class='{res.css.required}'></span>
+		</div>
+		<div>
+			<g:SimplePanel ui:field="inputContainer"></g:SimplePanel>
+			<div class='{res.css.formFiledErrorText}'>
+				<span ui:field="error"></span>
+			</div>
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder>

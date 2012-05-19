@@ -46,7 +46,6 @@ public class GreenButton extends FocusWidget {
 	}
 
 	@UiFactory
-	/* this method could be static if you like */
 	public static GreenButtonResources getResources() {
 		return resource;
 	}

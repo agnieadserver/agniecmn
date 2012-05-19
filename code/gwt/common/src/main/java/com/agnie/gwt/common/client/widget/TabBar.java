@@ -110,13 +110,13 @@ public class TabBar extends Composite implements HasBeforeSelectionHandlers<Inte
 		panel = new HTMLPanel("");
 		initWidget(container);
 		sinkEvents(Event.ONCLICK);
-		container.setStyleName(styleClassName);
-		panel.setStyleName(resource.css().tabs());
+		container.addStyleName(styleClassName);
+		panel.addStyleName(resource.css().tabs());
 		container.add(panel);
 	}
 
 	public void setStyleClassName(String styleClassName) {
-		container.setStyleName(styleClassName);
+		container.addStyleName(styleClassName);
 	}
 
 	public HandlerRegistration addBeforeSelectionHandler(BeforeSelectionHandler<Integer> handler) {

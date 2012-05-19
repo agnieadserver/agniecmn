@@ -70,11 +70,11 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 	public WizardBar(String styleClassName) {
 		panel = new HTMLPanel("");
 		initWidget(panel);
-		panel.setStyleName(styleClassName);
+		panel.addStyleName(styleClassName);
 	}
 
 	public void setStyleClassName(String styleClassName) {
-		panel.setStyleName(styleClassName);
+		panel.addStyleName(styleClassName);
 	}
 
 	public HandlerRegistration addBeforeSelectionHandler(BeforeSelectionHandler<Integer> handler) {

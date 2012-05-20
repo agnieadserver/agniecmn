@@ -4,6 +4,8 @@
 	position: relative;
 }
 
+.input-field-container{
+}
 .form-field-container:before, .form-field-container:after {
     content: "";
     display: table;
@@ -61,4 +63,4 @@ span.required {
     list-style-type: none;
 }
 
-@external form-field-container, form-field-label, form-field-error, required, form-field-error-text, form-field-input;
+@external form-field-container, form-field-label, form-field-error, required, form-field-error-text, form-field-input, input-field-container;

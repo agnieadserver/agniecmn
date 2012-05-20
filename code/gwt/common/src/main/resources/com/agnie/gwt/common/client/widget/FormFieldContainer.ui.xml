@@ -4,13 +4,13 @@
 		type='com.agnie.gwt.common.client.widget.FormFieldResources' />
 
 	<g:HTMLPanel>
-		<div class='{res.css.formFiledLabel}'>
+		<div class='{res.css.formFieldLabel}'>
 			<span ui:field="label"></span>
 			<span ui:field="required" class='{res.css.required}'></span>
 		</div>
 		<div>
 			<g:HTMLPanel ui:field="inputContainer"></g:HTMLPanel>
-			<div class='{res.css.formFiledErrorText}'>
+			<div class='{res.css.formFieldErrorText}'>
 				<span ui:field="error"></span>
 			</div>
 		</div>

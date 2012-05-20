@@ -51,8 +51,8 @@ public class FormFieldContainer extends Composite {
 
 	public FormFieldContainer(String label, Widget inputFieldContainer, boolean required) {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
-		container.addStyleName(resource.css().formFiledContainer());
-		inputContainer.addStyleName(resource.css().formFiledInput());
+		container.addStyleName(resource.css().formFieldContainer());
+		inputContainer.addStyleName(resource.css().formFieldInput());
 		initWidget(container);
 		setLabel(label);
 		addInputFieldContainer(inputFieldContainer);
@@ -81,12 +81,12 @@ public class FormFieldContainer extends Composite {
 	}
 
 	public void setError(String errorMessage) {
-		container.addStyleName(resource.css().formFiledError());
+		container.addStyleName(resource.css().formFieldError());
 		this.error.setInnerText(errorMessage);
 	}
 
 	public void errorFixed() {
-		container.removeStyleName(resource.css().formFiledError());
+		container.removeStyleName(resource.css().formFieldError());
 		this.error.setInnerText("");
 	}
 

@@ -19,6 +19,9 @@
 			<version>2.6</version>
 		</dependency>
 	</dependencies>
+	<modules>
+		<module>util</module>
+  	</modules>	
 	<repositories>
 		<repository>
 			<id>JBOSS</id>

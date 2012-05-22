@@ -357,4 +357,11 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 			throw new IndexOutOfBoundsException();
 		}
 	}
+
+	public void removeAll() {
+		int count = getStepCount();
+		for (int index = 0; index < count; index++) {
+			removeStep(0);
+		}
+	}
 }

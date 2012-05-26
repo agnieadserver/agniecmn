@@ -1,0 +1,17 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	<ui:with field='res'
+		type='com.agnie.gwt.common.client.widget.thirdparty.support.StatusBarResources' />
+
+	<g:HTMLPanel>
+		<g:SimplePanel ui:field="progressBarContainer">
+		</g:SimplePanel>
+		<div class='{res.css.actionStatus}'>
+			<span class='{res.css.status}' ui:field="statusLabel"></span>
+			<!-- Need to check how to add internationalized version in common module 
+				and use it for such lable -->
+			<g:Anchor addStyleNames='{res.css.cancel}' ui:field="cancel" enabled="true">Cancel
+			</g:Anchor>
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder>

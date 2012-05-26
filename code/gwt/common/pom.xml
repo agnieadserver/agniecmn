@@ -14,12 +14,10 @@
 	<packaging>jar</packaging>
 	<version>1.0</version>
 	<name>Agnie Common GWT library</name>
-
 	<properties>
 		<webappDirectory>${project.build.directory}/${project.build.finalName}
 		</webappDirectory>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
@@ -32,6 +30,11 @@
 			<artifactId>gwt-user</artifactId>
 			<version>${gwtVersion}</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.gwtupload</groupId>
+			<artifactId>gwtupload</artifactId>
+			<version>0.6.4</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -83,6 +86,7 @@
 						<cssFile>com/agnie/gwt/common/client/widget/TabBarCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/WizardBarCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/FormFieldCss.css</cssFile>
+						<cssFile>com/agnie/gwt/common/client/widget/thirdparty/support/ProgressBarCss.css</cssFile>
 					</cssFiles>
 				</configuration>
 			</plugin>

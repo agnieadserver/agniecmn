@@ -7,7 +7,6 @@ import gwtupload.client.IFileInput.FileInputType;
 import gwtupload.client.IUploadStatus;
 
 import com.google.gwt.uibinder.client.UiChild;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -87,10 +86,7 @@ public class SingleUploader extends gwtupload.client.SingleUploader {
 
 	@UiChild(limit = 1)
 	public void addStatusBar(IUploadStatus status) {
-//		if (status instanceof IUploadStatus) {
-			super.setStatusWidget((IUploadStatus) status);
-			Window.alert("It works damit");
-//		}
+		super.setStatusWidget((IUploadStatus) status);
 	}
 
 }

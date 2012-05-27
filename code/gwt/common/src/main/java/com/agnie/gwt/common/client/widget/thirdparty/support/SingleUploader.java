@@ -89,4 +89,12 @@ public class SingleUploader extends gwtupload.client.SingleUploader {
 		super.setStatusWidget((IUploadStatus) status);
 	}
 
+	public void setValidExt(String ext) {
+		super.setValidExtensions(ext);
+	}
+
+	public void setValidExts(String exts) {
+		super.setValidExtensions(exts.split("[, ]+"));
+	}
+
 }

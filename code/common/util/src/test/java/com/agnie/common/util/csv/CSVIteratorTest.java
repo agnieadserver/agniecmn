@@ -4,33 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Unit test for CSVFileIterator.
  */
-public class CSVIteratorTest extends TestCase {
-	/**
-	 * Create the test case
-	 * 
-	 * @param testName
-	 *            name of the test case
-	 */
-	public CSVIteratorTest(String testName) {
-		super(testName);
-	}
-
-	/**
-	 * @return the suite of tests being tested
-	 */
-	public static Test suite() {
-		return new TestSuite(CSVIteratorTest.class);
-	}
-
-	/**
-     */
+public class CSVIteratorTest {
+	@Test
 	public void testSimpleCSV() {
 		String doc = "\"Name\", \"Age\", \"LongData\", \"salary\" \n\"Ravindra\", \"27\",\"\", \"\" \n \"Ram\", \"29\", \"323\",\"345.67\"";
 
@@ -42,18 +23,18 @@ public class CSVIteratorTest extends TestCase {
 				SampleBean sampleBean = (SampleBean) itr.next();
 				System.out.println(sampleBean);
 			}
-			assertTrue(true);
+			Assert.assertTrue(true);
 		} catch (IOException e) {
-			assertTrue(false);
+			Assert.assertTrue(false);
 		}
 	}
 }
 
 class SampleBean {
-	private String name;
-	private int age;
-	private long longData;
-	private Float salary;
+	private String	name;
+	private int		age;
+	private long	longData;
+	private Float	salary;
 
 	@CSVHeader(constraints = { CSVConstraint.NOTNULL })
 	public void setName(String name) {
@@ -120,8 +101,7 @@ class SampleBean {
 	 */
 	@Override
 	public String toString() {
-		return "SampleBean [name=" + name + ", age=" + age + ", longData="
-				+ longData + ", salary=" + salary + "]";
+		return "SampleBean [name=" + name + ", age=" + age + ", longData=" + longData + ", salary=" + salary + "]";
 	}
 
 }

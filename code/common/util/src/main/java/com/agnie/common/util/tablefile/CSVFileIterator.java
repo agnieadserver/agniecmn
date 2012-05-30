@@ -1,4 +1,4 @@
-package com.agnie.common.util.csv;
+package com.agnie.common.util.tablefile;
 
 import java.io.IOException;
 import java.io.InputStream;

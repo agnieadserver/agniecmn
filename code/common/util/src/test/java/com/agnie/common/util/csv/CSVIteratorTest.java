@@ -7,6 +7,8 @@ import java.io.StringReader;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.agnie.common.util.tablefile.CSVFileIterator;
+import com.agnie.common.util.tablefile.TableHeader;
 import com.agnie.common.util.validator.NotNull;
 
 /**

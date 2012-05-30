@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.agnie.common.util.csv;
+package com.agnie.common.util.tablefile;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -6,11 +6,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * NotNull contraint represent the property should not be null
+ * Minimum length constraint can be used to validate string property for minimum length
  * 
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.FIELD, ElementType.METHOD })
-public @interface NotNull {
-
+public @interface MinimumLength {
+	int value();
 }

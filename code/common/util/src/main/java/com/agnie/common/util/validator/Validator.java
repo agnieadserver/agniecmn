@@ -20,12 +20,20 @@ public abstract class Validator {
 	}
 
 	/**
+	 * @return the constraint
+	 */
+	public Annotation getConstraint() {
+		return constraint;
+	}
+
+	/**
 	 * When validator instance is created it will be passed with constraint annotation applied on the entity. If your
 	 * validator requires to take some inputs e.g. max length. That one can take it through constraint and that
-	 * constraint is accessible in validator. Only you have to cast it to corresponding constraint you declared in
-	 * Validator factory Mapping.
+	 * constraint is accessible in validator. Developer implementing validator have to cast it to corresponding
+	 * constraint you declared in Validator factory Mapping.
 	 * 
 	 * @param value
+	 *            if valid return true other wise false
 	 * @return
 	 */
 	public abstract boolean validate(String value);

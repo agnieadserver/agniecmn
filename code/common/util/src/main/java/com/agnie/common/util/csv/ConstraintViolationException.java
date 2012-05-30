@@ -5,19 +5,20 @@ package com.agnie.common.util.csv;
 
 import java.util.List;
 
-public class CSVConstraintViolationException extends RuntimeException {
+import com.agnie.common.util.validator.Validator;
 
-	private String header;
-	private long linenumber;
-	private List<CSVConstraint> failedConstraints;
+public class ConstraintViolationException extends RuntimeException {
+
+	private String				header;
+	private long				linenumber;
+	private List<Validator>		failedConstraints;
 
 	/**
      * 
      */
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	public CSVConstraintViolationException(String header, long linenumber,
-			List<CSVConstraint> failedConstraints) {
+	public ConstraintViolationException(String header, long linenumber, List<Validator> failedConstraints) {
 		this.header = header;
 		this.failedConstraints = failedConstraints;
 		this.linenumber = linenumber;
@@ -33,7 +34,7 @@ public class CSVConstraintViolationException extends RuntimeException {
 	/**
 	 * @return the failedConstraints
 	 */
-	public List<CSVConstraint> getFailedConstraints() {
+	public List<Validator> getFailedConstraints() {
 		return failedConstraints;
 	}
 
@@ -41,13 +42,13 @@ public class CSVConstraintViolationException extends RuntimeException {
 		StringBuffer resp = new StringBuffer();
 		if (failedConstraints != null) {
 			boolean first = true;
-			for (CSVConstraint con : failedConstraints) {
+			for (Validator con : failedConstraints) {
 				if (!first) {
 					resp.append(", ");
 				} else {
 					first = false;
 				}
-				resp.append(con.name());
+				resp.append(con.getConstraint().annotationType().getSimpleName());
 			}
 		}
 		return resp.toString();

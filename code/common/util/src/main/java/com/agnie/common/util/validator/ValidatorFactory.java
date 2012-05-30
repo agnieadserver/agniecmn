@@ -9,14 +9,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * If you add new validator with its respective constraint annotation. Add the required mapping of constraint and its
  * respective validator here in this interface
  * 
  */
-@Mapper({ @Map(constraint = NotNull.class, validator = NotNullValidator.class) })
+@Mapper({ @Map(constraint = NotNull.class, validator = NotNullValidator.class), @Map(constraint = MinimumLength.class, validator = MinimumLengthValidator.class) })
 public class ValidatorFactory {
-
+	protected static final Log																logger	= LogFactory.getLog(ValidatorFactory.class);
 	/*
 	 * mapping map will hold the mapping between constraint created as a annotation and its respective validator
 	 */
@@ -30,6 +33,7 @@ public class ValidatorFactory {
 		for (Map map : mapper.value()) {
 			mapping.put(map.constraint(), map.validator());
 		}
+		logger.info("Validator factory mapper got initialized");
 	}
 
 	/**
@@ -52,20 +56,15 @@ public class ValidatorFactory {
 				 */
 			}
 		} catch (NoSuchMethodException e) {
-			// TODO Add logger
-			e.printStackTrace();
+			logger.error(e);
 		} catch (IllegalArgumentException e) {
-			// TODO Add logger
-			e.printStackTrace();
+			logger.error(e);
 		} catch (InstantiationException e) {
-			// TODO Add logger
-			e.printStackTrace();
+			logger.error(e);
 		} catch (IllegalAccessException e) {
-			// TODO Add logger
-			e.printStackTrace();
+			logger.error(e);
 		} catch (InvocationTargetException e) {
-			// TODO Add logger
-			e.printStackTrace();
+			logger.error(e);
 		}
 
 		return null;

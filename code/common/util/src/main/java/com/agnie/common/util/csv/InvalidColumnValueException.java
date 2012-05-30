@@ -11,19 +11,18 @@ public class InvalidColumnValueException extends RuntimeException {
 	/**
      *
      */
-	private static final long serialVersionUID = 1L;
-	private String header;
-	private long lineNumber;
-	private String invalidValue;
-	private String msg;
+	private static final long	serialVersionUID	= 1L;
+	private String				header;
+	private long				lineNumber;
+	private String				invalidValue;
+	private String				msg;
 
 	/**
 	 * @param header
 	 * @param lineNumber
 	 * @param invalidValue
 	 */
-	public InvalidColumnValueException(String header, long lineNumber,
-			String invalidValue) {
+	public InvalidColumnValueException(String header, long lineNumber, String invalidValue) {
 		this(header, lineNumber, invalidValue, null);
 	}
 
@@ -32,8 +31,7 @@ public class InvalidColumnValueException extends RuntimeException {
 	 * @param lineNumber
 	 * @param invalidValue
 	 */
-	public InvalidColumnValueException(String header, long lineNumber,
-			String invalidValue, String msg) {
+	public InvalidColumnValueException(String header, long lineNumber, String invalidValue, String msg) {
 		this.header = header;
 		this.lineNumber = lineNumber;
 		this.invalidValue = invalidValue;

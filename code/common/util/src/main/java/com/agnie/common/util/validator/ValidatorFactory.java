@@ -17,7 +17,7 @@ import org.apache.commons.logging.LogFactory;
  * respective validator here in this interface
  * 
  */
-@Mapper({ @Map(constraint = NotNull.class, validator = NotNullValidator.class), @Map(constraint = MinimumLength.class, validator = MinimumLengthValidator.class) })
+@Mapper({ @Map(constraint = NotNull.class, validator = NotNullValidator.class), @Map(constraint = MinimumLength.class, validator = MinimumLengthValidator.class), @Map(constraint = MaximumLength.class, validator = MaximumLengthValidator.class), @Map(constraint = EMail.class, validator = EMailValidator.class), @Map(constraint = RegularExp.class, validator = RegularExpValidator.class) })
 public class ValidatorFactory {
 	protected static final Log																logger	= LogFactory.getLog(ValidatorFactory.class);
 	/*

@@ -39,6 +39,7 @@ import com.thoughtworks.qdox.model.JavaField;
 public class OverlayMojo extends AbstractMojo {
 	private static final String					JAVA_SCRIPT_OBJECT		= "com.google.gwt.core.client.JavaScriptObject";
 	private static final String					OVERLAY_TYPE_MARKER		= "com.agnie.gwt.helper.marker.OverlayType";
+	private static final String					OVERLAY_TYPE_TARGET_PKG	= "targetPackage";
 	private static final String					OVERLAY_FIELD_MARKER	= "com.agnie.gwt.helper.marker.OverlayField";
 
 	private final static Map<String, String>	WRAPPERS				= new HashMap<String, String>();
@@ -125,11 +126,18 @@ public class OverlayMojo extends AbstractMojo {
 	private boolean								failOnError;
 
 	/**
-	 * Pattern for GWT service interface
+	 * Path to include while scanning java classes
 	 * 
 	 * @parameter default-value=""
 	 */
 	private List<String>						includePath;
+
+	/**
+	 * Destination overlyType package
+	 * 
+	 * @parameter default-value=""
+	 */
+	private String								generateInsidePackage;
 
 	/**
 	 * Pattern for GWT service interface
@@ -243,10 +251,20 @@ public class OverlayMojo extends AbstractMojo {
 		PrintWriter writer = new PrintWriter(targetFile, encoding);
 
 		String className = clazz.getName();
-		if (clazz.getPackage() != null) {
-			// TODO: Need to add mechanism to get custom package from annotation
-			// and use the same here
-			writer.println("package " + clazz.getPackageName() + ";");
+		String targetpkg = "";
+		for (Annotation an : clazz.getAnnotations()) {
+			if (an.getType().getJavaClass().isA(OVERLAY_TYPE_MARKER)) {
+				targetpkg = (String) an.getNamedParameter(OVERLAY_TYPE_TARGET_PKG);
+			}
+		}
+		if ((targetpkg == null || "".equals(targetpkg)) && generateInsidePackage != null) {
+			targetpkg = generateInsidePackage;
+		}
+		if ((targetpkg == null || "".equals(targetpkg)) && clazz.getPackage() != null) {
+			targetpkg = clazz.getPackageName();
+		}
+		if (targetpkg != null || !("".equals(targetpkg))) {
+			writer.println("package " + targetpkg + ";");
 			writer.println();
 		}
 		writer.println("import " + JAVA_SCRIPT_OBJECT + ";");

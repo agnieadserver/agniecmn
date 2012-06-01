@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.agnie.gwt.overlaytype;
+package com.agnie.gwt.helper.marker;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -20,13 +20,6 @@ public @interface OverlayType {
 	 * 
 	 * @return
 	 */
-	String sourcePackage() default "";
+	String targetPackage() default "";
 
-	/**
-	 * Add list of imports if you need to import any class or package inside overlay type
-	 * 
-	 * @return
-	 */
-	String[] imports() default {};
-	
 }

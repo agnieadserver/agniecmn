@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>gwt</artifactId>
+		<groupId>com.agnie.gwt</groupId>
+		<version>1.0</version>
+	</parent>
+	<groupId>com.agnie.gwt</groupId>
+	<artifactId>gwt-mvn-helper</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>gwt-mvn-helper</name>
+	<modules>
+		<module>mvn-helper-plugin</module>
+		<module>mvn-helper-lib</module>
+    <module>mvn-helper-test</module>
+  </modules>
+
+</project>

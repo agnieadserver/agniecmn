@@ -1,4 +1,4 @@
-package com.agnie.gwt.overlaytype;
+package com.agnie.gwt.helper.marker;
 
 public enum AcessSepcifier {
 

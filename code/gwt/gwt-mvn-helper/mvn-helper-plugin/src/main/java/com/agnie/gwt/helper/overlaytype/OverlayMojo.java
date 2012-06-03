@@ -1,7 +1,6 @@
 package com.agnie.gwt.helper.overlaytype;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -9,8 +8,10 @@ import java.net.URLClassLoader;
 import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
@@ -39,10 +40,10 @@ import com.thoughtworks.qdox.model.JavaField;
 public class OverlayMojo extends AbstractMojo {
 	private static final String					JAVA_SCRIPT_OBJECT		= "com.google.gwt.core.client.JavaScriptObject";
 	private static final String					OVERLAY_TYPE_MARKER		= "com.agnie.gwt.helper.marker.OverlayType";
-	private static final String					OVERLAY_TYPE_TARGET_PKG	= "targetPackage";
 	private static final String					OVERLAY_FIELD_MARKER	= "com.agnie.gwt.helper.marker.OverlayField";
 
 	private final static Map<String, String>	WRAPPERS				= new HashMap<String, String>();
+	private final static Set<String>			basicDataTypes			= new HashSet<String>();
 	static {
 		WRAPPERS.put("boolean", Boolean.class.getName());
 		WRAPPERS.put("byte", Byte.class.getName());
@@ -52,6 +53,23 @@ public class OverlayMojo extends AbstractMojo {
 		WRAPPERS.put("long", Long.class.getName());
 		WRAPPERS.put("float", Float.class.getName());
 		WRAPPERS.put("double", Double.class.getName());
+		basicDataTypes.add("boolean");
+		basicDataTypes.add("Boolean");
+		basicDataTypes.add("byte");
+		basicDataTypes.add("Byte");
+		basicDataTypes.add("char");
+		basicDataTypes.add("Character");
+		basicDataTypes.add("short");
+		basicDataTypes.add("Short");
+		basicDataTypes.add("int");
+		basicDataTypes.add("Integer");
+		basicDataTypes.add("long");
+		basicDataTypes.add("Long");
+		basicDataTypes.add("float");
+		basicDataTypes.add("Float");
+		basicDataTypes.add("double");
+		basicDataTypes.add("Double");
+		basicDataTypes.add("String");
 	}
 
 	/**
@@ -235,6 +253,11 @@ public class OverlayMojo extends AbstractMojo {
 
 	private File getTargetFile(String source) {
 		String targetFileName = source.substring(0, source.length() - 5) + "JS.java";
+		if (generateInsidePackage != null && !("".equals(generateInsidePackage))) {
+			int lastIndex = source.lastIndexOf(File.separatorChar);
+			String className = source.substring(lastIndex, source.length() - 5) + "JS.java";
+			targetFileName = generateInsidePackage.replace('.', File.separatorChar) + className;
+		}
 		File targetFile = new File(getGenerateDirectory(), targetFileName);
 		return targetFile;
 	}
@@ -247,25 +270,13 @@ public class OverlayMojo extends AbstractMojo {
 	 * @throws Exception
 	 *             generation failure
 	 */
-	private void generateOverlayType(JavaClass clazz, File targetFile) throws IOException {
+	private void generateOverlayType(JavaClass clazz, File targetFile) throws Exception {
 		PrintWriter writer = new PrintWriter(targetFile, encoding);
-
 		String className = clazz.getName();
-		String targetpkg = "";
-		for (Annotation an : clazz.getAnnotations()) {
-			if (an.getType().getJavaClass().isA(OVERLAY_TYPE_MARKER)) {
-				targetpkg = (String) an.getNamedParameter(OVERLAY_TYPE_TARGET_PKG);
-			}
-		}
-		if ((targetpkg == null || "".equals(targetpkg)) && generateInsidePackage != null) {
-			targetpkg = generateInsidePackage;
-		}
-		if ((targetpkg == null || "".equals(targetpkg)) && clazz.getPackage() != null) {
-			targetpkg = clazz.getPackageName();
-		}
-		if (targetpkg != null || !("".equals(targetpkg))) {
-			writer.println("package " + targetpkg + ";");
-			writer.println();
+		if (generateInsidePackage != null && !("".equals(generateInsidePackage))) {
+			writer.println("package " + generateInsidePackage + ";");
+		} else if (clazz.getPackage() != null) {
+			writer.println("package " + clazz.getPackageName() + ";");
 		}
 		writer.println("import " + JAVA_SCRIPT_OBJECT + ";");
 		// TODO: Need to add logic to import any classes which will be used
@@ -280,11 +291,12 @@ public class OverlayMojo extends AbstractMojo {
 				if (flAn.getType().getJavaClass().isA(OVERLAY_FIELD_MARKER)) {
 					char fchar = field.getName().charAt(0);
 					char cfchar = Character.toUpperCase(fchar);
+					String fieldClassname = getMappedField(field);
 					String fieldName4getSet = cfchar + field.getName().substring(1, field.getName().length());
-					writer.println("	public final native " + field.getType().getJavaClass().getName() + " get" + fieldName4getSet + "() /*-{");
+					writer.println("	public final native " + fieldClassname + " get" + fieldName4getSet + "() /*-{");
 					writer.println("		return this." + field.getName() + ";");
 					writer.println("	}-*/;");
-					writer.println("	public final native void set" + fieldName4getSet + "(" + field.getType().getJavaClass().getName() + " " + field.getName() + ") /*-{");
+					writer.println("	public final native void set" + fieldName4getSet + "(" + fieldClassname + " " + field.getName() + ") /*-{");
 					writer.println("		this." + field.getName() + " = " + field.getName() + ";");
 					writer.println("	}-*/;");
 				}
@@ -293,6 +305,18 @@ public class OverlayMojo extends AbstractMojo {
 
 		writer.println("}");
 		writer.close();
+	}
+
+	private String getMappedField(JavaField field) throws Exception {
+
+		JavaClass jvCls = field.getType().getJavaClass();
+		if (basicDataTypes.contains(jvCls.getName())) {
+			return jvCls.getName();
+		} else if (isEligibleForGeneration(jvCls)) {
+			return jvCls.getName() + "JS";
+		} else {
+			throw new MojoExecutionException(jvCls.getFullyQualifiedName() + " is niether basic java data type nor it is OverlayType");
+		}
 	}
 
 	private boolean isEligibleForGeneration(JavaClass javaClass) {

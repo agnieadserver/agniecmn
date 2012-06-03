@@ -8,8 +8,9 @@ public class App {
 	@OverlayField
 	private String	name;
 	private int		age;
-	@OverlayField
 	private String	test;
+	@OverlayField
+	private Address	address;
 
 	/**
 	 * @return the name
@@ -54,6 +55,21 @@ public class App {
 	 */
 	public void setTest(String test) {
 		this.test = test;
+	}
+
+	/**
+	 * @return the address
+	 */
+	public Address getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address
+	 *            the address to set
+	 */
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 }

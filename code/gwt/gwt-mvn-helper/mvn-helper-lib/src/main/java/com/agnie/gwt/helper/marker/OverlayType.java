@@ -15,11 +15,4 @@ import java.lang.annotation.Target;
 @Target(value = { ElementType.TYPE })
 public @interface OverlayType {
 
-	/**
-	 * package for generated source class TODO: default will be same as that of source class
-	 * 
-	 * @return
-	 */
-	String targetPackage() default "";
-
 }

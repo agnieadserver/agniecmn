@@ -1,7 +1,7 @@
 package com.agnie.gwt.helper;
 
-import com.agnie.gwt.helper.marker.OverlayField;
-import com.agnie.gwt.helper.marker.OverlayType;
+import com.agnie.gwt.helper.overlaytype.marker.OverlayField;
+import com.agnie.gwt.helper.overlaytype.marker.OverlayType;
 
 @OverlayType
 public class Address {

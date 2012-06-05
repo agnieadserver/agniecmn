@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.agnie.gwt.helper.marker;
+package com.agnie.gwt.helper.overlaytype.marker;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

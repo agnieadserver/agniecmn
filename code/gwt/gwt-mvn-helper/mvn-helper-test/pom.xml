@@ -55,11 +55,11 @@
 						<goals>
 							<goal>generateOverlay</goal>
 						</goals>
+						<configuration>
+							<overlayTargetPackage>com.agnie.gwt.helper.client</overlayTargetPackage>
+						</configuration>
 					</execution>
 				</executions>
-				<configuration>
-					<generateInsidePackage>com.agnie.gwt.helper.client</generateInsidePackage>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>

@@ -7,10 +7,8 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.Charset;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.maven.artifact.Artifact;
@@ -38,21 +36,12 @@ import com.thoughtworks.qdox.model.JavaField;
  * @version $Id$
  */
 public class OverlayMojo extends AbstractMojo {
-	private static final String					JAVA_SCRIPT_OBJECT		= "com.google.gwt.core.client.JavaScriptObject";
-	private static final String					OVERLAY_TYPE_MARKER		= "com.agnie.gwt.helper.marker.OverlayType";
-	private static final String					OVERLAY_FIELD_MARKER	= "com.agnie.gwt.helper.marker.OverlayField";
+	private static final String			JAVA_SCRIPT_OBJECT		= "com.google.gwt.core.client.JavaScriptObject";
+	private static final String			OVERLAY_TYPE_MARKER		= "com.agnie.gwt.helper.marker.OverlayType";
+	private static final String			OVERLAY_FIELD_MARKER	= "com.agnie.gwt.helper.marker.OverlayField";
 
-	private final static Map<String, String>	WRAPPERS				= new HashMap<String, String>();
-	private final static Set<String>			basicDataTypes			= new HashSet<String>();
+	private final static Set<String>	basicDataTypes			= new HashSet<String>();
 	static {
-		WRAPPERS.put("boolean", Boolean.class.getName());
-		WRAPPERS.put("byte", Byte.class.getName());
-		WRAPPERS.put("char", Character.class.getName());
-		WRAPPERS.put("short", Short.class.getName());
-		WRAPPERS.put("int", Integer.class.getName());
-		WRAPPERS.put("long", Long.class.getName());
-		WRAPPERS.put("float", Float.class.getName());
-		WRAPPERS.put("double", Double.class.getName());
 		basicDataTypes.add("boolean");
 		basicDataTypes.add("Boolean");
 		basicDataTypes.add("byte");
@@ -77,24 +66,24 @@ public class OverlayMojo extends AbstractMojo {
 	 * @required
 	 * @readonly
 	 */
-	private String								version;
+	private String						version;
 
 	/**
 	 * @parameter expression="${plugin.artifacts}"
 	 * @required
 	 * @readonly
 	 */
-	private Collection<Artifact>				pluginArtifacts;
+	private Collection<Artifact>		pluginArtifacts;
 
 	/**
 	 * @component
 	 */
-	protected ArtifactResolver					resolver;
+	protected ArtifactResolver			resolver;
 
 	/**
 	 * @component
 	 */
-	protected ArtifactFactory					artifactFactory;
+	protected ArtifactFactory			artifactFactory;
 
 	// --- Some MavenSession related structures --------------------------------
 
@@ -103,19 +92,19 @@ public class OverlayMojo extends AbstractMojo {
 	 * @required
 	 * @readonly
 	 */
-	protected ArtifactRepository				localRepository;
+	protected ArtifactRepository		localRepository;
 
 	/**
 	 * @parameter expression="${project.remoteArtifactRepositories}"
 	 * @required
 	 * @readonly
 	 */
-	protected List<ArtifactRepository>			remoteRepositories;
+	protected List<ArtifactRepository>	remoteRepositories;
 
 	/**
 	 * @component
 	 */
-	protected ArtifactMetadataSource			artifactMetadataSource;
+	protected ArtifactMetadataSource	artifactMetadataSource;
 
 	/**
 	 * The maven project descriptor
@@ -124,7 +113,7 @@ public class OverlayMojo extends AbstractMojo {
 	 * @required
 	 * @readonly
 	 */
-	private MavenProject						project;
+	private MavenProject				project;
 
 	// --- Plugin parameters ---------------------------------------------------
 
@@ -134,40 +123,40 @@ public class OverlayMojo extends AbstractMojo {
 	 * @parameter default-value="${project.build.directory}/generated-sources/gwt"
 	 * @required
 	 */
-	private File								generateDirectory;
+	private File						generateDirectory;
 
 	/**
 	 * Stop the build on error
 	 * 
 	 * @parameter default-value="true" expression="${maven.gwt.failOnError}"
 	 */
-	private boolean								failOnError;
+	private boolean						failOnError;
 
 	/**
 	 * Path to include while scanning java classes
 	 * 
 	 * @parameter default-value=""
 	 */
-	private List<String>						includePath;
+	private List<String>				includePath;
 
 	/**
 	 * Destination overlyType package
 	 * 
 	 * @parameter default-value=""
 	 */
-	private String								generateInsidePackage;
+	private String						targetPackage;
 
 	/**
 	 * Pattern for GWT service interface
 	 * 
 	 * @parameter default-value="false" expression="${generateAsync.force}"
 	 */
-	private boolean								force;
+	private boolean						force;
 
 	/**
 	 * @parameter expression="${project.build.sourceEncoding}"
 	 */
-	private String								encoding;
+	private String						encoding;
 
 	/**
 	 * {@inheritDoc}
@@ -253,10 +242,10 @@ public class OverlayMojo extends AbstractMojo {
 
 	private File getTargetFile(String source) {
 		String targetFileName = source.substring(0, source.length() - 5) + "JS.java";
-		if (generateInsidePackage != null && !("".equals(generateInsidePackage))) {
+		if (targetPackage != null && !("".equals(targetPackage))) {
 			int lastIndex = source.lastIndexOf(File.separatorChar);
 			String className = source.substring(lastIndex, source.length() - 5) + "JS.java";
-			targetFileName = generateInsidePackage.replace('.', File.separatorChar) + className;
+			targetFileName = targetPackage.replace('.', File.separatorChar) + className;
 		}
 		File targetFile = new File(getGenerateDirectory(), targetFileName);
 		return targetFile;
@@ -273,8 +262,8 @@ public class OverlayMojo extends AbstractMojo {
 	private void generateOverlayType(JavaClass clazz, File targetFile) throws Exception {
 		PrintWriter writer = new PrintWriter(targetFile, encoding);
 		String className = clazz.getName();
-		if (generateInsidePackage != null && !("".equals(generateInsidePackage))) {
-			writer.println("package " + generateInsidePackage + ";");
+		if (targetPackage != null && !("".equals(targetPackage))) {
+			writer.println("package " + targetPackage + ";");
 		} else if (clazz.getPackage() != null) {
 			writer.println("package " + clazz.getPackageName() + ";");
 		}

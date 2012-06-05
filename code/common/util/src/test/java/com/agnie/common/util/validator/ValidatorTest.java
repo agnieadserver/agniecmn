@@ -125,13 +125,12 @@ public class ValidatorTest {
 			List<Validator> validators = factory.getMethodValidator(Bean.class.getDeclaredMethod("setMaxLengthTest", String.class));
 			Assert.assertEquals(MaximumLengthValidator.class, validators.get(0).getClass());
 
-			Assert.assertEquals(true, validators.get(0).validate("12345678901234567890"));
-			Assert.assertEquals(false, validators.get(0).validate("12345678"));
+			Assert.assertEquals(false, validators.get(0).validate("12345678901234567890"));
+			Assert.assertEquals(true, validators.get(0).validate("12345678"));
 
 			validators = factory.getFieldValidator(Bean.class.getDeclaredField("maxLengthTest"));
 			Assert.assertEquals(MaximumLengthValidator.class, validators.get(0).getClass());
 			Assert.assertEquals(true, validators.get(0).validate("12345678"));
-			Assert.assertEquals(false, validators.get(0).validate("12345678"));
 		} catch (SecurityException e) {
 			Assert.assertTrue(false);
 			e.printStackTrace();
@@ -174,7 +173,7 @@ public class ValidatorTest {
 			Assert.assertEquals(EMailValidator.class, validators.get(0).getClass());
 			Assert.assertEquals(true, validators.get(0).validate("abc@abc.com"));
 			Assert.assertEquals(false, validators.get(0).validate("abc"));
-			Assert.assertEquals(true, validators.get(0).validate("abc@abc.c"));
+			Assert.assertEquals(false, validators.get(0).validate("abc@abc.c"));
 
 		} catch (SecurityException e) {
 			Assert.assertTrue(false);
@@ -215,7 +214,7 @@ public class ValidatorTest {
 			Assert.assertEquals(RegularExpValidator.class, validators.get(0).getClass());
 			Assert.assertEquals(true, validators.get(0).validate("192.168.1.1"));
 			Assert.assertEquals(false, validators.get(0).validate("12345"));
-			Assert.assertEquals(true, validators.get(0).validate("321.168.1.1"));
+			Assert.assertEquals(false, validators.get(0).validate("321.168.1.1"));
 
 		} catch (SecurityException e) {
 			Assert.assertTrue(false);

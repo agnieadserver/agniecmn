@@ -1,0 +1,375 @@
+package com.agnie.gwt.helper.requestfactory;
+
+import java.io.File;
+import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.nio.charset.Charset;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.DependencyResolutionRequiredException;
+import org.apache.maven.artifact.factory.ArtifactFactory;
+import org.apache.maven.artifact.metadata.ArtifactMetadataSource;
+import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.artifact.resolver.ArtifactResolver;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.util.DirectoryScanner;
+
+import com.thoughtworks.qdox.JavaDocBuilder;
+import com.thoughtworks.qdox.model.Annotation;
+import com.thoughtworks.qdox.model.JavaClass;
+import com.thoughtworks.qdox.model.JavaField;
+
+/**
+ * Goal which generate Request Factory interfaces.
+ * 
+ * @goal requestFactory
+ * @phase generate-sources
+ * @requiresDependencyResolution compile
+ * @version $Id$
+ */
+public class RequestFactoryMojo extends AbstractMojo {
+	private static final String			JAVA_SCRIPT_OBJECT		= "com.google.gwt.core.client.JavaScriptObject";
+	private static final String			OVERLAY_TYPE_MARKER		= "com.agnie.gwt.helper.marker.OverlayType";
+	private static final String			OVERLAY_FIELD_MARKER	= "com.agnie.gwt.helper.marker.OverlayField";
+
+	private final static Set<String>	basicDataTypes			= new HashSet<String>();
+	static {
+		basicDataTypes.add("boolean");
+		basicDataTypes.add("Boolean");
+		basicDataTypes.add("byte");
+		basicDataTypes.add("Byte");
+		basicDataTypes.add("char");
+		basicDataTypes.add("Character");
+		basicDataTypes.add("short");
+		basicDataTypes.add("Short");
+		basicDataTypes.add("int");
+		basicDataTypes.add("Integer");
+		basicDataTypes.add("long");
+		basicDataTypes.add("Long");
+		basicDataTypes.add("float");
+		basicDataTypes.add("Float");
+		basicDataTypes.add("double");
+		basicDataTypes.add("Double");
+		basicDataTypes.add("String");
+	}
+
+	/**
+	 * @parameter expression="${plugin.version}"
+	 * @required
+	 * @readonly
+	 */
+	private String						version;
+
+	/**
+	 * @parameter expression="${plugin.artifacts}"
+	 * @required
+	 * @readonly
+	 */
+	private Collection<Artifact>		pluginArtifacts;
+
+	/**
+	 * @component
+	 */
+	protected ArtifactResolver			resolver;
+
+	/**
+	 * @component
+	 */
+	protected ArtifactFactory			artifactFactory;
+
+	// --- Some MavenSession related structures --------------------------------
+
+	/**
+	 * @parameter expression="${localRepository}"
+	 * @required
+	 * @readonly
+	 */
+	protected ArtifactRepository		localRepository;
+
+	/**
+	 * @parameter expression="${project.remoteArtifactRepositories}"
+	 * @required
+	 * @readonly
+	 */
+	protected List<ArtifactRepository>	remoteRepositories;
+
+	/**
+	 * @component
+	 */
+	protected ArtifactMetadataSource	artifactMetadataSource;
+
+	/**
+	 * The maven project descriptor
+	 * 
+	 * @parameter expression="${project}"
+	 * @required
+	 * @readonly
+	 */
+	private MavenProject				project;
+
+	// --- Plugin parameters ---------------------------------------------------
+
+	/**
+	 * Folder where generated-source will be created (automatically added to compile classpath).
+	 * 
+	 * @parameter default-value="${project.build.directory}/generated-sources/gwt"
+	 * @required
+	 */
+	private File						generateDirectory;
+
+	/**
+	 * Stop the build on error
+	 * 
+	 * @parameter default-value="true" expression="${maven.gwt.failOnError}"
+	 */
+	private boolean						failOnError;
+
+	/**
+	 * Path to include while scanning java classes
+	 * 
+	 * @parameter default-value=""
+	 */
+	private List<String>				includePath;
+
+	/**
+	 * Destination overlyType package
+	 * 
+	 * @parameter default-value=""
+	 */
+	private String						targetPackage;
+
+	/**
+	 * Pattern for GWT service interface
+	 * 
+	 * @parameter default-value="false" expression="${generateAsync.force}"
+	 */
+	private boolean						force;
+
+	/**
+	 * @parameter expression="${project.build.sourceEncoding}"
+	 */
+	private String						encoding;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@SuppressWarnings("unchecked")
+	public void execute() throws MojoExecutionException {
+		getLog().debug("GenerateOverlayMojo#execute()");
+
+		if ("pom".equals(project.getPackaging())) {
+			getLog().info("GWT generateOverlay is skipped");
+			return;
+		}
+
+		if (encoding == null) {
+			getLog().warn("Encoding is not set, your build will be platform dependent");
+			encoding = Charset.defaultCharset().name();
+		}
+
+		JavaDocBuilder builder = createJavaDocBuilder();
+
+		List<String> sourceRoots = project.getCompileSourceRoots();
+		boolean generated = false;
+		for (String sourceRoot : sourceRoots) {
+			try {
+				generated |= scanAndGenerateOverlayType(new File(sourceRoot), builder);
+			} catch (Throwable e) {
+				getLog().error("Failed to generate Overlay interface", e);
+				if (failOnError) {
+					throw new MojoExecutionException("Failed to generate Overlay class", e);
+				}
+			}
+		}
+		if (generated) {
+			getLog().debug("add compile source root " + getGenerateDirectory());
+			project.addCompileSourceRoot(getGenerateDirectory().getAbsolutePath());
+		}
+	}
+
+	/**
+	 * @param sourceRoot
+	 *            the base directory to scan for Overlay Type to generate
+	 * @return true if some file have been generated
+	 * @throws Exception
+	 *             generation failure
+	 */
+	private boolean scanAndGenerateOverlayType(File sourceRoot, JavaDocBuilder builder) throws Exception {
+		DirectoryScanner scanner = new DirectoryScanner();
+		scanner.setBasedir(sourceRoot);
+		if (includePath != null) {
+			scanner.setIncludes(includePath.toArray(new String[0]));
+		}
+		scanner.scan();
+		String[] sources = scanner.getIncludedFiles();
+		if (sources.length == 0) {
+			return false;
+		}
+		boolean fileGenerated = false;
+		for (String source : sources) {
+			File sourceFile = new File(sourceRoot, source);
+			File targetFile = getTargetFile(source);
+			if (isUpToDate(sourceFile, targetFile)) {
+				getLog().debug(targetFile.getAbsolutePath() + " is up to date. Generation skipped");
+				// up to date, but still need to report generated-sources
+				// directory as sourceRoot
+				fileGenerated = true;
+				continue;
+			}
+
+			String className = getTopLevelClassName(source);
+			JavaClass clazz = builder.getClassByName(className);
+			if (isEligibleForGeneration(clazz)) {
+				targetFile.getParentFile().mkdirs();
+				generateOverlayType(clazz, targetFile);
+				fileGenerated = true;
+			}
+		}
+		return fileGenerated;
+	}
+
+	private boolean isUpToDate(File sourceFile, File targetFile) {
+		return !force && targetFile.exists() && targetFile.lastModified() > sourceFile.lastModified();
+	}
+
+	private File getTargetFile(String source) {
+		String targetFileName = source.substring(0, source.length() - 5) + "JS.java";
+		if (targetPackage != null && !("".equals(targetPackage))) {
+			int lastIndex = source.lastIndexOf(File.separatorChar);
+			String className = source.substring(lastIndex, source.length() - 5) + "JS.java";
+			targetFileName = targetPackage.replace('.', File.separatorChar) + className;
+		}
+		File targetFile = new File(getGenerateDirectory(), targetFileName);
+		return targetFile;
+	}
+
+	/**
+	 * @param clazz
+	 *            POJO or bean class from which Overlay Type will be generated
+	 * @param targetFile
+	 *            Overlay Type class which will be generated
+	 * @throws Exception
+	 *             generation failure
+	 */
+	private void generateOverlayType(JavaClass clazz, File targetFile) throws Exception {
+		PrintWriter writer = new PrintWriter(targetFile, encoding);
+		String className = clazz.getName();
+		if (targetPackage != null && !("".equals(targetPackage))) {
+			writer.println("package " + targetPackage + ";");
+		} else if (clazz.getPackage() != null) {
+			writer.println("package " + clazz.getPackageName() + ";");
+		}
+		writer.println("import " + JAVA_SCRIPT_OBJECT + ";");
+		// TODO: Need to add logic to import any classes which will be used
+		// outside source package.
+
+		writer.println();
+		writer.println("public class " + className + "JS extends JavaScriptObject{");
+		writer.println("	protected " + className + "JS() {}");
+		JavaField[] fields = clazz.getFields();
+		for (JavaField field : fields) {
+			for (Annotation flAn : field.getAnnotations()) {
+				if (flAn.getType().getJavaClass().isA(OVERLAY_FIELD_MARKER)) {
+					char fchar = field.getName().charAt(0);
+					char cfchar = Character.toUpperCase(fchar);
+					String fieldClassname = getMappedField(field);
+					String fieldName4getSet = cfchar + field.getName().substring(1, field.getName().length());
+					writer.println("	public final native " + fieldClassname + " get" + fieldName4getSet + "() /*-{");
+					writer.println("		return this." + field.getName() + ";");
+					writer.println("	}-*/;");
+					writer.println("	public final native void set" + fieldName4getSet + "(" + fieldClassname + " " + field.getName() + ") /*-{");
+					writer.println("		this." + field.getName() + " = " + field.getName() + ";");
+					writer.println("	}-*/;");
+				}
+			}
+		}
+
+		writer.println("}");
+		writer.close();
+	}
+
+	private String getMappedField(JavaField field) throws Exception {
+
+		JavaClass jvCls = field.getType().getJavaClass();
+		if (basicDataTypes.contains(jvCls.getName())) {
+			return jvCls.getName();
+		} else if (isEligibleForGeneration(jvCls)) {
+			return jvCls.getName() + "JS";
+		} else {
+			throw new MojoExecutionException(jvCls.getFullyQualifiedName() + " is niether basic java data type nor it is OverlayType");
+		}
+	}
+
+	private boolean isEligibleForGeneration(JavaClass javaClass) {
+		for (Annotation an : javaClass.getAnnotations()) {
+			if (an.getType().getJavaClass().isA(OVERLAY_TYPE_MARKER) && javaClass.isPublic()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@SuppressWarnings("unchecked")
+	private JavaDocBuilder createJavaDocBuilder() throws MojoExecutionException {
+		try {
+			JavaDocBuilder builder = new JavaDocBuilder();
+			builder.setEncoding(encoding);
+			builder.getClassLibrary().addClassLoader(getProjectClassLoader());
+			for (String sourceRoot : (List<String>) project.getCompileSourceRoots()) {
+				builder.getClassLibrary().addSourceFolder(new File(sourceRoot));
+			}
+			return builder;
+		} catch (MalformedURLException e) {
+			throw new MojoExecutionException("Failed to resolve project classpath", e);
+		} catch (DependencyResolutionRequiredException e) {
+			throw new MojoExecutionException("Failed to resolve project classpath", e);
+		}
+	}
+
+	private String getTopLevelClassName(String sourceFile) {
+		String className = sourceFile.substring(0, sourceFile.length() - 5); // strip
+		// ".java"
+		return className.replace(File.separatorChar, '.');
+	}
+
+	/**
+	 * @return the project classloader
+	 * @throws DependencyResolutionRequiredException
+	 *             failed to resolve project dependencies
+	 * @throws MalformedURLException
+	 *             configuration issue ?
+	 */
+	protected ClassLoader getProjectClassLoader() throws DependencyResolutionRequiredException, MalformedURLException {
+		getLog().debug("AbstractMojo#getProjectClassLoader()");
+
+		List<?> compile = project.getCompileClasspathElements();
+		URL[] urls = new URL[compile.size()];
+		int i = 0;
+		for (Object object : compile) {
+			if (object instanceof Artifact) {
+				urls[i] = ((Artifact) object).getFile().toURI().toURL();
+			} else {
+				urls[i] = new File((String) object).toURI().toURL();
+			}
+			i++;
+		}
+		return new URLClassLoader(urls, ClassLoader.getSystemClassLoader());
+	}
+
+	public File getGenerateDirectory() {
+		if (!generateDirectory.exists()) {
+			getLog().debug("Creating target directory " + generateDirectory.getAbsolutePath());
+			generateDirectory.mkdirs();
+		}
+		return generateDirectory;
+	}
+
+}

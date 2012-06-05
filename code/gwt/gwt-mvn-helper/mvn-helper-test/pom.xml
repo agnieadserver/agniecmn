@@ -53,7 +53,7 @@
 					<execution>
 						<phase>generate-sources</phase>
 						<goals>
-							<goal>generateOverlay</goal>
+							<goal>overlayType</goal>
 						</goals>
 						<configuration>
 							<overlayTargetPackage>com.agnie.gwt.helper.client</overlayTargetPackage>

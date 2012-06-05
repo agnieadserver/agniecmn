@@ -18,14 +18,14 @@ import java.lang.annotation.Target;
 public @interface OverlayField {
 
 	/**
-	 * You can have your own custom JavaScript body of setterContent
+	 * TODO: You can have your own custom JavaScript body of setterContent
 	 * 
 	 * @return
 	 */
 	String setterContent() default "";
 
 	/**
-	 * You can have your own custom JavaScript body of getterContent
+	 * TODO: You can have your own custom JavaScript body of getterContent
 	 * 
 	 * @return
 	 */

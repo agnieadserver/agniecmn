@@ -30,15 +30,15 @@ import com.thoughtworks.qdox.model.JavaField;
 /**
  * Goal which generate Overlay type classes.
  * 
- * @goal generateOverlay
+ * @goal overlayType
  * @phase generate-sources
  * @requiresDependencyResolution compile
  * @version $Id$
  */
 public class OverlayMojo extends AbstractMojo {
 	private static final String			JAVA_SCRIPT_OBJECT		= "com.google.gwt.core.client.JavaScriptObject";
-	private static final String			OVERLAY_TYPE_MARKER		= "com.agnie.gwt.helper.marker.OverlayType";
-	private static final String			OVERLAY_FIELD_MARKER	= "com.agnie.gwt.helper.marker.OverlayField";
+	private static final String			OVERLAY_TYPE_MARKER		= "com.agnie.gwt.helper.overlaytype.marker.OverlayType";
+	private static final String			OVERLAY_FIELD_MARKER	= "com.agnie.gwt.helper.overlaytype.marker.OverlayField";
 
 	private final static Set<String>	basicDataTypes			= new HashSet<String>();
 	static {
@@ -128,7 +128,7 @@ public class OverlayMojo extends AbstractMojo {
 	/**
 	 * Stop the build on error
 	 * 
-	 * @parameter default-value="true" expression="${maven.gwt.failOnError}"
+	 * @parameter default-value="true"
 	 */
 	private boolean						failOnError;
 
@@ -149,7 +149,7 @@ public class OverlayMojo extends AbstractMojo {
 	/**
 	 * Pattern for GWT service interface
 	 * 
-	 * @parameter default-value="false" expression="${generateAsync.force}"
+	 * @parameter default-value="false"
 	 */
 	private boolean						force;
 
@@ -203,6 +203,7 @@ public class OverlayMojo extends AbstractMojo {
 	 *             generation failure
 	 */
 	private boolean scanAndGenerateOverlayType(File sourceRoot, JavaDocBuilder builder) throws Exception {
+		getLog().info("Inside scanAndGenerateOverlayType");
 		DirectoryScanner scanner = new DirectoryScanner();
 		scanner.setBasedir(sourceRoot);
 		if (includePath != null) {
@@ -215,6 +216,7 @@ public class OverlayMojo extends AbstractMojo {
 		}
 		boolean fileGenerated = false;
 		for (String source : sources) {
+			getLog().debug("Processing source => " + source);
 			File sourceFile = new File(sourceRoot, source);
 			File targetFile = getTargetFile(source);
 			if (isUpToDate(sourceFile, targetFile)) {
@@ -224,10 +226,12 @@ public class OverlayMojo extends AbstractMojo {
 				fileGenerated = true;
 				continue;
 			}
-
+			getLog().debug(targetFile.getAbsolutePath() + " is not upto date so need to generated");
 			String className = getTopLevelClassName(source);
+			getLog().debug("Top level class name => " + className );
 			JavaClass clazz = builder.getClassByName(className);
 			if (isEligibleForGeneration(clazz)) {
+				getLog().debug(clazz.getFullyQualifiedName() + " is eligible for overlay type generations");
 				targetFile.getParentFile().mkdirs();
 				generateOverlayType(clazz, targetFile);
 				fileGenerated = true;
@@ -260,6 +264,7 @@ public class OverlayMojo extends AbstractMojo {
 	 *             generation failure
 	 */
 	private void generateOverlayType(JavaClass clazz, File targetFile) throws Exception {
+		getLog().info("Inside generateOverlayType");
 		PrintWriter writer = new PrintWriter(targetFile, encoding);
 		String className = clazz.getName();
 		if (targetPackage != null && !("".equals(targetPackage))) {

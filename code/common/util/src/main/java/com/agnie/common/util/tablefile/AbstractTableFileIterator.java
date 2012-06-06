@@ -102,6 +102,7 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 		} catch (InstantiationException e) {
 			logger.info("Table file bean setting error", e);
 		} catch (IllegalAccessException e) {
+			e.printStackTrace();
 			logger.info("Table file bean setting error", e);
 		} catch (InvocationTargetException e) {
 			logger.info("Table file bean setting error", e);

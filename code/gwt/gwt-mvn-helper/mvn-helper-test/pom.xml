@@ -54,9 +54,11 @@
 						<phase>generate-sources</phase>
 						<goals>
 							<goal>overlayType</goal>
+							<goal>requestFactory</goal>
 						</goals>
 						<configuration>
-							<overlayTargetPackage>com.agnie.gwt.helper.client</overlayTargetPackage>
+							<targetPackage>com.agnie.gwt.helper.client</targetPackage>
+							<targetProxyPackage>com.agnie.gwt.requestfactory.share.proxy</targetProxyPackage>
 						</configuration>
 					</execution>
 				</executions>

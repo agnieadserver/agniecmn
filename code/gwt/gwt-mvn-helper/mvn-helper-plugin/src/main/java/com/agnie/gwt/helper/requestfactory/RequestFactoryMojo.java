@@ -25,7 +25,9 @@ import org.codehaus.plexus.util.DirectoryScanner;
 import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.Annotation;
 import com.thoughtworks.qdox.model.JavaClass;
-import com.thoughtworks.qdox.model.JavaField;
+import com.thoughtworks.qdox.model.JavaMethod;
+import com.thoughtworks.qdox.model.JavaParameter;
+import com.thoughtworks.qdox.model.Type;
 
 /**
  * Goal which generate Request Factory interfaces.
@@ -36,11 +38,20 @@ import com.thoughtworks.qdox.model.JavaField;
  * @version $Id$
  */
 public class RequestFactoryMojo extends AbstractMojo {
-	private static final String			JAVA_SCRIPT_OBJECT		= "com.google.gwt.core.client.JavaScriptObject";
-	private static final String			OVERLAY_TYPE_MARKER		= "com.agnie.gwt.helper.marker.OverlayType";
-	private static final String			OVERLAY_FIELD_MARKER	= "com.agnie.gwt.helper.marker.OverlayField";
 
-	private final static Set<String>	basicDataTypes			= new HashSet<String>();
+	protected final static String		IMP_RF_INSTANCE_REQUEST		= "com.google.web.bindery.requestfactory.shared.InstanceRequest";
+	protected final static String		IMP_RF_REQUEST				= "com.google.web.bindery.requestfactory.shared.Request";
+	protected final static String		IMP_RF_REQUEST_CONTEXT		= "com.google.web.bindery.requestfactory.shared.RequestContext";
+	protected final static String		IMP_RF_SERVICE				= "com.google.web.bindery.requestfactory.shared.Service";
+	protected final static String		IMP_RF_PROXY_FOR			= "com.google.web.bindery.requestfactory.shared.ProxyFor";
+	protected final static String		IMP_RF_VALUE_PROXY			= "com.google.web.bindery.requestfactory.shared.ValueProxy";
+	protected final static String		MARKER_RF_ENTITY_PROXY		= "com.agnie.gwt.helper.requestfactory.marker.RFEntityProxy";
+	protected final static String		MARKER_RF_VALUE_PROXY		= "com.agnie.gwt.helper.requestfactory.marker.RFValueProxy";
+	protected final static String		MARKER_RF_SERVICE_METHOD	= "com.agnie.gwt.helper.requestfactory.marker.RFServiceMethod";
+	protected final static String		MARKER_RF_PROXY_METHOD		= "com.agnie.gwt.helper.requestfactory.marker.RFProxyMethod";
+	protected final static String		MARKER_RF_SERVICE			= "com.agnie.gwt.helper.requestfactory.marker.RFService";
+
+	final static Set<String>			basicDataTypes				= new HashSet<String>();
 	static {
 		basicDataTypes.add("boolean");
 		basicDataTypes.add("Boolean");
@@ -58,6 +69,8 @@ public class RequestFactoryMojo extends AbstractMojo {
 		basicDataTypes.add("Float");
 		basicDataTypes.add("double");
 		basicDataTypes.add("Double");
+		basicDataTypes.add("void");
+		basicDataTypes.add("Void");
 		basicDataTypes.add("String");
 	}
 
@@ -137,14 +150,21 @@ public class RequestFactoryMojo extends AbstractMojo {
 	 * 
 	 * @parameter default-value=""
 	 */
-	private List<String>				includePath;
+	private List<String>				includePattern;
 
 	/**
 	 * Destination overlyType package
 	 * 
 	 * @parameter default-value=""
 	 */
-	private String						targetPackage;
+	private String						targetProxyPackage;
+
+	/**
+	 * Destination overlyType packageincludePattern
+	 * 
+	 * @parameter default-value=""
+	 */
+	private String						targetServicePackage;
 
 	/**
 	 * Pattern for GWT service interface
@@ -163,10 +183,10 @@ public class RequestFactoryMojo extends AbstractMojo {
 	 */
 	@SuppressWarnings("unchecked")
 	public void execute() throws MojoExecutionException {
-		getLog().debug("GenerateOverlayMojo#execute()");
+		getLog().debug("GenerateRequestFactory#execute()");
 
 		if ("pom".equals(project.getPackaging())) {
-			getLog().info("GWT generateOverlay is skipped");
+			getLog().info("GWT Generate Request Factory is skipped");
 			return;
 		}
 
@@ -181,11 +201,11 @@ public class RequestFactoryMojo extends AbstractMojo {
 		boolean generated = false;
 		for (String sourceRoot : sourceRoots) {
 			try {
-				generated |= scanAndGenerateOverlayType(new File(sourceRoot), builder);
+				generated |= scanAndGenerateRequestFactory(new File(sourceRoot), builder);
 			} catch (Throwable e) {
-				getLog().error("Failed to generate Overlay interface", e);
+				getLog().error("Failed to generate Request Factory interface/s", e);
 				if (failOnError) {
-					throw new MojoExecutionException("Failed to generate Overlay class", e);
+					throw new MojoExecutionException("Failed to generate Request Factory interface/s", e);
 				}
 			}
 		}
@@ -197,16 +217,16 @@ public class RequestFactoryMojo extends AbstractMojo {
 
 	/**
 	 * @param sourceRoot
-	 *            the base directory to scan for Overlay Type to generate
+	 *            the base directory to scan for Entities and service classes
 	 * @return true if some file have been generated
 	 * @throws Exception
 	 *             generation failure
 	 */
-	private boolean scanAndGenerateOverlayType(File sourceRoot, JavaDocBuilder builder) throws Exception {
+	private boolean scanAndGenerateRequestFactory(File sourceRoot, JavaDocBuilder builder) throws Exception {
 		DirectoryScanner scanner = new DirectoryScanner();
 		scanner.setBasedir(sourceRoot);
-		if (includePath != null) {
-			scanner.setIncludes(includePath.toArray(new String[0]));
+		if (includePattern != null) {
+			scanner.setIncludes(includePattern.toArray(new String[0]));
 		}
 		scanner.scan();
 		String[] sources = scanner.getIncludedFiles();
@@ -216,21 +236,58 @@ public class RequestFactoryMojo extends AbstractMojo {
 		boolean fileGenerated = false;
 		for (String source : sources) {
 			File sourceFile = new File(sourceRoot, source);
-			File targetFile = getTargetFile(source);
-			if (isUpToDate(sourceFile, targetFile)) {
-				getLog().debug(targetFile.getAbsolutePath() + " is up to date. Generation skipped");
-				// up to date, but still need to report generated-sources
-				// directory as sourceRoot
-				fileGenerated = true;
-				continue;
-			}
 
 			String className = getTopLevelClassName(source);
 			JavaClass clazz = builder.getClassByName(className);
-			if (isEligibleForGeneration(clazz)) {
-				targetFile.getParentFile().mkdirs();
-				generateOverlayType(clazz, targetFile);
-				fileGenerated = true;
+			if (clazz.isPublic() && !(clazz.isEnum()) && !(clazz.isInterface())) {
+				for (Annotation an : clazz.getAnnotations()) {
+					if (an.getType().getJavaClass().isA(MARKER_RF_VALUE_PROXY)) {
+						File targetFile = getTargetFile(source, RFType.VALUE_PROXY);
+						if (isUpToDate(sourceFile, targetFile)) {
+							getLog().debug(targetFile.getAbsolutePath() + " is up to date. Generation skipped");
+							// up to date, but still need to report generated-sources
+							// directory as sourceRoot
+						} else {
+							targetFile.getParentFile().mkdirs();
+							generateValueProxy(clazz, targetFile);
+						}
+						fileGenerated = true;
+						break;
+					} else if (an.getType().getJavaClass().isA(MARKER_RF_ENTITY_PROXY)) {
+						File targetFile = getTargetFile(source, RFType.ENTITY_PROXY);
+						if (isUpToDate(sourceFile, targetFile)) {
+							getLog().debug(targetFile.getAbsolutePath() + " is up to date. Generation skipped");
+							// up to date, but still need to report generated-sources
+							// directory as sourceRoot
+						} else {
+							targetFile.getParentFile().mkdirs();
+							// generateEntityProxy(clazz, targetFile);
+						}
+						targetFile = getTargetFile(source, RFType.ENTITY_REQUEST);
+						if (isUpToDate(sourceFile, targetFile)) {
+							getLog().debug(targetFile.getAbsolutePath() + " is up to date. Generation skipped");
+							// up to date, but still need to report generated-sources
+							// directory as sourceRoot
+						} else {
+							targetFile.getParentFile().mkdirs();
+							// generateEntityRequest(clazz, targetFile);
+						}
+						fileGenerated = true;
+						break;
+					} else if (an.getType().getJavaClass().isA(MARKER_RF_SERVICE)) {
+						File targetFile = getTargetFile(source, RFType.SERVICE_REQUEST);
+						if (isUpToDate(sourceFile, targetFile)) {
+							getLog().debug(targetFile.getAbsolutePath() + " is up to date. Generation skipped");
+							// up to date, but still need to report generated-sources
+							// directory as sourceRoot
+						} else {
+							targetFile.getParentFile().mkdirs();
+							// generateServiceRequest(clazz, targetFile);
+						}
+						fileGenerated = true;
+						break;
+					}
+				}
 			}
 		}
 		return fileGenerated;
@@ -240,54 +297,75 @@ public class RequestFactoryMojo extends AbstractMojo {
 		return !force && targetFile.exists() && targetFile.lastModified() > sourceFile.lastModified();
 	}
 
-	private File getTargetFile(String source) {
-		String targetFileName = source.substring(0, source.length() - 5) + "JS.java";
+	private File getTargetFile(String source, RFType type) throws Exception {
+		String targetPackage = "";
+		switch (type) {
+		case ENTITY_PROXY:
+			targetPackage = targetProxyPackage;
+			break;
+		case VALUE_PROXY:
+			targetPackage = targetProxyPackage;
+			break;
+		case ENTITY_REQUEST:
+		case SERVICE_REQUEST:
+			targetPackage = targetServicePackage;
+			break;
+
+		}
 		if (targetPackage != null && !("".equals(targetPackage))) {
 			int lastIndex = source.lastIndexOf(File.separatorChar);
-			String className = source.substring(lastIndex, source.length() - 5) + "JS.java";
-			targetFileName = targetPackage.replace('.', File.separatorChar) + className;
+			String className = source.substring(lastIndex, source.length() - 5) + type.getPostFix() + ".java";
+			String targetFileName = targetPackage.replace('.', File.separatorChar) + className;
+			File targetFile = new File(getGenerateDirectory(), targetFileName);
+			return targetFile;
 		}
-		File targetFile = new File(getGenerateDirectory(), targetFileName);
-		return targetFile;
+		throw new MojoExecutionException("Either <targetProxyPackage> or <targetServicePackage> configuration is missing. Both are required configuration parameters");
 	}
 
 	/**
 	 * @param clazz
-	 *            POJO or bean class from which Overlay Type will be generated
+	 *            POJO or bean class from which Value Proxy interface will be generated
 	 * @param targetFile
-	 *            Overlay Type class which will be generated
+	 *            Value Proxy Interface which will be generated
 	 * @throws Exception
 	 *             generation failure
 	 */
-	private void generateOverlayType(JavaClass clazz, File targetFile) throws Exception {
+	private void generateValueProxy(JavaClass clazz, File targetFile) throws Exception {
 		PrintWriter writer = new PrintWriter(targetFile, encoding);
-		String className = clazz.getName();
-		if (targetPackage != null && !("".equals(targetPackage))) {
-			writer.println("package " + targetPackage + ";");
-		} else if (clazz.getPackage() != null) {
-			writer.println("package " + clazz.getPackageName() + ";");
+		if (targetProxyPackage != null && !("".equals(targetProxyPackage))) {
+			writer.println("package " + targetProxyPackage + ";");
+			writer.println();
+		} else {
+			throw new MojoExecutionException("Either <targetProxyPackage> configuration is missing.");
 		}
-		writer.println("import " + JAVA_SCRIPT_OBJECT + ";");
-		// TODO: Need to add logic to import any classes which will be used
-		// outside source package.
+		writer.println("import " + IMP_RF_VALUE_PROXY + ";");
+		writer.println("import " + IMP_RF_PROXY_FOR + ";");
 
+		/*
+		 * TODO: Generate javadoc comments which will tell end developer not to edit the file as it generated file.
+		 */
 		writer.println();
-		writer.println("public class " + className + "JS extends JavaScriptObject{");
-		writer.println("	protected " + className + "JS() {}");
-		JavaField[] fields = clazz.getFields();
-		for (JavaField field : fields) {
-			for (Annotation flAn : field.getAnnotations()) {
-				if (flAn.getType().getJavaClass().isA(OVERLAY_FIELD_MARKER)) {
-					char fchar = field.getName().charAt(0);
-					char cfchar = Character.toUpperCase(fchar);
-					String fieldClassname = getMappedField(field);
-					String fieldName4getSet = cfchar + field.getName().substring(1, field.getName().length());
-					writer.println("	public final native " + fieldClassname + " get" + fieldName4getSet + "() /*-{");
-					writer.println("		return this." + field.getName() + ";");
-					writer.println("	}-*/;");
-					writer.println("	public final native void set" + fieldName4getSet + "(" + fieldClassname + " " + field.getName() + ") /*-{");
-					writer.println("		this." + field.getName() + " = " + field.getName() + ";");
-					writer.println("	}-*/;");
+		writer.println("@ProxyFor(" + clazz.getFullyQualifiedName() + ".class)");
+		writer.println("public interface " + clazz.getName() + RFType.VALUE_PROXY.getPostFix() + " extends ValueProxy {");
+		JavaMethod[] methods = clazz.getMethods();
+		for (JavaMethod method : methods) {
+			for (Annotation flAn : method.getAnnotations()) {
+				if (flAn.getType().getJavaClass().isA(MARKER_RF_PROXY_METHOD)) {
+					writer.print("	" + getMappedType(method.getReturnType()) + " ");
+					writer.print("	" + method.getName() + "(");
+					JavaParameter parameters[] = method.getParameters();
+					if (parameters != null && parameters.length > 0) {
+						boolean first = true;
+						for (JavaParameter param : parameters) {
+							if (first) {
+								first = false;
+							} else {
+								writer.print(",");
+							}
+							writer.print(" " + getMappedType(param.getType()) + " " + param.getName());
+						}
+					}
+					writer.println(");");
 				}
 			}
 		}
@@ -296,9 +374,9 @@ public class RequestFactoryMojo extends AbstractMojo {
 		writer.close();
 	}
 
-	private String getMappedField(JavaField field) throws Exception {
+	private String getMappedType(Type type) throws Exception {
 
-		JavaClass jvCls = field.getType().getJavaClass();
+		JavaClass jvCls = type.getJavaClass();
 		if (basicDataTypes.contains(jvCls.getName())) {
 			return jvCls.getName();
 		} else if (isEligibleForGeneration(jvCls)) {
@@ -310,7 +388,8 @@ public class RequestFactoryMojo extends AbstractMojo {
 
 	private boolean isEligibleForGeneration(JavaClass javaClass) {
 		for (Annotation an : javaClass.getAnnotations()) {
-			if (an.getType().getJavaClass().isA(OVERLAY_TYPE_MARKER) && javaClass.isPublic()) {
+			if (an.getType().getJavaClass().isA(MARKER_RF_VALUE_PROXY) || an.getType().getJavaClass().isA(MARKER_RF_ENTITY_PROXY) || an.getType().getJavaClass().isA(MARKER_RF_SERVICE)
+					&& javaClass.isPublic()) {
 				return true;
 			}
 		}
@@ -370,6 +449,24 @@ public class RequestFactoryMojo extends AbstractMojo {
 			generateDirectory.mkdirs();
 		}
 		return generateDirectory;
+	}
+
+	private static enum RFType {
+		ENTITY_PROXY("Px"), VALUE_PROXY("Vpx"), ENTITY_REQUEST("Request"), SERVICE_REQUEST("Request");
+
+		String	postFix;
+
+		private RFType(String postFix) {
+			this.postFix = postFix;
+		}
+
+		/**
+		 * @return the postFix
+		 */
+		public String getPostFix() {
+			return postFix;
+		}
+
 	}
 
 }

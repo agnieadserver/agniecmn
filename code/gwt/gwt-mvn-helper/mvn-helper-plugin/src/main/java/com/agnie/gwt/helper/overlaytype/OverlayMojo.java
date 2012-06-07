@@ -183,7 +183,7 @@ public class OverlayMojo extends AbstractMojo {
 			try {
 				generated |= scanAndGenerateOverlayType(new File(sourceRoot), builder);
 			} catch (Throwable e) {
-				getLog().error("Failed to generate Overlay interface", e);
+				getLog().error("Failed to generate Overlay class", e);
 				if (failOnError) {
 					throw new MojoExecutionException("Failed to generate Overlay class", e);
 				}

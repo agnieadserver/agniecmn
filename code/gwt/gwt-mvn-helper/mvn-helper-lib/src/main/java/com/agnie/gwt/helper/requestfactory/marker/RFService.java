@@ -6,6 +6,6 @@ import com.google.web.bindery.requestfactory.shared.ServiceLocator;
  * Marker interface to mark Service class for which Request Factory Service proxy interface need to be generated
  * 
  */
-public @interface RequestFactoryService {
+public @interface RFService {
 	Class<? extends ServiceLocator> value();
 }

@@ -7,12 +7,12 @@ import java.lang.annotation.Target;
 
 /**
  * Marker to indicate entity class for which Request factory proxy interface should be generated. If you apply
- * RequestFactoryEntity annotation to a class which don't have @Entity annotation then respective proxy interface will
+ * RFEntityProxy annotation to a class which don't have @Entity annotation then respective proxy interface will
  * extend from ValueProxy interface. And it will not create corresponding RequestFactory interface.
  * 
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(value = { ElementType.TYPE })
-public @interface RequestFactoryEntity {
+public @interface RFValueProxy {
 
 }

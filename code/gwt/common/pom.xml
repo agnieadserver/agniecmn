@@ -87,6 +87,7 @@
 						<cssFile>com/agnie/gwt/common/client/widget/WizardBarCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/FormFieldCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/thirdparty/support/ProgressBarCss.css</cssFile>
+						<cssFile>com/agnie/gwt/common/client/widget/DecoratedPanelCss.css</cssFile>
 					</cssFiles>
 				</configuration>
 			</plugin>

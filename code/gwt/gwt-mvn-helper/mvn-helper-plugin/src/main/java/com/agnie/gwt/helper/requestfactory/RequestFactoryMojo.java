@@ -7,8 +7,10 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.Charset;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.maven.artifact.Artifact;
@@ -45,6 +47,8 @@ public class RequestFactoryMojo extends AbstractMojo {
 	protected final static String		IMP_RF_SERVICE				= "com.google.web.bindery.requestfactory.shared.Service";
 	protected final static String		IMP_RF_PROXY_FOR			= "com.google.web.bindery.requestfactory.shared.ProxyFor";
 	protected final static String		IMP_RF_VALUE_PROXY			= "com.google.web.bindery.requestfactory.shared.ValueProxy";
+	protected final static String		IMP_RF_ENTITY_PROXY			= "com.google.web.bindery.requestfactory.shared.EntityProxy";
+	protected final static String		IMP_RF_ENTITY_PROXY_ID		= "com.google.web.bindery.requestfactory.shared.EntityProxyId";
 	protected final static String		MARKER_RF_ENTITY_PROXY		= "com.agnie.gwt.helper.requestfactory.marker.RFEntityProxy";
 	protected final static String		MARKER_RF_VALUE_PROXY		= "com.agnie.gwt.helper.requestfactory.marker.RFValueProxy";
 	protected final static String		MARKER_RF_SERVICE_METHOD	= "com.agnie.gwt.helper.requestfactory.marker.RFServiceMethod";
@@ -52,6 +56,8 @@ public class RequestFactoryMojo extends AbstractMojo {
 	protected final static String		MARKER_RF_SERVICE			= "com.agnie.gwt.helper.requestfactory.marker.RFService";
 
 	final static Set<String>			basicDataTypes				= new HashSet<String>();
+	final static Map<String, String>	wrappers					= new HashMap<String, String>();
+
 	static {
 		basicDataTypes.add("boolean");
 		basicDataTypes.add("Boolean");
@@ -72,6 +78,16 @@ public class RequestFactoryMojo extends AbstractMojo {
 		basicDataTypes.add("void");
 		basicDataTypes.add("Void");
 		basicDataTypes.add("String");
+
+		wrappers.put("int", "Integer");
+		wrappers.put("long", "Long");
+		wrappers.put("double", "Double");
+		wrappers.put("float", "Float");
+		wrappers.put("byte", "Byte");
+		wrappers.put("char", "Character");
+		wrappers.put("short", "Short");
+		wrappers.put("boolean", "Boolean");
+		wrappers.put("void", "Void");
 	}
 
 	/**
@@ -165,6 +181,12 @@ public class RequestFactoryMojo extends AbstractMojo {
 	 * @parameter default-value=""
 	 */
 	private String						targetServicePackage;
+
+	/**
+	 * 
+	 * @parameter default-value="true"
+	 */
+	private boolean						generateStableId;
 
 	/**
 	 * Pattern for GWT service interface
@@ -261,7 +283,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 							// directory as sourceRoot
 						} else {
 							targetFile.getParentFile().mkdirs();
-							// generateEntityProxy(clazz, targetFile);
+							generateEntityProxy(clazz, targetFile);
 						}
 						targetFile = getTargetFile(source, RFType.ENTITY_REQUEST);
 						if (isUpToDate(sourceFile, targetFile)) {
@@ -270,7 +292,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 							// directory as sourceRoot
 						} else {
 							targetFile.getParentFile().mkdirs();
-							// generateEntityRequest(clazz, targetFile);
+							generateEntityRequest(clazz, targetFile);
 						}
 						fileGenerated = true;
 						break;
@@ -324,6 +346,68 @@ public class RequestFactoryMojo extends AbstractMojo {
 
 	/**
 	 * @param clazz
+	 *            POJO or bean class from which Entity Request interface will be generated
+	 * @param targetFile
+	 *            Entity Request Interface which will be generated
+	 * @throws Exception
+	 *             generation failure
+	 */
+	private void generateEntityRequest(JavaClass clazz, File targetFile) throws Exception {
+		PrintWriter writer = new PrintWriter(targetFile, encoding);
+		if (targetServicePackage != null && !("".equals(targetServicePackage))) {
+			writer.println("package " + targetServicePackage + ";");
+			writer.println();
+		} else {
+			throw new MojoExecutionException("<targetServicePackage> configuration is missing.");
+		}
+		writer.println("import " + IMP_RF_INSTANCE_REQUEST + ";");
+		writer.println("import " + IMP_RF_REQUEST + ";");
+		writer.println("import " + IMP_RF_REQUEST_CONTEXT + ";");
+		writer.println("import " + IMP_RF_SERVICE + ";");
+		writer.println();
+		writer.println(" /* Generated type dont change the contents */");
+		writer.println();
+		/*
+		 * TODO: Generate javadoc comments which will tell end developer not to edit the file as it generated file.
+		 */
+		writer.println();
+		writer.println("@Service(" + clazz.getFullyQualifiedName() + ".class)");
+		String targetClsName = clazz.getName() + RFType.ENTITY_REQUEST.getPostFix();
+		writer.println("public interface " + targetClsName + " extends RequestContext {");
+		writer.println();
+		JavaMethod[] methods = clazz.getMethods();
+		for (JavaMethod method : methods) {
+			for (Annotation flAn : method.getAnnotations()) {
+				if (flAn.getType().getJavaClass().isA(MARKER_RF_SERVICE_METHOD)) {
+					writer.println();
+					if (method.isStatic()) {
+						writer.print("	Request<" + getMappedType(method.getReturnType()) + "> ");
+					} else {
+						writer.print("	InstanceRequest<" + getMappedType(clazz.asType()) + ", " + getMappedType(method.getReturnType()) + "> ");
+					}
+					writer.print(" " + method.getName() + "(");
+					JavaParameter parameters[] = method.getParameters();
+					if (parameters != null && parameters.length > 0) {
+						boolean first = true;
+						for (JavaParameter param : parameters) {
+							if (first) {
+								first = false;
+							} else {
+								writer.print(", ");
+							}
+							writer.print(getMappedType(param.getType()) + " " + param.getName());
+						}
+					}
+					writer.println(");");
+				}
+			}
+		}
+		writer.println("}");
+		writer.close();
+	}
+
+	/**
+	 * @param clazz
 	 *            POJO or bean class from which Value Proxy interface will be generated
 	 * @param targetFile
 	 *            Value Proxy Interface which will be generated
@@ -336,21 +420,25 @@ public class RequestFactoryMojo extends AbstractMojo {
 			writer.println("package " + targetProxyPackage + ";");
 			writer.println();
 		} else {
-			throw new MojoExecutionException("Either <targetProxyPackage> configuration is missing.");
+			throw new MojoExecutionException("<targetProxyPackage> configuration is missing.");
 		}
 		writer.println("import " + IMP_RF_VALUE_PROXY + ";");
 		writer.println("import " + IMP_RF_PROXY_FOR + ";");
-
+		writer.println();
+		writer.println(" /* Generated type dont change the contents */");
+		writer.println();
 		/*
 		 * TODO: Generate javadoc comments which will tell end developer not to edit the file as it generated file.
 		 */
 		writer.println();
 		writer.println("@ProxyFor(" + clazz.getFullyQualifiedName() + ".class)");
 		writer.println("public interface " + clazz.getName() + RFType.VALUE_PROXY.getPostFix() + " extends ValueProxy {");
+		writer.println();
 		JavaMethod[] methods = clazz.getMethods();
 		for (JavaMethod method : methods) {
 			for (Annotation flAn : method.getAnnotations()) {
 				if (flAn.getType().getJavaClass().isA(MARKER_RF_PROXY_METHOD)) {
+					writer.println();
 					writer.print("	" + getMappedType(method.getReturnType()) + " ");
 					writer.print("	" + method.getName() + "(");
 					JavaParameter parameters[] = method.getParameters();
@@ -374,26 +462,81 @@ public class RequestFactoryMojo extends AbstractMojo {
 		writer.close();
 	}
 
+	/**
+	 * @param clazz
+	 *            POJO or bean class from which Entity Proxy interface will be generated
+	 * @param targetFile
+	 *            Entity Proxy Interface which will be generated
+	 * @throws Exception
+	 *             generation failure
+	 */
+	private void generateEntityProxy(JavaClass clazz, File targetFile) throws Exception {
+		PrintWriter writer = new PrintWriter(targetFile, encoding);
+		if (targetProxyPackage != null && !("".equals(targetProxyPackage))) {
+			writer.println("package " + targetProxyPackage + ";");
+			writer.println();
+		} else {
+			throw new MojoExecutionException("<targetProxyPackage> configuration is missing.");
+		}
+		writer.println("import " + IMP_RF_ENTITY_PROXY + ";");
+		writer.println("import " + IMP_RF_ENTITY_PROXY_ID + ";");
+		writer.println("import " + IMP_RF_PROXY_FOR + ";");
+		writer.println();
+		writer.println(" /* Generated type dont change the contents */");
+		writer.println();
+		/*
+		 * TODO: Generate javadoc comments which will tell end developer not to edit the file as it generated file.
+		 */
+		writer.println();
+		writer.println("@ProxyFor(" + clazz.getFullyQualifiedName() + ".class)");
+		String targetClsName = clazz.getName() + RFType.ENTITY_PROXY.getPostFix();
+		writer.println("public interface " + targetClsName + " extends EntityProxy {");
+		writer.println();
+		JavaMethod[] methods = clazz.getMethods();
+		for (JavaMethod method : methods) {
+			for (Annotation flAn : method.getAnnotations()) {
+				if (flAn.getType().getJavaClass().isA(MARKER_RF_PROXY_METHOD)) {
+					writer.println();
+					writer.print("	" + getMappedType(method.getReturnType()) + " ");
+					writer.print("	" + method.getName() + "(");
+					JavaParameter parameters[] = method.getParameters();
+					if (parameters != null && parameters.length > 0) {
+						boolean first = true;
+						for (JavaParameter param : parameters) {
+							if (first) {
+								first = false;
+							} else {
+								writer.print(",");
+							}
+							writer.print(" " + getMappedType(param.getType()) + " " + param.getName());
+						}
+					}
+					writer.println(");");
+				}
+			}
+		}
+		if (generateStableId) {
+			writer.println("	EntityProxyId<" + targetClsName + "> stableId();");
+		}
+		writer.println("}");
+		writer.close();
+	}
+
 	private String getMappedType(Type type) throws Exception {
 
 		JavaClass jvCls = type.getJavaClass();
 		if (basicDataTypes.contains(jvCls.getName())) {
-			return jvCls.getName();
-		} else if (isEligibleForGeneration(jvCls)) {
-			return jvCls.getName() + "JS";
+			return (wrappers.containsKey(jvCls.getName()) ? wrappers.get(jvCls.getName()) : jvCls.getName());
 		} else {
+			for (Annotation an : jvCls.getAnnotations()) {
+				if (an.getType().getJavaClass().isA(MARKER_RF_VALUE_PROXY)) {
+					return targetProxyPackage + "." + jvCls.getName() + RFType.VALUE_PROXY.getPostFix();
+				} else if (an.getType().getJavaClass().isA(MARKER_RF_ENTITY_PROXY)) {
+					return targetProxyPackage + "." + jvCls.getName() + RFType.ENTITY_PROXY.getPostFix();
+				}
+			}
 			throw new MojoExecutionException(jvCls.getFullyQualifiedName() + " is niether basic java data type nor it is OverlayType");
 		}
-	}
-
-	private boolean isEligibleForGeneration(JavaClass javaClass) {
-		for (Annotation an : javaClass.getAnnotations()) {
-			if (an.getType().getJavaClass().isA(MARKER_RF_VALUE_PROXY) || an.getType().getJavaClass().isA(MARKER_RF_ENTITY_PROXY) || an.getType().getJavaClass().isA(MARKER_RF_SERVICE)
-					&& javaClass.isPublic()) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	@SuppressWarnings("unchecked")

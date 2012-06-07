@@ -10,15 +10,17 @@ import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
-/**
- *Creates an Decorated panel with the specified contents inside a panel content element. content element can contain a child widget.
 
-	@param
-    header the panel header's title.
-    @param
-    content childWidget to add  
+/**
+ * Creates an Decorated panel with the specified contents inside a panel content element. content element can contain a
+ * child widget.
  * 
- *
+ * @param header
+ *            the panel header's title.
+ * @param content
+ *            childWidget to add
+ * 
+ * 
  */
 public class DecoratedPanel extends Composite {
 	private static DecoratedPanelResources	resource	= DecoratedPanelResources.INSTANCE;
@@ -64,18 +66,24 @@ public class DecoratedPanel extends Composite {
 		this.maxmize.setVisible(false);
 		this.minimize.setVisible(false);
 	}
+
 	/**
 	 * sets header title
-	 * @param header String title for header
+	 * 
+	 * @param header
+	 *            String title for header
 	 */
 	public void setHeader(String header) {
 		if (header != null && !("".equals(header))) {
 			this.headerText.setInnerText(header);
 		}
 	}
+
 	/**
 	 * add widget to panel
-	 * @param content widget to add
+	 * 
+	 * @param content
+	 *            widget to add
 	 */
 	@UiChild
 	public void addContent(Widget content) {
@@ -83,40 +91,53 @@ public class DecoratedPanel extends Composite {
 			this.contentPan.add(content);
 		}
 	}
+
 	/**
 	 * remove an widget from panel content
-	 * @param content widget to  remove
+	 * 
+	 * @param content
+	 *            widget to remove
 	 */
 	public void remove(Widget content) {
 		if (content != null) {
 			this.contentPan.remove(content);
 		}
 	}
+
 	/**
 	 * clears the content element of decorated panel
 	 */
 	public void clear() {
 		this.contentPan.clear();
 	}
+
 	/**
 	 * clickHandler for close button.Also sets close button visible.
-	 * @param handler click handler for close button.
+	 * 
+	 * @param handler
+	 *            click handler for close button.
 	 */
 	public void closeClickHandler(ClickHandler handler) {
 		this.close.setVisible(true);
 		this.close.addClickHandler(handler);
 	}
+
 	/**
 	 * clickHandler for minimise button.Also sets minimise button visible.
-	 * @param handler click handler for minimise button.
+	 * 
+	 * @param handler
+	 *            click handler for minimise button.
 	 */
 	public void minimizeClickHandler(ClickHandler handler) {
 		this.minimize.setVisible(true);
 		this.minimize.addClickHandler(handler);
 	}
+
 	/**
 	 * clickHandler for maximise button.Also sets maximise button visible.
-	 * @param handler click handler for maximise button.
+	 * 
+	 * @param handler
+	 *            click handler for maximise button.
 	 */
 	public void maxmizeClickHandler(ClickHandler handler) {
 		this.maxmize.setVisible(true);

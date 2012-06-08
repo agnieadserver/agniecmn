@@ -39,6 +39,9 @@ import com.thoughtworks.qdox.model.Type;
  * @requiresDependencyResolution compile
  * @version $Id$
  */
+/*
+ * TODO: Handle templated parameters or return type. Handle Array, list and set type.
+ */
 public class RequestFactoryMojo extends AbstractMojo {
 
 	protected final static String		IMP_RF_INSTANCE_REQUEST		= "com.google.web.bindery.requestfactory.shared.InstanceRequest";
@@ -304,7 +307,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 							// directory as sourceRoot
 						} else {
 							targetFile.getParentFile().mkdirs();
-							// generateServiceRequest(clazz, targetFile);
+							generateServiceRequest(clazz, targetFile);
 						}
 						fileGenerated = true;
 						break;
@@ -346,6 +349,72 @@ public class RequestFactoryMojo extends AbstractMojo {
 
 	/**
 	 * @param clazz
+	 *            Manager or/ service class from which Service Request interface will be generated
+	 * @param targetFile
+	 *            Service Interface which will be generated
+	 * @throws Exception
+	 *             generation failure
+	 */
+	private void generateServiceRequest(JavaClass clazz, File targetFile) throws Exception {
+		PrintWriter writer = new PrintWriter(targetFile, encoding);
+		if (targetServicePackage != null && !("".equals(targetServicePackage))) {
+			writer.println("package " + targetServicePackage + ";");
+			writer.println();
+		} else {
+			throw new MojoExecutionException("<targetServicePackage> configuration is missing.");
+		}
+		writer.println("import " + IMP_RF_REQUEST + ";");
+		writer.println("import " + IMP_RF_REQUEST_CONTEXT + ";");
+		writer.println("import " + IMP_RF_SERVICE + ";");
+		writer.println();
+		writer.println(" /* Generated type. dont change the contents */");
+		writer.println();
+		/*
+		 * TODO: Generate javadoc comments which will tell end developer not to edit the file as it generated file.
+		 */
+		writer.println();
+		for (Annotation an : clazz.getAnnotations()) {
+			if (an.getType().getJavaClass().isA(MARKER_RF_SERVICE)) {
+				writer.println("@Service(value =" + clazz.getFullyQualifiedName() + ".class, locator = " + an.getNamedParameter("value") + ")");
+				break;
+			}
+		}
+		String targetClsName = clazz.getName() + RFType.SERVICE_REQUEST.getPostFix();
+		writer.println("public interface " + targetClsName + " extends RequestContext {");
+		writer.println();
+		JavaMethod[] methods = clazz.getMethods();
+		for (JavaMethod method : methods) {
+			for (Annotation flAn : method.getAnnotations()) {
+				if (flAn.getType().getJavaClass().isA(MARKER_RF_SERVICE_METHOD)) {
+					writer.println();
+					if (method.isStatic()) {
+						writer.print("	Request<" + getMappedType(method.getReturnType()) + "> ");
+					} else {
+						throw new MojoExecutionException("Instance Request are not supported for @RFServiceMethod apply it only to static methods ");
+					}
+					writer.print(" " + method.getName() + "(");
+					JavaParameter parameters[] = method.getParameters();
+					if (parameters != null && parameters.length > 0) {
+						boolean first = true;
+						for (JavaParameter param : parameters) {
+							if (first) {
+								first = false;
+							} else {
+								writer.print(", ");
+							}
+							writer.print(getMappedType(param.getType()) + " " + param.getName());
+						}
+					}
+					writer.println(");");
+				}
+			}
+		}
+		writer.println("}");
+		writer.close();
+	}
+
+	/**
+	 * @param clazz
 	 *            POJO or bean class from which Entity Request interface will be generated
 	 * @param targetFile
 	 *            Entity Request Interface which will be generated
@@ -365,7 +434,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 		writer.println("import " + IMP_RF_REQUEST_CONTEXT + ";");
 		writer.println("import " + IMP_RF_SERVICE + ";");
 		writer.println();
-		writer.println(" /* Generated type dont change the contents */");
+		writer.println(" /* Generated type. dont change the contents */");
 		writer.println();
 		/*
 		 * TODO: Generate javadoc comments which will tell end developer not to edit the file as it generated file.

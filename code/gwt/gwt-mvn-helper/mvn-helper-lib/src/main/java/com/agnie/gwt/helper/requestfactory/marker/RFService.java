@@ -7,5 +7,10 @@ import com.google.web.bindery.requestfactory.shared.ServiceLocator;
  * 
  */
 public @interface RFService {
+	/**
+	 * Fully qualified class name of the locator
+	 * 
+	 * @return
+	 */
 	Class<? extends ServiceLocator> value();
 }

@@ -8,10 +8,8 @@ import java.net.URLClassLoader;
 import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
@@ -58,30 +56,9 @@ public class RequestFactoryMojo extends AbstractMojo {
 	protected final static String		MARKER_RF_PROXY_METHOD		= "com.agnie.gwt.helper.requestfactory.marker.RFProxyMethod";
 	protected final static String		MARKER_RF_SERVICE			= "com.agnie.gwt.helper.requestfactory.marker.RFService";
 
-	final static Set<String>			basicDataTypes				= new HashSet<String>();
 	final static Map<String, String>	wrappers					= new HashMap<String, String>();
 
 	static {
-		basicDataTypes.add("boolean");
-		basicDataTypes.add("Boolean");
-		basicDataTypes.add("byte");
-		basicDataTypes.add("Byte");
-		basicDataTypes.add("char");
-		basicDataTypes.add("Character");
-		basicDataTypes.add("short");
-		basicDataTypes.add("Short");
-		basicDataTypes.add("int");
-		basicDataTypes.add("Integer");
-		basicDataTypes.add("long");
-		basicDataTypes.add("Long");
-		basicDataTypes.add("float");
-		basicDataTypes.add("Float");
-		basicDataTypes.add("double");
-		basicDataTypes.add("Double");
-		basicDataTypes.add("void");
-		basicDataTypes.add("Void");
-		basicDataTypes.add("String");
-
 		wrappers.put("int", "Integer");
 		wrappers.put("long", "Long");
 		wrappers.put("double", "Double");
@@ -274,7 +251,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 							// directory as sourceRoot
 						} else {
 							targetFile.getParentFile().mkdirs();
-							generateValueProxy(clazz, targetFile);
+							generateValueProxy(clazz, targetFile, builder);
 						}
 						fileGenerated = true;
 						break;
@@ -286,7 +263,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 							// directory as sourceRoot
 						} else {
 							targetFile.getParentFile().mkdirs();
-							generateEntityProxy(clazz, targetFile);
+							generateEntityProxy(clazz, targetFile, builder);
 						}
 						targetFile = getTargetFile(source, RFType.ENTITY_REQUEST);
 						if (isUpToDate(sourceFile, targetFile)) {
@@ -295,7 +272,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 							// directory as sourceRoot
 						} else {
 							targetFile.getParentFile().mkdirs();
-							generateEntityRequest(clazz, targetFile);
+							generateEntityRequest(clazz, targetFile, builder);
 						}
 						fileGenerated = true;
 						break;
@@ -307,7 +284,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 							// directory as sourceRoot
 						} else {
 							targetFile.getParentFile().mkdirs();
-							generateServiceRequest(clazz, targetFile);
+							generateServiceRequest(clazz, targetFile, builder);
 						}
 						fileGenerated = true;
 						break;
@@ -355,7 +332,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 	 * @throws Exception
 	 *             generation failure
 	 */
-	private void generateServiceRequest(JavaClass clazz, File targetFile) throws Exception {
+	private void generateServiceRequest(JavaClass clazz, File targetFile, JavaDocBuilder builder) throws Exception {
 		PrintWriter writer = new PrintWriter(targetFile, encoding);
 		if (targetServicePackage != null && !("".equals(targetServicePackage))) {
 			writer.println("package " + targetServicePackage + ";");
@@ -388,7 +365,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 				if (flAn.getType().getJavaClass().isA(MARKER_RF_SERVICE_METHOD)) {
 					writer.println();
 					if (method.isStatic()) {
-						writer.print("	Request<" + getMappedType(method.getReturnType()) + "> ");
+						writer.print("	Request<" + getMappedType(method.getReturnType(), builder) + "> ");
 					} else {
 						throw new MojoExecutionException("Instance Request are not supported for @RFServiceMethod apply it only to static methods ");
 					}
@@ -402,7 +379,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 							} else {
 								writer.print(", ");
 							}
-							writer.print(getMappedType(param.getType()) + " " + param.getName());
+							writer.print(getMappedType(param.getType(), builder) + " " + param.getName());
 						}
 					}
 					writer.println(");");
@@ -421,7 +398,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 	 * @throws Exception
 	 *             generation failure
 	 */
-	private void generateEntityRequest(JavaClass clazz, File targetFile) throws Exception {
+	private void generateEntityRequest(JavaClass clazz, File targetFile, JavaDocBuilder builder) throws Exception {
 		PrintWriter writer = new PrintWriter(targetFile, encoding);
 		if (targetServicePackage != null && !("".equals(targetServicePackage))) {
 			writer.println("package " + targetServicePackage + ";");
@@ -450,9 +427,9 @@ public class RequestFactoryMojo extends AbstractMojo {
 				if (flAn.getType().getJavaClass().isA(MARKER_RF_SERVICE_METHOD)) {
 					writer.println();
 					if (method.isStatic()) {
-						writer.print("	Request<" + getMappedType(method.getReturnType()) + "> ");
+						writer.print("	Request<" + getMappedType(method.getReturnType(), builder) + "> ");
 					} else {
-						writer.print("	InstanceRequest<" + getMappedType(clazz.asType()) + ", " + getMappedType(method.getReturnType()) + "> ");
+						writer.print("	InstanceRequest<" + getMappedType(clazz.asType(), builder) + ", " + getMappedType(method.getReturnType(), builder) + "> ");
 					}
 					writer.print(" " + method.getName() + "(");
 					JavaParameter parameters[] = method.getParameters();
@@ -464,7 +441,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 							} else {
 								writer.print(", ");
 							}
-							writer.print(getMappedType(param.getType()) + " " + param.getName());
+							writer.print(getMappedType(param.getType(), builder) + " " + param.getName());
 						}
 					}
 					writer.println(");");
@@ -483,7 +460,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 	 * @throws Exception
 	 *             generation failure
 	 */
-	private void generateValueProxy(JavaClass clazz, File targetFile) throws Exception {
+	private void generateValueProxy(JavaClass clazz, File targetFile, JavaDocBuilder builder) throws Exception {
 		PrintWriter writer = new PrintWriter(targetFile, encoding);
 		if (targetProxyPackage != null && !("".equals(targetProxyPackage))) {
 			writer.println("package " + targetProxyPackage + ";");
@@ -508,7 +485,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 			for (Annotation flAn : method.getAnnotations()) {
 				if (flAn.getType().getJavaClass().isA(MARKER_RF_PROXY_METHOD)) {
 					writer.println();
-					writer.print("	" + getMappedType(method.getReturnType()) + " ");
+					writer.print("	" + getMappedType(method.getReturnType(), builder) + " ");
 					writer.print("	" + method.getName() + "(");
 					JavaParameter parameters[] = method.getParameters();
 					if (parameters != null && parameters.length > 0) {
@@ -519,7 +496,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 							} else {
 								writer.print(",");
 							}
-							writer.print(" " + getMappedType(param.getType()) + " " + param.getName());
+							writer.print(" " + getMappedType(param.getType(), builder) + " " + param.getName());
 						}
 					}
 					writer.println(");");
@@ -539,7 +516,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 	 * @throws Exception
 	 *             generation failure
 	 */
-	private void generateEntityProxy(JavaClass clazz, File targetFile) throws Exception {
+	private void generateEntityProxy(JavaClass clazz, File targetFile, JavaDocBuilder builder) throws Exception {
 		PrintWriter writer = new PrintWriter(targetFile, encoding);
 		if (targetProxyPackage != null && !("".equals(targetProxyPackage))) {
 			writer.println("package " + targetProxyPackage + ";");
@@ -566,7 +543,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 			for (Annotation flAn : method.getAnnotations()) {
 				if (flAn.getType().getJavaClass().isA(MARKER_RF_PROXY_METHOD)) {
 					writer.println();
-					writer.print("	" + getMappedType(method.getReturnType()) + " ");
+					writer.print("	" + getMappedType(method.getReturnType(true), builder) + " ");
 					writer.print("	" + method.getName() + "(");
 					JavaParameter parameters[] = method.getParameters();
 					if (parameters != null && parameters.length > 0) {
@@ -577,7 +554,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 							} else {
 								writer.print(",");
 							}
-							writer.print(" " + getMappedType(param.getType()) + " " + param.getName());
+							writer.print(" " + getMappedType(param.getType(), builder) + " " + param.getName());
 						}
 					}
 					writer.println(");");
@@ -591,21 +568,67 @@ public class RequestFactoryMojo extends AbstractMojo {
 		writer.close();
 	}
 
-	private String getMappedType(Type type) throws Exception {
-
-		JavaClass jvCls = type.getJavaClass();
-		if (basicDataTypes.contains(jvCls.getName())) {
-			return (wrappers.containsKey(jvCls.getName()) ? wrappers.get(jvCls.getName()) : jvCls.getName());
-		} else {
-			for (Annotation an : jvCls.getAnnotations()) {
-				if (an.getType().getJavaClass().isA(MARKER_RF_VALUE_PROXY)) {
-					return targetProxyPackage + "." + jvCls.getName() + RFType.VALUE_PROXY.getPostFix();
-				} else if (an.getType().getJavaClass().isA(MARKER_RF_ENTITY_PROXY)) {
-					return targetProxyPackage + "." + jvCls.getName() + RFType.ENTITY_PROXY.getPostFix();
+	private String getMappedType(Type type, JavaDocBuilder builder) throws Exception {
+		if (checkIfGenericType(type)) {
+			String[] genericParams = getInnerTypes(type.getGenericValue());
+			StringBuilder finalCls = new StringBuilder();
+			finalCls.append(getOuterType(type.getGenericValue()));
+			finalCls.append("<");
+			for (int index = 0; index < genericParams.length; index++) {
+				if (index > 0) {
+					finalCls.append(", ");
 				}
+				String genericParam = genericParams[index];
+				JavaClass jvCls = getJavaClass(genericParam, builder);
+				finalCls.append(getMappedType(jvCls.asType(), builder));
 			}
-			throw new MojoExecutionException(jvCls.getFullyQualifiedName() + " is niether basic java data type nor it is OverlayType");
+			finalCls.append(">");
+			return finalCls.toString();
+		} else {
+			return getFinalTypeString(type);
 		}
+	}
+
+	private String getOuterType(String fqdnName) {
+		return fqdnName.substring(0, fqdnName.indexOf('<'));
+	}
+
+	private String[] getInnerTypes(String fqdnName) {
+		String inside = fqdnName.substring(fqdnName.indexOf('<') + 1, fqdnName.lastIndexOf('>'));
+		System.out.println("Iner class => " + inside);
+		return inside.split(",");
+	}
+
+	private String getFinalTypeString(Type type) throws Exception {
+		JavaClass jvCls = type.getJavaClass();
+		if (wrappers.containsKey(jvCls.getName())) {
+			return wrappers.get(jvCls.getName());
+		}
+		for (Annotation an : jvCls.getAnnotations()) {
+			if (an.getType().getJavaClass().isA(MARKER_RF_VALUE_PROXY)) {
+				return targetProxyPackage + "." + jvCls.getName() + RFType.VALUE_PROXY.getPostFix();
+			} else if (an.getType().getJavaClass().isA(MARKER_RF_ENTITY_PROXY)) {
+				return targetProxyPackage + "." + jvCls.getName() + RFType.ENTITY_PROXY.getPostFix();
+			}
+		}
+		if (jvCls.asType().getValue().startsWith("java.lang")) {
+			return jvCls.getName();
+		}
+
+		/*
+		 * TODO: Need to add supported data type check if there is any other custom data type which is not either entity
+		 * or value object. Then we need to throw exception
+		 */
+		return jvCls.asType().getValue();
+	}
+
+	private JavaClass getJavaClass(String className, JavaDocBuilder builder) {
+		return builder.getClassByName(className);
+	}
+
+	private boolean checkIfGenericType(Type type) {
+		String clsName = type.getGenericValue();
+		return clsName != null && clsName.contains("<") && clsName.contains(">");
 	}
 
 	@SuppressWarnings("unchecked")

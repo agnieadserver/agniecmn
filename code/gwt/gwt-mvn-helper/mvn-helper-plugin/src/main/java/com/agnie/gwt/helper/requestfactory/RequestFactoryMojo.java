@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -570,15 +571,15 @@ public class RequestFactoryMojo extends AbstractMojo {
 
 	private String getMappedType(Type type, JavaDocBuilder builder) throws Exception {
 		if (checkIfGenericType(type)) {
-			String[] genericParams = getInnerTypes(type.getGenericValue());
+			List<String> genericParams = getInnerTypes(type.getGenericValue());
 			StringBuilder finalCls = new StringBuilder();
 			finalCls.append(getOuterType(type.getGenericValue()));
 			finalCls.append("<");
-			for (int index = 0; index < genericParams.length; index++) {
+			for (int index = 0; index < genericParams.size(); index++) {
 				if (index > 0) {
 					finalCls.append(", ");
 				}
-				String genericParam = genericParams[index];
+				String genericParam = genericParams.get(index);
 				JavaClass jvCls = getJavaClass(genericParam, builder);
 				finalCls.append(getMappedType(jvCls.asType(), builder));
 			}
@@ -593,10 +594,90 @@ public class RequestFactoryMojo extends AbstractMojo {
 		return fqdnName.substring(0, fqdnName.indexOf('<'));
 	}
 
-	private String[] getInnerTypes(String fqdnName) {
+	/*
+	 * java.util.Map<java.lang.String,com.agnie.gwt.requestfactory.test.Value>
+	 */
+	private List<String> getInnerTypes(String fqdnName) {
 		String inside = fqdnName.substring(fqdnName.indexOf('<') + 1, fqdnName.lastIndexOf('>'));
 		System.out.println("Iner class => " + inside);
-		return inside.split(",");
+		return tokenizeGenericParams(inside);
+	}
+
+	private List<String> tokenizeGenericParams(String inside) {
+		System.out.println("inside =\"" + inside + "\"");
+		if (inside == null || ("".equals(inside))) {
+			return null;
+		}
+		inside = inside.trim();
+		List<String> tokens = new ArrayList<String>();
+		int commaind = inside.indexOf(',');
+		/*
+		 * single generic parameters even if there are nested parameters at any level there is only single generic
+		 * parameters e.g. probable values of variables 1. fqdnName = List<String> inside= String 2. fqdnName =
+		 * List<List<Set<String>>> inside= List<Set<String>>
+		 */
+
+		System.out.println("commind => " + commaind);
+		if (commaind == -1) {
+			tokens.add(inside);
+			return tokens;
+		}
+		int ltind = inside.indexOf('<');
+		System.out.println("ltind => " + ltind);
+		int gtind = inside.indexOf('>');
+		System.out.println("gtind => " + gtind);
+		/*
+		 * Inside variable contains multiple generic parameters but no nested generic elements e.g. 1. fqdnName =
+		 * Map<String, Integer> and inside = String, Integer
+		 */
+		if (ltind == -1 && gtind == -1) {
+			for (String string : inside.split(",")) {
+				tokens.add(string);
+			}
+			return tokens;
+		}
+
+		/**
+		 * TODO: Below logic is not handling all the different combinations. This needs to be improved and a generic
+		 * mechanism need to be added which will scan through every character and keep the indices with key on stack.
+		 * And then tokenize the string based on those indices
+		 */
+		/*
+		 * When fqdnName = List<Map<String,Integer>> and inside =Map<String,Integer>
+		 */
+		System.out.println("inside.length => " + inside.length());
+		if (ltind < commaind && gtind > commaind && (inside.indexOf(',', gtind) == -1)) {
+			System.out.println("first");
+			tokens.add(inside);
+			return tokens;
+		}
+
+		/*
+		 * Condition (ltind > commaind) to check when fqdnName = Map<String, List<String>> and inside = String,
+		 * List<String> or fqdnName = Map<String, Map<String, Integer>> and inside = String, Map<String, Integer>
+		 * 
+		 * Condition (ltind < commaind && gtind < commaind) to check when fqdnName = Map<List<String>, String> and
+		 * inside = List<String>, String
+		 */
+		if (ltind > commaind || (ltind < commaind && gtind < commaind)) {
+			tokens.add(inside.substring(0, commaind));
+			// Retrieve the first token and recursively call the same method to get rest of the tokens if generic
+			// parameters are more than two numbers
+			tokens.addAll(tokenizeGenericParams(inside.substring(commaind + 1, inside.length())));
+			return tokens;
+		}
+
+		/*
+		 * When fqdnName = Map<Map<String,Integer>,Integer> and inside =Map<String,Integer>,Integer
+		 */
+		if (ltind < commaind && gtind > commaind) {
+			System.out.println("Second");
+			tokens.add(inside.substring(0, gtind + 1));
+			tokens.addAll(tokenizeGenericParams(inside.substring(inside.indexOf(',', gtind) + 1, inside.length())));
+			return tokens;
+		}
+
+		return tokens;
 	}
 
 	private String getFinalTypeString(Type type) throws Exception {

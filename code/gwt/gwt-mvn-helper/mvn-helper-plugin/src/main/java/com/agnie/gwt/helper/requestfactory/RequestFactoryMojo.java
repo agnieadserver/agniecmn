@@ -9,8 +9,10 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
@@ -58,6 +60,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 	protected final static String		MARKER_RF_SERVICE			= "com.agnie.gwt.helper.requestfactory.marker.RFService";
 
 	final static Map<String, String>	wrappers					= new HashMap<String, String>();
+	final static Set<String>			supportedTypes				= new HashSet<String>();
 
 	static {
 		wrappers.put("int", "Integer");
@@ -69,6 +72,12 @@ public class RequestFactoryMojo extends AbstractMojo {
 		wrappers.put("short", "Short");
 		wrappers.put("boolean", "Boolean");
 		wrappers.put("void", "Void");
+
+		supportedTypes.add("String");
+		supportedTypes.add("List");
+		supportedTypes.add("Set");
+		supportedTypes.add("Map");
+
 	}
 
 	/**
@@ -573,6 +582,8 @@ public class RequestFactoryMojo extends AbstractMojo {
 		if (checkIfGenericType(type)) {
 			List<String> genericParams = getInnerTypes(type.getGenericValue());
 			StringBuilder finalCls = new StringBuilder();
+			// Here we are not calling getMappedType on outerType as it is assumed that custom generic types won't be
+			// used only Set, List or Map generic types will be supported
 			finalCls.append(getOuterType(type.getGenericValue()));
 			finalCls.append("<");
 			for (int index = 0; index < genericParams.size(); index++) {
@@ -599,12 +610,11 @@ public class RequestFactoryMojo extends AbstractMojo {
 	 */
 	private List<String> getInnerTypes(String fqdnName) {
 		String inside = fqdnName.substring(fqdnName.indexOf('<') + 1, fqdnName.lastIndexOf('>'));
-		System.out.println("Iner class => " + inside);
 		return tokenizeGenericParams(inside);
 	}
 
 	private List<String> tokenizeGenericParams(String inside) {
-		System.out.println("inside =\"" + inside + "\"");
+		// System.out.println("inside =\"" + inside + "\"");
 		if (inside == null || ("".equals(inside))) {
 			return null;
 		}
@@ -617,15 +627,12 @@ public class RequestFactoryMojo extends AbstractMojo {
 		 * List<List<Set<String>>> inside= List<Set<String>>
 		 */
 
-		System.out.println("commind => " + commaind);
 		if (commaind == -1) {
 			tokens.add(inside);
 			return tokens;
 		}
 		int ltind = inside.indexOf('<');
-		System.out.println("ltind => " + ltind);
 		int gtind = inside.indexOf('>');
-		System.out.println("gtind => " + gtind);
 		/*
 		 * Inside variable contains multiple generic parameters but no nested generic elements e.g. 1. fqdnName =
 		 * Map<String, Integer> and inside = String, Integer
@@ -645,9 +652,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 		/*
 		 * When fqdnName = List<Map<String,Integer>> and inside =Map<String,Integer>
 		 */
-		System.out.println("inside.length => " + inside.length());
 		if (ltind < commaind && gtind > commaind && (inside.indexOf(',', gtind) == -1)) {
-			System.out.println("first");
 			tokens.add(inside);
 			return tokens;
 		}
@@ -671,7 +676,6 @@ public class RequestFactoryMojo extends AbstractMojo {
 		 * When fqdnName = Map<Map<String,Integer>,Integer> and inside =Map<String,Integer>,Integer
 		 */
 		if (ltind < commaind && gtind > commaind) {
-			System.out.println("Second");
 			tokens.add(inside.substring(0, gtind + 1));
 			tokens.addAll(tokenizeGenericParams(inside.substring(inside.indexOf(',', gtind) + 1, inside.length())));
 			return tokens;
@@ -692,15 +696,17 @@ public class RequestFactoryMojo extends AbstractMojo {
 				return targetProxyPackage + "." + jvCls.getName() + RFType.ENTITY_PROXY.getPostFix();
 			}
 		}
-		if (jvCls.asType().getValue().startsWith("java.lang")) {
-			return jvCls.getName();
+		if (wrappers.values().contains(jvCls.getName()) || supportedTypes.contains(jvCls.getName())) {
+			if (jvCls.asType().getValue().startsWith("java.lang")) {
+				return jvCls.getName();
+			} else {
+
+				return jvCls.asType().getValue();
+			}
+		} else {
+			throw new MojoExecutionException("Type \"" + jvCls.asType().getValue() + "\" is nigther of supported type nor request factory proxy type");
 		}
 
-		/*
-		 * TODO: Need to add supported data type check if there is any other custom data type which is not either entity
-		 * or value object. Then we need to throw exception
-		 */
-		return jvCls.asType().getValue();
 	}
 
 	private JavaClass getJavaClass(String className, JavaDocBuilder builder) {

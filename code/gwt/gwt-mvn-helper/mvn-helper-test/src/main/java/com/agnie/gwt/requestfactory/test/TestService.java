@@ -30,8 +30,40 @@ public class TestService {
 		return null;
 	}
 
+	/*
+	 * This is a negative test case to test it uncomment the below method to check if plugin throws error
+	 */
+
 	// @RFServiceMethod
 	// public static Set<List<Map<String, File>>> negativeUnsupportedType(File id, List<String> sec) {
 	// return null;
 	// }
+
+	@RFServiceMethod
+	public static String arrayParams(Entity[][] params) {
+		return null;
+	}
+
+	@RFServiceMethod
+	public static String arrayParams(String[][] params) {
+		return null;
+	}
+
+	@RFServiceMethod
+	public static String[] arrayReturn(String[][] params) {
+		return null;
+	}
+
+	@RFServiceMethod
+	public static String genericArrayParam(Set<Double[]> id) {
+		return null;
+	}
+
+	/*
+	 * TODO: Need to take of situation of return type in below method
+	 */
+	@RFServiceMethod
+	public static List<List<List<Value>[][]>[][]> genericArrayParamproxy(Set<Entity[]> id) {
+		return null;
+	}
 }

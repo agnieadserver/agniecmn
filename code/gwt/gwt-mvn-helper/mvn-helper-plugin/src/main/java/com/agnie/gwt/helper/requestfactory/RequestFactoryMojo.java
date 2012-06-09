@@ -41,7 +41,8 @@ import com.thoughtworks.qdox.model.Type;
  * @version $Id$
  */
 /*
- * TODO: Handle templated parameters or return type. Handle Array, list and set type.
+ * TODO: need to handle below situation <p>public static List<List<List<Value>[][]>[][]>
+ * genericArrayParamproxy(Set<Entity[]> id) { return null; } </p>
  */
 public class RequestFactoryMojo extends AbstractMojo {
 
@@ -579,7 +580,12 @@ public class RequestFactoryMojo extends AbstractMojo {
 	}
 
 	private String getMappedType(Type type, JavaDocBuilder builder) throws Exception {
+		StringBuffer dimension = new StringBuffer("");
+		for (int dimensions = 0; dimensions < type.getDimensions(); dimensions++) {
+			dimension.append("[]");
+		}
 		if (checkIfGenericType(type)) {
+			// System.out.println(type.getGenericValue());
 			List<String> genericParams = getInnerTypes(type.getGenericValue());
 			StringBuilder finalCls = new StringBuilder();
 			// Here we are not calling getMappedType on outerType as it is assumed that custom generic types won't be
@@ -595,9 +601,9 @@ public class RequestFactoryMojo extends AbstractMojo {
 				finalCls.append(getMappedType(jvCls.asType(), builder));
 			}
 			finalCls.append(">");
-			return finalCls.toString();
+			return finalCls.toString() + dimension.toString();
 		} else {
-			return getFinalTypeString(type);
+			return getFinalTypeString(type, builder) + dimension.toString();
 		}
 	}
 
@@ -684,24 +690,33 @@ public class RequestFactoryMojo extends AbstractMojo {
 		return tokens;
 	}
 
-	private String getFinalTypeString(Type type) throws Exception {
+	private String getFinalTypeString(Type type, JavaDocBuilder builder) throws Exception {
 		JavaClass jvCls = type.getJavaClass();
-		if (wrappers.containsKey(jvCls.getName())) {
-			return wrappers.get(jvCls.getName());
+		String name = jvCls.getName();
+		String postFix = "";
+		if (name.contains("[")) {
+			postFix = name.substring(name.indexOf('['), name.length());
+			name = name.substring(name.lastIndexOf('.') + 1, name.indexOf('['));
+			if (wrappers.containsKey(name)) {
+				return wrappers.get(name);
+			}
+			jvCls = getJavaClass(jvCls.getName().substring(0, jvCls.getName().indexOf('[')), builder);
+		}
+		if (wrappers.containsKey(name)) {
+			return wrappers.get(name);
 		}
 		for (Annotation an : jvCls.getAnnotations()) {
 			if (an.getType().getJavaClass().isA(MARKER_RF_VALUE_PROXY)) {
-				return targetProxyPackage + "." + jvCls.getName() + RFType.VALUE_PROXY.getPostFix();
+				return targetProxyPackage + "." + name + RFType.VALUE_PROXY.getPostFix() + postFix;
 			} else if (an.getType().getJavaClass().isA(MARKER_RF_ENTITY_PROXY)) {
-				return targetProxyPackage + "." + jvCls.getName() + RFType.ENTITY_PROXY.getPostFix();
+				return targetProxyPackage + "." + name + RFType.ENTITY_PROXY.getPostFix() + postFix;
 			}
 		}
-		if (wrappers.values().contains(jvCls.getName()) || supportedTypes.contains(jvCls.getName())) {
+		if (wrappers.values().contains(name) || supportedTypes.contains(name)) {
 			if (jvCls.asType().getValue().startsWith("java.lang")) {
-				return jvCls.getName();
+				return name + postFix;
 			} else {
-
-				return jvCls.asType().getValue();
+				return jvCls.asType().getValue() + postFix;
 			}
 		} else {
 			throw new MojoExecutionException("Type \"" + jvCls.asType().getValue() + "\" is nigther of supported type nor request factory proxy type");

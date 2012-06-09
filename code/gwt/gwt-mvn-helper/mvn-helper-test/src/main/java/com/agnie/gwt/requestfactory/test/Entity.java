@@ -8,11 +8,12 @@ import com.agnie.gwt.helper.requestfactory.marker.RFProxyMethod;
 import com.agnie.gwt.helper.requestfactory.marker.RFServiceMethod;
 
 @RFEntityProxy
-public class Entity {
+public class Entity extends BaseEntity {
 
 	private String	id;
 	private double	salary;
 	private String	location;
+	private Status	status;
 
 	/**
 	 * @return the id
@@ -63,6 +64,23 @@ public class Entity {
 	@RFProxyMethod
 	public void setLocation(String location) {
 		this.location = location;
+	}
+
+	/**
+	 * @return the status
+	 */
+	@RFProxyMethod
+	public Status getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status
+	 *            the status to set
+	 */
+	@RFProxyMethod
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	@RFServiceMethod

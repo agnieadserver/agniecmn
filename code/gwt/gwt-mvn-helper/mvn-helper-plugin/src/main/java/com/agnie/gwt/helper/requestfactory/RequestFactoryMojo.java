@@ -357,10 +357,6 @@ public class RequestFactoryMojo extends AbstractMojo {
 		writer.println();
 		writer.println(" /* Generated type. dont change the contents */");
 		writer.println();
-		/*
-		 * TODO: Generate javadoc comments which will tell end developer not to edit the file as it generated file.
-		 */
-		writer.println();
 		for (Annotation an : clazz.getAnnotations()) {
 			if (an.getType().getJavaClass().isA(MARKER_RF_SERVICE)) {
 				writer.println("@Service(value =" + clazz.getFullyQualifiedName() + ".class, locator = " + an.getNamedParameter("value") + ")");
@@ -370,7 +366,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 		String targetClsName = clazz.getName() + RFType.SERVICE_REQUEST.getPostFix();
 		writer.println("public interface " + targetClsName + " extends RequestContext {");
 		writer.println();
-		JavaMethod[] methods = clazz.getMethods();
+		JavaMethod[] methods = clazz.getMethods(true);
 		for (JavaMethod method : methods) {
 			for (Annotation flAn : method.getAnnotations()) {
 				if (flAn.getType().getJavaClass().isA(MARKER_RF_SERVICE_METHOD)) {
@@ -424,15 +420,11 @@ public class RequestFactoryMojo extends AbstractMojo {
 		writer.println();
 		writer.println(" /* Generated type. dont change the contents */");
 		writer.println();
-		/*
-		 * TODO: Generate javadoc comments which will tell end developer not to edit the file as it generated file.
-		 */
-		writer.println();
 		writer.println("@Service(" + clazz.getFullyQualifiedName() + ".class)");
 		String targetClsName = clazz.getName() + RFType.ENTITY_REQUEST.getPostFix();
 		writer.println("public interface " + targetClsName + " extends RequestContext {");
 		writer.println();
-		JavaMethod[] methods = clazz.getMethods();
+		JavaMethod[] methods = clazz.getMethods(true);
 		for (JavaMethod method : methods) {
 			for (Annotation flAn : method.getAnnotations()) {
 				if (flAn.getType().getJavaClass().isA(MARKER_RF_SERVICE_METHOD)) {
@@ -484,14 +476,10 @@ public class RequestFactoryMojo extends AbstractMojo {
 		writer.println();
 		writer.println(" /* Generated type dont change the contents */");
 		writer.println();
-		/*
-		 * TODO: Generate javadoc comments which will tell end developer not to edit the file as it generated file.
-		 */
-		writer.println();
 		writer.println("@ProxyFor(" + clazz.getFullyQualifiedName() + ".class)");
 		writer.println("public interface " + clazz.getName() + RFType.VALUE_PROXY.getPostFix() + " extends ValueProxy {");
 		writer.println();
-		JavaMethod[] methods = clazz.getMethods();
+		JavaMethod[] methods = clazz.getMethods(true);
 		for (JavaMethod method : methods) {
 			for (Annotation flAn : method.getAnnotations()) {
 				if (flAn.getType().getJavaClass().isA(MARKER_RF_PROXY_METHOD)) {
@@ -541,15 +529,11 @@ public class RequestFactoryMojo extends AbstractMojo {
 		writer.println();
 		writer.println(" /* Generated type dont change the contents */");
 		writer.println();
-		/*
-		 * TODO: Generate javadoc comments which will tell end developer not to edit the file as it generated file.
-		 */
-		writer.println();
 		writer.println("@ProxyFor(" + clazz.getFullyQualifiedName() + ".class)");
 		String targetClsName = clazz.getName() + RFType.ENTITY_PROXY.getPostFix();
 		writer.println("public interface " + targetClsName + " extends EntityProxy {");
 		writer.println();
-		JavaMethod[] methods = clazz.getMethods();
+		JavaMethod[] methods = clazz.getMethods(true);
 		for (JavaMethod method : methods) {
 			for (Annotation flAn : method.getAnnotations()) {
 				if (flAn.getType().getJavaClass().isA(MARKER_RF_PROXY_METHOD)) {
@@ -718,6 +702,11 @@ public class RequestFactoryMojo extends AbstractMojo {
 			} else {
 				return jvCls.asType().getValue() + postFix;
 			}
+		} else if (jvCls.isEnum()) {
+			/*
+			 * Here enums are not considered with array and inside generic types
+			 */
+			return jvCls.asType().getValue();
 		} else {
 			throw new MojoExecutionException("Type \"" + jvCls.asType().getValue() + "\" is nigther of supported type nor request factory proxy type");
 		}

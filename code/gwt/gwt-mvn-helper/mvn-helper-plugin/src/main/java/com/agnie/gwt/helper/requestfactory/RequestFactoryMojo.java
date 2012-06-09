@@ -78,6 +78,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 		supportedTypes.add("List");
 		supportedTypes.add("Set");
 		supportedTypes.add("Map");
+		supportedTypes.add("Date");
 
 	}
 
@@ -365,7 +366,6 @@ public class RequestFactoryMojo extends AbstractMojo {
 		}
 		String targetClsName = clazz.getName() + RFType.SERVICE_REQUEST.getPostFix();
 		writer.println("public interface " + targetClsName + " extends RequestContext {");
-		writer.println();
 		JavaMethod[] methods = clazz.getMethods(true);
 		for (JavaMethod method : methods) {
 			for (Annotation flAn : method.getAnnotations()) {
@@ -423,7 +423,6 @@ public class RequestFactoryMojo extends AbstractMojo {
 		writer.println("@Service(" + clazz.getFullyQualifiedName() + ".class)");
 		String targetClsName = clazz.getName() + RFType.ENTITY_REQUEST.getPostFix();
 		writer.println("public interface " + targetClsName + " extends RequestContext {");
-		writer.println();
 		JavaMethod[] methods = clazz.getMethods(true);
 		for (JavaMethod method : methods) {
 			for (Annotation flAn : method.getAnnotations()) {
@@ -478,14 +477,13 @@ public class RequestFactoryMojo extends AbstractMojo {
 		writer.println();
 		writer.println("@ProxyFor(" + clazz.getFullyQualifiedName() + ".class)");
 		writer.println("public interface " + clazz.getName() + RFType.VALUE_PROXY.getPostFix() + " extends ValueProxy {");
-		writer.println();
 		JavaMethod[] methods = clazz.getMethods(true);
 		for (JavaMethod method : methods) {
 			for (Annotation flAn : method.getAnnotations()) {
 				if (flAn.getType().getJavaClass().isA(MARKER_RF_PROXY_METHOD)) {
 					writer.println();
 					writer.print("	" + getMappedType(method.getReturnType(), builder) + " ");
-					writer.print("	" + method.getName() + "(");
+					writer.print(method.getName() + "(");
 					JavaParameter parameters[] = method.getParameters();
 					if (parameters != null && parameters.length > 0) {
 						boolean first = true;
@@ -493,9 +491,9 @@ public class RequestFactoryMojo extends AbstractMojo {
 							if (first) {
 								first = false;
 							} else {
-								writer.print(",");
+								writer.print(", ");
 							}
-							writer.print(" " + getMappedType(param.getType(), builder) + " " + param.getName());
+							writer.print(getMappedType(param.getType(), builder) + " " + param.getName());
 						}
 					}
 					writer.println(");");
@@ -532,7 +530,6 @@ public class RequestFactoryMojo extends AbstractMojo {
 		writer.println("@ProxyFor(" + clazz.getFullyQualifiedName() + ".class)");
 		String targetClsName = clazz.getName() + RFType.ENTITY_PROXY.getPostFix();
 		writer.println("public interface " + targetClsName + " extends EntityProxy {");
-		writer.println();
 		JavaMethod[] methods = clazz.getMethods(true);
 		for (JavaMethod method : methods) {
 			for (Annotation flAn : method.getAnnotations()) {
@@ -557,8 +554,10 @@ public class RequestFactoryMojo extends AbstractMojo {
 			}
 		}
 		if (generateStableId) {
+			writer.println();
 			writer.println("	EntityProxyId<" + targetClsName + "> stableId();");
 		}
+		writer.println();
 		writer.println("}");
 		writer.close();
 	}
@@ -700,6 +699,9 @@ public class RequestFactoryMojo extends AbstractMojo {
 			if (jvCls.asType().getValue().startsWith("java.lang")) {
 				return name + postFix;
 			} else {
+				if ("Date".equals(name) && !("java.util.Date").equals(jvCls.asType().getValue())) {
+					throw new MojoExecutionException("only java.util.Date is supported. We don't support \"" + jvCls.asType().getValue() + "\"type");
+				}
 				return jvCls.asType().getValue() + postFix;
 			}
 		} else if (jvCls.isEnum()) {

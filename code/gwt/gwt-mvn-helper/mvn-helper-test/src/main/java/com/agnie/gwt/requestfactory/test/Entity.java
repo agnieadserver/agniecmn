@@ -1,6 +1,7 @@
 package com.agnie.gwt.requestfactory.test;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.agnie.gwt.helper.requestfactory.marker.RFEntityProxy;
@@ -10,10 +11,13 @@ import com.agnie.gwt.helper.requestfactory.marker.RFServiceMethod;
 @RFEntityProxy
 public class Entity extends BaseEntity {
 
-	private String	id;
-	private double	salary;
-	private String	location;
-	private Status	status;
+	private String			id;
+	private double			salary;
+	private String			location;
+	private Status			status;
+	private Date			date;
+//	//Negative test case to test it uncomment
+//	private java.sql.Date	sqlDate;
 
 	/**
 	 * @return the id
@@ -82,6 +86,42 @@ public class Entity extends BaseEntity {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+
+	/**
+	 * @return the date
+	 */
+	@RFProxyMethod
+	public Date getDate() {
+		return date;
+	}
+
+	/**
+	 * @param date
+	 *            the date to set
+	 */
+	@RFProxyMethod
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+//	/**
+//	 *  Negative test case to test it uncomment
+//	 * @return the sqlDate
+//	 */
+//	@RFProxyMethod
+//	public java.sql.Date getSqlDate() {
+//		return sqlDate;
+//	}
+//
+//	/**
+//	 * Negative test case to test it uncomment
+//	 * @param sqlDate
+//	 *            the sqlDate to set
+//	 */
+//	@RFProxyMethod
+//	public void setSqlDate(java.sql.Date sqlDate) {
+//		this.sqlDate = sqlDate;
+//	}
 
 	@RFServiceMethod
 	public void persist() {

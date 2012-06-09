@@ -29,4 +29,9 @@ public class TestService {
 	public static Set<List<Map<String, Value>>> trySomethingComplicated(Value id, List<String> sec) {
 		return null;
 	}
+
+	// @RFServiceMethod
+	// public static Set<List<Map<String, File>>> negativeUnsupportedType(File id, List<String> sec) {
+	// return null;
+	// }
 }

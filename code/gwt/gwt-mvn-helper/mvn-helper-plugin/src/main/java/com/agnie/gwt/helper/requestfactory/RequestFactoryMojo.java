@@ -376,9 +376,9 @@ public class RequestFactoryMojo extends AbstractMojo {
 				if (flAn.getType().getJavaClass().isA(MARKER_RF_SERVICE_METHOD)) {
 					writer.println();
 					if (method.isStatic()) {
-						writer.print("	Request<" + getMappedType(method.getReturnType(), builder) + "> ");
+						throw new MojoExecutionException("static methods are not supported for @RFServiceMethod apply it only to member methods ");
 					} else {
-						throw new MojoExecutionException("Instance Request are not supported for @RFServiceMethod apply it only to static methods ");
+						writer.print("	Request<" + getMappedType(method.getReturnType(), builder) + "> ");
 					}
 					writer.print(" " + method.getName() + "(");
 					JavaParameter parameters[] = method.getParameters();

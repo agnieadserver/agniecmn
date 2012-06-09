@@ -17,8 +17,8 @@ public class App {
 	private Address[]		addressone;
 	@OverlayField
 	private Address[][]		addresstwo;
-	@OverlayField
-	private List<Address>	addressneg;
+//	@OverlayField
+//	private List<Address>	addressneg;
 
 	/**
 	 * @return the name
@@ -110,19 +110,19 @@ public class App {
 		this.addresstwo = addresstwo;
 	}
 
-	/**
-	 * @return the addressneg
-	 */
-	public List<Address> getAddressneg() {
-		return addressneg;
-	}
-
-	/**
-	 * @param addressneg
-	 *            the addressneg to set
-	 */
-	public void setAddressneg(List<Address> addressneg) {
-		this.addressneg = addressneg;
-	}
+//	/**
+//	 * @return the addressneg
+//	 */
+//	public List<Address> getAddressneg() {
+//		return addressneg;
+//	}
+//
+//	/**
+//	 * @param addressneg
+//	 *            the addressneg to set
+//	 */
+//	public void setAddressneg(List<Address> addressneg) {
+//		this.addressneg = addressneg;
+//	}
 
 }

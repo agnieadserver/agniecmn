@@ -7,9 +7,9 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.Charset;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
@@ -36,29 +36,35 @@ import com.thoughtworks.qdox.model.JavaField;
  * @version $Id$
  */
 public class OverlayMojo extends AbstractMojo {
-	private static final String			JAVA_SCRIPT_OBJECT		= "com.google.gwt.core.client.JavaScriptObject";
-	private static final String			OVERLAY_TYPE_MARKER		= "com.agnie.gwt.helper.overlaytype.marker.OverlayType";
-	private static final String			OVERLAY_FIELD_MARKER	= "com.agnie.gwt.helper.overlaytype.marker.OverlayField";
+	private static final String						JS_ARRAY				= "JsArray";
+	private static final String						JAVA_SCRIPT_OBJECT		= "com.google.gwt.core.client.*";
+	private static final String						OVERLAY_TYPE_MARKER		= "com.agnie.gwt.helper.overlaytype.marker.OverlayType";
+	private static final String						OVERLAY_FIELD_MARKER	= "com.agnie.gwt.helper.overlaytype.marker.OverlayField";
 
-	private final static Set<String>	basicDataTypes			= new HashSet<String>();
+	private final static Map<String, BasicOLType>	basicDataTypes			= new HashMap<String, BasicOLType>();
+
 	static {
-		basicDataTypes.add("boolean");
-		basicDataTypes.add("Boolean");
-		basicDataTypes.add("byte");
-		basicDataTypes.add("Byte");
-		basicDataTypes.add("char");
-		basicDataTypes.add("Character");
-		basicDataTypes.add("short");
-		basicDataTypes.add("Short");
-		basicDataTypes.add("int");
-		basicDataTypes.add("Integer");
-		basicDataTypes.add("long");
-		basicDataTypes.add("Long");
-		basicDataTypes.add("float");
-		basicDataTypes.add("Float");
-		basicDataTypes.add("double");
-		basicDataTypes.add("Double");
-		basicDataTypes.add("String");
+		BasicOLType typeMapper = new BasicOLType("Boolean", "JsArrayBoolean");
+		basicDataTypes.put("boolean", typeMapper);
+		basicDataTypes.put("Boolean", typeMapper);
+		typeMapper = new BasicOLType("Integer", "JsArrayInteger");
+		basicDataTypes.put("byte", typeMapper);
+		basicDataTypes.put("Byte", typeMapper);
+		basicDataTypes.put("short", typeMapper);
+		basicDataTypes.put("Short", typeMapper);
+		basicDataTypes.put("int", typeMapper);
+		basicDataTypes.put("Integer", typeMapper);
+		typeMapper = new BasicOLType("Long", "JsArrayNumber");
+		basicDataTypes.put("long", typeMapper);
+		basicDataTypes.put("Long", typeMapper);
+		typeMapper = new BasicOLType("Double", "JsArrayNumber");
+		basicDataTypes.put("float", typeMapper);
+		basicDataTypes.put("Float", typeMapper);
+		basicDataTypes.put("double", typeMapper);
+		basicDataTypes.put("Double", typeMapper);
+		typeMapper = new BasicOLType("String", "JsArrayString");
+		basicDataTypes.put("String", typeMapper);
+
 	}
 
 	/**
@@ -66,45 +72,43 @@ public class OverlayMojo extends AbstractMojo {
 	 * @required
 	 * @readonly
 	 */
-	private String						version;
+	private String									version;
 
 	/**
 	 * @parameter expression="${plugin.artifacts}"
 	 * @required
 	 * @readonly
 	 */
-	private Collection<Artifact>		pluginArtifacts;
+	private Collection<Artifact>					pluginArtifacts;
 
 	/**
 	 * @component
 	 */
-	protected ArtifactResolver			resolver;
+	protected ArtifactResolver						resolver;
 
 	/**
 	 * @component
 	 */
-	protected ArtifactFactory			artifactFactory;
-
-	// --- Some MavenSession related structures --------------------------------
+	protected ArtifactFactory						artifactFactory;
 
 	/**
 	 * @parameter expression="${localRepository}"
 	 * @required
 	 * @readonly
 	 */
-	protected ArtifactRepository		localRepository;
+	protected ArtifactRepository					localRepository;
 
 	/**
 	 * @parameter expression="${project.remoteArtifactRepositories}"
 	 * @required
 	 * @readonly
 	 */
-	protected List<ArtifactRepository>	remoteRepositories;
+	protected List<ArtifactRepository>				remoteRepositories;
 
 	/**
 	 * @component
 	 */
-	protected ArtifactMetadataSource	artifactMetadataSource;
+	protected ArtifactMetadataSource				artifactMetadataSource;
 
 	/**
 	 * The maven project descriptor
@@ -113,7 +117,7 @@ public class OverlayMojo extends AbstractMojo {
 	 * @required
 	 * @readonly
 	 */
-	private MavenProject				project;
+	private MavenProject							project;
 
 	// --- Plugin parameters ---------------------------------------------------
 
@@ -123,40 +127,40 @@ public class OverlayMojo extends AbstractMojo {
 	 * @parameter default-value="${project.build.directory}/generated-sources/gwt"
 	 * @required
 	 */
-	private File						generateDirectory;
+	private File									generateDirectory;
 
 	/**
 	 * Stop the build on error
 	 * 
 	 * @parameter default-value="true"
 	 */
-	private boolean						failOnError;
+	private boolean									failOnError;
 
 	/**
 	 * Path to include while scanning java classes
 	 * 
 	 * @parameter default-value=""
 	 */
-	private List<String>				includePath;
+	private List<String>							includePath;
 
 	/**
 	 * Destination overlyType package
 	 * 
 	 * @parameter default-value=""
 	 */
-	private String						targetPackage;
+	private String									targetPackage;
 
 	/**
 	 * Pattern for GWT service interface
 	 * 
 	 * @parameter default-value="false"
 	 */
-	private boolean						force;
+	private boolean									force;
 
 	/**
 	 * @parameter expression="${project.build.sourceEncoding}"
 	 */
-	private String						encoding;
+	private String									encoding;
 
 	/**
 	 * {@inheritDoc}
@@ -228,7 +232,7 @@ public class OverlayMojo extends AbstractMojo {
 			}
 			getLog().debug(targetFile.getAbsolutePath() + " is not upto date so need to generated");
 			String className = getTopLevelClassName(source);
-			getLog().debug("Top level class name => " + className );
+			getLog().debug("Top level class name => " + className);
 			JavaClass clazz = builder.getClassByName(className);
 			if (isEligibleForGeneration(clazz)) {
 				getLog().debug(clazz.getFullyQualifiedName() + " is eligible for overlay type generations");
@@ -304,12 +308,50 @@ public class OverlayMojo extends AbstractMojo {
 	private String getMappedField(JavaField field) throws Exception {
 
 		JavaClass jvCls = field.getType().getJavaClass();
-		if (basicDataTypes.contains(jvCls.getName())) {
-			return jvCls.getName();
+		String clsName = jvCls.getName();
+		if (basicDataTypes.containsKey(clsName)) {
+			BasicOLType basicType = basicDataTypes.get(clsName);
+			/*
+			 * Because some reason Thoughtworks library is not providing dimensions of the type so we are doing it on
+			 * our own
+			 */
+			if (field.getType().getGenericValue().contains("[")) {
+				StringBuffer str = new StringBuffer();
+				StringBuffer closingStr = new StringBuffer();
+				int index = field.getType().getGenericValue().indexOf('[', 0);
+				int dimensions = 0;
+				do {
+					dimensions++;
+					index = field.getType().getGenericValue().indexOf('[', index + 1);
+				} while (index != -1);
+				for (int i = 0; i < dimensions - 1; i++) {
+					str.append(JS_ARRAY + "<");
+					closingStr.append(">");
+				}
+				return str.toString() + basicType.getArrayType() + closingStr.toString();
+			}
+			return basicType.getOverlayType();
 		} else if (isEligibleForGeneration(jvCls)) {
-			return jvCls.getName() + "JS";
+			String finalClsName = jvCls.getName() + "JS";
+			/*
+			 * Because some reason Thoughtworks library is not providing dimensions of the type so we are doing it on
+			 * our own
+			 */
+			if (field.getType().getGenericValue().contains("[")) {
+				StringBuffer str = new StringBuffer();
+				StringBuffer closingStr = new StringBuffer();
+				int index = field.getType().getGenericValue().indexOf('[', 0);
+				do {
+					str.append(JS_ARRAY + "<");
+					closingStr.append(">");
+					index = field.getType().getGenericValue().indexOf('[', index + 1);
+				} while (index != -1);
+				return str.toString() + finalClsName + closingStr.toString();
+			}
+			return finalClsName;
 		} else {
-			throw new MojoExecutionException(jvCls.getFullyQualifiedName() + " is niether basic java data type nor it is OverlayType");
+			throw new MojoExecutionException(jvCls.getFullyQualifiedName() + " is niether basic java data type nor it is OverlayType.\n"
+					+ " Set,List and their implementaions are not supported instead use array.\n" + " Map is not supported.");
 		}
 	}
 
@@ -375,6 +417,31 @@ public class OverlayMojo extends AbstractMojo {
 			generateDirectory.mkdirs();
 		}
 		return generateDirectory;
+	}
+
+}
+
+class BasicOLType {
+	private String	overlayType;
+	private String	arrayType;
+
+	public BasicOLType(String overlayType, String arrayType) {
+		this.overlayType = overlayType;
+		this.arrayType = arrayType;
+	}
+
+	/**
+	 * @return the overlayType
+	 */
+	public String getOverlayType() {
+		return overlayType;
+	}
+
+	/**
+	 * @return the arrayType
+	 */
+	public String getArrayType() {
+		return arrayType;
 	}
 
 }

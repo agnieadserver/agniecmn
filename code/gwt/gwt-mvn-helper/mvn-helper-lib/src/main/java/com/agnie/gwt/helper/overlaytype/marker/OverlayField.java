@@ -10,7 +10,8 @@ import java.lang.annotation.Target;
 
 /**
  * Use this marker to mark the fields of pojo or bean class which is already marked with {@link OverlayType} annotation.
- * So that when overlay type is generated for the same getter and setter for the marked filed will be generated
+ * So that when overlay type is generated for the same getter and setter for the marked filed will be generated. Also
+ * you need to make sure properties are getting generated same as that of field name inside json
  * 
  */
 @Retention(RetentionPolicy.SOURCE)

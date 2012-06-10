@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -29,7 +30,7 @@ import com.agnie.common.util.validator.ValidatorFactory;
  * </ul>
  * 
  * Additionally one can attach constraints on the column like @NotNull. While iterating over the records if record is
- * found to be voilating constraints of any column. Then it will through the ConstraintViolationException
+ * found to be violating constraints of any column. Then it will through the ConstraintViolationException
  * 
  */
 public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
@@ -43,7 +44,7 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 	protected long					rowcount		= 0;
 
 	/**
-	 * Sub class of this class must call init() method a the end of the constructor to initalise the Iterator.
+	 * Sub class of this class must call init() method a the end of the constructor to initialise the Iterator.
 	 * 
 	 * @param cls
 	 * @throws IOException
@@ -53,7 +54,7 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 	}
 
 	/**
-	 * This will initialize the TableFileIterator with header values and meta data of the bean
+	 * This will initialise the TableFileIterator with header values and meta data of the bean
 	 * 
 	 * @throws IOException
 	 */
@@ -206,10 +207,14 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 	protected Object getParameter(Class paramCls, String token) {
 		if (token != null && !("".equals(token))) {
 			if (int.class.equals(paramCls) || Integer.class.equals(paramCls)) {
+				StringTokenizer st = new StringTokenizer(token, ".");
+				token = st.nextToken();
 				return Integer.parseInt(token);
 			} else if (float.class.equals(paramCls) || Float.class.equals(paramCls)) {
 				return Float.parseFloat(token);
 			} else if (long.class.equals(paramCls) || Long.class.equals(paramCls)) {
+				StringTokenizer st = new StringTokenizer(token, ".");
+				token = st.nextToken();
 				return Long.parseLong(token);
 			} else if (double.class.equals(paramCls) || Double.class.equals(paramCls)) {
 				return Double.parseDouble(token);

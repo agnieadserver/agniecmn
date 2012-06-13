@@ -14,7 +14,7 @@ public class NotNullValidator extends Validator {
 	}
 
 	public boolean validate(String value) {
-		return (value != null);
+		return (value != null && !("".equals(value)));
 	}
 
 }

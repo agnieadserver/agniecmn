@@ -3,22 +3,21 @@
  */
 package com.agnie.common.util.tablefile;
 
+import java.lang.annotation.Annotation;
 import java.util.List;
-
-import com.agnie.common.util.validator.Validator;
 
 public class ConstraintViolationException extends RuntimeException {
 
 	private String				header;
 	private long				linenumber;
-	private List<Validator>		failedConstraints;
+	private List<Annotation>	failedConstraints;
 
 	/**
      * 
      */
 	private static final long	serialVersionUID	= 1L;
 
-	public ConstraintViolationException(String header, long linenumber, List<Validator> failedConstraints) {
+	public ConstraintViolationException(String header, long linenumber, List<Annotation> failedConstraints) {
 		this.header = header;
 		this.failedConstraints = failedConstraints;
 		this.linenumber = linenumber;
@@ -34,7 +33,7 @@ public class ConstraintViolationException extends RuntimeException {
 	/**
 	 * @return the failedConstraints
 	 */
-	public List<Validator> getFailedConstraints() {
+	public List<Annotation> getFailedConstraints() {
 		return failedConstraints;
 	}
 
@@ -42,13 +41,13 @@ public class ConstraintViolationException extends RuntimeException {
 		StringBuffer resp = new StringBuffer();
 		if (failedConstraints != null) {
 			boolean first = true;
-			for (Validator con : failedConstraints) {
+			for (Annotation ann : failedConstraints) {
 				if (!first) {
 					resp.append(", ");
 				} else {
 					first = false;
 				}
-				resp.append(con.getConstraint().annotationType().getSimpleName());
+				resp.append(ann.annotationType().getSimpleName());
 			}
 		}
 		return resp.toString();

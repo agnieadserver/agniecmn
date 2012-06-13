@@ -8,7 +8,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.agnie.common.util.tablefile.CSVFileIterator;
-import com.agnie.common.util.tablefile.TableHeader;
 import com.agnie.common.util.validator.NotNull;
 
 /**
@@ -57,5 +56,29 @@ public class CSVIteratorTest {
 			Assert.assertTrue(false);
 		}
 	}
-}
 
+	@Test
+	public void csvFailConstraintTest() {
+		String doc = "\"Name\", \"Age\", \"LongData\", \"salary\" \n\"\", \"27\",\"323\",\"345.56\"";
+
+		BufferedReader reader = new BufferedReader(new StringReader(doc));
+		CSVFileIterator<SampleBean> itr;
+		try {
+			itr = new CSVFileIterator<SampleBean>(reader, SampleBean.class);
+			int count = 0;
+			SampleBean beanExpected = new SampleBean(null, 27, 323L, (float) 345.56);
+			while (itr.hasNext()) {
+				SampleBean beanActual = (SampleBean) itr.next();
+				Assert.assertEquals(beanExpected, beanActual);
+				Assert.assertEquals(false, itr.isLastBeanValidBean());
+				Assert.assertEquals(true, itr.getFailedConstraintsOnLastBean().containsKey("Name"));
+				Assert.assertEquals(NotNull.class, itr.getFailedConstraintsOnLastBean().get("Name").get(0).annotationType());
+				count++;
+			}
+			Assert.assertEquals(1, count);
+			Assert.assertTrue(true);
+		} catch (IOException e) {
+			Assert.assertTrue(false);
+		}
+	}
+}

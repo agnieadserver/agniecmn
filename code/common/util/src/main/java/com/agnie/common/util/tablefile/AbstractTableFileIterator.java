@@ -1,6 +1,7 @@
 package com.agnie.common.util.tablefile;
 
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -35,13 +36,15 @@ import com.agnie.common.util.validator.ValidatorFactory;
  */
 public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 
-	protected static final Log		logger			= LogFactory.getLog(AbstractTableFileIterator.class);
-	private List<String>			headerList		= new ArrayList<String>();
-	private boolean					tokenProduced	= false;
-	private Class<T>				cls;
-	private Map<Integer, MetaInfo>	methodMap		= new HashMap<Integer, MetaInfo>();
-	protected List<String>			nextTokens;
-	protected long					rowcount		= 0;
+	protected static final Log				logger					= LogFactory.getLog(AbstractTableFileIterator.class);
+	private List<String>					headerList				= new ArrayList<String>();
+	private boolean							tokenProduced			= false;
+	private Class<T>						cls;
+	private Map<Integer, MetaInfo>			methodMap				= new HashMap<Integer, MetaInfo>();
+	protected List<String>					nextTokens;
+	protected long							rowcount				= 0;
+	protected boolean						throwValidationErrors	= false;
+	protected Map<String, List<Annotation>>	lastBeanfailedConstraints;
 
 	/**
 	 * Sub class of this class must call init() method a the end of the constructor to initialise the Iterator.
@@ -50,7 +53,19 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 	 * @throws IOException
 	 */
 	public AbstractTableFileIterator(Class<T> cls) throws IOException {
+		this(cls, false);
+	}
+
+	/**
+	 * Sub class of this class must call init() method a the end of the constructor to initialise the Iterator.
+	 * 
+	 * @param cls
+	 * @param throwValidationErrors
+	 * @throws IOException
+	 */
+	public AbstractTableFileIterator(Class<T> cls, boolean throwValidationErrors) throws IOException {
 		this.cls = cls;
+		this.throwValidationErrors = throwValidationErrors;
 	}
 
 	/**
@@ -128,13 +143,14 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 	 */
 	private T getBean() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		T bean = cls.newInstance();
+		lastBeanfailedConstraints = new HashMap<String, List<Annotation>>();
 		for (int index = 0; index < headerList.size(); index++) {
 			MetaInfo meta = methodMap.get(index);
 			if (meta != null) {
 				String token = nextTokens.get(index);
 				List<Validator> validators = meta.getValidators();
-				List<Validator> failed = validate(validators, token);
-				if (failed == null) {
+				List<Annotation> failedConstraints = validate(validators, token);
+				if (failedConstraints == null) {
 					try {
 						populateBeanWithToken(meta.getMethod(), token, bean);
 					} catch (NumberFormatException e) {
@@ -142,7 +158,11 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 						throw new InvalidColumnValueException(headerList.get(index), rowcount, token, "NUMBER_EXPECTED");
 					}
 				} else {
-					throw new ConstraintViolationException(headerList.get(index), rowcount, failed);
+					if (throwValidationErrors) {
+						throw new ConstraintViolationException(headerList.get(index), rowcount, failedConstraints);
+					}
+					String property = meta.getMethod().getName().substring(3);
+					lastBeanfailedConstraints.put(property, failedConstraints);
 				}
 			}
 		}
@@ -162,15 +182,15 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 	 * @param token
 	 * @return
 	 */
-	private List<Validator> validate(List<Validator> validators, String token) {
-		List<Validator> failedValidators = new ArrayList<Validator>();
+	private List<Annotation> validate(List<Validator> validators, String token) {
+		List<Annotation> failedConstraints = new ArrayList<Annotation>();
 		if (validators != null && validators.size() > 0) {
 			for (Validator validator : validators) {
 				if (!validator.validate(token)) {
-					failedValidators.add(validator);
+					failedConstraints.add(validator.getConstraint());
 				}
 			}
-			return (failedValidators.size() > 0 ? failedValidators : null);
+			return (failedConstraints.size() > 0 ? failedConstraints : null);
 		}
 		return null;
 	}
@@ -276,6 +296,13 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 	 */
 	protected abstract void readTokens() throws IOException;
 
+	public boolean isLastBeanValidBean() {
+		return lastBeanfailedConstraints.isEmpty();
+	}
+
+	public Map<String, List<Annotation>> getFailedConstraintsOnLastBean() {
+		return lastBeanfailedConstraints;
+	}
 }
 
 /**

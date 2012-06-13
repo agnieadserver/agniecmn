@@ -6,7 +6,7 @@ import java.lang.annotation.Annotation;
  * Vallidator for @NotNull constraint
  * 
  */
-
+@Constraint(NotNull.class)
 public class NotNullValidator extends Validator {
 
 	public NotNullValidator(Annotation constraint) {

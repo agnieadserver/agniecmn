@@ -6,6 +6,7 @@ import java.lang.annotation.Annotation;
  * Validator for @MaximumLength constraint
  * 
  */
+@Constraint(MaximumLength.class)
 public class MaximumLengthValidator extends Validator {
 
 	private MaximumLength	maxConstraint;

@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
  * Validator for @RegularExp constraint
  * 
  */
+@Constraint(RegularExp.class)
 public class RegularExpValidator extends Validator {
 
 	private RegularExp	regularExpConstraint;

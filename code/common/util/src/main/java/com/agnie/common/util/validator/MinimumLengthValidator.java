@@ -6,6 +6,7 @@ import java.lang.annotation.Annotation;
  * Validator for @MinimumLength constraint
  * 
  */
+@Constraint(MinimumLength.class)
 public class MinimumLengthValidator extends Validator {
 
 	private MinimumLength	minConstraint;

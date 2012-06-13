@@ -43,5 +43,36 @@
 			<artifactId>poi</artifactId>
 			<version>3.8</version>
 		</dependency>
+		<!-- <dependency> <groupId>org.atteo</groupId> <artifactId>evo-classindex</artifactId> 
+			<version>0.6</version> </dependency> -->
+		<dependency>
+			<groupId>org.reflections</groupId>
+			<artifactId>reflections</artifactId>
+			<version>0.9.8</version>
+		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.reflections</groupId>
+				<artifactId>reflections-maven</artifactId>
+				<version>0.9.6</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>reflections</goal>
+						</goals>
+						<phase>process-classes</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>reflections-repo</id>
+			<name>Reflections Maven2 Repository</name>
+			<url>http://reflections.googlecode.com/svn/repo</url>
+		</pluginRepository>
+	</pluginRepositories>
 </project>

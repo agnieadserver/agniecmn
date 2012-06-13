@@ -8,32 +8,56 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.reflections.Reflections;
 
 /**
  * If you add new validator with its respective constraint annotation. Add the required mapping of constraint and its
  * respective validator here in this interface
  * 
  */
-@Mapper({ @Map(constraint = NotNull.class, validator = NotNullValidator.class), @Map(constraint = MinimumLength.class, validator = MinimumLengthValidator.class), @Map(constraint = MaximumLength.class, validator = MaximumLengthValidator.class), @Map(constraint = EMail.class, validator = EMailValidator.class), @Map(constraint = RegularExp.class, validator = RegularExpValidator.class) })
 public class ValidatorFactory {
-	protected static final Log																logger	= LogFactory.getLog(ValidatorFactory.class);
+	protected static final Log											logger		= LogFactory.getLog(ValidatorFactory.class);
 	/*
 	 * mapping map will hold the mapping between constraint created as a annotation and its respective validator
 	 */
-	private static java.util.Map<Class<? extends Annotation>, Class<? extends Validator>>	mapping	= new HashMap<Class<? extends Annotation>, Class<? extends Validator>>();
+	private static java.util.Map<Class<? extends Annotation>, Class<?>>	mapping		= new HashMap<Class<? extends Annotation>, Class<?>>();
+
+	private static ValidatorFactory										INSTANCE	= null;
+
+	private ValidatorFactory() {
+		initialize();
+	}
+
+	public static ValidatorFactory getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new ValidatorFactory();
+		}
+		return INSTANCE;
+	}
 
 	/**
-	 * Here mapper annotations are read and mapping configuration is initialised when first time this class is used.
+	 * Initializing mapping between constraint and respective validator
 	 */
-	static {
-		Mapper mapper = ValidatorFactory.class.getAnnotation(Mapper.class);
-		for (Map map : mapper.value()) {
-			mapping.put(map.constraint(), map.validator());
+	private void initialize() {
+		try {
+			Reflections reflections = new Reflections("com.agnie.common.util.validator");
+			Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(Constraint.class);
+			for (Class<?> klass : annotated) {
+				Constraint type = klass.getAnnotation(Constraint.class);
+				if (klass.getSuperclass().equals(Validator.class)) {
+					mapping.put(type.value(), klass);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
 		logger.info("Validator factory mapper got initialized");
+
 	}
 
 	/**
@@ -44,10 +68,10 @@ public class ValidatorFactory {
 	 */
 	private Validator getValidator(Annotation an) {
 		try {
-			Class<? extends Validator> validatorCls = mapping.get(an.annotationType());
+			Class<?> validatorCls = mapping.get(an.annotationType());
 			if (validatorCls != null) {
-				Constructor<? extends Validator> ctor = validatorCls.getDeclaredConstructor(Annotation.class);
-				Validator validator = ctor.newInstance(an);
+				Constructor<?> ctor = validatorCls.getDeclaredConstructor(Annotation.class);
+				Validator validator = (Validator) ctor.newInstance(an);
 				return validator;
 			} else {
 				/*

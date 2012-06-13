@@ -246,7 +246,7 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 					} else {
 						hedToken = methodName.substring(3);
 					}
-					ValidatorFactory valFactory = new ValidatorFactory();
+					ValidatorFactory valFactory = ValidatorFactory.getInstance();
 					List<Validator> validators = valFactory.getMethodValidator(meth);
 					boolean found = false;
 					for (int index = 0; index < headerList.size(); index++) {

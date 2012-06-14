@@ -61,6 +61,8 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 	 * 
 	 * @param cls
 	 * @param throwValidationErrors
+	 *            boolean flag which will indicate iterator. If it has to throw exception immediately or it has to
+	 *            collect those errors and provide it after record is retrieved.
 	 * @throws IOException
 	 */
 	public AbstractTableFileIterator(Class<T> cls, boolean throwValidationErrors) throws IOException {

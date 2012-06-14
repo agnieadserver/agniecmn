@@ -30,11 +30,19 @@ public class CSVFileIterator<T> extends AbstractTableFileIterator<T> {
 	private CSVReader			reader;
 
 	public CSVFileIterator(InputStream stream, Class<T> cls) throws IOException {
-		this(new InputStreamReader(stream), cls);
+		this(stream, cls, false);
+	}
+
+	public CSVFileIterator(InputStream stream, Class<T> cls, boolean throwValidationErrors) throws IOException {
+		this(new InputStreamReader(stream), cls, throwValidationErrors);
 	}
 
 	public CSVFileIterator(Reader reader, Class<T> cls) throws IOException {
-		super(cls);
+		this(reader, cls, false);
+	}
+
+	public CSVFileIterator(Reader reader, Class<T> cls, boolean throwValidationErrors) throws IOException {
+		super(cls, throwValidationErrors);
 		this.reader = new CSVReader(reader, au.com.bytecode.opencsv.CSVParser.DEFAULT_SEPARATOR, au.com.bytecode.opencsv.CSVParser.DEFAULT_QUOTE_CHARACTER, true);
 		init();
 	}

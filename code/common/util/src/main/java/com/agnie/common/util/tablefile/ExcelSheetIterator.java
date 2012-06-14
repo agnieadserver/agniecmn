@@ -30,7 +30,11 @@ public class ExcelSheetIterator<T> extends AbstractTableFileIterator<T> {
 	private Iterator<Row>		rowItr;
 
 	ExcelSheetIterator(HSSFSheet sheet, Class<T> cls) throws IOException {
-		super(cls);
+		this(sheet, cls, false);
+	}
+
+	ExcelSheetIterator(HSSFSheet sheet, Class<T> cls, boolean throwValidationErrors) throws IOException {
+		super(cls, throwValidationErrors);
 		this.sheet = sheet;
 		this.rowItr = sheet.rowIterator();
 

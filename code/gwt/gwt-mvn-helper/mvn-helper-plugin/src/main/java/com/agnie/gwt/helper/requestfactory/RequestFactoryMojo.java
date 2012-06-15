@@ -60,10 +60,21 @@ public class RequestFactoryMojo extends AbstractMojo {
 	protected final static String		MARKER_RF_PROXY_METHOD		= "com.agnie.gwt.helper.requestfactory.marker.RFProxyMethod";
 	protected final static String		MARKER_RF_SERVICE			= "com.agnie.gwt.helper.requestfactory.marker.RFService";
 
-	final static Map<String, String>	wrappers					= new HashMap<String, String>();
+	final static Set<String>			primitives					= new HashSet<String>();
 	final static Set<String>			supportedTypes				= new HashSet<String>();
+	final static Map<String, String>	wrappers					= new HashMap<String, String>();
 
 	static {
+		primitives.add("int");
+		primitives.add("long");
+		primitives.add("double");
+		primitives.add("float");
+		primitives.add("byte");
+		primitives.add("char");
+		primitives.add("short");
+		primitives.add("boolean");
+		primitives.add("void");
+
 		wrappers.put("int", "Integer");
 		wrappers.put("long", "Long");
 		wrappers.put("double", "Double");
@@ -73,6 +84,16 @@ public class RequestFactoryMojo extends AbstractMojo {
 		wrappers.put("short", "Short");
 		wrappers.put("boolean", "Boolean");
 		wrappers.put("void", "Void");
+
+		supportedTypes.add("Integer");
+		supportedTypes.add("Long");
+		supportedTypes.add("Double");
+		supportedTypes.add("Float");
+		supportedTypes.add("Byte");
+		supportedTypes.add("Character");
+		supportedTypes.add("Short");
+		supportedTypes.add("Boolean");
+		supportedTypes.add("Void");
 
 		supportedTypes.add("String");
 		supportedTypes.add("List");
@@ -431,7 +452,8 @@ public class RequestFactoryMojo extends AbstractMojo {
 					if (method.isStatic()) {
 						writer.print("	Request<" + getMappedType(method.getReturnType(), builder) + "> ");
 					} else {
-						writer.print("	InstanceRequest<" + getMappedType(clazz.asType(), builder) + ", " + getMappedType(method.getReturnType(), builder) + "> ");
+						String returnType = getMappedType(method.getReturnType(), builder);
+						writer.print("	InstanceRequest<" + getMappedType(clazz.asType(), builder) + ", " + (wrappers.containsKey(returnType) ? wrappers.get(returnType) : returnType) + "> ");
 					}
 					writer.print(" " + method.getName() + "(");
 					JavaParameter parameters[] = method.getParameters();
@@ -677,16 +699,21 @@ public class RequestFactoryMojo extends AbstractMojo {
 		JavaClass jvCls = type.getJavaClass();
 		String name = jvCls.getName();
 		String postFix = "";
+
+		/*
+		 * Thought works library has some bug if Or we are not using it properly. If we load array type from their
+		 * builder, it doesn't provide dimension information rather. So we need to calculate it on our own
+		 */
 		if (name.contains("[")) {
 			postFix = name.substring(name.indexOf('['), name.length());
 			name = name.substring(name.lastIndexOf('.') + 1, name.indexOf('['));
-			if (wrappers.containsKey(name)) {
-				return wrappers.get(name);
+			if (primitives.contains(name)) {
+				return name + postFix;
 			}
 			jvCls = getJavaClass(jvCls.getName().substring(0, jvCls.getName().indexOf('[')), builder);
 		}
-		if (wrappers.containsKey(name)) {
-			return wrappers.get(name);
+		if (primitives.contains(name)) {
+			return name;
 		}
 		for (Annotation an : jvCls.getAnnotations()) {
 			if (an.getType().getJavaClass().isA(MARKER_RF_VALUE_PROXY)) {
@@ -695,7 +722,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 				return targetProxyPackage + "." + name + RFType.ENTITY_PROXY.getPostFix() + postFix;
 			}
 		}
-		if (wrappers.values().contains(name) || supportedTypes.contains(name)) {
+		if (supportedTypes.contains(name)) {
 			if (jvCls.asType().getValue().startsWith("java.lang")) {
 				return name + postFix;
 			} else {

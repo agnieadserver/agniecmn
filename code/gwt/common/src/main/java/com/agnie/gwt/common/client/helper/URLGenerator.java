@@ -8,7 +8,7 @@ public class URLGenerator {
 	/*
 	 * TODO Initialize through maven build variables.
 	 */
-	public static final String	LOGIN_REQUEST	= "lactoasgsncwlfstowfabczx.jsp";
+	public static final String	LOGIN_REQUEST	= "login.jsp";
 	public static final String	MAIN_PAGE		= "useradmin.jsp";
 
 	private static boolean fillParams(StringBuffer url, URLInfo params) {

@@ -4,6 +4,7 @@
 
 package com.agnie.gwt.common.client.widget;
 
+import com.agnie.gwt.common.client.enums.Language;
 import com.agnie.gwt.common.client.enums.QueryString;
 import com.agnie.gwt.common.client.helper.URLGenerator;
 import com.agnie.gwt.common.client.helper.URLInfo;
@@ -27,12 +28,13 @@ public class LocaleListBox extends ListBox {
 		setName(QueryString.LOCALE.getKey());
 		String selectedLocale = Location.getParameter(QueryString.LOCALE.getKey());
 		if (selectedLocale == null || "".equals(selectedLocale)) {
-			selectedLocale = "en";
+			selectedLocale = Language.ENGLISH.getCode();
 		}
 
-		addItem("मराठी", "mr");
-		addItem("हिन्दी", "hi");
-		addItem("English", "en");
+		for (Language language : Language.values()) {
+			addItem(language.getLabel(), language.getCode());
+
+		}
 
 		int localeCount = getItemCount();
 		for (int index = 0; index < localeCount; index++) {

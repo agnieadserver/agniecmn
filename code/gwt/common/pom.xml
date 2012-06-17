@@ -82,6 +82,7 @@
 				</executions>
 				<configuration>
 					<cssFiles>
+						<cssFile>com/agnie/gwt/common/client/base/BasePageCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/GreenButtonCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/TabBarCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/WizardBarCss.css</cssFile>

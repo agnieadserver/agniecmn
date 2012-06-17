@@ -395,7 +395,8 @@ public class RequestFactoryMojo extends AbstractMojo {
 					if (method.isStatic()) {
 						throw new MojoExecutionException("static methods are not supported for @RFServiceMethod apply it only to member methods ");
 					} else {
-						writer.print("	Request<" + getMappedType(method.getReturnType(), builder) + "> ");
+						String returnType = getMappedType(method.getReturnType(), builder);
+						writer.print("	Request<" + (wrappers.containsKey(returnType) ? wrappers.get(returnType) : returnType) + "> ");
 					}
 					writer.print(" " + method.getName() + "(");
 					JavaParameter parameters[] = method.getParameters();
@@ -449,10 +450,10 @@ public class RequestFactoryMojo extends AbstractMojo {
 			for (Annotation flAn : method.getAnnotations()) {
 				if (flAn.getType().getJavaClass().isA(MARKER_RF_SERVICE_METHOD)) {
 					writer.println();
+					String returnType = getMappedType(method.getReturnType(), builder);
 					if (method.isStatic()) {
-						writer.print("	Request<" + getMappedType(method.getReturnType(), builder) + "> ");
+						writer.print("	Request<" + (wrappers.containsKey(returnType) ? wrappers.get(returnType) : returnType) + "> ");
 					} else {
-						String returnType = getMappedType(method.getReturnType(), builder);
 						writer.print("	InstanceRequest<" + getMappedType(clazz.asType(), builder) + ", " + (wrappers.containsKey(returnType) ? wrappers.get(returnType) : returnType) + "> ");
 					}
 					writer.print(" " + method.getName() + "(");
@@ -501,24 +502,26 @@ public class RequestFactoryMojo extends AbstractMojo {
 		writer.println("public interface " + clazz.getName() + RFType.VALUE_PROXY.getPostFix() + " extends ValueProxy {");
 		JavaMethod[] methods = clazz.getMethods(true);
 		for (JavaMethod method : methods) {
-			for (Annotation flAn : method.getAnnotations()) {
-				if (flAn.getType().getJavaClass().isA(MARKER_RF_PROXY_METHOD)) {
-					writer.println();
-					writer.print("	" + getMappedType(method.getReturnType(), builder) + " ");
-					writer.print(method.getName() + "(");
-					JavaParameter parameters[] = method.getParameters();
-					if (parameters != null && parameters.length > 0) {
-						boolean first = true;
-						for (JavaParameter param : parameters) {
-							if (first) {
-								first = false;
-							} else {
-								writer.print(", ");
+			if (!method.isStatic()) {
+				for (Annotation flAn : method.getAnnotations()) {
+					if (flAn.getType().getJavaClass().isA(MARKER_RF_PROXY_METHOD)) {
+						writer.println();
+						writer.print("	" + getMappedType(method.getReturnType(), builder) + " ");
+						writer.print(method.getName() + "(");
+						JavaParameter parameters[] = method.getParameters();
+						if (parameters != null && parameters.length > 0) {
+							boolean first = true;
+							for (JavaParameter param : parameters) {
+								if (first) {
+									first = false;
+								} else {
+									writer.print(", ");
+								}
+								writer.print(getMappedType(param.getType(), builder) + " " + param.getName());
 							}
-							writer.print(getMappedType(param.getType(), builder) + " " + param.getName());
 						}
+						writer.println(");");
 					}
-					writer.println(");");
 				}
 			}
 		}
@@ -554,24 +557,26 @@ public class RequestFactoryMojo extends AbstractMojo {
 		writer.println("public interface " + targetClsName + " extends EntityProxy {");
 		JavaMethod[] methods = clazz.getMethods(true);
 		for (JavaMethod method : methods) {
-			for (Annotation flAn : method.getAnnotations()) {
-				if (flAn.getType().getJavaClass().isA(MARKER_RF_PROXY_METHOD)) {
-					writer.println();
-					writer.print("	" + getMappedType(method.getReturnType(true), builder) + " ");
-					writer.print("	" + method.getName() + "(");
-					JavaParameter parameters[] = method.getParameters();
-					if (parameters != null && parameters.length > 0) {
-						boolean first = true;
-						for (JavaParameter param : parameters) {
-							if (first) {
-								first = false;
-							} else {
-								writer.print(",");
+			if (!method.isStatic()) {
+				for (Annotation flAn : method.getAnnotations()) {
+					if (flAn.getType().getJavaClass().isA(MARKER_RF_PROXY_METHOD)) {
+						writer.println();
+						writer.print("	" + getMappedType(method.getReturnType(true), builder) + " ");
+						writer.print("	" + method.getName() + "(");
+						JavaParameter parameters[] = method.getParameters();
+						if (parameters != null && parameters.length > 0) {
+							boolean first = true;
+							for (JavaParameter param : parameters) {
+								if (first) {
+									first = false;
+								} else {
+									writer.print(",");
+								}
+								writer.print(" " + getMappedType(param.getType(), builder) + " " + param.getName());
 							}
-							writer.print(" " + getMappedType(param.getType(), builder) + " " + param.getName());
 						}
+						writer.println(");");
 					}
-					writer.println(");");
 				}
 			}
 		}

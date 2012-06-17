@@ -59,6 +59,11 @@ public class TestService {
 		return null;
 	}
 
+	@RFServiceMethod
+	public int getSampleInteger() {
+		return 0;
+	}
+
 	/*
 	 * TODO: Need to take of situation of return type in below method
 	 */

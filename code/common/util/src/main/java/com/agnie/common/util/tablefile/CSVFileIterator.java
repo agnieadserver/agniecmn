@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,8 +28,9 @@ import au.com.bytecode.opencsv.CSVReader;
  */
 public class CSVFileIterator<T> extends AbstractTableFileIterator<T> {
 
-	protected static final Log	logger	= LogFactory.getLog(CSVFileIterator.class);
+	protected static final Log	logger				= LogFactory.getLog(CSVFileIterator.class);
 	private CSVReader			reader;
+	private ArrayList<String>	indexMappedHeaders	= new ArrayList<String>();
 
 	public CSVFileIterator(InputStream stream, Class<T> cls) throws IOException {
 		this(stream, cls, false);
@@ -44,7 +47,15 @@ public class CSVFileIterator<T> extends AbstractTableFileIterator<T> {
 	public CSVFileIterator(Reader reader, Class<T> cls, boolean throwValidationErrors) throws IOException {
 		super(cls, throwValidationErrors);
 		this.reader = new CSVReader(reader, au.com.bytecode.opencsv.CSVParser.DEFAULT_SEPARATOR, au.com.bytecode.opencsv.CSVParser.DEFAULT_QUOTE_CHARACTER, true);
-		init();
+
+		if (reader != null) {
+			String[] tokens = this.reader.readNext();
+			if (tokens != null) {
+				for (String token : tokens) {
+					indexMappedHeaders.add(token.trim());
+				}
+			}
+		}
 	}
 
 	/**
@@ -52,19 +63,19 @@ public class CSVFileIterator<T> extends AbstractTableFileIterator<T> {
 	 * 
 	 * @throws IOException
 	 */
-	protected void readTokens() throws IOException {
-		nextTokens = new ArrayList<String>();
+	protected Map<String, String> readTokens() throws IOException {
+		Map<String, String> colMapedTokens = null;
 		if (reader != null) {
 			String[] tokens = reader.readNext();
 			if (tokens != null) {
-				for (String token : tokens) {
-					nextTokens.add(token.trim());
+				colMapedTokens = new HashMap<String, String>();
+				for (int index = 0; index < tokens.length; index++) {
+					colMapedTokens.put(indexMappedHeaders.get(index), tokens[index]);
 				}
-			} else {
-				nextTokens = null;
 			}
 		}
 		rowcount++;
+		return colMapedTokens;
 	}
 
 }

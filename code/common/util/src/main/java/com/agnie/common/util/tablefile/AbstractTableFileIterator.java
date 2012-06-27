@@ -31,19 +31,19 @@ import com.agnie.common.util.validator.ValidatorFactory;
  * </ul>
  * 
  * Additionally one can attach constraints on the column like @NotNull. While iterating over the records if record is
- * found to be violating constraints of any column. Then it will through the ConstraintViolationException
+ * found to be violating constraints of any column. Then it will either throw ConstraintViolationException or it can
+ * keep the list of violating constraints and return it when it is asked. It is configurable when you are instantiating
+ * the TableFileIterator.
  * 
  */
 public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 
 	protected static final Log				logger					= LogFactory.getLog(AbstractTableFileIterator.class);
-	private List<String>					headerList				= new ArrayList<String>();
 	private boolean							tokenProduced			= false;
 	private Class<T>						cls;
-	private Map<Integer, MetaInfo>			methodMap				= new HashMap<Integer, MetaInfo>();
-	protected List<String>					nextTokens;
 	protected long							rowcount				= 0;
 	protected boolean						throwValidationErrors	= false;
+	protected Map<String, String>			nextTokens				= null;
 	protected Map<String, List<Annotation>>	lastBeanfailedConstraints;
 
 	/**
@@ -68,18 +68,6 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 	public AbstractTableFileIterator(Class<T> cls, boolean throwValidationErrors) throws IOException {
 		this.cls = cls;
 		this.throwValidationErrors = throwValidationErrors;
-	}
-
-	/**
-	 * This will initialise the TableFileIterator with header values and meta data of the bean
-	 * 
-	 * @throws IOException
-	 */
-	protected void init() throws IOException {
-		readTokens();
-		headerList = nextTokens;
-		tokenProduced = false;
-		processMeta();
 	}
 
 	/**
@@ -144,30 +132,9 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 	 * @throws InvocationTargetException
 	 */
 	private T getBean() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		T bean = cls.newInstance();
+		
 		lastBeanfailedConstraints = new HashMap<String, List<Annotation>>();
-		for (int index = 0; index < headerList.size(); index++) {
-			MetaInfo meta = methodMap.get(index);
-			if (meta != null) {
-				String token = nextTokens.get(index);
-				List<Validator> validators = meta.getValidators();
-				List<Annotation> failedConstraints = validate(validators, token);
-				if (failedConstraints == null) {
-					try {
-						populateBeanWithToken(meta.getMethod(), token, bean);
-					} catch (NumberFormatException e) {
-						logger.error("error while setting value for column '" + meta.getMethod().getName() + "' expected number, actual value =\"" + token + "\"", e);
-						throw new InvalidColumnValueException(headerList.get(index), rowcount, token, "NUMBER_EXPECTED");
-					}
-				} else {
-					if (throwValidationErrors) {
-						throw new ConstraintViolationException(headerList.get(index), rowcount, failedConstraints);
-					}
-					String property = meta.getMethod().getName().substring(3);
-					lastBeanfailedConstraints.put(property, failedConstraints);
-				}
-			}
-		}
+		
 		return bean;
 	}
 
@@ -197,98 +164,6 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 		return null;
 	}
 
-	/**
-	 * This will populate individual properties of the bean with the given token by converting it into required types.
-	 * 
-	 * @param method
-	 * @param token
-	 * @param bean
-	 * @throws IllegalArgumentException
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
-	 */
-	@SuppressWarnings("rawtypes")
-	private void populateBeanWithToken(Method method, String token, T bean) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
-		if (token != null && !("".equals(token))) {
-			Class paramCls = method.getParameterTypes()[0];
-			Object[] param = { getParameter(paramCls, token) };
-			method.invoke(bean, param);
-		}
-	}
-
-	/**
-	 * This will do the job of converting individual token to the required type as per the bean. Currently this method
-	 * takes care of converting only primitive and String type. If one need to add some more type it can be done by
-	 * overriding this method.
-	 * 
-	 * @param paramCls
-	 * @param token
-	 * @return
-	 */
-	@SuppressWarnings("rawtypes")
-	protected Object getParameter(Class paramCls, String token) {
-		if (token != null && !("".equals(token))) {
-			if (int.class.equals(paramCls) || Integer.class.equals(paramCls)) {
-				StringTokenizer st = new StringTokenizer(token, ".");
-				token = st.nextToken();
-				return Integer.parseInt(token);
-			} else if (float.class.equals(paramCls) || Float.class.equals(paramCls)) {
-				return Float.parseFloat(token);
-			} else if (long.class.equals(paramCls) || Long.class.equals(paramCls)) {
-				StringTokenizer st = new StringTokenizer(token, ".");
-				token = st.nextToken();
-				return Long.parseLong(token);
-			} else if (double.class.equals(paramCls) || Double.class.equals(paramCls)) {
-				return Double.parseDouble(token);
-			} else if (boolean.class.equals(paramCls) || Boolean.class.equals(paramCls)) {
-				return Boolean.parseBoolean(token);
-			} else {
-				return token;
-			}
-		} else {
-			logger.error("There is no convertor avaialble for class '" + paramCls.getCanonicalName()
-					+ "' You need to extend your TableFileIteraotr and extend getParameter method to support new data type");
-			return null;
-		}
-	}
-
-	/**
-	 * This method will read the header list and identify the mapping between bean property and TableHeader.
-	 * 
-	 */
-	private void processMeta() {
-		for (Method meth : cls.getMethods()) {
-			String methodName = meth.getName();
-			if (methodName.startsWith("set")) {
-				String hedToken = "";
-				TableHeader hed = meth.getAnnotation(TableHeader.class);
-				if (hed != null) {
-					if (!("".equals(hed.name()))) {
-						hedToken = hed.name();
-					} else {
-						hedToken = methodName.substring(3);
-					}
-					ValidatorFactory valFactory = ValidatorFactory.getInstance();
-					List<Validator> validators = valFactory.getMethodValidator(meth);
-					boolean found = false;
-					for (int index = 0; index < headerList.size(); index++) {
-						String csvHead = headerList.get(index);
-						if (hedToken.equals(csvHead)) {
-							methodMap.put(index, new MetaInfo(meth, validators));
-							found = true;
-						}
-					}
-					if (!found) {
-						/**
-						 * TODO: throw and exception for not finding the matching setter for the given bean. or just log
-						 * the messsage
-						 */
-						logger.debug("CSV matching cloumn header not found for property \"" + hedToken + "\"");
-					}
-				}
-			}
-		}
-	}
 
 	/**
 	 * Abstract method to read one line of file and separate every column value as a token and populate it in to
@@ -296,7 +171,7 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 	 * 
 	 * @throws IOException
 	 */
-	protected abstract void readTokens() throws IOException;
+	protected abstract Map<String, String> readTokens() throws IOException;
 
 	public boolean isLastBeanValidBean() {
 		return lastBeanfailedConstraints.isEmpty();
@@ -307,35 +182,3 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 	}
 }
 
-/**
- * Supplementary class to AbstractTableFileIterator to keep method and validators information against Header.
- * 
- */
-class MetaInfo {
-	private Method			method;
-	private List<Validator>	validators;
-
-	/**
-	 * @param method
-	 * @param validators
-	 */
-	public MetaInfo(Method method, List<Validator> validators) {
-		this.method = method;
-		this.validators = validators;
-	}
-
-	/**
-	 * @return the method
-	 */
-	public Method getMethod() {
-		return method;
-	}
-
-	/**
-	 * @return the validators
-	 */
-	public List<Validator> getValidators() {
-		return validators;
-	}
-
-}

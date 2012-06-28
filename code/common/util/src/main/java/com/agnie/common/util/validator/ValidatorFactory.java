@@ -15,8 +15,7 @@ import org.apache.commons.logging.LogFactory;
 import org.reflections.Reflections;
 
 /**
- * If you add new validator with its respective constraint annotation. Add the required mapping of constraint and its
- * respective validator here in this interface
+ * factory to retrieve respective validator for given constraint.
  * 
  */
 public class ValidatorFactory {
@@ -44,6 +43,7 @@ public class ValidatorFactory {
 	 */
 	private void initialize() {
 		try {
+			// TODO: Need to explore more on how to add more package to scan dynamically.
 			Reflections reflections = new Reflections("com.agnie.common.util.validator");
 			Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(Constraint.class);
 			for (Class<?> klass : annotated) {

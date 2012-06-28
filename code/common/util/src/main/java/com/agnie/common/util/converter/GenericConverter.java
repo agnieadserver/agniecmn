@@ -4,10 +4,9 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -15,42 +14,39 @@ import org.apache.poi.ss.formula.functions.T;
 
 import com.agnie.common.util.tablefile.ConstraintViolationException;
 import com.agnie.common.util.tablefile.InvalidColumnValueException;
-import com.agnie.common.util.tablefile.TableHeader;
 import com.agnie.common.util.validator.Validator;
-import com.agnie.common.util.validator.ValidatorFactory;
 
 public class GenericConverter<B> {
-	protected static final Log		logger		= LogFactory.getLog(GenericConverter.class);
+	private static final Log								logger	= LogFactory.getLog(GenericConverter.class);
 
-	protected Map<String, MetaInfo>	methodMap	= new HashMap<String, MetaInfo>();
+	private static final Map<Class<T>, GenericConverter<T>>	map		= new HashMap<Class<T>, GenericConverter<T>>();
 
-	protected Class<B>				cls;
+	private TypeInfo										metaInfo;
 
-	protected GenericConverter(Map<String, MetaInfo> methodMap, Class<B> cls) {
-		this.methodMap = methodMap;
-		this.cls = cls;
+	protected Class<B>										cls;
 
-		methodMap = new HashMap<String, MetaInfo>();
-
-		for (Method meth : cls.getMethods()) {
-			String methodName = meth.getName();
-			if (methodName.startsWith("set")) {
-				// Here it is assumed every setter will have single parameter, Passed entity need to pure java bean.
-				Class<?> field = meth.getParameterTypes()[0];
-				String hedToken = "";
-				TableHeader hed = meth.getAnnotation(TableHeader.class);
-				if (hed != null) {
-					if (!("".equals(hed.name()))) {
-						hedToken = hed.name();
-					} else {
-						hedToken = methodName.substring(3);
-					}
-					ValidatorFactory valFactory = ValidatorFactory.getInstance();
-					List<Validator> validators = valFactory.getMethodValidator(meth);
-					methodMap.put(hedToken.toLowerCase(), new MetaInfo(meth, validators, field));
-				}
-			}
+	public static GenericConverter<T> getConverter(Class<T> cls) {
+		GenericConverter<T> converter = map.get(cls);
+		if (converter == null) {
+			converter = new GenericConverter<T>(cls);
+			map.put(cls, converter);
 		}
+		converter.metaInfo = new TypeInfo(cls);
+		return converter;
+	}
+
+	protected static GenericConverter<T> getConverter(Class<T> cls, TypeInfo info) {
+		GenericConverter<T> converter = map.get(cls);
+		if (converter == null) {
+			converter = new GenericConverter<T>(cls);
+			map.put(cls, converter);
+		}
+		converter.metaInfo = info;
+		return converter;
+	}
+
+	protected GenericConverter(Class<B> cls) {
+		this.cls = cls;
 	}
 
 	public B getBean(List<Map<String, String>> rowTokens) {
@@ -89,12 +85,21 @@ public class GenericConverter<B> {
 		}
 	}
 
-	private Map<String, Object> getInShape(List<Map<String, String>> rowTokens) {
-		Map<String, Object> tokens = new HashMap<String, Object>();
-		for (String key : methodMap.keySet()) {
-			MetaInfo meta = methodMap.get(key);
-			if
+	private Map<String, ? extends Object> getInShape(List<Map<String, String>> rowTokens) {
+		Map<String, ? extends Object> tokens = new HashMap<String, Object>();
+		if (metaInfo.containsCollectionType() || metaInfo.containsMultiColumnType()) {
+			Iterator<TypeInfo> itrProperties = metaInfo.getImmidiateAllPropertiesIterator();
+			while (itrProperties.hasNext()) {
+				TypeInfo property = itrProperties.next();
+				// single column type and not collection type
+				if (!property.isMultiColumnType() && !property.isCollectionType()) {
+//					tokens.put(property.getHeaderName(), value)
+				}
+			}
+		} else {
+			tokens = rowTokens.get(0);
 		}
+		return tokens;
 	}
 
 	/**
@@ -114,90 +119,6 @@ public class GenericConverter<B> {
 			Object[] param = { getParameter(paramCls, token) };
 			method.invoke(bean, param);
 		}
-	}
-
-	/**
-	 * This will do the job of converting individual token to the required type as per the bean. Currently this method
-	 * takes care of converting only primitive and String type. If one need to add some more type it can be done by
-	 * overriding this method.
-	 * 
-	 * @param paramCls
-	 * @param token
-	 * @return
-	 */
-	@SuppressWarnings("rawtypes")
-	protected Object getParameter(Class paramCls, String token) {
-		if (token != null && !("".equals(token))) {
-			if (int.class.equals(paramCls) || Integer.class.equals(paramCls)) {
-				StringTokenizer st = new StringTokenizer(token, ".");
-				token = st.nextToken();
-				return Integer.parseInt(token);
-			} else if (float.class.equals(paramCls) || Float.class.equals(paramCls)) {
-				return Float.parseFloat(token);
-			} else if (long.class.equals(paramCls) || Long.class.equals(paramCls)) {
-				StringTokenizer st = new StringTokenizer(token, ".");
-				token = st.nextToken();
-				return Long.parseLong(token);
-			} else if (double.class.equals(paramCls) || Double.class.equals(paramCls)) {
-				return Double.parseDouble(token);
-			} else if (boolean.class.equals(paramCls) || Boolean.class.equals(paramCls)) {
-				return Boolean.parseBoolean(token);
-			} else {
-				return token;
-			}
-		} else {
-			logger.error("There is no convertor avaialble for class '" + paramCls.getCanonicalName()
-					+ "' You need to extend your TableFileIteraotr and extend getParameter method to support new data type");
-			return null;
-		}
-	}
-
-}
-
-/**
- * Supplementary class to AbstractTableFileIterator to keep method and validators information against Column Header
- * Name.
- * 
- */
-class MetaInfo {
-	private Method			method;
-	private List<Validator>	validators;
-	private Class<?>		field;
-
-	/**
-	 * @param method
-	 * @param validators
-	 * @param field
-	 */
-	MetaInfo(Method method, List<Validator> validators, Class<?> field) {
-		this.method = method;
-		this.validators = validators;
-		this.field = field;
-	}
-
-	/**
-	 * @return the method
-	 */
-	public Method getMethod() {
-		return method;
-	}
-
-	/**
-	 * @return the validators
-	 */
-	public List<Validator> getValidators() {
-		return validators;
-	}
-
-	public boolean isListTypeParameter() {
-		return List.class.equals(field) || Set.class.equals(field) || field.isArray();
-	}
-
-	/**
-	 * @return the field
-	 */
-	public Class<?> getParameterType() {
-		return field;
 	}
 
 }

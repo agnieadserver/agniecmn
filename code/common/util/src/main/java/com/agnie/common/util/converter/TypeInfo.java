@@ -17,17 +17,18 @@ public class TypeInfo {
 	private Map<String, TypeInfo>	propertyMapping		= new HashMap<String, TypeInfo>();
 	private boolean					collectionType		= false;
 	private boolean					multiColumn			= false;
+	private String					headerName;
 	private Method					method;
 	private List<Validator>			validators;
 	private List<String>			singleColumnHeaders	= new ArrayList<String>();
 	private List<TypeInfo>			childs				= new ArrayList<TypeInfo>();
 
-	public TypeInfo(Class<?> cls, Method method, List<Validator> validators) {
-		this(cls, false, method, validators);
+	public TypeInfo(Class<?> cls, Method method, List<Validator> validators, String headerName) {
+		this(cls, false, method, validators, headerName);
 	}
 
-	public TypeInfo(Class<?> cls, boolean collectionType, Method method) {
-		this(cls, collectionType, method, null);
+	public TypeInfo(Class<?> cls, boolean collectionType, Method method, String headerName) {
+		this(cls, collectionType, method, null, headerName);
 	}
 
 	/**
@@ -36,17 +37,17 @@ public class TypeInfo {
 	 * @param cls
 	 */
 	public TypeInfo(Class<?> cls) {
-		this(cls, false, null, null);
+		this(cls, false, null, null, null);
 	}
 
-	public TypeInfo(Class<?> cls, boolean collectionType, Method method, List<Validator> validators) {
+	public TypeInfo(Class<?> cls, boolean collectionType, Method method, List<Validator> validators, String headerName) {
 		super();
 		this.cls = cls;
 		this.collectionType = collectionType;
 		this.multiColumn = checkIfMultiColumn(cls);
 		this.method = method;
 		this.validators = validators;
-
+		this.headerName = headerName;
 		/*
 		 * if input type is of mutlicolumn then only explore its methods
 		 */
@@ -74,7 +75,7 @@ public class TypeInfo {
 						if (!checkIfMultiColumn(paramType)) {
 							ValidatorFactory valFactory = ValidatorFactory.getInstance();
 							List<Validator> valids = valFactory.getMethodValidator(meth);
-							propertyMapping.put(hedToken, new TypeInfo(paramType, meth, valids));
+							propertyMapping.put(hedToken, new TypeInfo(paramType, meth, valids, hedToken));
 							singleColumnHeaders.add(hedToken);
 						} else {
 							/*
@@ -82,20 +83,20 @@ public class TypeInfo {
 							 */
 
 							String property = methodName.substring(3);
-							TypeInfo child = new TypeInfo(paramType, false, meth);
+							TypeInfo child = new TypeInfo(paramType, false, meth, property);
 							propertyMapping.put(property, child);
 							childs.add(child);
 						}
 					} else if (methodName.startsWith("add")) {
 						if (!checkIfMultiColumn(paramType)) {
-							propertyMapping.put(hedToken, new TypeInfo(paramType, true, meth, null));
+							propertyMapping.put(hedToken, new TypeInfo(paramType, true, meth, null, hedToken));
 							singleColumnHeaders.add(hedToken);
 						} else {
 							/*
 							 * In case of multiple column type TableHeader annotation will be ignored
 							 */
 							String property = methodName.substring(3);
-							TypeInfo child = new TypeInfo(paramType, true, method, null);
+							TypeInfo child = new TypeInfo(paramType, true, method, null, property);
 							propertyMapping.put(property, child);
 							childs.add(child);
 						}
@@ -148,6 +149,38 @@ public class TypeInfo {
 		return singleColumnHeaders;
 	}
 
+	public String getHeaderName() {
+		return headerName;
+	}
+
+	public boolean containsCollectionType() {
+		if (childs == null || childs.isEmpty()) {
+			return false;
+		}
+
+		for (TypeInfo info : childs) {
+			if (info.isCollectionType())
+				return true;
+			if (info.containsCollectionType())
+				return true;
+		}
+		return false;
+	}
+
+	public boolean containsMultiColumnType() {
+		if (childs == null || childs.isEmpty()) {
+			return false;
+		}
+
+		for (TypeInfo info : childs) {
+			if (info.isMultiColumnType())
+				return true;
+			if (info.containsMultiColumnType())
+				return true;
+		}
+		return false;
+	}
+
 	public List<String> getAllSingleColumnList() {
 		if (childs == null || childs.isEmpty()) {
 			return singleColumnHeaders;
@@ -160,8 +193,8 @@ public class TypeInfo {
 		}
 	}
 
-	public Iterator<String> getImmidiateAllPropertiesIterator() {
-		return propertyMapping.keySet().iterator();
+	public Iterator<TypeInfo> getImmidiateAllPropertiesIterator() {
+		return propertyMapping.values().iterator();
 	}
 
 	/**

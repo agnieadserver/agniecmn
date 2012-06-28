@@ -34,10 +34,10 @@ public class TypeInfoTest {
 		Assert.assertEquals(1, directSingleCols.size());
 		List<String> allSingleCols = info.getAllSingleColumnList();
 		Assert.assertEquals(4, allSingleCols.size());
-		Iterator<String> allDirectProperties = info.getImmidiateAllPropertiesIterator();
+		Iterator<TypeInfo> allDirectProperties = info.getImmidiateAllPropertiesIterator();
 		int count = 0;
 		for (; allDirectProperties.hasNext();) {
-			String string = (String) allDirectProperties.next();
+			TypeInfo info1 = allDirectProperties.next();
 			count++;
 
 		}

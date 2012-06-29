@@ -3,6 +3,7 @@ package com.agnie.common.util.converter;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -51,23 +52,25 @@ public class GenericConverter<B> {
 
 	public B getBean(List<Map<String, String>> rowTokens) {
 
-		// Below commented code has kept just for reference
-		// Method m;
-		// Type[] genericParameterTypes = m.getGenericParameterTypes();
-		// for (int i = 0; i < genericParameterTypes.length; i++) {
-		// if( genericParameterTypes[i] instanceof ParameterizedType ) {
-		// Type[] parameters = ((ParameterizedType)genericParameterTypes[i]).getActualTypeArguments();
-		// //parameters[0] contains java.lang.String for method like "method(List<String> value)"
-		//
-		// }
-		// }
-
+		Map<String, ? extends Object> map = getInShape(rowTokens);
+		Iterator<TypeInfo> itrProperties = metaInfo.getImmidiateAllPropertiesIterator();
 		B bean = cls.newInstance();
-		MetaInfo meta = methodMap.get(index);
-		if (meta != null) {
+		while (itrProperties.hasNext()) {
+			TypeInfo property = itrProperties.next();
+			if (property.isMultiColumnType() && property.isCollectionType()) {
+				// Multicolumn type and of collection type
+			} else if (property.isMultiColumnType()) {
+				// Multicolumn type but not collection type
+			} else if (property.isCollectionType()) {
+				// Single column collection type
+			} else {
+				// single column type and not collection type
+				String token = (String)map.get(property.getHeaderName());
+				List<Validator> validators = meta.getValidators();
+				List<Annotation> failedConstraints = validate(validators, token);
+			}
+		}
 			String token = nextTokens.get(index);
-			List<Validator> validators = meta.getValidators();
-			List<Annotation> failedConstraints = validate(validators, token);
 			if (failedConstraints == null) {
 				try {
 					populateBeanWithToken(meta.getMethod(), token, bean);
@@ -85,19 +88,46 @@ public class GenericConverter<B> {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	private Map<String, ? extends Object> getInShape(List<Map<String, String>> rowTokens) {
-		Map<String, ? extends Object> tokens = new HashMap<String, Object>();
+		Map tokens = new HashMap();
 		if (metaInfo.containsCollectionType() || metaInfo.containsMultiColumnType()) {
-			Iterator<TypeInfo> itrProperties = metaInfo.getImmidiateAllPropertiesIterator();
-			while (itrProperties.hasNext()) {
-				TypeInfo property = itrProperties.next();
-				// single column type and not collection type
-				if (!property.isMultiColumnType() && !property.isCollectionType()) {
-//					tokens.put(property.getHeaderName(), value)
+
+			/*
+			 * Iterate over every row tokens mapped with column header name Retrieve all single column header and add it
+			 * against given property/column header. Then Iterate over multicolumn types and take out row records which
+			 * are specific to given multicolumn type
+			 */
+
+			boolean first = true;
+			List<TypeInfo> childs = metaInfo.getChilds();
+			for (TypeInfo child : childs) {
+				tokens.put(child.getHeaderName(), new ArrayList<Map<String, String>>());
+			}
+			for (Map<String, String> map : rowTokens) {
+				if (first) {
+					// Here we assume that single column tokens will be there only in first row.
+					List<String> singColList = metaInfo.getImmidiateSingleColumnList();
+					for (String header : singColList) {
+						tokens.put(header, map.get(header));
+					}
+					first = false;
+					for (TypeInfo child : childs) {
+						((List<Map<String, String>>) tokens.get(child.getHeaderName())).add(retirveMultiColumnTokens(map, child));
+					}
 				}
+
 			}
 		} else {
 			tokens = rowTokens.get(0);
+		}
+		return tokens;
+	}
+
+	private static Map<String, String> retirveMultiColumnTokens(Map<String, String> map, TypeInfo type) {
+		Map<String, String> tokens = new HashMap<String, String>();
+		for (String header : type.getAllSingleColumnList()) {
+			tokens.put(header, map.get(header));
 		}
 		return tokens;
 	}

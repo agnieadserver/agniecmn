@@ -198,6 +198,15 @@ public class TypeInfo {
 	}
 
 	/**
+	 * This would return a Iterator to iterate over all multicolumn Types
+	 * 
+	 * @return
+	 */
+	public List<TypeInfo> getChilds() {
+		return childs;
+	}
+
+	/**
 	 * Retrieve TypeInfo instance for given column header be it direct or inner child.
 	 * 
 	 * @param header

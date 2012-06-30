@@ -10,6 +10,7 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import com.agnie.common.util.converter.MultiColumnType;
+import com.agnie.common.util.validator.NotNull;
 
 public class TokenProcessorTest {
 
@@ -29,6 +30,41 @@ public class TokenProcessorTest {
 		Assert.assertEquals(expected, actual);
 
 	}
+
+	@Test
+	public void constraintTest() {
+		TokenProcessor<SampleBean> processor = TokenProcessorFactory.getConverter(SampleBean.class, false);
+		Map<String, String> row = new HashMap<String, String>();
+		row.put("Lname", "Patil");
+		row.put("Age", "30");
+		List<Map<String, String>> rowTokens = new ArrayList<Map<String, String>>();
+		rowTokens.add(row);
+		SampleBean actual = processor.getBean(rowTokens);
+		SampleBean expected = new SampleBean();
+		expected.setLname("Patil");
+		expected.setAge(30);
+		Assert.assertEquals(expected, actual);
+		ErrorMapping error = actual.getError("Fname");
+		Assert.assertEquals("constraint.notnull.fail", error.getErrors().get(0));
+	}
+
+	@Test
+	public void invalidInputTest() {
+		TokenProcessor<SampleBean> processor = TokenProcessorFactory.getConverter(SampleBean.class, false);
+		Map<String, String> row = new HashMap<String, String>();
+		row.put("Fname", "Pranoti");
+		row.put("Lname", "Patil");
+		row.put("Age", "sbcd");
+		List<Map<String, String>> rowTokens = new ArrayList<Map<String, String>>();
+		rowTokens.add(row);
+		SampleBean actual = processor.getBean(rowTokens);
+		SampleBean expected = new SampleBean();
+		expected.setFname("Pranoti");
+		expected.setLname("Patil");
+		Assert.assertEquals(expected, actual);
+		ErrorMapping error = actual.getError("Age");
+		Assert.assertEquals("invalid.number.format", error.getErrors().get(0));
+	}
 }
 
 @MultiColumnType
@@ -36,6 +72,7 @@ class SampleBean implements TableBean {
 
 	private String	fname;
 	private String	lname;
+	private float	age;
 
 	/**
 	 * @return the fname
@@ -48,6 +85,7 @@ class SampleBean implements TableBean {
 	 * @param fname
 	 *            the fname to set
 	 */
+	@NotNull
 	public void setFname(String fname) {
 		this.fname = fname;
 	}
@@ -63,14 +101,34 @@ class SampleBean implements TableBean {
 	 * @param lname
 	 *            the lname to set
 	 */
+	@NotNull
 	public void setLname(String lname) {
 		this.lname = lname;
+	}
+
+	/**
+	 * @return the age
+	 */
+	public float getAge() {
+		return age;
+	}
+
+	/**
+	 * @param age
+	 *            the age to set
+	 */
+	public void setAge(float age) {
+		this.age = age;
 	}
 
 	private Map<String, ErrorMapping>	errors	= new HashMap<String, ErrorMapping>();
 
 	public void insertError(String property, String value, List<String> errors) {
 		this.errors.put(property, new ErrorMapping(value, errors));
+	}
+
+	public ErrorMapping getError(String property) {
+		return errors.get(property);
 	}
 
 	/*
@@ -82,6 +140,7 @@ class SampleBean implements TableBean {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + Float.floatToIntBits(age);
 		result = prime * result + ((fname == null) ? 0 : fname.hashCode());
 		result = prime * result + ((lname == null) ? 0 : lname.hashCode());
 		return result;
@@ -101,6 +160,8 @@ class SampleBean implements TableBean {
 		if (getClass() != obj.getClass())
 			return false;
 		SampleBean other = (SampleBean) obj;
+		if (Float.floatToIntBits(age) != Float.floatToIntBits(other.age))
+			return false;
 		if (fname == null) {
 			if (other.fname != null)
 				return false;

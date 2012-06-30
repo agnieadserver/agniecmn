@@ -166,7 +166,7 @@ public class TokenProcessor<B> {
 		if (validators != null && validators.size() > 0) {
 			for (Validator validator : validators) {
 				if (!validator.validate(token)) {
-					failedConstraints.add("constraint." + validator.getConstraint().annotationType().getSimpleName() + ".fail");
+					failedConstraints.add("constraint." + validator.getConstraint().annotationType().getSimpleName().toLowerCase() + ".fail");
 				}
 			}
 			return (failedConstraints.size() > 0 ? failedConstraints : null);

@@ -13,17 +13,23 @@ public class InvalidColumnValueException extends RuntimeException {
      */
 	private static final long	serialVersionUID	= 1L;
 	private String				header;
-	private long				lineNumber;
 	private String				invalidValue;
-	private String				msg;
+
+	public InvalidColumnValueException(String header, String invalidValue, Throwable cause) {
+		this(header, invalidValue, null, cause);
+	}
+
+	public InvalidColumnValueException(String header, String invalidValue) {
+		this(header, invalidValue, null, null);
+	}
 
 	/**
 	 * @param header
-	 * @param lineNumber
 	 * @param invalidValue
+	 * @param msg
 	 */
-	public InvalidColumnValueException(String header, long lineNumber, String invalidValue) {
-		this(header, lineNumber, invalidValue, null);
+	public InvalidColumnValueException(String header, String invalidValue, String msg) {
+		this(header, invalidValue, msg, null);
 	}
 
 	/**
@@ -31,11 +37,10 @@ public class InvalidColumnValueException extends RuntimeException {
 	 * @param lineNumber
 	 * @param invalidValue
 	 */
-	public InvalidColumnValueException(String header, long lineNumber, String invalidValue, String msg) {
+	public InvalidColumnValueException(String header, String invalidValue, String msg, Throwable cause) {
+		super(msg, cause);
 		this.header = header;
-		this.lineNumber = lineNumber;
 		this.invalidValue = invalidValue;
-		this.msg = msg;
 	}
 
 	/**
@@ -46,26 +51,10 @@ public class InvalidColumnValueException extends RuntimeException {
 	}
 
 	/**
-	 * /**
-	 * 
-	 * @return the lineNumber
-	 */
-	public long getLineNumber() {
-		return lineNumber;
-	}
-
-	/**
 	 * @return the invalidValue
 	 */
 	public String getInvalidValue() {
 		return invalidValue;
-	}
-
-	/**
-	 * @return the msg
-	 */
-	public String getMsg() {
-		return msg;
 	}
 
 }

@@ -3,24 +3,21 @@
  */
 package com.agnie.common.util.tablefile;
 
-import java.lang.annotation.Annotation;
 import java.util.List;
 
 public class ConstraintViolationException extends RuntimeException {
 
 	private String				header;
-	private long				linenumber;
-	private List<Annotation>	failedConstraints;
+	private List<String>		failedConstraints;
 
 	/**
      * 
      */
 	private static final long	serialVersionUID	= 1L;
 
-	public ConstraintViolationException(String header, long linenumber, List<Annotation> failedConstraints) {
+	public ConstraintViolationException(String header, List<String> failedConstraints) {
 		this.header = header;
 		this.failedConstraints = failedConstraints;
-		this.linenumber = linenumber;
 	}
 
 	/**
@@ -33,7 +30,7 @@ public class ConstraintViolationException extends RuntimeException {
 	/**
 	 * @return the failedConstraints
 	 */
-	public List<Annotation> getFailedConstraints() {
+	public List<String> getFailedConstraints() {
 		return failedConstraints;
 	}
 
@@ -41,23 +38,16 @@ public class ConstraintViolationException extends RuntimeException {
 		StringBuffer resp = new StringBuffer();
 		if (failedConstraints != null) {
 			boolean first = true;
-			for (Annotation ann : failedConstraints) {
+			for (String ann : failedConstraints) {
 				if (!first) {
 					resp.append(", ");
 				} else {
 					first = false;
 				}
-				resp.append(ann.annotationType().getSimpleName());
+				resp.append(ann);
 			}
 		}
 		return resp.toString();
-	}
-
-	/**
-	 * @return the linenumber
-	 */
-	public long getLinenumber() {
-		return linenumber;
 	}
 
 }

@@ -1,0 +1,197 @@
+package com.agnie.common.util.tablefile;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.agnie.common.util.converter.AbstractSingleColumnConverter;
+import com.agnie.common.util.converter.ConversionException;
+import com.agnie.common.util.converter.SingleColumnConverterFactory;
+import com.agnie.common.util.converter.TypeInfo;
+import com.agnie.common.util.validator.Validator;
+
+/**
+ * It will help you convert list of tokens into corresponding bean object.
+ * 
+ * @param <B>
+ */
+public class TokenProcessor<B> {
+	private static final Log	logger	= LogFactory.getLog(TokenProcessor.class);
+
+	private TypeInfo			metaInfo;
+
+	protected Class<B>			cls;
+
+	protected boolean			throwErrors;
+
+	/**
+	 * Don't instantiate using constructors even in the same class or respective derived class. Instead use
+	 * getConverter() static method.
+	 * 
+	 * @param cls
+	 */
+	protected TokenProcessor(Class<B> cls) {
+		this(cls, false);
+		this.cls = cls;
+	}
+
+	/**
+	 * Don't instantiate using constructors even in the same class or respective derived class. Instead use
+	 * getConverter() static method.
+	 * 
+	 * @param cls
+	 * @param throwErrors
+	 */
+	protected TokenProcessor(Class<B> cls, boolean throwErrors) {
+		this.cls = cls;
+		this.throwErrors = throwErrors;
+	}
+
+	void setTypeInfo(TypeInfo info) {
+		metaInfo = info;
+	}
+
+	public B getBean(List<Map<String, String>> rowTokens) {
+
+		try {
+			Map<String, ? extends Object> map = getInShape(rowTokens);
+			Iterator<TypeInfo> itrProperties = metaInfo.getImmidiateAllPropertiesIterator();
+			B b = cls.newInstance();
+			TableBean bean = (TableBean) b;
+			while (itrProperties.hasNext()) {
+				TypeInfo property = itrProperties.next();
+				if (property.isMultiColumnType() && property.isCollectionType()) {
+					// Multicolumn type and of collection type
+				} else if (property.isMultiColumnType()) {
+					// Multicolumn type but not collection type
+				} else if (property.isCollectionType()) {
+					// Single column collection type
+				} else {
+					// single column type and not collection type
+					String token = (String) map.get(property.getHeaderName());
+					List<Validator> validators = property.getValidators();
+					String beanProperty = property.getMethod().getName().substring(3);
+					List<String> failedConstraints = validate(validators, token);
+					if (failedConstraints == null) {
+						try {
+
+							populateBeanWithToken(property.getMethod(), token, bean);
+						} catch (ConversionException e) {
+							logger.error("error while converting value for column '" + property.getHeaderName() + "'.", e);
+							if (throwErrors) {
+								throw new InvalidColumnValueException(property.getHeaderName(), token, e);
+							} else {
+								failedConstraints = new ArrayList<String>();
+								failedConstraints.add("invalid." + e.getMessage());
+								bean.insertError(beanProperty, token, failedConstraints);
+							}
+						}
+					} else {
+						if (throwErrors) {
+							throw new ConstraintViolationException(property.getHeaderName(), failedConstraints);
+						}
+						bean.insertError(beanProperty, token, failedConstraints);
+					}
+				}
+			}
+			return b;
+		} catch (Exception e) {
+			logger.error("Programming issue :", e);
+			throw new GeneralException("Programming issue :", e);
+		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private Map<String, ? extends Object> getInShape(List<Map<String, String>> rowTokens) {
+		Map tokens = new HashMap();
+		if (metaInfo.containsCollectionType() || metaInfo.containsMultiColumnType()) {
+
+			/*
+			 * Iterate over every row tokens mapped with column header name Retrieve all single column header and add it
+			 * against given property/column header. Then Iterate over multicolumn types and take out row records which
+			 * are specific to given multicolumn type
+			 */
+
+			boolean first = true;
+			List<TypeInfo> childs = metaInfo.getChilds();
+			for (TypeInfo child : childs) {
+				tokens.put(child.getHeaderName(), new ArrayList<Map<String, String>>());
+			}
+			for (Map<String, String> map : rowTokens) {
+				if (first) {
+					// Here we assume that single column tokens will be there only in first row.
+					List<String> singColList = metaInfo.getImmidiateSingleColumnList();
+					for (String header : singColList) {
+						tokens.put(header, map.get(header));
+					}
+					first = false;
+					for (TypeInfo child : childs) {
+						((List<Map<String, String>>) tokens.get(child.getHeaderName())).add(retirveMultiColumnTokens(map, child));
+					}
+				}
+
+			}
+		} else {
+			tokens = rowTokens.get(0);
+		}
+		return tokens;
+	}
+
+	private static Map<String, String> retirveMultiColumnTokens(Map<String, String> map, TypeInfo type) {
+		Map<String, String> tokens = new HashMap<String, String>();
+		for (String header : type.getAllSingleColumnList()) {
+			tokens.put(header, map.get(header));
+		}
+		return tokens;
+	}
+
+	/**
+	 * It will validate the given token with the validators applied on the property of the bean. And if it finds that it
+	 * is violating any constraints then it will return the list of violating constraints. If it returns null that means
+	 * validation is successful.
+	 * 
+	 * @param validators
+	 * @param token
+	 * @return
+	 */
+	private List<String> validate(List<Validator> validators, String token) {
+		List<String> failedConstraints = new ArrayList<String>();
+		if (validators != null && validators.size() > 0) {
+			for (Validator validator : validators) {
+				if (!validator.validate(token)) {
+					failedConstraints.add("constraint." + validator.getConstraint().annotationType().getSimpleName() + ".fail");
+				}
+			}
+			return (failedConstraints.size() > 0 ? failedConstraints : null);
+		}
+		return null;
+	}
+
+	/**
+	 * This will populate individual properties of the bean with the given token by converting it into required types.
+	 * 
+	 * @param method
+	 * @param token
+	 * @param bean
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 */
+	@SuppressWarnings("rawtypes")
+	private void populateBeanWithToken(Method method, String token, TableBean bean) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, ConversionException {
+		if (token != null && !("".equals(token))) {
+			Class paramCls = method.getParameterTypes()[0];
+			AbstractSingleColumnConverter converter = SingleColumnConverterFactory.getInstance().getConverter(paramCls);
+			Object[] param = { converter.convert(token, paramCls) };
+			method.invoke(bean, param);
+		}
+	}
+
+}

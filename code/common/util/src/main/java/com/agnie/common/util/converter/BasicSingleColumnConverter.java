@@ -5,6 +5,8 @@ import java.util.StringTokenizer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.agnie.common.util.tablefile.GeneralException;
+
 /**
  * 
  * Basic converter for most of the primitive types and string types.
@@ -46,11 +48,11 @@ public class BasicSingleColumnConverter extends AbstractSingleColumnConverter {
 					return Byte.parseByte(token);
 				} else {
 					logger.error("There is no convertor avaialble for class '" + cls.getCanonicalName() + "'.");
-					throw new ConversionException("There is no convertor avaialble for class '" + cls.getCanonicalName() + "'.");
+					throw new GeneralException("Programming issue : There is no convertor avaialble for class '" + cls.getCanonicalName() + "'.");
 				}
 			} catch (NumberFormatException ex) {
 				logger.error(ex);
-				throw new ConversionException(ex);
+				throw new ConversionException("number.format", ex);
 			}
 		}
 		return null;

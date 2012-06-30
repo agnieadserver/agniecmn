@@ -8,6 +8,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import com.agnie.common.util.tablefile.GeneralException;
+import com.agnie.common.util.tablefile.TableBean;
 import com.agnie.common.util.tablefile.TableHeader;
 import com.agnie.common.util.validator.NotNull;
 import com.agnie.common.util.validator.NotNullValidator;
@@ -65,10 +67,78 @@ public class TypeInfoTest {
 		Assert.assertEquals(NotNullValidator.class, info.getTypeInfo("Full Name").getValidators().get(0).getClass());
 	}
 
+	@SuppressWarnings("unused")
+	@Test
+	public void negativeTest() {
+		try {
+			TypeInfo info = new TypeInfo(NegativeBean.class);
+			Assert.assertTrue(false);
+		} catch (GeneralException e) {
+			Assert.assertTrue(true);
+		}
+	}
+
+	@SuppressWarnings("unused")
+	@Test
+	public void negativeTest1() {
+		try {
+			TypeInfo info = new TypeInfo(NegativeBean1.class);
+			Assert.assertTrue(false);
+		} catch (GeneralException e) {
+			Assert.assertTrue(true);
+		}
+	}
+
 }
 
 @MultiColumnType
-class AnotherComplicatedBean {
+class NegativeBean1 {
+
+	private String	negative;
+
+	/**
+	 * @return the negative
+	 */
+	public String getNegative() {
+		return negative;
+	}
+
+	/**
+	 * @param negative
+	 *            the negative to set
+	 */
+	public void setNegative(String negative) {
+		this.negative = negative;
+	}
+}
+
+class NegativeBean implements TableBean {
+	private String	negative;
+
+	/**
+	 * @return the negative
+	 */
+	public String getNegative() {
+		return negative;
+	}
+
+	/**
+	 * @param negative
+	 *            the negative to set
+	 */
+	public void setNegative(String negative) {
+		this.negative = negative;
+	}
+
+	public void insertError(String property, String value, List<String> errors) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
+
+@MultiColumnType
+class AnotherComplicatedBean implements TableBean {
 	private String		fullname;
 	private SampleBean	sampleBean;
 
@@ -104,10 +174,15 @@ class AnotherComplicatedBean {
 		this.sampleBean = sampleBean;
 	}
 
+	public void insertError(String property, String value, List<String> errors) {
+		// TODO Auto-generated method stub
+
+	}
+
 }
 
 @MultiColumnType
-class ComplicatedBean {
+class ComplicatedBean implements TableBean {
 	private String				fullname;
 	private List<SampleBean>	sampleBeans;
 
@@ -134,10 +209,15 @@ class ComplicatedBean {
 		this.sampleBeans.add(sampleBean);
 	}
 
+	public void insertError(String property, String value, List<String> errors) {
+		// TODO Auto-generated method stub
+
+	}
+
 }
 
 @MultiColumnType
-class SampleBean {
+class SampleBean implements TableBean {
 	private int				test;
 	private String			name;
 	private List<String>	phones	= new ArrayList<String>();
@@ -174,6 +254,11 @@ class SampleBean {
 
 	public void addPhones(String phone) {
 		phones.add(phone);
+	}
+
+	public void insertError(String property, String value, List<String> errors) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

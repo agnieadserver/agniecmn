@@ -142,28 +142,6 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * validate will validate the given row token with the validators applied on the property of the bean. And if it
-	 * finds that it is violating any validators then it will return the list of violating validators. If it returns
-	 * null that means validation is successful.
-	 * 
-	 * @param contraints
-	 * @param token
-	 * @return
-	 */
-	private List<Annotation> validate(List<Validator> validators, String token) {
-		List<Annotation> failedConstraints = new ArrayList<Annotation>();
-		if (validators != null && validators.size() > 0) {
-			for (Validator validator : validators) {
-				if (!validator.validate(token)) {
-					failedConstraints.add(validator.getConstraint());
-				}
-			}
-			return (failedConstraints.size() > 0 ? failedConstraints : null);
-		}
-		return null;
-	}
-
 
 	/**
 	 * Abstract method to read one line of file and separate every column value as a token and populate it in to

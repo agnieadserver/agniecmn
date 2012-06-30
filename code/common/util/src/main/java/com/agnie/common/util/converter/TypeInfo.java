@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.agnie.common.util.tablefile.GeneralException;
+import com.agnie.common.util.tablefile.TableBean;
 import com.agnie.common.util.tablefile.TableHeader;
 import com.agnie.common.util.validator.Validator;
 import com.agnie.common.util.validator.ValidatorFactory;
@@ -103,13 +105,32 @@ public class TypeInfo {
 					}
 				}
 			}
+		} else {
+			AbstractSingleColumnConverter converter = SingleColumnConverterFactory.getInstance().getConverter(cls);
+			if (converter == null) {
+				throw new GeneralException("Programming error: '" + cls.getCanonicalName() + "' need to be either multicolumn type or you need to define SingleColumnConverter for the same");
+			}
 		}
 	}
 
 	private boolean checkIfMultiColumn(Class<?> paramType) {
 
 		MultiColumnType mutliAnn = paramType.getAnnotation(MultiColumnType.class);
-		return mutliAnn != null;
+		boolean resp = (mutliAnn != null);
+		if (resp) {
+			boolean implemented = false;
+			for (Class<?> interfaces : paramType.getInterfaces()) {
+				if (TableBean.class.equals(interfaces)) {
+					implemented = true;
+					break;
+				}
+			}
+			if (!implemented) {
+				throw new GeneralException("Programming error: class '" + paramType.getCanonicalName() + "' has been used as multicolumn type, so it needs to implement '"
+						+ TableBean.class.getCanonicalName() + "' ");
+			}
+		}
+		return resp;
 	}
 
 	public boolean isMultiColumnType() {

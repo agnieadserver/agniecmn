@@ -71,6 +71,10 @@ public class TokenProcessor<B> {
 					// Multicolumn type and of collection type
 				} else if (property.isMultiColumnType()) {
 					// Multicolumn type but not collection type
+					@SuppressWarnings("unchecked")
+					List<Map<String, String>> propertyTokens = (List<Map<String, String>>) map.get(property.getHeaderName());
+					TokenProcessor processor = TokenProcessorFactory.getConverter(property.getCls(), throwErrors);
+					property.getMethod().invoke(b, processor.getBean(propertyTokens));
 				} else if (property.isCollectionType()) {
 					// Single column collection type
 				} else {

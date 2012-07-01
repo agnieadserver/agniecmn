@@ -13,6 +13,12 @@ import com.agnie.common.util.tablefile.TableHeader;
 import com.agnie.common.util.validator.Validator;
 import com.agnie.common.util.validator.ValidatorFactory;
 
+/**
+ * 
+ * Class which holds information about bean class
+ * 
+ */
+
 public class TypeInfo {
 
 	private Class<?>				cls;
@@ -24,13 +30,14 @@ public class TypeInfo {
 	private List<Validator>			validators;
 	private List<String>			singleColumnHeaders	= new ArrayList<String>();
 	private List<TypeInfo>			childs				= new ArrayList<TypeInfo>();
+	private Tokenizer				tokenizer;
 
 	public TypeInfo(Class<?> cls, Method method, List<Validator> validators, String headerName) {
-		this(cls, false, method, validators, headerName);
+		this(cls, false, method, validators, headerName, null);
 	}
 
 	public TypeInfo(Class<?> cls, boolean collectionType, Method method, String headerName) {
-		this(cls, collectionType, method, null, headerName);
+		this(cls, collectionType, method, null, headerName, null);
 	}
 
 	/**
@@ -39,10 +46,10 @@ public class TypeInfo {
 	 * @param cls
 	 */
 	public TypeInfo(Class<?> cls) {
-		this(cls, false, null, null, null);
+		this(cls, false, null, null, null, null);
 	}
 
-	public TypeInfo(Class<?> cls, boolean collectionType, Method method, List<Validator> validators, String headerName) {
+	public TypeInfo(Class<?> cls, boolean collectionType, Method method, List<Validator> validators, String headerName, Tokenizer tokenizer) {
 		super();
 		this.cls = cls;
 		this.collectionType = collectionType;
@@ -50,20 +57,21 @@ public class TypeInfo {
 		this.method = method;
 		this.validators = validators;
 		this.headerName = headerName;
+		this.tokenizer = tokenizer;
 		/*
 		 * if input type is of mutlicolumn then only explore its methods
 		 */
 		if (multiColumn) {
-			for (Method meth : cls.getMethods()) {
-				String methodName = meth.getName();
-				if (meth.getParameterTypes().length > 0) {
-					Class<?> paramType = meth.getParameterTypes()[0];
+			for (Method innerMeth : cls.getMethods()) {
+				String methodName = innerMeth.getName();
+				if (innerMeth.getParameterTypes().length > 0) {
+					Class<?> paramType = innerMeth.getParameterTypes()[0];
 					// Here we assume setter or add has only one parameter passed to it
-					if (meth.getParameterTypes().length > 1 || meth.getParameterTypes().length < 1) {
+					if (innerMeth.getParameterTypes().length > 1 || innerMeth.getParameterTypes().length < 1) {
 						// TODO: Throw exception
 					}
 					String hedToken = "";
-					TableHeader hed = meth.getAnnotation(TableHeader.class);
+					TableHeader hed = innerMeth.getAnnotation(TableHeader.class);
 					if (hed != null && !("".equals(hed.name()))) {
 						hedToken = hed.name();
 					} else {
@@ -76,8 +84,8 @@ public class TypeInfo {
 						// TODO: need to build converter information for a given property
 						if (!checkIfMultiColumn(paramType)) {
 							ValidatorFactory valFactory = ValidatorFactory.getInstance();
-							List<Validator> valids = valFactory.getMethodValidator(meth);
-							propertyMapping.put(hedToken, new TypeInfo(paramType, meth, valids, hedToken));
+							List<Validator> valids = valFactory.getMethodValidator(innerMeth);
+							propertyMapping.put(hedToken, new TypeInfo(paramType, innerMeth, valids, hedToken));
 							singleColumnHeaders.add(hedToken);
 						} else {
 							/*
@@ -85,20 +93,27 @@ public class TypeInfo {
 							 */
 
 							String property = methodName.substring(3);
-							TypeInfo child = new TypeInfo(paramType, false, meth, property);
+							TypeInfo child = new TypeInfo(paramType, false, innerMeth, property);
 							propertyMapping.put(property, child);
 							childs.add(child);
 						}
 					} else if (methodName.startsWith("add")) {
 						if (!checkIfMultiColumn(paramType)) {
-							propertyMapping.put(hedToken, new TypeInfo(paramType, true, meth, null, hedToken));
+							tokenizer = TokenizerFactory.getInstance().getTokenizer(innerMeth);
+							if (tokenizer != null) {
+								// TODO: Need to add mechanism to throw error in case developers need to restrict using
+								// some separators kind of exclusion list
+							}
+							ValidatorFactory valFactory = ValidatorFactory.getInstance();
+							List<Validator> valids = valFactory.getMethodValidator(innerMeth);
+							propertyMapping.put(hedToken, new TypeInfo(paramType, true, innerMeth, valids, hedToken, tokenizer));
 							singleColumnHeaders.add(hedToken);
 						} else {
 							/*
 							 * In case of multiple column type TableHeader annotation will be ignored
 							 */
 							String property = methodName.substring(3);
-							TypeInfo child = new TypeInfo(paramType, true, method, null, property);
+							TypeInfo child = new TypeInfo(paramType, true, innerMeth, null, property, null);
 							propertyMapping.put(property, child);
 							childs.add(child);
 						}
@@ -131,6 +146,13 @@ public class TypeInfo {
 			}
 		}
 		return resp;
+	}
+
+	/**
+	 * @return the tokenizer
+	 */
+	public Tokenizer getTokenizer() {
+		return tokenizer;
 	}
 
 	public boolean isMultiColumnType() {

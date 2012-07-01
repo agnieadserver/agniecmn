@@ -1,21 +1,12 @@
 package com.agnie.common.util.tablefile;
 
 import java.io.IOException;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import com.agnie.common.util.validator.Validator;
-import com.agnie.common.util.validator.ValidatorFactory;
 
 /**
  * AbstractTableFileIterator will be abstract or base for reading csv, or excel sheet or any other file in table format
@@ -38,13 +29,12 @@ import com.agnie.common.util.validator.ValidatorFactory;
  */
 public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 
-	protected static final Log				logger					= LogFactory.getLog(AbstractTableFileIterator.class);
-	private boolean							tokenProduced			= false;
-	private Class<T>						cls;
-	protected long							rowcount				= 0;
-	protected boolean						throwValidationErrors	= false;
-	protected Map<String, String>			nextTokens				= null;
-	protected Map<String, List<Annotation>>	lastBeanfailedConstraints;
+	protected static final Log		logger					= LogFactory.getLog(AbstractTableFileIterator.class);
+	private boolean					tokenProduced			= false;
+	private Class<T>				cls;
+	protected long					rowcount				= 0;
+	protected boolean				throwValidationErrors	= false;
+	protected Map<String, String>	nextTokens				= null;
 
 	/**
 	 * Sub class of this class must call init() method a the end of the constructor to initialise the Iterator.
@@ -132,16 +122,13 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 	 * @throws InvocationTargetException
 	 */
 	private T getBean() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		
-		lastBeanfailedConstraints = new HashMap<String, List<Annotation>>();
-		
-		return bean;
+
+		return null;
 	}
 
 	public void remove() {
 		throw new UnsupportedOperationException();
 	}
-
 
 	/**
 	 * Abstract method to read one line of file and separate every column value as a token and populate it in to
@@ -151,12 +138,4 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 	 */
 	protected abstract Map<String, String> readTokens() throws IOException;
 
-	public boolean isLastBeanValidBean() {
-		return lastBeanfailedConstraints.isEmpty();
-	}
-
-	public Map<String, List<Annotation>> getFailedConstraintsOnLastBean() {
-		return lastBeanfailedConstraints;
-	}
 }
-

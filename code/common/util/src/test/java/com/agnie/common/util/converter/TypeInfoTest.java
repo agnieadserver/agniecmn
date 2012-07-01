@@ -89,6 +89,25 @@ public class TypeInfoTest {
 		}
 	}
 
+	@Test
+	public void tokenizerTest() {
+		TypeInfo info = new TypeInfo(SampleBean.class);
+		Assert.assertEquals(false, info.isCollectionType());
+		Assert.assertEquals(true, info.isMultiColumnType());
+		List<String> directSingleCols = info.getImmidiateSingleColumnList();
+		Assert.assertEquals(3, directSingleCols.size());
+		Assert.assertEquals(true, info.getTypeInfo("Phones").isCollectionType());
+		Assert.assertEquals(false, info.getTypeInfo("Phones").isMultiColumnType());
+		TypeInfo phoneType = info.getTypeInfo("Phones");
+		Assert.assertNotNull(phoneType.getTokenizer());
+		Assert.assertEquals(DefaultTokenizer.class, phoneType.getTokenizer().getClass());
+		Assert.assertEquals("~", phoneType.getTokenizer().getTokenSeparator());
+		String[] tokens = phoneType.getTokenizer().tokenize("pandurang~patil");
+		Assert.assertNotNull(tokens);
+		Assert.assertEquals(2, tokens.length);
+		
+	}
+
 }
 
 @MultiColumnType
@@ -252,6 +271,7 @@ class SampleBean implements TableBean {
 		this.name = name;
 	}
 
+	@UseTokenizer(separator = "~")
 	public void addPhones(String phone) {
 		phones.add(phone);
 	}

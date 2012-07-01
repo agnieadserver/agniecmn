@@ -14,6 +14,7 @@ import org.apache.commons.logging.LogFactory;
 import com.agnie.common.util.converter.AbstractSingleColumnConverter;
 import com.agnie.common.util.converter.ConversionException;
 import com.agnie.common.util.converter.SingleColumnConverterFactory;
+import com.agnie.common.util.converter.Tokenizer;
 import com.agnie.common.util.converter.TypeInfo;
 import com.agnie.common.util.validator.Validator;
 
@@ -58,6 +59,7 @@ public class TokenProcessor<B> {
 		metaInfo = info;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public B getBean(List<Map<String, String>> rowTokens) {
 
 		try {
@@ -69,14 +71,46 @@ public class TokenProcessor<B> {
 				TypeInfo property = itrProperties.next();
 				if (property.isMultiColumnType() && property.isCollectionType()) {
 					// Multicolumn type and of collection type
+					// TODO: Here you need to iterate over list and check for availability internal collection. If not
+					// then check next record for having at least one single column has some value
 				} else if (property.isMultiColumnType()) {
 					// Multicolumn type but not collection type
-					@SuppressWarnings("unchecked")
+
 					List<Map<String, String>> propertyTokens = (List<Map<String, String>>) map.get(property.getHeaderName());
 					TokenProcessor processor = TokenProcessorFactory.getConverter(property.getCls(), throwErrors);
 					property.getMethod().invoke(b, processor.getBean(propertyTokens));
 				} else if (property.isCollectionType()) {
 					// Single column collection type
+					String token = (String) map.get(property.getHeaderName());
+					Tokenizer tokenizer = property.getTokenizer();
+					String[] tokens = tokenizer.tokenize(token);
+					if (tokens != null) {
+						List<Validator> validators = property.getValidators();
+						String beanProperty = property.getMethod().getName().substring(3);
+						for (String listToken : tokens) {
+							List<String> failedConstraints = validate(validators, listToken);
+							if (failedConstraints == null) {
+								try {
+
+									populateBeanWithToken(property.getMethod(), listToken, bean);
+								} catch (ConversionException e) {
+									logger.error("error while converting value for column '" + property.getHeaderName() + "'.", e);
+									if (throwErrors) {
+										throw new InvalidColumnValueException(property.getHeaderName(), listToken, e);
+									} else {
+										failedConstraints = new ArrayList<String>();
+										failedConstraints.add("invalid." + e.getMessage());
+										bean.insertError(beanProperty, listToken, failedConstraints);
+									}
+								}
+							} else {
+								if (throwErrors) {
+									throw new ConstraintViolationException(property.getHeaderName(), failedConstraints);
+								}
+								bean.insertError(beanProperty, listToken, failedConstraints);
+							}
+						}
+					}
 				} else {
 					// single column type and not collection type
 					String token = (String) map.get(property.getHeaderName());

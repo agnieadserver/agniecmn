@@ -8,6 +8,7 @@ package com.agnie.common.util.tablefile;
  */
 public class GeneralException extends RuntimeException {
 
+	private String				errorCode;
 	/**
 	 * 
 	 */
@@ -22,8 +23,9 @@ public class GeneralException extends RuntimeException {
 	/**
 	 * @param message
 	 */
-	public GeneralException(String message) {
+	public GeneralException(String message, String errorCode) {
 		super(message);
+		this.errorCode = errorCode;
 	}
 
 	/**
@@ -39,6 +41,13 @@ public class GeneralException extends RuntimeException {
 	 */
 	public GeneralException(String message, Throwable cause) {
 		super(message, cause);
+	}
+
+	/**
+	 * @return the errorCode
+	 */
+	public String getErrorCode() {
+		return errorCode;
 	}
 
 }

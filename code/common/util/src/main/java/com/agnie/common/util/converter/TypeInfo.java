@@ -103,6 +103,9 @@ public class TypeInfo {
 							if (tokenizer != null) {
 								// TODO: Need to add mechanism to throw error in case developers need to restrict using
 								// some separators kind of exclusion list
+							} else {
+								throw new GeneralException("Programming error: property '" + hedToken + "' is single column collection type property. Which requires tokenizer to be specified.",
+										"property.require.tokenizer");
 							}
 							ValidatorFactory valFactory = ValidatorFactory.getInstance();
 							List<Validator> valids = valFactory.getMethodValidator(innerMeth);
@@ -123,7 +126,8 @@ public class TypeInfo {
 		} else {
 			AbstractSingleColumnConverter converter = SingleColumnConverterFactory.getInstance().getConverter(cls);
 			if (converter == null) {
-				throw new GeneralException("Programming error: '" + cls.getCanonicalName() + "' need to be either multicolumn type or you need to define SingleColumnConverter for the same");
+				throw new GeneralException("Programming error: '" + cls.getCanonicalName() + "' need to be either multicolumn type or you need to define SingleColumnConverter for the same",
+						"neither.multicolumn.nor.has.converter");
 			}
 		}
 	}
@@ -142,7 +146,7 @@ public class TypeInfo {
 			}
 			if (!implemented) {
 				throw new GeneralException("Programming error: class '" + paramType.getCanonicalName() + "' has been used as multicolumn type, so it needs to implement '"
-						+ TableBean.class.getCanonicalName() + "' ");
+						+ TableBean.class.getCanonicalName() + "' ", "need.toimplement.tablebean.interface");
 			}
 		}
 		return resp;

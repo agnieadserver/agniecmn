@@ -10,6 +10,7 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import com.agnie.common.util.converter.MultiColumnType;
+import com.agnie.common.util.converter.UseTokenizer;
 import com.agnie.common.util.validator.NotNull;
 
 public class TokenProcessorTest {
@@ -65,14 +66,35 @@ public class TokenProcessorTest {
 		ErrorMapping error = actual.getError("Age");
 		Assert.assertEquals("invalid.number.format", error.getErrors().get(0));
 	}
+
+	@Test
+	public void singleColCollectionTypeTest() {
+		TokenProcessor<SampleBean> processor = TokenProcessorFactory.getConverter(SampleBean.class, false);
+		Map<String, String> row = new HashMap<String, String>();
+		row.put("Fname", "Pranoti");
+		row.put("Lname", "Patil");
+		row.put("Age", "30");
+		row.put("Phone", "34345234~363456455");
+		List<Map<String, String>> rowTokens = new ArrayList<Map<String, String>>();
+		rowTokens.add(row);
+		SampleBean actual = processor.getBean(rowTokens);
+		SampleBean expected = new SampleBean();
+		expected.setFname("Pranoti");
+		expected.setLname("Patil");
+		expected.setAge(30);
+		expected.addPhone(34345234L);
+		expected.addPhone(363456455L);
+		Assert.assertEquals(expected, actual);
+	}
 }
 
 @MultiColumnType
 class SampleBean implements TableBean {
 
-	private String	fname;
-	private String	lname;
-	private float	age;
+	private String		fname;
+	private String		lname;
+	private float		age;
+	private List<Long>	phones	= new ArrayList<Long>();
 
 	/**
 	 * @return the fname
@@ -121,6 +143,11 @@ class SampleBean implements TableBean {
 		this.age = age;
 	}
 
+	@UseTokenizer(separator = "~")
+	public void addPhone(Long phone) {
+		phones.add(phone);
+	}
+
 	private Map<String, ErrorMapping>	errors	= new HashMap<String, ErrorMapping>();
 
 	public void insertError(String property, String value, List<String> errors) {
@@ -143,6 +170,7 @@ class SampleBean implements TableBean {
 		result = prime * result + Float.floatToIntBits(age);
 		result = prime * result + ((fname == null) ? 0 : fname.hashCode());
 		result = prime * result + ((lname == null) ? 0 : lname.hashCode());
+		result = prime * result + ((phones == null) ? 0 : phones.hashCode());
 		return result;
 	}
 
@@ -171,6 +199,11 @@ class SampleBean implements TableBean {
 			if (other.lname != null)
 				return false;
 		} else if (!lname.equals(other.lname))
+			return false;
+		if (phones == null) {
+			if (other.phones != null)
+				return false;
+		} else if (!phones.equals(other.phones))
 			return false;
 		return true;
 	}

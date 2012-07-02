@@ -83,6 +83,7 @@ public class TokenProcessor<B> {
 					// Single column collection type
 					String token = (String) map.get(property.getHeaderName());
 					Tokenizer tokenizer = property.getTokenizer();
+					// 
 					String[] tokens = tokenizer.tokenize(token);
 					if (tokens != null) {
 						List<Validator> validators = property.getValidators();
@@ -91,7 +92,6 @@ public class TokenProcessor<B> {
 							List<String> failedConstraints = validate(validators, listToken);
 							if (failedConstraints == null) {
 								try {
-
 									populateBeanWithToken(property.getMethod(), listToken, bean);
 								} catch (ConversionException e) {
 									logger.error("error while converting value for column '" + property.getHeaderName() + "'.", e);

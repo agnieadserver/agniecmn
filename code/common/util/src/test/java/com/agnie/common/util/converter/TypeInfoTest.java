@@ -75,6 +75,7 @@ public class TypeInfoTest {
 			Assert.assertTrue(false);
 		} catch (GeneralException e) {
 			Assert.assertTrue(true);
+			Assert.assertEquals("neither.multicolumn.nor.has.converter", e.getErrorCode());
 		}
 	}
 
@@ -86,6 +87,7 @@ public class TypeInfoTest {
 			Assert.assertTrue(false);
 		} catch (GeneralException e) {
 			Assert.assertTrue(true);
+			Assert.assertEquals("need.toimplement.tablebean.interface", e.getErrorCode());
 		}
 	}
 
@@ -105,9 +107,49 @@ public class TypeInfoTest {
 		String[] tokens = phoneType.getTokenizer().tokenize("pandurang~patil");
 		Assert.assertNotNull(tokens);
 		Assert.assertEquals(2, tokens.length);
-		
+
 	}
 
+	@Test
+	public void negativeTest2() {
+		try {
+			TypeInfo info = new TypeInfo(NegativeBean2.class);
+		} catch (GeneralException e) {
+			Assert.assertEquals(GeneralException.class, e.getClass());
+			Assert.assertEquals("property.require.tokenizer", e.getErrorCode());
+		}
+	}
+
+}
+
+@MultiColumnType
+class NegativeBean2 implements TableBean {
+	private String			name;
+	private List<String>	phones;
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void addPhone(String phone) {
+		phones.add(phone);
+	}
+
+	public void insertError(String property, String value, List<String> errors) {
+		// TODO Auto-generated method stub
+
+	}
 }
 
 @MultiColumnType

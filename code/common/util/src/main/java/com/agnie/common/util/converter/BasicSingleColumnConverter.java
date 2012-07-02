@@ -48,7 +48,7 @@ public class BasicSingleColumnConverter extends AbstractSingleColumnConverter {
 					return Byte.parseByte(token);
 				} else {
 					logger.error("There is no convertor avaialble for class '" + cls.getCanonicalName() + "'.");
-					throw new GeneralException("Programming issue : There is no convertor avaialble for class '" + cls.getCanonicalName() + "'.");
+					throw new GeneralException("Programming issue : There is no convertor avaialble for class '" + cls.getCanonicalName() + "'.","converter.not.provided");
 				}
 			} catch (NumberFormatException ex) {
 				logger.error(ex);

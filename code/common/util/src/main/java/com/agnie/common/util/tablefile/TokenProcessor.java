@@ -71,8 +71,19 @@ public class TokenProcessor<B> {
 				TypeInfo property = itrProperties.next();
 				if (property.isMultiColumnType() && property.isCollectionType()) {
 					// Multicolumn type and of collection type
-					// TODO: Here you need to iterate over list and check for availability internal collection. If not
+					// TODO: Here you need to iterate over list and check for availability internal collection. If yes
 					// then check next record for having at least one single column has some value
+					List<Map<String, String>> propertyTokens = (List<Map<String, String>>) map.get(property.getHeaderName());
+					if (property.containsCollectionType()) {
+
+					} else {
+						for (Map<String, String> mapOfToken : propertyTokens) {
+							List<Map<String, String>> singleTokens = new ArrayList<Map<String, String>>();
+							singleTokens.add(mapOfToken);
+							TokenProcessor processor = TokenProcessorFactory.getConverter(property.getCls(), throwErrors);
+							property.getMethod().invoke(b, processor.getBean(singleTokens));
+						}
+					}
 				} else if (property.isMultiColumnType()) {
 					// Multicolumn type but not collection type
 
@@ -83,7 +94,7 @@ public class TokenProcessor<B> {
 					// Single column collection type
 					String token = (String) map.get(property.getHeaderName());
 					Tokenizer tokenizer = property.getTokenizer();
-					// 
+					//
 					String[] tokens = tokenizer.tokenize(token);
 					if (tokens != null) {
 						List<Validator> validators = property.getValidators();
@@ -170,11 +181,10 @@ public class TokenProcessor<B> {
 						tokens.put(header, map.get(header));
 					}
 					first = false;
-					for (TypeInfo child : childs) {
-						((List<Map<String, String>>) tokens.get(child.getHeaderName())).add(retirveMultiColumnTokens(map, child));
-					}
 				}
-
+				for (TypeInfo child : childs) {
+					((List<Map<String, String>>) tokens.get(child.getHeaderName())).add(retirveMultiColumnTokens(map, child));
+				}
 			}
 		} else {
 			tokens = rowTokens.get(0);

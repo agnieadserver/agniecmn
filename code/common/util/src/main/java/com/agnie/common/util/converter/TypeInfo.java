@@ -10,6 +10,7 @@ import java.util.Map;
 import com.agnie.common.util.tablefile.GeneralException;
 import com.agnie.common.util.tablefile.TableBean;
 import com.agnie.common.util.tablefile.TableHeader;
+import com.agnie.common.util.validator.NotNullValidator;
 import com.agnie.common.util.validator.Validator;
 import com.agnie.common.util.validator.ValidatorFactory;
 
@@ -31,13 +32,14 @@ public class TypeInfo {
 	private List<String>			singleColumnHeaders	= new ArrayList<String>();
 	private List<TypeInfo>			childs				= new ArrayList<TypeInfo>();
 	private Tokenizer				tokenizer;
+	private boolean					notNull;
 
-	public TypeInfo(Class<?> cls, Method method, List<Validator> validators, String headerName) {
-		this(cls, false, method, validators, headerName, null);
+	public TypeInfo(Class<?> cls, Method method, List<Validator> validators, String headerName, boolean notNull) {
+		this(cls, false, method, validators, headerName, null, notNull);
 	}
 
 	public TypeInfo(Class<?> cls, boolean collectionType, Method method, String headerName) {
-		this(cls, collectionType, method, null, headerName, null);
+		this(cls, collectionType, method, null, headerName, null, false);
 	}
 
 	/**
@@ -46,10 +48,10 @@ public class TypeInfo {
 	 * @param cls
 	 */
 	public TypeInfo(Class<?> cls) {
-		this(cls, false, null, null, null, null);
+		this(cls, false, null, null, null, null, false);
 	}
 
-	public TypeInfo(Class<?> cls, boolean collectionType, Method method, List<Validator> validators, String headerName, Tokenizer tokenizer) {
+	public TypeInfo(Class<?> cls, boolean collectionType, Method method, List<Validator> validators, String headerName, Tokenizer tokenizer, boolean notNull) {
 		super();
 		this.cls = cls;
 		this.collectionType = collectionType;
@@ -58,6 +60,7 @@ public class TypeInfo {
 		this.validators = validators;
 		this.headerName = headerName;
 		this.tokenizer = tokenizer;
+		this.notNull = notNull;
 		/*
 		 * if input type is of mutlicolumn then only explore its methods
 		 */
@@ -83,9 +86,17 @@ public class TypeInfo {
 						 */
 						// TODO: need to build converter information for a given property
 						if (!checkIfMultiColumn(paramType)) {
+							boolean checkNotNull = false;
 							ValidatorFactory valFactory = ValidatorFactory.getInstance();
 							List<Validator> valids = valFactory.getMethodValidator(innerMeth);
-							propertyMapping.put(hedToken, new TypeInfo(paramType, innerMeth, valids, hedToken));
+							if (valids != null && valids.size() > 0) {
+								for (Validator validator : valids) {
+									if (NotNullValidator.class.equals(validator.getClass())) {
+										checkNotNull = true;
+									}
+								}
+							}
+							propertyMapping.put(hedToken, new TypeInfo(paramType, innerMeth, valids, hedToken, checkNotNull));
 							singleColumnHeaders.add(hedToken);
 						} else {
 							/*
@@ -109,18 +120,49 @@ public class TypeInfo {
 							}
 							ValidatorFactory valFactory = ValidatorFactory.getInstance();
 							List<Validator> valids = valFactory.getMethodValidator(innerMeth);
-							propertyMapping.put(hedToken, new TypeInfo(paramType, true, innerMeth, valids, hedToken, tokenizer));
+							propertyMapping.put(hedToken, new TypeInfo(paramType, true, innerMeth, valids, hedToken, tokenizer, false));
 							singleColumnHeaders.add(hedToken);
 						} else {
 							/*
 							 * In case of multiple column type TableHeader annotation will be ignored
 							 */
 							String property = methodName.substring(3);
-							TypeInfo child = new TypeInfo(paramType, true, innerMeth, null, property, null);
+							TypeInfo child = new TypeInfo(paramType, true, innerMeth, null, property, null, false);
 							propertyMapping.put(property, child);
 							childs.add(child);
 						}
 					}
+				}
+			}
+
+			// If current type is multicolumn type and it contains at least one multi column collection type data type.
+			// Then it has to adhere to requirment that current type must have at least one single column property with
+			// notNull constraint applied to it.
+			if (containsCollectionType()) {
+				boolean singleColNonCollType = false;
+
+				for (TypeInfo child : propertyMapping.values()) {
+					if (!child.multiColumn && !child.collectionType) {
+						List<Validator> vals = child.getValidators();
+						if (vals != null && vals.size() > 0) {
+							for (Validator validator : vals) {
+								if (NotNullValidator.class.equals(validator.getClass())) {
+									singleColNonCollType = true;
+									break;
+								}
+							}
+						}
+					}
+					if (singleColNonCollType) {
+						break;
+					}
+				}
+				// If single column non collection type and having NotNull constraint is not present
+				if (!singleColNonCollType) {
+					throw new GeneralException(
+							"Programming error: Type containing multi column collection type property must have at least one single column non collection type and having NotNull constraint applied to it",
+							"require.one.single.noncollection.notnull");
+
 				}
 			}
 		} else {
@@ -179,6 +221,13 @@ public class TypeInfo {
 	 */
 	public Method getMethod() {
 		return method;
+	}
+
+	/**
+	 * @return the notNull
+	 */
+	public boolean isNotNull() {
+		return notNull;
 	}
 
 	/**

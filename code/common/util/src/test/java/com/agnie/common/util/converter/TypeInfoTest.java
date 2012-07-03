@@ -3,6 +3,7 @@ package com.agnie.common.util.converter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import junit.framework.Assert;
 
@@ -39,6 +40,7 @@ public class TypeInfoTest {
 		Iterator<TypeInfo> allDirectProperties = info.getImmidiateAllPropertiesIterator();
 		int count = 0;
 		for (; allDirectProperties.hasNext();) {
+			@SuppressWarnings("unused")
 			TypeInfo info1 = allDirectProperties.next();
 			count++;
 
@@ -113,6 +115,7 @@ public class TypeInfoTest {
 	@Test
 	public void negativeTest2() {
 		try {
+			@SuppressWarnings("unused")
 			TypeInfo info = new TypeInfo(NegativeBean2.class);
 		} catch (GeneralException e) {
 			Assert.assertEquals(GeneralException.class, e.getClass());
@@ -120,6 +123,38 @@ public class TypeInfoTest {
 		}
 	}
 
+	@Test
+	public void negativeTest3() {
+		try {
+			@SuppressWarnings("unused")
+			TypeInfo info = new TypeInfo(NegativeBean3.class);
+		} catch (GeneralException e) {
+			Assert.assertEquals(GeneralException.class, e.getClass());
+			Assert.assertEquals("require.one.single.noncollection.notnull", e.getErrorCode());
+		}
+	}
+
+	@Test
+	public void notNullTest() {
+		TypeInfo info = new TypeInfo(SampleBean.class);
+		Assert.assertEquals(false, info.isCollectionType());
+		Assert.assertEquals(true, info.isMultiColumnType());
+		Assert.assertEquals(true, info.getTypeInfo("Name").isNotNull());
+		Assert.assertEquals(false, info.getTypeInfo("Test").isNotNull());
+	}
+
+}
+
+@MultiColumnType
+class NegativeBean3 implements TableBean {
+	private Set<SampleBean>	sampleBeans;
+
+	public void addSampleBean(SampleBean bean) {
+		sampleBeans.add(bean);
+	}
+
+	public void insertError(String property, String value, List<String> errors) {
+	}
 }
 
 @MultiColumnType
@@ -258,6 +293,7 @@ class ComplicatedBean implements TableBean {
 	 * @param fullname
 	 *            the fullname to set
 	 */
+	@NotNull
 	public void setFullname(String fullname) {
 		this.fullname = fullname;
 	}
@@ -280,6 +316,7 @@ class ComplicatedBean implements TableBean {
 @MultiColumnType
 class SampleBean implements TableBean {
 	private int				test;
+	
 	private String			name;
 	private List<String>	phones	= new ArrayList<String>();
 
@@ -309,6 +346,7 @@ class SampleBean implements TableBean {
 	 * @param name
 	 *            the name to set
 	 */
+	@NotNull
 	public void setName(String name) {
 		this.name = name;
 	}

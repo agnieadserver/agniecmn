@@ -74,51 +74,69 @@ public class TokenProcessor<B> {
 					// TODO: Here you need to iterate over list and check for availability internal collection. If yes
 					// then check next record for having at least one single column has some value
 					List<Map<String, String>> propertyTokens = (List<Map<String, String>>) map.get(property.getHeaderName());
-					if (property.containsCollectionType()) {
-
-					} else {
-						for (Map<String, String> mapOfToken : propertyTokens) {
+					if (propertyTokens != null && propertyTokens.size() > 0) {
+						if (property.containsCollectionType()) {
 							List<Map<String, String>> singleTokens = new ArrayList<Map<String, String>>();
-							singleTokens.add(mapOfToken);
+							singleTokens.add(propertyTokens.get(0));
 							TokenProcessor processor = TokenProcessorFactory.getConverter(property.getCls(), throwErrors);
+							for (int index = 1; index < propertyTokens.size(); index++) {
+								Map<String, String> mapOfToken = propertyTokens.get(index);
+								if (processor.checkIfNextRecord(mapOfToken)) {
+									property.getMethod().invoke(b, processor.getBean(singleTokens));
+									singleTokens = new ArrayList<Map<String, String>>();
+								}
+								singleTokens.add(mapOfToken);
+							}
+							// Final records need to be processed outside the loop.
 							property.getMethod().invoke(b, processor.getBean(singleTokens));
+						} else {
+							for (Map<String, String> mapOfToken : propertyTokens) {
+								List<Map<String, String>> singleTokens = new ArrayList<Map<String, String>>();
+								singleTokens.add(mapOfToken);
+								TokenProcessor processor = TokenProcessorFactory.getConverter(property.getCls(), throwErrors);
+								property.getMethod().invoke(b, processor.getBean(singleTokens));
+							}
 						}
 					}
 				} else if (property.isMultiColumnType()) {
 					// Multicolumn type but not collection type
 
 					List<Map<String, String>> propertyTokens = (List<Map<String, String>>) map.get(property.getHeaderName());
-					TokenProcessor processor = TokenProcessorFactory.getConverter(property.getCls(), throwErrors);
-					property.getMethod().invoke(b, processor.getBean(propertyTokens));
+					if (propertyTokens != null && propertyTokens.size() > 0) {
+						TokenProcessor processor = TokenProcessorFactory.getConverter(property.getCls(), throwErrors);
+						property.getMethod().invoke(b, processor.getBean(propertyTokens));
+					}
 				} else if (property.isCollectionType()) {
 					// Single column collection type
 					String token = (String) map.get(property.getHeaderName());
-					Tokenizer tokenizer = property.getTokenizer();
-					//
-					String[] tokens = tokenizer.tokenize(token);
-					if (tokens != null) {
-						List<Validator> validators = property.getValidators();
-						String beanProperty = property.getMethod().getName().substring(3);
-						for (String listToken : tokens) {
-							List<String> failedConstraints = validate(validators, listToken);
-							if (failedConstraints == null) {
-								try {
-									populateBeanWithToken(property.getMethod(), listToken, bean);
-								} catch (ConversionException e) {
-									logger.error("error while converting value for column '" + property.getHeaderName() + "'.", e);
-									if (throwErrors) {
-										throw new InvalidColumnValueException(property.getHeaderName(), listToken, e);
-									} else {
-										failedConstraints = new ArrayList<String>();
-										failedConstraints.add("invalid." + e.getMessage());
-										bean.insertError(beanProperty, listToken, failedConstraints);
+					if (token != null) {
+						Tokenizer tokenizer = property.getTokenizer();
+						//
+						String[] tokens = tokenizer.tokenize(token);
+						if (tokens != null) {
+							List<Validator> validators = property.getValidators();
+							String beanProperty = property.getMethod().getName().substring(3);
+							for (String listToken : tokens) {
+								List<String> failedConstraints = validate(validators, listToken);
+								if (failedConstraints == null) {
+									try {
+										populateBeanWithToken(property.getMethod(), listToken, bean);
+									} catch (ConversionException e) {
+										logger.error("error while converting value for column '" + property.getHeaderName() + "'.", e);
+										if (throwErrors) {
+											throw new InvalidColumnValueException(property.getHeaderName(), listToken, e);
+										} else {
+											failedConstraints = new ArrayList<String>();
+											failedConstraints.add("invalid." + e.getMessage());
+											bean.insertError(beanProperty, listToken, failedConstraints);
+										}
 									}
+								} else {
+									if (throwErrors) {
+										throw new ConstraintViolationException(property.getHeaderName(), failedConstraints);
+									}
+									bean.insertError(beanProperty, listToken, failedConstraints);
 								}
-							} else {
-								if (throwErrors) {
-									throw new ConstraintViolationException(property.getHeaderName(), failedConstraints);
-								}
-								bean.insertError(beanProperty, listToken, failedConstraints);
 							}
 						}
 					}
@@ -157,6 +175,17 @@ public class TokenProcessor<B> {
 		}
 	}
 
+	private boolean checkIfNextRecord(Map<String, String> mapOfToken) {
+		List<String> singleCols = metaInfo.getImmNotNullSingleColList();
+		for (String header : singleCols) {
+			String token = mapOfToken.get(header);
+			if (token != null && !("".equals(token))) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private Map<String, ? extends Object> getInShape(List<Map<String, String>> rowTokens) {
 		Map tokens = new HashMap();
@@ -178,7 +207,10 @@ public class TokenProcessor<B> {
 					// Here we assume that single column tokens will be there only in first row.
 					List<String> singColList = metaInfo.getImmidiateSingleColumnList();
 					for (String header : singColList) {
-						tokens.put(header, map.get(header));
+						String token = map.get(header);
+						if (token != null) {
+							tokens.put(header, token);
+						}
 					}
 					first = false;
 				}
@@ -195,7 +227,10 @@ public class TokenProcessor<B> {
 	private static Map<String, String> retirveMultiColumnTokens(Map<String, String> map, TypeInfo type) {
 		Map<String, String> tokens = new HashMap<String, String>();
 		for (String header : type.getAllSingleColumnList()) {
-			tokens.put(header, map.get(header));
+			String token = map.get(header);
+			if (token != null) {
+				tokens.put(header, map.get(header));
+			}
 		}
 		return tokens;
 	}

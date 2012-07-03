@@ -23,14 +23,15 @@ import com.agnie.common.util.validator.ValidatorFactory;
 public class TypeInfo {
 
 	private Class<?>				cls;
-	private Map<String, TypeInfo>	propertyMapping		= new HashMap<String, TypeInfo>();
-	private boolean					collectionType		= false;
-	private boolean					multiColumn			= false;
+	private Map<String, TypeInfo>	propertyMapping				= new HashMap<String, TypeInfo>();
+	private boolean					collectionType				= false;
+	private boolean					multiColumn					= false;
 	private String					headerName;
 	private Method					method;
 	private List<Validator>			validators;
-	private List<String>			singleColumnHeaders	= new ArrayList<String>();
-	private List<TypeInfo>			childs				= new ArrayList<TypeInfo>();
+	private List<String>			singleColumnHeaders			= new ArrayList<String>();
+	private List<String>			singleColumnNotNullHeaders	= new ArrayList<String>();
+	private List<TypeInfo>			childs						= new ArrayList<TypeInfo>();
 	private Tokenizer				tokenizer;
 	private boolean					notNull;
 
@@ -97,6 +98,9 @@ public class TypeInfo {
 								}
 							}
 							propertyMapping.put(hedToken, new TypeInfo(paramType, innerMeth, valids, hedToken, checkNotNull));
+							if (checkNotNull) {
+								singleColumnNotNullHeaders.add(hedToken);
+							}
 							singleColumnHeaders.add(hedToken);
 						} else {
 							/*
@@ -243,6 +247,10 @@ public class TypeInfo {
 		// TODO: Need to check if we have to return cloned copy of list. As there is a possibility of list getting
 		// modified outside this class in current case
 		return singleColumnHeaders;
+	}
+
+	public List<String> getImmNotNullSingleColList() {
+		return singleColumnNotNullHeaders;
 	}
 
 	public String getHeaderName() {

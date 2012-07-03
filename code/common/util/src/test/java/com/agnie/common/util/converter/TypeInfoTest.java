@@ -141,6 +141,8 @@ public class TypeInfoTest {
 		Assert.assertEquals(true, info.isMultiColumnType());
 		Assert.assertEquals(true, info.getTypeInfo("Name").isNotNull());
 		Assert.assertEquals(false, info.getTypeInfo("Test").isNotNull());
+		Assert.assertNotNull(info.getImmNotNullSingleColList().size());
+		Assert.assertEquals(1, info.getImmNotNullSingleColList().size());
 	}
 
 }
@@ -316,7 +318,7 @@ class ComplicatedBean implements TableBean {
 @MultiColumnType
 class SampleBean implements TableBean {
 	private int				test;
-	
+
 	private String			name;
 	private List<String>	phones	= new ArrayList<String>();
 

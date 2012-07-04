@@ -31,13 +31,13 @@ import org.apache.commons.logging.LogFactory;
  */
 public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 
-	protected static final Log		logger					= LogFactory.getLog(AbstractTableFileIterator.class);
-	private boolean					tokenProduced			= false;
-	private Class<T>				cls;
-	protected long					rowcount				= 0;
-	protected boolean				throwValidationErrors	= false;
-	protected Map<String, String>	nextTokens				= null;
-	protected TokenProcessor<T>		processor;
+	protected static final Log	logger					= LogFactory.getLog(AbstractTableFileIterator.class);
+	private boolean				tokenProduced			= false;
+	private Class<T>			cls;
+	protected long				rowcount				= 0;
+	protected boolean			throwValidationErrors	= false;
+	private Map<String, String>	nextTokens				= null;
+	protected TokenProcessor<T>	processor;
 
 	/**
 	 * Sub class of this class must call init() method a the end of the constructor to initialise the Iterator.

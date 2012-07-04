@@ -2,7 +2,9 @@ package com.agnie.common.util.tablefile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -25,9 +27,10 @@ import org.apache.poi.ss.usermodel.Row;
  */
 public class ExcelSheetIterator<T> extends AbstractTableFileIterator<T> {
 
-	protected static final Log	logger	= LogFactory.getLog(ExcelSheetIterator.class);
+	protected static final Log	logger				= LogFactory.getLog(ExcelSheetIterator.class);
 	private HSSFSheet			sheet;
 	private Iterator<Row>		rowItr;
+	private ArrayList<String>	indexMappedHeaders	= new ArrayList<String>();
 
 	ExcelSheetIterator(HSSFSheet sheet, Class<T> cls) throws IOException {
 		this(sheet, cls, false);
@@ -36,31 +39,46 @@ public class ExcelSheetIterator<T> extends AbstractTableFileIterator<T> {
 	ExcelSheetIterator(HSSFSheet sheet, Class<T> cls, boolean throwValidationErrors) throws IOException {
 		super(cls, throwValidationErrors);
 		this.sheet = sheet;
-		this.rowItr = sheet.rowIterator();
+		if (this.sheet != null) {
+			this.rowItr = sheet.rowIterator();
+			indexMappedHeaders = new ArrayList<String>();
+			if (rowItr.hasNext()) {
+				Row row = rowItr.next();
+				Iterator<Cell> cellItr = row.cellIterator();
 
-		init();
+				while (cellItr.hasNext()) {
+					Cell cell = cellItr.next();
+					indexMappedHeaders.add(cell.toString());
+				}
+			}
+		}
 	}
 
 	/**
-	 * This method will read Excel file and convert tokens into list of tokens
+	 * This method will read Excel file and convert tokens into list of tokens mapped with column header
 	 * 
 	 * @throws IOException
 	 */
-	protected void readTokens() throws IOException {
-		nextTokens = new ArrayList<String>();
-
-		if (rowItr.hasNext()) {
-			Row row = rowItr.next();
-			Iterator<Cell> cellItr = row.cellIterator();
-
-			while (cellItr.hasNext()) {
-				Cell cell = cellItr.next();
-				nextTokens.add(cell.toString());
+	protected Map<String, String> readTokens() throws IOException {
+		if (this.sheet != null) {
+			if (rowItr.hasNext()) {
+				Map<String, String> colMapedTokens = new HashMap<String, String>();
+				Row row = rowItr.next();
+				Iterator<Cell> cellItr = row.cellIterator();
+				for (int index = 0; cellItr.hasNext(); index++) {
+					Cell cell = cellItr.next();
+					String token = cell.toString();
+					if (token != null && !"".equals(token)) {
+						colMapedTokens.put(indexMappedHeaders.get(index), token);
+					}
+				}
+				rowcount++;
+				return colMapedTokens;
+			} else {
+				return null;
 			}
-		} else {
-			nextTokens = null;
 		}
-		rowcount++;
+		return null;
 	}
 
 	public String getSheetName() {

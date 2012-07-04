@@ -60,6 +60,7 @@ public class CSVFileIterator<T> extends AbstractTableFileIterator<T> {
 
 	/**
 	 * This method will read csv file line by line and convert tokens which are separated by "," into list of tokens
+	 * mapped to header
 	 * 
 	 * @throws IOException
 	 */
@@ -73,9 +74,10 @@ public class CSVFileIterator<T> extends AbstractTableFileIterator<T> {
 					colMapedTokens.put(indexMappedHeaders.get(index), tokens[index]);
 				}
 			}
+			rowcount++;
+			return colMapedTokens;
 		}
-		rowcount++;
-		return colMapedTokens;
+		return null;
 	}
 
 }

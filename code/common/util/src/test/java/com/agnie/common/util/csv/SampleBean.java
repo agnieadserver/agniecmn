@@ -1,13 +1,21 @@
 package com.agnie.common.util.csv;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.agnie.common.util.converter.MultiColumnType;
+import com.agnie.common.util.tablefile.TableBean;
 import com.agnie.common.util.tablefile.TableHeader;
 import com.agnie.common.util.validator.NotNull;
 
-public class SampleBean {
-	private String	name;
-	private int		age;
-	private long	longData;
-	private Float	salary;
+@MultiColumnType
+public class SampleBean implements TableBean {
+	private String						name;
+	private int							age;
+	private long						longData;
+	private Float						salary;
+	private Map<String, ErrorMapping>	errors	= new HashMap<String, ErrorMapping>();
 
 	public SampleBean() {
 	}
@@ -78,6 +86,14 @@ public class SampleBean {
 		this.salary = salary;
 	}
 
+	public void insertError(String property, String value, List<String> errors) {
+		this.errors.put(property, new ErrorMapping(value, errors));
+	}
+
+	public ErrorMapping getError(String property) {
+		return errors.get(property);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -133,6 +149,36 @@ public class SampleBean {
 	@Override
 	public String toString() {
 		return "SampleBean [name=" + name + ", age=" + age + ", longData=" + longData + ", salary=" + salary + "]";
+	}
+
+}
+
+class ErrorMapping {
+	private String			token;
+	private List<String>	errors;
+
+	/**
+	 * @param token
+	 * @param errors
+	 */
+	public ErrorMapping(String token, List<String> errors) {
+		super();
+		this.token = token;
+		this.errors = errors;
+	}
+
+	/**
+	 * @return the token
+	 */
+	public String getToken() {
+		return token;
+	}
+
+	/**
+	 * @return the errors
+	 */
+	public List<String> getErrors() {
+		return errors;
 	}
 
 }

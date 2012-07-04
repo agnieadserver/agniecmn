@@ -9,7 +9,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.agnie.common.util.tablefile.GeneralException;
+import com.agnie.common.util.tablefile.DevException;
 import com.agnie.common.util.tablefile.TableBean;
 import com.agnie.common.util.tablefile.TableHeader;
 import com.agnie.common.util.validator.NotNull;
@@ -75,7 +75,7 @@ public class TypeInfoTest {
 		try {
 			TypeInfo info = new TypeInfo(NegativeBean.class);
 			Assert.assertTrue(false);
-		} catch (GeneralException e) {
+		} catch (DevException e) {
 			Assert.assertTrue(true);
 			Assert.assertEquals("neither.multicolumn.nor.has.converter", e.getErrorCode());
 		}
@@ -87,7 +87,7 @@ public class TypeInfoTest {
 		try {
 			TypeInfo info = new TypeInfo(NegativeBean1.class);
 			Assert.assertTrue(false);
-		} catch (GeneralException e) {
+		} catch (DevException e) {
 			Assert.assertTrue(true);
 			Assert.assertEquals("need.toimplement.tablebean.interface", e.getErrorCode());
 		}
@@ -117,8 +117,8 @@ public class TypeInfoTest {
 		try {
 			@SuppressWarnings("unused")
 			TypeInfo info = new TypeInfo(NegativeBean2.class);
-		} catch (GeneralException e) {
-			Assert.assertEquals(GeneralException.class, e.getClass());
+		} catch (DevException e) {
+			Assert.assertEquals(DevException.class, e.getClass());
 			Assert.assertEquals("property.require.tokenizer", e.getErrorCode());
 		}
 	}
@@ -128,8 +128,8 @@ public class TypeInfoTest {
 		try {
 			@SuppressWarnings("unused")
 			TypeInfo info = new TypeInfo(NegativeBean3.class);
-		} catch (GeneralException e) {
-			Assert.assertEquals(GeneralException.class, e.getClass());
+		} catch (DevException e) {
+			Assert.assertEquals(DevException.class, e.getClass());
 			Assert.assertEquals("require.one.single.noncollection.notnull", e.getErrorCode());
 		}
 	}

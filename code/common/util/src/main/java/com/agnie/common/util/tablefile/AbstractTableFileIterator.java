@@ -2,7 +2,9 @@ package com.agnie.common.util.tablefile;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
@@ -35,6 +37,7 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 	protected long					rowcount				= 0;
 	protected boolean				throwValidationErrors	= false;
 	protected Map<String, String>	nextTokens				= null;
+	protected TokenProcessor<T>		processor;
 
 	/**
 	 * Sub class of this class must call init() method a the end of the constructor to initialise the Iterator.
@@ -55,9 +58,11 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 	 *            collect those errors and provide it after record is retrieved.
 	 * @throws IOException
 	 */
+	@SuppressWarnings("unchecked")
 	public AbstractTableFileIterator(Class<T> cls, boolean throwValidationErrors) throws IOException {
 		this.cls = cls;
 		this.throwValidationErrors = throwValidationErrors;
+		processor = TokenProcessorFactory.getConverter(cls, throwValidationErrors);
 	}
 
 	/**
@@ -66,10 +71,10 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 	public boolean hasNext() {
 		if (!tokenProduced) {
 			try {
-				readTokens();
+				nextTokens = readTokens();
 				tokenProduced = true;
 			} catch (IOException e) {
-				logger.info("Error while reading the tokens from CSV", e);
+				logger.error("Error while reading the tokens from Table File", e);
 			}
 		}
 		return (nextTokens != null && nextTokens.size() > 0);
@@ -81,10 +86,10 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 	public T next() {
 		if (!tokenProduced) {
 			try {
-				readTokens();
+				nextTokens = readTokens();
 				tokenProduced = true;
 			} catch (IOException e) {
-				logger.info("Error while reading the tokens from Table File", e);
+				logger.error("Error while reading the tokens from Table File", e);
 				return null;
 			}
 		}
@@ -94,18 +99,15 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 
 		} catch (IllegalArgumentException e) {
 			// TODO: Need to throw run time exception in case of any error.
-			logger.info("Table file bean setting error", e);
+			logger.error("Table file bean setting error", e);
 		} catch (InstantiationException e) {
-			logger.info("Table file bean setting error", e);
+			logger.error("Table file bean setting error", e);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
-			logger.info("Table file bean setting error", e);
+			logger.error("Table file bean setting error", e);
 		} catch (InvocationTargetException e) {
-			logger.info("Table file bean setting error", e);
+			logger.error("Table file bean setting error", e);
 		}
-		// Here while returning the bean token is consumed so set tokenProduced state to false so next token can be
-		// produced
-		tokenProduced = false;
 		return bean;
 	}
 
@@ -122,7 +124,21 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 	 * @throws InvocationTargetException
 	 */
 	private T getBean() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-
+		if ((nextTokens != null && nextTokens.size() > 0)) {
+			List<Map<String, String>> rawTokens = new ArrayList<Map<String, String>>();
+			rawTokens.add(nextTokens);
+			while (true) {
+				try {
+					nextTokens = readTokens();
+					if (processor.checkIfNextRecord(nextTokens)) {
+						return processor.getBean(rawTokens);
+					}
+					rawTokens.add(nextTokens);
+				} catch (IOException e) {
+					logger.error("Error while reading the tokens from Table File", e);
+				}
+			}
+		}
 		return null;
 	}
 

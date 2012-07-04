@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.agnie.common.util.tablefile.GeneralException;
+import com.agnie.common.util.tablefile.DevException;
 import com.agnie.common.util.tablefile.TableBean;
 import com.agnie.common.util.tablefile.TableHeader;
 import com.agnie.common.util.validator.NotNullValidator;
@@ -119,7 +119,7 @@ public class TypeInfo {
 								// TODO: Need to add mechanism to throw error in case developers need to restrict using
 								// some separators kind of exclusion list
 							} else {
-								throw new GeneralException("Programming error: property '" + hedToken + "' is single column collection type property. Which requires tokenizer to be specified.",
+								throw new DevException("Programming error: property '" + hedToken + "' is single column collection type property. Which requires tokenizer to be specified.",
 										"property.require.tokenizer");
 							}
 							ValidatorFactory valFactory = ValidatorFactory.getInstance();
@@ -163,7 +163,7 @@ public class TypeInfo {
 				}
 				// If single column non collection type and having NotNull constraint is not present
 				if (!singleColNonCollType) {
-					throw new GeneralException(
+					throw new DevException(
 							"Programming error: Type containing multi column collection type property must have at least one single column non collection type and having NotNull constraint applied to it",
 							"require.one.single.noncollection.notnull");
 
@@ -172,7 +172,7 @@ public class TypeInfo {
 		} else {
 			AbstractSingleColumnConverter converter = SingleColumnConverterFactory.getInstance().getConverter(cls);
 			if (converter == null) {
-				throw new GeneralException("Programming error: '" + cls.getCanonicalName() + "' need to be either multicolumn type or you need to define SingleColumnConverter for the same",
+				throw new DevException("Programming error: '" + cls.getCanonicalName() + "' need to be either multicolumn type or you need to define SingleColumnConverter for the same",
 						"neither.multicolumn.nor.has.converter");
 			}
 		}
@@ -191,7 +191,7 @@ public class TypeInfo {
 				}
 			}
 			if (!implemented) {
-				throw new GeneralException("Programming error: class '" + paramType.getCanonicalName() + "' has been used as multicolumn type, so it needs to implement '"
+				throw new DevException("Programming error: class '" + paramType.getCanonicalName() + "' has been used as multicolumn type, so it needs to implement '"
 						+ TableBean.class.getCanonicalName() + "' ", "need.toimplement.tablebean.interface");
 			}
 		}

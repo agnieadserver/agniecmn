@@ -19,7 +19,7 @@ import com.agnie.common.util.converter.TypeInfo;
 import com.agnie.common.util.validator.Validator;
 
 /**
- * It will help you convert list of tokens into corresponding bean object.
+ * It will help AbstractTableFileIterator to convert list of tokens into corresponding bean object.
  * 
  * @param <B>
  */
@@ -78,7 +78,7 @@ public class TokenProcessor<B> {
 						if (property.containsCollectionType()) {
 							List<Map<String, String>> singleTokens = new ArrayList<Map<String, String>>();
 							singleTokens.add(propertyTokens.get(0));
-							TokenProcessor processor = TokenProcessorFactory.getConverter(property.getCls(), throwErrors);
+							TokenProcessor processor = TokenProcessorFactory.getConverter(property.getCls(), property, throwErrors);
 							for (int index = 1; index < propertyTokens.size(); index++) {
 								Map<String, String> mapOfToken = propertyTokens.get(index);
 								if (processor.checkIfNextRecord(mapOfToken)) {
@@ -93,7 +93,7 @@ public class TokenProcessor<B> {
 							for (Map<String, String> mapOfToken : propertyTokens) {
 								List<Map<String, String>> singleTokens = new ArrayList<Map<String, String>>();
 								singleTokens.add(mapOfToken);
-								TokenProcessor processor = TokenProcessorFactory.getConverter(property.getCls(), throwErrors);
+								TokenProcessor processor = TokenProcessorFactory.getConverter(property.getCls(), property, throwErrors);
 								property.getMethod().invoke(b, processor.getBean(singleTokens));
 							}
 						}
@@ -171,17 +171,21 @@ public class TokenProcessor<B> {
 			return b;
 		} catch (Exception e) {
 			logger.error("Programming issue :", e);
-			throw new GeneralException("Programming issue :", e);
+			throw new DevException("Programming issue :", e);
 		}
 	}
 
-	private boolean checkIfNextRecord(Map<String, String> mapOfToken) {
-		List<String> singleCols = metaInfo.getImmNotNullSingleColList();
-		for (String header : singleCols) {
-			String token = mapOfToken.get(header);
-			if (token != null && !("".equals(token))) {
-				return true;
+	public boolean checkIfNextRecord(Map<String, String> mapOfToken) {
+		if (mapOfToken != null && mapOfToken.size() > 0) {
+			List<String> singleCols = metaInfo.getImmNotNullSingleColList();
+			for (String header : singleCols) {
+				String token = mapOfToken.get(header);
+				if (token != null && !("".equals(token))) {
+					return true;
+				}
 			}
+		} else {
+			return true;
 		}
 		return false;
 	}

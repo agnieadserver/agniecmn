@@ -8,7 +8,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.agnie.common.util.tablefile.CSVFileIterator;
-import com.agnie.common.util.validator.NotNull;
 
 /**
  * Unit test for CSVFileIterator.
@@ -68,11 +67,10 @@ public class CSVIteratorTest {
 			int count = 0;
 			SampleBean beanExpected = new SampleBean(null, 27, 323L, (float) 345.56);
 			while (itr.hasNext()) {
-				SampleBean beanActual = (SampleBean) itr.next();
+				SampleBean beanActual = itr.next();
 				Assert.assertEquals(beanExpected, beanActual);
-				Assert.assertEquals(false, itr.isLastBeanValidBean());
-				Assert.assertEquals(true, itr.getFailedConstraintsOnLastBean().containsKey("Name"));
-				Assert.assertEquals(NotNull.class, itr.getFailedConstraintsOnLastBean().get("Name").get(0).annotationType());
+				ErrorMapping error = beanActual.getError("Name");
+				Assert.assertEquals("constraint.notnull.fail", error.getErrors().get(0));
 				count++;
 			}
 			Assert.assertEquals(1, count);

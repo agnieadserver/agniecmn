@@ -9,7 +9,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.agnie.common.util.tablefile.GeneralException;
+import com.agnie.common.util.tablefile.DevException;
 
 public class TokenizerFactory {
 	protected static final Log					logger			= LogFactory.getLog(TokenizerFactory.class);
@@ -38,7 +38,7 @@ public class TokenizerFactory {
 						Class<? extends Tokenizer> tokenzierCls = useTokenizer.tokenizer();
 						Constructor<? extends Tokenizer> ctor = tokenzierCls.getDeclaredConstructor(String.class);
 						if ("".equals(useTokenizer.separator())) {
-							throw new GeneralException("Programming error: Token spearator must not be empty string but yes it can contain other white spaces", "token.separator.required");
+							throw new DevException("Programming error: Token spearator must not be empty string but yes it can contain other white spaces", "token.separator.required");
 						}
 						tokenizer = ctor.newInstance(useTokenizer.separator());
 						methodMapping.put(methodName, tokenizer);

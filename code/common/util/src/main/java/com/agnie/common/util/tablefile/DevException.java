@@ -6,7 +6,7 @@ package com.agnie.common.util.tablefile;
 /**
  *
  */
-public class GeneralException extends RuntimeException {
+public class DevException extends RuntimeException {
 
 	private String				errorCode;
 	/**
@@ -17,13 +17,13 @@ public class GeneralException extends RuntimeException {
 	/**
 	 * 
 	 */
-	public GeneralException() {
+	public DevException() {
 	}
 
 	/**
 	 * @param message
 	 */
-	public GeneralException(String message, String errorCode) {
+	public DevException(String message, String errorCode) {
 		super(message);
 		this.errorCode = errorCode;
 	}
@@ -31,7 +31,7 @@ public class GeneralException extends RuntimeException {
 	/**
 	 * @param cause
 	 */
-	public GeneralException(Throwable cause) {
+	public DevException(Throwable cause) {
 		super(cause);
 	}
 
@@ -39,7 +39,7 @@ public class GeneralException extends RuntimeException {
 	 * @param message
 	 * @param cause
 	 */
-	public GeneralException(String message, Throwable cause) {
+	public DevException(String message, Throwable cause) {
 		super(message, cause);
 	}
 

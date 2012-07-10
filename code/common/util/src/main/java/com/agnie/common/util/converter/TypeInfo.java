@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.agnie.common.util.tablefile.BaseTableBean;
 import com.agnie.common.util.tablefile.DevException;
 import com.agnie.common.util.tablefile.TableBean;
 import com.agnie.common.util.tablefile.TableHeader;
@@ -184,11 +185,18 @@ public class TypeInfo {
 		boolean resp = (mutliAnn != null);
 		if (resp) {
 			boolean implemented = false;
+			/*
+			 * TODO: Below check to see if given class has implemented TableBean interface need to be improved to check.
+			 * If it has been implemented at any level of given class
+			 */
 			for (Class<?> interfaces : paramType.getInterfaces()) {
 				if (TableBean.class.equals(interfaces)) {
 					implemented = true;
 					break;
 				}
+			}
+			if (BaseTableBean.class.equals(paramType.getSuperclass())) {
+				implemented = true;
 			}
 			if (!implemented) {
 				throw new DevException("Programming error: class '" + paramType.getCanonicalName() + "' has been used as multicolumn type, so it needs to implement '"

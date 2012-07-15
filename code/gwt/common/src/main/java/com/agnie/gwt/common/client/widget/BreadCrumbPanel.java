@@ -19,7 +19,10 @@ import com.google.gwt.user.client.ui.Widget;
  *
  */
 public class BreadCrumbPanel extends Composite {
-
+	private static BreadCrumbPanelResources	resource	= BreadCrumbPanelResources.INSTANCE;
+	static {
+		resource.css().ensureInjected();
+	}
 	public interface BreadCrumb extends HasClickHandlers {
 
 	}

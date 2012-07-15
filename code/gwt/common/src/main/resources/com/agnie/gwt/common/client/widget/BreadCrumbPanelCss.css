@@ -1,0 +1,26 @@
+/**********************************	BreadCrumb related css will start here **********************************/
+.bread-crumb {
+	height: 20px;
+	width: 100%;
+	padding:10px;
+}
+
+.bread-crumb .node {
+	float: left;
+	font-weight: bold;
+	list-style-type: none;
+	margin-right: 2px;
+}
+
+.bread-crumb .node a {
+	font-size: 14px;
+	height: 11px;
+	line-height: 14px;
+	margin-top: 19px;
+	text-shadow: 1px 1px 1px #53BBC1;
+	text-decoration: none;
+	color: #081F2D;
+}
+/**********************************	BreadCrumb related css will end here **********************************/
+
+@external bread-crumb,node;

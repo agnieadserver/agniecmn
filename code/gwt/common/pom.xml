@@ -89,6 +89,7 @@
 						<cssFile>com/agnie/gwt/common/client/widget/FormFieldCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/DecoratedPanelCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/BreadCrumbPanelCss.css</cssFile>
+						<cssFile>com/agnie/gwt/common/client/widget/TextBoxLabelCss.css</cssFile>
 					</cssFiles>
 				</configuration>
 			</plugin>

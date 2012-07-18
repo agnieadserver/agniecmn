@@ -8,9 +8,9 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 /**
  * ExcelSheetIterator will be Excel sheet to Bean Generic iterator which takes InputStream and iterate through each
@@ -28,15 +28,15 @@ import org.apache.poi.ss.usermodel.Row;
 public class ExcelSheetIterator<T> extends AbstractTableFileIterator<T> {
 
 	protected static final Log	logger				= LogFactory.getLog(ExcelSheetIterator.class);
-	private HSSFSheet			sheet;
+	private Sheet				sheet;
 	private Iterator<Row>		rowItr;
 	private ArrayList<String>	indexMappedHeaders	= new ArrayList<String>();
 
-	ExcelSheetIterator(HSSFSheet sheet, Class<T> cls) throws IOException {
+	ExcelSheetIterator(Sheet sheet, Class<T> cls) throws IOException {
 		this(sheet, cls, false);
 	}
 
-	ExcelSheetIterator(HSSFSheet sheet, Class<T> cls, boolean throwValidationErrors) throws IOException {
+	ExcelSheetIterator(Sheet sheet, Class<T> cls, boolean throwValidationErrors) throws IOException {
 		super(cls, throwValidationErrors);
 		this.sheet = sheet;
 		if (this.sheet != null) {

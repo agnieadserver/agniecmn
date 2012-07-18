@@ -43,6 +43,11 @@
 			<artifactId>poi</artifactId>
 			<version>3.8</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.8</version>
+		</dependency>
 		<!-- <dependency> <groupId>org.atteo</groupId> <artifactId>evo-classindex</artifactId> 
 			<version>0.6</version> </dependency> -->
 		<dependency>

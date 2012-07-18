@@ -3,16 +3,18 @@ package com.agnie.common.util.tablefile;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 public class ExcelWorkbook<T> {
-	private HSSFWorkbook	workbook;
-	private Class<T>		cls;
-	private int				noOfSheets;
-	private int				currentSheetIndex;
+	private Workbook	workbook;
+	private Class<T>	cls;
+	private int			noOfSheets;
+	private int			currentSheetIndex;
 
-	public ExcelWorkbook(InputStream stream, Class<T> cls) throws IOException {
-		this.workbook = new HSSFWorkbook(stream);
+	public ExcelWorkbook(InputStream stream, Class<T> cls) throws IOException, InvalidFormatException {
+		this.workbook = WorkbookFactory.create(stream);
 		this.cls = cls;
 		noOfSheets = workbook.getNumberOfSheets();
 	}

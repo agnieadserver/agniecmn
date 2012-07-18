@@ -33,6 +33,7 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 
 	protected static final Log	logger					= LogFactory.getLog(AbstractTableFileIterator.class);
 	private boolean				tokenProduced			= false;
+	@SuppressWarnings("unused")
 	private Class<T>			cls;
 	protected long				rowcount				= 0;
 	protected boolean			throwValidationErrors	= false;

@@ -13,7 +13,7 @@ import org.apache.commons.logging.LogFactory;
 public abstract class BaseTableBean implements TableBean {
 	protected static final Log	logger	= LogFactory.getLog(BaseTableBean.class);
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void insertError(String property, String value, List<String> errors) {
 		if (property != null && !("".equals(property))) {
 			String prop = Character.toLowerCase(property.charAt(0)) + property.substring(1);

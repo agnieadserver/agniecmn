@@ -99,6 +99,7 @@ public class TableType<T> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
+		@SuppressWarnings("rawtypes")
 		TableType other = (TableType) obj;
 		if (errors == null) {
 			if (other.errors != null)

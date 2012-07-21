@@ -4,7 +4,6 @@ body {
 	padding: 0;
 }
 
-
 @sprite .header_wrap {
 	gwt-image: 'headerWrap';
 	background-attachment: scroll;
@@ -27,11 +26,11 @@ body {
 	margin-bottom: 35px;
 }
 /*********from Config common css start***********/
-
 .right-side-content {
 	width: 535px;
 	padding-top: 100px;
 }
+
 .single-center-content {
 	margin: 0 auto;
 	padding: 30px 25px;
@@ -72,6 +71,7 @@ a,img a,img,a img {
 .disabled {
 	display: none;
 }
+
 input[type="text"],input[type="password"],textarea {
 	border: 1px solid #AAAAAA;
 	border-radius: 4px 4px 4px 4px;
@@ -109,6 +109,7 @@ input,textarea {
 	border: 1px solid #F9F9F9;
 	border-radius: 4px 4px 4px 4px;
 }
+
 .menu {
 	background-color: white;
 	width: 100%;

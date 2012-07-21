@@ -1,52 +1,60 @@
-@sprite .dec-panel .close-btn{
+@sprite .dec-panel .close-btn {
 	gwt-image: 'closeBtn';
 }
-@sprite .dec-panel .min-btn{
+
+@sprite .dec-panel .min-btn {
 	gwt-image: 'minBtn';
 }
-@sprite .dec-panel .max-btn{
+
+@sprite .dec-panel .max-btn {
 	gwt-image: 'maxBtn';
 }
+
 .dec-panel {
 	border: 3px solid blue;
 	border-radius: 4px 3px 3px 3px;
 	background-color: #3BB9FF;
 }
-.dec-panel .content-pan{
+
+.dec-panel .content-pan {
 	background-color: #3BB9FF;
-	height:90%;
+	height: 90%;
 }
 
 .dec-panel .header-pan {
 	background-color: wheat;
-	height:10%;
+	height: 10%;
 	min-height: 25px;
 }
-.dec-panel .header-pan a{
+
+.dec-panel .header-pan a {
 	cursor: pointer;
-    float: right;
-    margin: 0 auto;
+	float: right;
+	margin: 0 auto;
 }
-.dec-panel .header-pan a:hover{
-	background-color:red;
-	text-decoration:none;
+
+.dec-panel .header-pan a:hover {
+	background-color: red;
+	text-decoration: none;
 }
+
 .dec-panel .header-pan span {
-    font-family: arial;
-    font-size: 15px;
-    font-weight: bold;
+	font-family: arial;
+	font-size: 15px;
+	font-weight: bold;
 }
+
 .dec-panel:after {
-    background: none repeat scroll 0 0 #EEEEEE;
-    border-radius: 5px 5px 5px 5px;
-    box-shadow: 0 0 0 1px #E1E1E1 inset;
-    content: "";
-    height: 100%;
-    left: -4px;
-    padding: 4px;
-    position: absolute;
-    top: -4px;
-    width: 100%;
-    z-index: -1;
+	background: none repeat scroll 0 0 #EEEEEE;
+	border-radius: 5px 5px 5px 5px;
+	box-shadow: 0 0 0 1px #E1E1E1 inset;
+	content: "";
+	height: 100%;
+	left: -4px;
+	padding: 4px;
+	position: absolute;
+	top: -4px;
+	width: 100%;
+	z-index: -1;
 }
 @external dec-panel,content-pan,header-pan,close-btn,min-btn,max-btn;

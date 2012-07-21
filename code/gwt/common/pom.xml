@@ -90,6 +90,7 @@
 						<cssFile>com/agnie/gwt/common/client/widget/DecoratedPanelCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/BreadCrumbPanelCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/TextBoxLabelCss.css</cssFile>
+						<cssFile>com/agnie/gwt/common/client/widget/MessagePanelCss.css</cssFile>
 					</cssFiles>
 				</configuration>
 			</plugin>

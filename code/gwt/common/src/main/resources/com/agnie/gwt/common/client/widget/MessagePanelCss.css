@@ -1,0 +1,73 @@
+@sprite .message-pan .error {
+	gwt-image: 'error';
+}
+
+@sprite .message-pan .info {
+	gwt-image: 'info';
+}
+
+@sprite .close-btn {
+	gwt-image: 'closeBtn';
+}
+
+@sprite .message-pan .warning {
+	gwt-image: 'warning';
+}
+
+.anchor {
+	cursor: pointer;
+	float: right;
+	margin: 0 auto;
+	font-size: 1px;
+}
+
+a:hover {
+	background-color: red;
+	border-radius: 5px;
+}
+
+.error-message-pan {
+	border: solid 2px red;
+	border-radius: 5px;
+	padding: 5px;
+	min-height: 25px;
+	margin-left: 5px;
+}
+
+.error-message {
+	color: red;
+	font-size: 15px;
+	font-weight: bold;
+	margin-left: 5px;
+}
+
+.info-message-pan {
+	border: solid 2px green;
+	border-radius: 5px;
+	padding: 5px;
+	min-height: 25px;
+	margin-left: 5px;
+}
+
+.info-message {
+	color: green;
+	font-size: 15px;
+	font-weight: bold;
+	margin-left: 5px;
+}
+
+.warning-message-pan {
+	border: solid 2px pink;
+	border-radius: 5px;
+	padding: 5px;
+	min-height: 25px;
+	margin-left: 5px;
+}
+
+.warning-message {
+	color: pink;
+	font-size: 15px;
+	font-weight: bold;
+	margin-left: 5px;
+}
+@external error, info, warning, anchor, close-btn, error-message-pan, info-message-pan, warning-message-pan, error-message, info-message, warning-message;

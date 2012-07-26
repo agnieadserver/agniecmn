@@ -1,0 +1,15 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	<ui:with field='res'
+		type='com.agnie.gwt.common.client.widget.MessagePanelResources' />
+
+	<g:HTMLPanel>
+		<g:HTMLPanel ui:field="messagePan">
+			<div>
+				<g:Image ui:field="img"></g:Image>
+				<span ui:field="message"></span>
+				<g:Anchor ui:field="close" addStyleNames='{res.css.anchor}'></g:Anchor>
+			</div>
+		</g:HTMLPanel>
+	</g:HTMLPanel>
+</ui:UiBinder>

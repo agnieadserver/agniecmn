@@ -71,17 +71,21 @@ public class TokenProcessor<B> {
 				TypeInfo property = itrProperties.next();
 				if (property.isMultiColumnType() && property.isCollectionType()) {
 					// Multicolumn type and of collection type
-					// TODO: Here you need to iterate over list and check for availability internal collection. If yes
-					// then check next record for having at least one single column has some value
+					// TODO: Here you need to iterate over list and check for availability of internal collection. If
+					// yes
+					// then check next record for having at least one single column that has some value
 					List<Map<String, String>> propertyTokens = (List<Map<String, String>>) map.get(property.getHeaderName());
 					if (propertyTokens != null && propertyTokens.size() > 0) {
 						if (property.containsCollectionType()) {
 							List<Map<String, String>> singleTokens = new ArrayList<Map<String, String>>();
 							singleTokens.add(propertyTokens.get(0));
 							TokenProcessor processor = TokenProcessorFactory.getConverter(property.getCls(), property, throwErrors);
+							Map<String, String> lastMapOfToken = null;
+							Map<String, String> mapOfToken = null;
 							for (int index = 1; index < propertyTokens.size(); index++) {
-								Map<String, String> mapOfToken = propertyTokens.get(index);
-								if (processor.checkIfNextRecord(mapOfToken)) {
+								lastMapOfToken = mapOfToken;
+								mapOfToken = propertyTokens.get(index);
+								if (processor.checkIfNextRecord(mapOfToken, lastMapOfToken)) {
 									property.getMethod().invoke(b, processor.getBean(singleTokens));
 									singleTokens = new ArrayList<Map<String, String>>();
 								}
@@ -175,21 +179,48 @@ public class TokenProcessor<B> {
 		}
 	}
 
-	public boolean checkIfNextRecord(Map<String, String> mapOfToken) {
-		if (mapOfToken != null && mapOfToken.size() > 0) {
+	/**
+	 * 
+	 * @param curntMapOfToken
+	 * @param lastMapOfToken
+	 * @return
+	 */
+	public boolean checkIfNextRecord(Map<String, String> curntMapOfToken, Map<String, String> lastMapOfToken) {
+		if (lastMapOfToken == null || lastMapOfToken.size() == 0) {
+			return false;
+		} else if (curntMapOfToken != null && curntMapOfToken.size() > 0) {
 			List<String> singleCols = metaInfo.getImmNotNullSingleColList();
+			StringBuffer crntStr = new StringBuffer("");
+			StringBuffer lastStr = new StringBuffer("");
 			for (String header : singleCols) {
-				String token = mapOfToken.get(header);
-				if (token != null && !("".equals(token))) {
-					return true;
+				String crntToken = curntMapOfToken.get(header);
+				if (crntToken != null && !("".equals(crntToken))) {
+					crntStr.append(crntToken);
+				}
+				String lastToken = lastMapOfToken.get(header);
+				if (lastToken != null && !("".equals(lastToken))) {
+					lastStr.append(lastToken);
 				}
 			}
+			if ("".equals(crntStr.toString())) {
+				return false;
+			}
+			if (("".equals(lastStr.toString()) && (!"".equals(crntStr))) || (!crntStr.toString().equals(lastStr.toString()))) {
+				return true;
+			}
+
 		} else {
 			return true;
 		}
 		return false;
 	}
 
+	/**
+	 * This method will convert
+	 * 
+	 * @param rowTokens
+	 * @return
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private Map<String, ? extends Object> getInShape(List<Map<String, String>> rowTokens) {
 		Map tokens = new HashMap();

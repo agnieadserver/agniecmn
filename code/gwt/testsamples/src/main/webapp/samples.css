@@ -1,5 +1,62 @@
 /** Add css rules here for your application. */
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!	UserRenderer related css Starts here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+.housyingsoc-user-renderer {
+	border: medium solid black;
+	height: 100px;
+	width: 350px;
+	background: none repeat scroll 0 0 white;
+	border-radius: 10px 10px 10px 10px;
+}
 
+img {
+	height: 60px;
+	padding: 20px;
+	width: 60px;
+}
+
+.rightpan {
+	float: left;
+	height: 100px;
+	width: 246px;
+}
+
+.rightpan div {
+	height: 20px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	width: 250px;
+}
+
+.wing-flatno-type {
+	float: left;
+	height: 30px;
+	width: 250px;
+}
+
+.housyingsoc-userWid span {
+	width: 80px;
+	padding: 10px;
+}
+
+.leftpan {
+	float: left;
+	height: 100px;
+	width: 100px;
+}
+
+.housyingsoc-userWid .gwt-Anchor {
+	color: blue;
+	height: 100px;
+	margin-left: 97px;
+	width: 100px;
+	cursor: pointer;
+	width: 100px;
+}
+
+.clear {
+	clear: both;
+}
+/*------------------UserRenderer related css Endss here-------------*/
 
 /** Example rules used by the template application (remove for your app) */
 h1 {

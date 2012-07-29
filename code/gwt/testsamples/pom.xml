@@ -50,6 +50,7 @@
 			<classifier>sources</classifier>
 			<scope>test</scope>
 		</dependency>
+		
 	</dependencies>
 
 	<build>

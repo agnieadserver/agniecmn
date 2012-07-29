@@ -3,10 +3,8 @@
 	<ui:with field='res'
 		type='com.agnie.gwt.common.client.widget.SuggestionBoxResources' />
 
-	<g:HTMLPanel>
-		<g:HTMLPanel ui:field="mainPan" addStyleNames='{res.css.mainPan}'>
+	<g:HTMLPanel ui:field="mainPan" addStyleNames='{res.css.mainPan}'>
 			<g:TextBox ui:field="search" addStyleNames='{res.css.search}'></g:TextBox>
 			<c:CellList ui:field='list' addStyleNames='{res.css.list}' />
-		</g:HTMLPanel>
 	</g:HTMLPanel>
 </ui:UiBinder>

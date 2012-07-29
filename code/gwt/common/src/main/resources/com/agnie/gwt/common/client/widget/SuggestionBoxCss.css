@@ -1,6 +1,7 @@
 .main-pan {
 	width: 300px;
 	margin: 0 auto;
+	height:200px;
 }
 
 @url search search;
@@ -17,8 +18,8 @@
 .list {
 	border: 2px solid blue;
 	border-radius: 5px;
-	width: 305px;
+	width: 320px;
 	margin-top: 5px;
-	background-color: yellow;
+	background-color: pink;
 }
 @external main-pan, search, list;

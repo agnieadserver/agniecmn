@@ -14,7 +14,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Creates an Decorated panel with the specified contents inside a panel content element. content element can contain a
  * child widget.
- * 
+ * close,min,max Button only visible in respective clickHandlers.
  * @param header
  *            the panel header's title.
  * @param content
@@ -51,14 +51,19 @@ public class DecoratedPanel extends Composite {
 	public DecoratedPanel() {
 		this(null, null);
 	}
+	
+	public DecoratedPanel(String header) {
+		this(header, null);
+	}
 
 	public DecoratedPanel(String header, Widget content) {
 
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
+		initWidget(container);
+		
 		headerPan.addStyleName(resource.css().headerPan());
 		contentPan.addStyleName(resource.css().contentPan());
 		container.addStyleName(resource.css().decPanel());
-		initWidget(container);
 
 		setHeader(header);
 		addContent(content);
@@ -88,7 +93,7 @@ public class DecoratedPanel extends Composite {
 	@UiChild
 	public void addContent(Widget content) {
 		if (content != null) {
-			this.contentPan.add(content);
+			this.contentPan.add(content.asWidget());
 		}
 	}
 

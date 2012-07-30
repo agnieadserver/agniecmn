@@ -15,8 +15,8 @@
 	<url>http://maven.apache.org</url>
 	<properties>
 		<!-- Convenience property to set the GWT version -->
-		<gwtVersion>2.4.0</gwtVersion>
-		<gwtpluginVersion>2.4.0</gwtpluginVersion>
+		<gwtVersion>2.5.0-rc1</gwtVersion>
+		<gwtpluginVersion>2.5.0-rc1</gwtpluginVersion>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 	</properties>

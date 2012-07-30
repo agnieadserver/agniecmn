@@ -50,7 +50,6 @@
 			<classifier>sources</classifier>
 			<scope>test</scope>
 		</dependency>
-		
 	</dependencies>
 
 	<build>
@@ -63,7 +62,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
-				<version>2.4.0</version>
+				<version>2.5.0-rc1</version>
 				<executions>
 					<execution>
 						<goals>

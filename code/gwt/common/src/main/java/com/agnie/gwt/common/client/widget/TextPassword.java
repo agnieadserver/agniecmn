@@ -5,6 +5,8 @@ import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
@@ -13,7 +15,7 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
-public class TextPassword extends Composite{
+public class TextPassword extends Composite {
 	private static TextPasswordResources	resource	= TextPasswordResources.INSTANCE;
 
 	static {
@@ -27,9 +29,9 @@ public class TextPassword extends Composite{
 
 	protected HTMLPanel			container;
 	@UiField
-	TextBox		textBox;
+	TextBox						textBox;
 	@UiField
-	PasswordTextBox passBox;
+	PasswordTextBox				passBox;
 
 	public TextPassword() {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
@@ -37,21 +39,21 @@ public class TextPassword extends Composite{
 		textBox.setText("password");
 		passBox.setVisible(false);
 		textBox.addFocusHandler(new FocusHandler() {
-			
+
 			@Override
 			public void onFocus(FocusEvent event) {
 				textBox.setText("");
 			}
 		});
 		textBox.addBlurHandler(new BlurHandler() {
-			
+
 			@Override
 			public void onBlur(BlurEvent event) {
-				GWT.log("textBox text=="+textBox.getText());
-				if(("password".equals(textBox.getText()))||textBox.getText().equals("")){
-				textBox.setVisible(true);
-				}else
-				{
+				GWT.log("textBox text==" + textBox.getText());
+				if (("password".equals(textBox.getText())) || textBox.getText().equals("")) {
+					textBox.setVisible(true);
+					textBox.setText("password");
+				} else {
 					textBox.setVisible(false);
 					passBox.setVisible(true);
 					passBox.setText(textBox.getText());
@@ -59,7 +61,7 @@ public class TextPassword extends Composite{
 			}
 		});
 	}
-	
+
 	public static TextPasswordResources getResources() {
 		return resource;
 	}

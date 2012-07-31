@@ -6,12 +6,12 @@ import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.user.client.ui.TextBox;
 /**
- * TextBoxLabel is an extension of GWT TextBox to show  label as text field default value(in little bit light color).
+ * LabelTextBox is an extension of GWT TextBox to show  label as text field default value(in little bit light color).
  * @param String Label 
  *
  */
-public class TextBoxLabel extends TextBox{
-	private static TextBoxLabelResources	resource	= TextBoxLabelResources.INSTANCE;
+public class LabelTextBox extends TextBox{
+	private static LabelTextBoxResources	resource	= LabelTextBoxResources.INSTANCE;
 
 	static {
 		resource.css().ensureInjected();
@@ -19,14 +19,14 @@ public class TextBoxLabel extends TextBox{
 	
 	public  String label=new String();
 
-	public TextBoxLabel() {
+	public LabelTextBox() {
 		this(null);
 	}
 
-	public TextBoxLabel(String label) {
+	public LabelTextBox(String label) {
 		
 		setLabel(label);
-		
+//		getElement().setAttribute(arg0, arg1);
 		super.addFocusHandler(new FocusHandler() {
 			
 			@Override
@@ -46,6 +46,7 @@ public class TextBoxLabel extends TextBox{
 				}
 			}
 		});
+		
 	}
 	protected void removeStyle() {
 		super.removeStyleName("text-field-label");

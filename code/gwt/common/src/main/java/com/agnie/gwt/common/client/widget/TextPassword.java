@@ -42,7 +42,9 @@ public class TextPassword extends Composite {
 
 			@Override
 			public void onFocus(FocusEvent event) {
-				textBox.setText("");
+				passBox.setVisible(true);
+				passBox.setFocus(true);
+				textBox.setVisible(false);
 			}
 		});
 		textBox.addBlurHandler(new BlurHandler() {

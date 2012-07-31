@@ -1,7 +1,7 @@
 .main-body{
 	margin: 0pt;
 	padding: 0pt; 
-	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,"Myriad 			  	Pro",Myriad,Geneva,Arial,"Lucida Grande",sans-serif;
+	font-family: "Avant Garde","Century Gothic","Avant Garde Gothic","URW Gothic L",helvetica,sans-serif;
 	font-size: 15px;
 }	
 
@@ -27,9 +27,10 @@
 }
 
 .header-span {
+	color: #999999;
 	float: right;
 	margin-top: 30px;
-	width: 150px;
+	width: 157px;
 }
 
 .header-img {
@@ -49,7 +50,6 @@
 
 .left-pan {
 	float: left;
-	margin-left: 30px;
 }
 
 .welcome {
@@ -84,7 +84,6 @@
 
 .right-pan {
 	float: right;
-	margin-right: 30px;
 }
 
 .username-pass a {

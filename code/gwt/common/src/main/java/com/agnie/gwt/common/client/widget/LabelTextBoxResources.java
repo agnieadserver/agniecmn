@@ -7,5 +7,5 @@ public interface LabelTextBoxResources extends ClientBundle{
 	public static LabelTextBoxResources	INSTANCE	= GWT.create(LabelTextBoxResources.class);
 
 	@Source("LabelTextBoxCss.css")
-	TextBoxLabelCss css();
+	LabelTextBoxCss css();
 }

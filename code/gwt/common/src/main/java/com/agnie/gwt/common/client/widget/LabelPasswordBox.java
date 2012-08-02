@@ -41,8 +41,10 @@ public class LabelPasswordBox extends LabelTextBox{
 				GWT.log("value=="+value);
 				if("".equals(value)){
 					getElement().setAttribute("type","text");
+					addStyle();
 				}else{
 					getElement().setAttribute("type","password");
+					removeStyle();
 				}
 			}
 		});

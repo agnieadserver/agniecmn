@@ -1,21 +1,82 @@
 package com.agnie.gwt.client;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.agnie.gwt.client.renderer.UserRenderer;
+import com.agnie.gwt.common.client.widget.DecoratedPanel;
+import com.agnie.gwt.common.client.widget.LabelPasswordBox;
+import com.agnie.gwt.common.client.widget.LabelTextBox;
+import com.agnie.gwt.common.client.widget.MessagePanel;
+import com.agnie.gwt.common.client.widget.MessagePanel.MessageType;
+import com.agnie.gwt.common.client.widget.SuggestionBox;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextBox;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class samples implements EntryPoint {
+	LabelPasswordBox	lpb			= new LabelPasswordBox();
+	LabelTextBox		ltb			= new LabelTextBox();
+	Button				save		= new Button("save");
+	MessagePanel		mpi			= new MessagePanel();
+	MessagePanel		mpe			= new MessagePanel();
+	MessagePanel		mpw			= new MessagePanel();
+	TextBox				tb			= new TextBox();
+	List<String>		celllist	= new ArrayList<String>();
+	SuggestionBox		sb			= new SuggestionBox();
+	DecoratedPanel		dp;
+
 	public void onModuleLoad() {
 		GWT.log("IN onmoduleLoad Start.");
-		//RendererSample rendSample = new RendererSample();
-		UserRenderer ur=new UserRenderer();
-		
-		GWT.log("IN onmoduleLoad Mid.");
-		RootPanel.get().add(ur);
-		GWT.log("IN onmoduleLoad End.");
+		// RendererSample rendSample = new RendererSample();
+		UserRenderer ur = new UserRenderer();
+		for (int i = 0; i < 5; i++) {
+			celllist.add("sug" + i);
+		}
+		sb.setData(celllist);
+		sb.setWidth("300px");
+		sb.setHeight("300px");
+		dp = new DecoratedPanel("Decorated Panel");
+
+		dp.addContent(save);
+		dp.addContent(tb);
+		dp.closeClickHandler(new ClickHandler() {
+
+			public void onClick(ClickEvent event) {
+				dp.getParent().removeFromParent();
+			}
+		});
+		ltb.setLabel("username");
+		lpb.setLabel("password");
+		GWT.log("In Entry point ltb.getLabel==" + ltb.getLabel() + "ltb.getText()==" + ltb.getText());
+		save.addClickHandler(new ClickHandler() {
+
+			public void onClick(ClickEvent event) {
+				GWT.log("In Entry point save ltb.getLabel==" + ltb.getLabel() + "ltb.getText()==" + ltb.getText());
+			}
+		});
+		mpi.setType(MessageType.INFORMATION);
+		mpi.setMessage("Information: infromation information height set nothing");
+		// mpi.setHeight("20px");
+		mpe.setType(MessageType.ERROR);
+		mpe.setMessage("Error:error error height set to 40px");
+		mpe.setHeight("40px");
+		mpw.setType(MessageType.WARNING);
+		mpw.setMessage("Warning:warning warning height set to 60 px");
+		mpw.setHeight("60px");
+		RootPanel.get().add(ltb);
+//		RootPanel.get().add(save);
+//		RootPanel.get().add(mpi);
+//		RootPanel.get().add(mpw);
+//		RootPanel.get().add(mpe);
+		RootPanel.get().add(lpb);
+		//RootPanel.get().add(sb);
 	}
 }

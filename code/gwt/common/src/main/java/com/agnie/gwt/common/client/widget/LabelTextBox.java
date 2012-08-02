@@ -32,7 +32,6 @@ public class LabelTextBox extends TextBox {
 	public LabelTextBox(String label) {
 
 		setLabel(label);
-		// getElement().setAttribute(arg0, arg1);
 		super.addFocusHandler(new FocusHandler() {
 
 			@Override
@@ -57,8 +56,7 @@ public class LabelTextBox extends TextBox {
 			
 			@Override
 			public void onKeyPress(KeyPressEvent event) {
-				// TODO Auto-generated method stub
-				
+				dirtyFlag=true;
 			}
 		});
 
@@ -101,9 +99,9 @@ public class LabelTextBox extends TextBox {
 	@Override
 	public String getValue() {
 		String text = super.getValue();
-		if (text.isEmpty() || text.equals(getLabel()))
-			return "";
-		else
+		if (dirtyFlag)
 			return text;
+		else
+			return "";
 	}
 }

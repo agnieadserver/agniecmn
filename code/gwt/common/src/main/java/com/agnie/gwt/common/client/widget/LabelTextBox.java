@@ -36,7 +36,10 @@ public class LabelTextBox extends TextBox {
 
 			@Override
 			public void onFocus(FocusEvent event) {
-				setText("");
+				if(!dirtyFlag){
+					setText("");
+				}
+				
 				removeStyle();
 			}
 		});

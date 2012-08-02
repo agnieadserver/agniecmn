@@ -28,16 +28,18 @@ public class LabelPasswordBox extends LabelTextBox{
 			
 			@Override
 			public void onFocus(FocusEvent arg0) {
+				
 				getElement().setAttribute("type","password");
+				removeStyle();
 			}
 		});
 		super.addBlurHandler(new BlurHandler() {
 			
 			@Override
 			public void onBlur(BlurEvent arg0) {
-				String value=getText();
+				String value=getValue();
 				GWT.log("value=="+value);
-				if(value.equals("")||value.equals("password")){
+				if("".equals(value)){
 					getElement().setAttribute("type","text");
 				}else{
 					getElement().setAttribute("type","password");
@@ -45,13 +47,4 @@ public class LabelPasswordBox extends LabelTextBox{
 			}
 		});
 	}
-	
-	public String getText(){
-		String text=super.getText();
-		if(text.isEmpty()||text.equals(getLabel()))
-			return "";
-		else
-			return text;
-	}
-		
 }

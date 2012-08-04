@@ -72,11 +72,11 @@ public class samples implements EntryPoint {
 		mpw.setMessage("Warning:warning warning height set to 60 px");
 		mpw.setHeight("60px");
 		RootPanel.get().add(ltb);
-//		RootPanel.get().add(save);
-//		RootPanel.get().add(mpi);
-//		RootPanel.get().add(mpw);
-//		RootPanel.get().add(mpe);
+		// RootPanel.get().add(save);
+		// RootPanel.get().add(mpi);
+		// RootPanel.get().add(mpw);
+		// RootPanel.get().add(mpe);
 		RootPanel.get().add(lpb);
-		//RootPanel.get().add(sb);
+		// RootPanel.get().add(sb);
 	}
 }

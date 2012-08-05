@@ -21,11 +21,6 @@
 	font-size: 1px;
 }
 
-a:hover {
-	background-color: red;
-	border-radius: 5px;
-}
-
 .error-message-pan {
 	border: solid 2px red;
 	border-radius: 5px;

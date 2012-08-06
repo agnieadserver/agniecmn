@@ -11,9 +11,9 @@ public interface SearchBoxResources extends ClientBundle {
 	@Source("SearchBoxCss.css")
 	SearchBoxCss css();
 
-	@Source("Search-Icon-25*25.jpg")
+	@Source("searchImg.png")
 	DataResource search();
 	
-	@Source("Search-Icon-25*25.jpg")
+	@Source("searchImg.png")
 	ImageResource searchI();
 }

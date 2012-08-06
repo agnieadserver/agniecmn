@@ -1,9 +1,8 @@
 .search-box {
-	border: 2px solid green;
-    box-shadow: 1px 1px green;
-    min-height: 25px;
+    border: 1px solid #BABABA;
+    min-height: 30px;
     min-width: 200px;
-	background-color:#659B2C;
+    text-align: left;
 }
 .text-box {
 	font-family:"Avant Garde","Century Gothic","Avant Garde Gothic","URW Gothic L",helvetica,sans-serif;
@@ -15,6 +14,7 @@
 }
 .search-box .input-widget-container {
 	float:right;
+	padding: 2px;
 }
 .search-box .gwt-TextBox {
 	width:80% !important;

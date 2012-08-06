@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.agnie.gwt.client.renderer.UserRenderer;
-import com.agnie.gwt.client.ui.HomeContentView;
 import com.agnie.gwt.common.client.widget.DecoratedPanel;
 import com.agnie.gwt.common.client.widget.LabelPasswordBox;
 import com.agnie.gwt.common.client.widget.LabelTextBox;
@@ -89,7 +88,7 @@ public class samples implements EntryPoint {
 				Window.alert("You are finding " + searchBox.getValue());
 			}
 		});
-		searchBox.addInputWidgetContainer(img);
+		searchBox.addInputWidget(img);
 		// RootPanel.get().add(ltb);
 		// RootPanel.get().add(save);
 		// RootPanel.get().add(mpi);

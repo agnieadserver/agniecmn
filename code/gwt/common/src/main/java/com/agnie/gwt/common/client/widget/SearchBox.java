@@ -3,6 +3,7 @@ package com.agnie.gwt.common.client.widget;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -43,7 +44,9 @@ public class SearchBox extends Composite {
 	public void setLabel(String label){
 		search.setLabel(label);
 	}
-	public void addInputWidgetContainer(Widget widget) {
+	
+	@UiChild
+	public void addInputWidget(Widget widget) {
 		this.widget=widget;
 		inputWidgetContainer.add(widget);
 	}

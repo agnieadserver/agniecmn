@@ -92,6 +92,7 @@
 						<cssFile>com/agnie/gwt/common/client/widget/LabelPasswordBoxCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/MessagePanelCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/SuggestionBoxCss.css</cssFile>
+						<cssFile>com/agnie/gwt/common/client/widget/SearchBoxCss.css</cssFile>
 					</cssFiles>
 				</configuration>
 			</plugin>

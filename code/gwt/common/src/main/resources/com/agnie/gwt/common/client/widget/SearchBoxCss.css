@@ -1,0 +1,23 @@
+.search-box {
+	border: 2px solid green;
+    box-shadow: 1px 1px green;
+    min-height: 25px;
+    min-width: 200px;
+	background-color:#659B2C;
+}
+.text-box {
+	font-family:"Avant Garde","Century Gothic","Avant Garde Gothic","URW Gothic L",helvetica,sans-serif;
+	border:1px solid white;
+	background-color:white;
+	width:80%;
+	height:80%;
+	float: left;
+}
+.search-box .input-widget-container {
+	float:right;
+}
+.search-box .gwt-TextBox {
+	width:80% !important;
+	height:80% !important;
+}
+@external search-box,text-box,input-widget-container;

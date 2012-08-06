@@ -8,13 +8,17 @@ import com.agnie.gwt.common.client.widget.DecoratedPanel;
 import com.agnie.gwt.common.client.widget.LabelPasswordBox;
 import com.agnie.gwt.common.client.widget.LabelTextBox;
 import com.agnie.gwt.common.client.widget.MessagePanel;
+import com.agnie.gwt.common.client.widget.SearchBoxResources;
 import com.agnie.gwt.common.client.widget.MessagePanel.MessageType;
+import com.agnie.gwt.common.client.widget.SearchBox;
 import com.agnie.gwt.common.client.widget.SuggestionBox;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
@@ -32,7 +36,9 @@ public class samples implements EntryPoint {
 	List<String>		celllist	= new ArrayList<String>();
 	SuggestionBox		sb			= new SuggestionBox();
 	DecoratedPanel		dp;
-
+	SearchBox			searchBox	=new SearchBox();
+	Image				img=new Image();
+	private static SearchBoxResources	resource	= SearchBoxResources.INSTANCE;
 	public void onModuleLoad() {
 		GWT.log("IN onmoduleLoad Start.");
 		// RendererSample rendSample = new RendererSample();
@@ -71,12 +77,23 @@ public class samples implements EntryPoint {
 		mpw.setType(MessageType.WARNING);
 		mpw.setMessage("Warning:warning warning height set to 60 px");
 		mpw.setHeight("60px");
-		RootPanel.get().add(ltb);
-		// RootPanel.get().add(save);
-		// RootPanel.get().add(mpi);
-		// RootPanel.get().add(mpw);
-		// RootPanel.get().add(mpe);
-		RootPanel.get().add(lpb);
-		// RootPanel.get().add(sb);
+		
+		searchBox.setSize("200px","20px");
+		searchBox.setLabel("suresh");
+		img.setResource(resource.searchI());
+		img.addClickHandler(new ClickHandler() {
+			
+			public void onClick(ClickEvent event) {
+				Window.alert("You are finding "+searchBox.getValue());
+			}
+		});
+		searchBox.addInputWidgetContainer(img);
+//		RootPanel.get().add(ltb);
+//		 RootPanel.get().add(save);
+//		 RootPanel.get().add(mpi);
+//		 RootPanel.get().add(mpw);
+//		 RootPanel.get().add(mpe);
+//		RootPanel.get().add(lpb);
+		 RootPanel.get().add(searchBox);
 	}
 }

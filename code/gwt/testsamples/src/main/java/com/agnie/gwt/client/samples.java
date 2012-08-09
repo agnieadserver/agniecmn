@@ -81,7 +81,7 @@ public class samples implements EntryPoint {
 
 		searchBox.setSize("200px", "20px");
 		searchBox.setLabel("suresh");
-		img.setResource(resource.searchI());
+		img.setUrl("images/search.png");
 		img.addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {

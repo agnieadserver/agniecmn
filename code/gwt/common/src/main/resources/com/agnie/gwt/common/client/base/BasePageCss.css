@@ -139,11 +139,11 @@ input,textarea {
 .header {
 	height: 82px;
 	margin: 0 auto;
-	width: 940px;
+	width: 980px;
 }
 
 .content-wrapper {
-	width: 940px;
+	width: 980px;
 	margin: 0 auto;
 }
 @external right-side-content, single-center-content, box, box-blue, smaller, disabled, clearfix, float-right, float-left, footer, content-body, header_wrap, menu, menu-nav, .fullpage, header, content-wrapper;

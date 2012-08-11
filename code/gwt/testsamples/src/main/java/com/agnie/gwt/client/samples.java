@@ -19,9 +19,11 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -128,16 +130,41 @@ public class samples implements EntryPoint {
 		// Locale Box Test -- end
 
 		// ListBoxt Test -- start
+		HorizontalPanel hlpanel = new HorizontalPanel();
 		final ListBoxTest lbTest = new ListBoxTest();
-		RootPanel.get().add(lbTest);
+		hlpanel.add(lbTest);
 		Button btnlbTest = new Button("List Box Test");
-		RootPanel.get().add(btnlbTest);
+		hlpanel.add(btnlbTest);
 		btnlbTest.addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent arg0) {
 				Window.alert("User = >" + lbTest.getSelected());
 			}
 		});
+		RootPanel.get().add(hlpanel);
+		// ListBoxt Test -- end
+
+		// ListBoxt Test -- start
+		VerticalPanel vselunPanel = new VerticalPanel();
+		final SelectUnselectTest selTest = new SelectUnselectTest();
+		vselunPanel.add(selTest);
+		Button shwAva = new Button("Show available List");
+		vselunPanel.add(shwAva);
+		shwAva.addClickHandler(new ClickHandler() {
+
+			public void onClick(ClickEvent arg0) {
+				selTest.showAvailable();
+			}
+		});
+		Button shwSel = new Button("Show Selected List");
+		vselunPanel.add(shwSel);
+		shwSel.addClickHandler(new ClickHandler() {
+
+			public void onClick(ClickEvent arg0) {
+				selTest.showSelected();
+			}
+		});
+		RootPanel.get().add(vselunPanel);
 		// ListBoxt Test -- end
 
 	}

@@ -4,4 +4,7 @@
 	<inherits name='com.google.gwt.user.User' />
 	<inherits name="com.google.gwt.resources.Resources" />
 	<source path='client' />
+	<replace-with class="com.agnie.gwt.common.client.helper.URLInfoImpl">
+		<when-type-is class="com.agnie.gwt.common.client.helper.URLInfo" />
+	</replace-with>
 </module>

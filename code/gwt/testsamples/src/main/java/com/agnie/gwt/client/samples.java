@@ -9,6 +9,7 @@ import com.agnie.gwt.common.client.widget.LabelPasswordBox;
 import com.agnie.gwt.common.client.widget.LabelTextBox;
 import com.agnie.gwt.common.client.widget.MessagePanel;
 import com.agnie.gwt.common.client.widget.MessagePanel.MessageType;
+import com.agnie.gwt.common.client.widget.PageTitle;
 import com.agnie.gwt.common.client.widget.SearchBox;
 import com.agnie.gwt.common.client.widget.SearchBoxResources;
 import com.agnie.gwt.common.client.widget.SuggestionBox;
@@ -38,6 +39,7 @@ public class samples implements EntryPoint {
 	DecoratedPanel						dp;
 	SearchBox							searchBox	= new SearchBox();
 	Image								img			= new Image();
+	PageTitle							pt			=new PageTitle();
 	private static SearchBoxResources	resource	= SearchBoxResources.INSTANCE;
 
 	public void onModuleLoad() {
@@ -89,6 +91,9 @@ public class samples implements EntryPoint {
 			}
 		});
 		searchBox.addInputWidget(img);
+		
+		pt.setPageTitle("Title for page1");
+		pt.addTitleImage(img);
 		// RootPanel.get().add(ltb);
 		// RootPanel.get().add(save);
 		// RootPanel.get().add(mpi);
@@ -119,6 +124,6 @@ public class samples implements EntryPoint {
 		// HomeContentView view = new HomeContentView();
 		// RootPanel.get().add(view);
 		// Form Field Test -- end
-		RootPanel.get().add(searchBox);
+		RootPanel.get().add(pt);
 	}
 }

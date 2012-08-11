@@ -126,5 +126,19 @@ public class samples implements EntryPoint {
 		LocaleListBox box = new LocaleListBox();
 		RootPanel.get().add(box);
 		// Locale Box Test -- end
+
+		// ListBoxt Test -- start
+		final ListBoxTest lbTest = new ListBoxTest();
+		RootPanel.get().add(lbTest);
+		Button btnlbTest = new Button("List Box Test");
+		RootPanel.get().add(btnlbTest);
+		btnlbTest.addClickHandler(new ClickHandler() {
+
+			public void onClick(ClickEvent arg0) {
+				Window.alert("User = >" + lbTest.getSelected());
+			}
+		});
+		// ListBoxt Test -- end
+
 	}
 }

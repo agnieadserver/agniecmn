@@ -95,6 +95,7 @@
 						<cssFile>com/agnie/gwt/common/client/widget/SearchBoxCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/PageTitleCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/SelectUnselectCss.css</cssFile>
+						<cssFile>com/agnie/gwt/common/client/widget/AccountCss.css</cssFile>
 					</cssFiles>
 				</configuration>
 			</plugin>

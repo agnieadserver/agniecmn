@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.agnie.gwt.client.renderer.UserRenderer;
+import com.agnie.gwt.common.client.widget.Account;
 import com.agnie.gwt.common.client.widget.DecoratedPanel;
 import com.agnie.gwt.common.client.widget.LabelPasswordBox;
 import com.agnie.gwt.common.client.widget.LabelTextBox;
@@ -45,6 +46,7 @@ public class samples implements EntryPoint {
 	PageTitle							pt			= new PageTitle();
 	List<User> sel = new ArrayList<User>();
 	List<User> av = new ArrayList<User>();
+	Account		acc=new Account();
 	User us = new User();
 	private static SearchBoxResources	resource	= SearchBoxResources.INSTANCE;
 
@@ -98,7 +100,7 @@ public class samples implements EntryPoint {
 		});
 		searchBox.addInputWidget(img);
 
-		pt.addPageTitle("Title for page1");
+		pt.setPageTitle("Title for page1");
 		pt.addTitleImage(img);
 		// RootPanel.get().add(ltb);
 		// RootPanel.get().add(save);
@@ -130,51 +132,51 @@ public class samples implements EntryPoint {
 		// HomeContentView view = new HomeContentView();
 		// RootPanel.get().add(view);
 		// Form Field Test -- end
-		RootPanel.get().add(pt);
-		RootPanel.get().add(searchBox);
+//		RootPanel.get().add(pt);
+//		RootPanel.get().add(searchBox);
 
 		// Locale Box Test -- start
-		LocaleListBox box = new LocaleListBox();
-		RootPanel.get().add(box);
+//		LocaleListBox box = new LocaleListBox();
+//		RootPanel.get().add(box);
 		// Locale Box Test -- end
 
 		// ListBoxt Test -- start
-		HorizontalPanel hlpanel = new HorizontalPanel();
-		final ListBoxTest lbTest = new ListBoxTest();
-		hlpanel.add(lbTest);
-		Button btnlbTest = new Button("List Box Test");
-		hlpanel.add(btnlbTest);
-		btnlbTest.addClickHandler(new ClickHandler() {
-
-			public void onClick(ClickEvent arg0) {
-				Window.alert("User = >" + lbTest.getSelected());
-			}
-		});
-		RootPanel.get().add(hlpanel);
+//		HorizontalPanel hlpanel = new HorizontalPanel();
+//		final ListBoxTest lbTest = new ListBoxTest();
+//		hlpanel.add(lbTest);
+//		Button btnlbTest = new Button("List Box Test");
+//		hlpanel.add(btnlbTest);
+//		btnlbTest.addClickHandler(new ClickHandler() {
+//
+//			public void onClick(ClickEvent arg0) {
+//				Window.alert("User = >" + lbTest.getSelected());
+//			}
+//		});
+//		RootPanel.get().add(hlpanel);
 		// ListBoxt Test -- end
 
 		// ListBoxt Test -- start
-		VerticalPanel vselunPanel = new VerticalPanel();
-		final SelectUnselectTest selTest = new SelectUnselectTest();
-		vselunPanel.add(selTest);
-		Button shwAva = new Button("Show available List");
-		vselunPanel.add(shwAva);
-		shwAva.addClickHandler(new ClickHandler() {
-
-			public void onClick(ClickEvent arg0) {
-				selTest.showAvailable();
-			}
-		});
-		Button shwSel = new Button("Show Selected List");
-		vselunPanel.add(shwSel);
-		shwSel.addClickHandler(new ClickHandler() {
-
-			public void onClick(ClickEvent arg0) {
-				selTest.showSelected();
-			}
-		});
-		RootPanel.get().add(vselunPanel);
+//		VerticalPanel vselunPanel = new VerticalPanel();
+//		final SelectUnselectTest selTest = new SelectUnselectTest();
+//		vselunPanel.add(selTest);
+//		Button shwAva = new Button("Show available List");
+//		vselunPanel.add(shwAva);
+//		shwAva.addClickHandler(new ClickHandler() {
+//
+//			public void onClick(ClickEvent arg0) {
+//				selTest.showAvailable();
+//			}
+//		});
+//		Button shwSel = new Button("Show Selected List");
+//		vselunPanel.add(shwSel);
+//		shwSel.addClickHandler(new ClickHandler() {
+//
+//			public void onClick(ClickEvent arg0) {
+//				selTest.showSelected();
+//			}
+//		});
+//		RootPanel.get().add(vselunPanel);
 		// ListBoxt Test -- end
-
+		RootPanel.get().add(acc);
 	}
 }

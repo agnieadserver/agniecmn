@@ -15,6 +15,11 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class SelectUnselect<T> extends Composite {
 
+	private static SelectUnselectResources	resource	= SelectUnselectResources.INSTANCE;
+
+	static {
+		resource.css().ensureInjected();
+	}
 	@UiField
 	ListBox<T>	available;
 
@@ -39,6 +44,8 @@ public class SelectUnselect<T> extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 		selected.setRowData(sel);
 		available.setRowData(av);
+		mvlft.setText("<<");
+		mvrgt.setText(">>");
 	}
 
 	@UiFactory
@@ -76,5 +83,8 @@ public class SelectUnselect<T> extends Composite {
 	public void disable() {
 		mvlft.setEnabled(false);
 		mvrgt.setEnabled(false);
+	}
+	public static SelectUnselectResources getResources() {
+		return resource;
 	}
 }

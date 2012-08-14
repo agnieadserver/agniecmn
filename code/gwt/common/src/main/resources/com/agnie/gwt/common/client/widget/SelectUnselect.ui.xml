@@ -4,58 +4,22 @@
 	ui:generateFormat='com.google.gwt.i18n.rebind.format.PropertiesFormat'
 	ui:generateKeys="com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator"
 	ui:generateLocales="default">
-	<g:HTMLPanel>
-		<table>
-			<tr>
-				<td>
-					<table>
-						<tr>
-							<td align="center">
-								Available :
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<uac:ListBox ui:field="available" height="150px"
-									width="150px"></uac:ListBox>
-							</td>
-						</tr>
-					</table>
-				</td>
-				<td align="center">
-					<table align="center">
-						<tr>
-							<td align="center">
-								<g:Button ui:field="mvlft">
-									add
-								</g:Button>
-							</td>
-						</tr>
-						<tr>
-							<td align="center">
-								<g:Button ui:field="mvrgt">
-									remove
-								</g:Button>
-							</td>
-						</tr>
-					</table>
-				</td>
-				<td>
-					<table>
-						<tr>
-							<td align="center">
-								Selected :
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<uac:ListBox ui:field="selected" height="150px"
-									width="150px"></uac:ListBox>
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
+	<ui:with field='res'
+		type='com.agnie.gwt.common.client.widget.SelectUnselectResources' />
+	<g:HTMLPanel addStyleNames='{res.css.selUnselPan}'>
+		<div class='{res.css.fltLeft}'>
+			<uac:ListBox ui:field="available" height="150px" width="150px"></uac:ListBox>
+		</div>
+		<div class='{res.css.btnPan}'>
+			<div>
+				<g:Button ui:field="mvlft" ></g:Button>
+			</div>
+			<div>
+				<g:Button ui:field="mvrgt" ></g:Button>
+			</div>
+		</div>
+		<div class='{res.css.fltLeft}'>
+			<uac:ListBox ui:field="selected" height="150px" width="150px"></uac:ListBox>
+		</div>
 	</g:HTMLPanel>
 </ui:UiBinder>

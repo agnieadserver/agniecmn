@@ -90,7 +90,7 @@ public class samples implements EntryPoint {
 		mpw.setHeight("60px");
 
 		searchBox.setSize("200px", "20px");
-		searchBox.setLabel("suresh");
+		//searchBox.setLabel("suresh");
 		img.setUrl("images/search.png");
 		img.addClickHandler(new ClickHandler() {
 
@@ -133,8 +133,8 @@ public class samples implements EntryPoint {
 		// RootPanel.get().add(view);
 		// Form Field Test -- end
 //		RootPanel.get().add(pt);
-//		RootPanel.get().add(searchBox);
-
+		RootPanel.get().add(searchBox);
+		RootPanel.get().add(sb);
 		// Locale Box Test -- start
 //		LocaleListBox box = new LocaleListBox();
 //		RootPanel.get().add(box);

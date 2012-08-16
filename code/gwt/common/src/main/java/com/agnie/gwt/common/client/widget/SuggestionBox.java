@@ -2,6 +2,7 @@ package com.agnie.gwt.common.client.widget;
 
 import java.util.List;
 
+import com.agnie.gwt.common.client.I18;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.KeyPressEvent;
@@ -52,7 +53,7 @@ public class SuggestionBox extends Composite {
 		initWidget(container);
 		list.setVisible(false);
 
-		Label label = new Label("No data");
+		Label label = new Label(I18.messages.noData());
 		list.setEmptyListWidget(label);
 
 		dp.addDataDisplay(list);

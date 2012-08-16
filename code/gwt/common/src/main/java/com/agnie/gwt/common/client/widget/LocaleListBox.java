@@ -22,9 +22,9 @@ import com.google.gwt.user.client.ui.ListBox;
 public class LocaleListBox extends ListBox {
 
 	public static final String	SELECT	= "select";
-
+	
+	
 	public LocaleListBox() {
-
 		setName(QueryString.LOCALE.getKey());
 		String selectedLocale = Location.getParameter(QueryString.LOCALE.getKey());
 		if (selectedLocale == null || "".equals(selectedLocale)) {

@@ -14,6 +14,7 @@ import com.agnie.gwt.common.client.widget.MessagePanel.MessageType;
 import com.agnie.gwt.common.client.widget.PageTitle;
 import com.agnie.gwt.common.client.widget.SearchBox;
 import com.agnie.gwt.common.client.widget.SearchBoxResources;
+import com.agnie.gwt.common.client.widget.StyledListBox;
 import com.agnie.gwt.common.client.widget.SuggestionBox;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -44,6 +45,7 @@ public class samples implements EntryPoint {
 	SearchBox							searchBox	= new SearchBox();
 	Image								img			= new Image();
 	PageTitle							pt			= new PageTitle();
+	StyledListBox						slb 		=new StyledListBox();
 	List<User> sel = new ArrayList<User>();
 	List<User> av = new ArrayList<User>();
 	Account		acc=new Account();
@@ -133,11 +135,14 @@ public class samples implements EntryPoint {
 		// RootPanel.get().add(view);
 		// Form Field Test -- end
 //		RootPanel.get().add(pt);
-		RootPanel.get().add(searchBox);
-		RootPanel.get().add(sb);
+//		RootPanel.get().add(searchBox);
+//		RootPanel.get().add(sb);
 		// Locale Box Test -- start
-//		LocaleListBox box = new LocaleListBox();
-//		RootPanel.get().add(box);
+		LocaleListBox box = new LocaleListBox();
+		LocaleListBox box1 = new LocaleListBox();
+		slb.setListBox(box);
+		RootPanel.get().add(box1);
+		RootPanel.get().add(slb);
 		// Locale Box Test -- end
 
 		// ListBoxt Test -- start

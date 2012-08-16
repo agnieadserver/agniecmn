@@ -1,0 +1,18 @@
+@url arrowDark arrowDark;
+.styled-select {
+	width: 90px;
+	height: 30px;
+	overflow: hidden;
+	border: none;
+	background: arrowDark no-repeat scroll 70px 10px transparent;
+}
+
+.styled-select select {
+	background: transparent;
+	border: medium none;
+	font-size: 14px;
+	height: 30px;
+	padding: 3px;
+	width: 105px;
+}
+@external styled-select;

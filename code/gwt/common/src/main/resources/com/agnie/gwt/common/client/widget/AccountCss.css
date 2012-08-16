@@ -52,9 +52,7 @@
 	background: linear-gradient(to bottom, rgba(242, 242, 242, 1) 0%,
 		rgba(241, 241, 241, 1) 33%, rgba(240, 240, 240, 1) 66%,
 		rgba(238, 238, 238, 1) 100% ); /* W3C */
-	filter: progid :   DXImageTransform.Microsoft.gradient (    
-		startColorstr = 
-		 '#f2f2f2', endColorstr =   '#eeeeee', GradientType =   0 );
+	filter: progid :DXImageTransform.Microsoft.gradient (startColorstr ='#f2f2f2', endColorstr =   '#eeeeee', GradientType =   0 );
 	/* IE6-8 */
 }
 

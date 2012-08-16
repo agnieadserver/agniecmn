@@ -68,6 +68,7 @@
 						<goals>
 							<goal>compile</goal>
 							<goal>test</goal>
+							<goal>i18n</goal>
 							<goal>generateAsync</goal>
 						</goals>
 					</execution>
@@ -80,6 +81,9 @@
 					</execution>
 				</executions>
 				<configuration>
+					<i18nMessagesBundles>
+						<i18nMessagesBundle>com.agnie.gwt.common.client.Messages</i18nMessagesBundle>
+					</i18nMessagesBundles>
 					<cssFiles>
 						<cssFile>com/agnie/gwt/common/client/base/BasePageCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/GreenButtonCss.css</cssFile>

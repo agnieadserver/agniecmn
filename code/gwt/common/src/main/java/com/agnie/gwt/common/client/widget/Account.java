@@ -1,5 +1,6 @@
 package com.agnie.gwt.common.client.widget;
 
+import com.agnie.gwt.common.client.I18;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.SpanElement;
@@ -51,10 +52,7 @@ public class Account extends Composite {
 
 		setAccTitle("Title");
 		accUserImg.setResource(resource.person());
-		name.setInnerText("Name");
-		changePass.setText("Change Password");
-		modify.setText("Modify");
-		logout.setText("logOut");
+		name.setInnerText(I18.messages.name());
 
 	}
 

@@ -6,9 +6,10 @@
 		type='com.agnie.gwt.common.client.Messages' />
 
 	<g:HTMLPanel>
-		<div class='{res.css.accTitlePan}'>
-			<div>
+		<div class='{res.css.accPan}'>
+			<div class='{res.css.accTitlePan}'>
 				<span ui:field="accTitle" class='{res.css.title}'></span>
+				<img ui:field="accImg" class='{res.css.img}'></img>
 			</div>
 			<div class='{res.css.accDropPan}'>
 				<div class='{res.css.accDetNameElem}'>

@@ -16,6 +16,12 @@ public interface AccountResources extends ClientBundle {
 	DataResource arrowDark();
 	
 	@Source("arrow.png")
+	ImageResource arrowImg();
+	
+	@Source("arrowDark.png")
+	ImageResource arrowDarkImg();
+	
+	@Source("arrow.png")
 	DataResource arrow();
 	
 	

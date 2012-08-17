@@ -42,6 +42,7 @@ public class samples implements EntryPoint {
 	List<String>						celllist	= new ArrayList<String>();
 	SuggestionBox						sb			= new SuggestionBox();
 	DecoratedPanel						dp;
+	VerticalPanel						dp1=new VerticalPanel();
 	SearchBox							searchBox	= new SearchBox();
 	Image								img			= new Image();
 	PageTitle							pt			= new PageTitle();
@@ -49,6 +50,8 @@ public class samples implements EntryPoint {
 	List<User> sel = new ArrayList<User>();
 	List<User> av = new ArrayList<User>();
 	Account		acc=new Account();
+	Account		acc1=new Account();
+	Account		acc2=new Account();
 	User us = new User();
 	private static SearchBoxResources	resource	= SearchBoxResources.INSTANCE;
 
@@ -104,6 +107,7 @@ public class samples implements EntryPoint {
 
 		pt.setPageTitle("Title for page1");
 		pt.addTitleImage(img);
+		
 		// RootPanel.get().add(ltb);
 		// RootPanel.get().add(save);
 		// RootPanel.get().add(mpi);
@@ -138,11 +142,11 @@ public class samples implements EntryPoint {
 //		RootPanel.get().add(searchBox);
 //		RootPanel.get().add(sb);
 		// Locale Box Test -- start
-		LocaleListBox box = new LocaleListBox();
-		LocaleListBox box1 = new LocaleListBox();
-		slb.addListBox(box);
-		RootPanel.get().add(box1);
-		RootPanel.get().add(slb);
+//		LocaleListBox box = new LocaleListBox();
+//		LocaleListBox box1 = new LocaleListBox();
+//		slb.addListBox(box);
+//		RootPanel.get().add(box1);
+//		RootPanel.get().add(slb);
 		// Locale Box Test -- end
 
 		// ListBoxt Test -- start
@@ -182,6 +186,13 @@ public class samples implements EntryPoint {
 //		});
 //		RootPanel.get().add(vselunPanel);
 		// ListBoxt Test -- end
-		RootPanel.get().add(acc);
+		acc.setAccName("UserName");
+		acc1.setAccName("UserName1"+"Username1");
+		acc2.setAccName("UserName2"+"UserName22222");
+		dp1.add(acc);
+//		dp1.add(acc1);
+//		dp1.add(acc2);
+		
+		RootPanel.get().add(dp1);
 	}
 }

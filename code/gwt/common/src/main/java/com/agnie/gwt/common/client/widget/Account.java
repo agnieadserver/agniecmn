@@ -1,11 +1,11 @@
 package com.agnie.gwt.common.client.widget;
 
-import com.agnie.gwt.common.client.I18;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.SpanElement;
+import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -13,7 +13,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Account with image.
+ * Account widget.To show users account detail.
  * 
  */
 public class Account extends Composite {
@@ -49,17 +49,17 @@ public class Account extends Composite {
 	public Account() {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
 		initWidget(container);
-
-		setAccTitle("Title");
-		accUserImg.setResource(resource.person());
-		name.setInnerText(I18.messages.name());
-
+		setUserImageResource(resource.person());
 	}
 
-	public void setAccTitle(String title) {
+	public void setAccName(String title) {
+		Window.alert("title length"+title.length());
 		accTitle.setInnerText(title);
+		name.setInnerText(title);
 	}
-
+	public void setUserImageResource(ImageResource resource){
+		accUserImg.setResource(resource);
+	}
 	public void setHeight(String height) {
 		container.setHeight(height);
 	}

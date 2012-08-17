@@ -140,7 +140,7 @@ public class samples implements EntryPoint {
 		// Locale Box Test -- start
 		LocaleListBox box = new LocaleListBox();
 		LocaleListBox box1 = new LocaleListBox();
-		slb.setListBox(box);
+		slb.addListBox(box);
 		RootPanel.get().add(box1);
 		RootPanel.get().add(slb);
 		// Locale Box Test -- end

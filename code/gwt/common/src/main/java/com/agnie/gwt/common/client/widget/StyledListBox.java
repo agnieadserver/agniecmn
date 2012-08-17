@@ -36,7 +36,7 @@ public class StyledListBox extends Composite {
 	 * @param listBox
 	 */
 	@UiChild
-	public void setListBox(Widget listBox){
+	public void addListBox(Widget listBox){
 		container.add(listBox);
 	}
 

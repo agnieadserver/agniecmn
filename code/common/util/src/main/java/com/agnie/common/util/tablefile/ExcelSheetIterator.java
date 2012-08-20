@@ -1,7 +1,6 @@
 package com.agnie.common.util.tablefile;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -26,11 +25,10 @@ import org.apache.poi.ss.usermodel.Sheet;
  * 
  */
 public class ExcelSheetIterator<T> extends AbstractTableFileIterator<T> {
-
-	protected static final Log	logger				= LogFactory.getLog(ExcelSheetIterator.class);
-	private Sheet				sheet;
-	private Iterator<Row>		rowItr;
-	private ArrayList<String>	indexMappedHeaders	= new ArrayList<String>();
+	protected static final Log		logger				= LogFactory.getLog(ExcelSheetIterator.class);
+	private Sheet					sheet;
+	private Iterator<Row>			rowItr;
+	private Map<Integer, String>	indexMappedHeaders	= new HashMap<Integer, String>();
 
 	ExcelSheetIterator(Sheet sheet, Class<T> cls) throws IOException {
 		this(sheet, cls, false);
@@ -41,14 +39,13 @@ public class ExcelSheetIterator<T> extends AbstractTableFileIterator<T> {
 		this.sheet = sheet;
 		if (this.sheet != null) {
 			this.rowItr = sheet.rowIterator();
-			indexMappedHeaders = new ArrayList<String>();
 			if (rowItr.hasNext()) {
 				Row row = rowItr.next();
 				Iterator<Cell> cellItr = row.cellIterator();
 
 				while (cellItr.hasNext()) {
 					Cell cell = cellItr.next();
-					indexMappedHeaders.add(cell.toString());
+					indexMappedHeaders.put(cell.getColumnIndex(), cell.toString());
 				}
 			}
 		}
@@ -64,12 +61,26 @@ public class ExcelSheetIterator<T> extends AbstractTableFileIterator<T> {
 			if (rowItr.hasNext()) {
 				Map<String, String> colMapedTokens = new HashMap<String, String>();
 				Row row = rowItr.next();
-				Iterator<Cell> cellItr = row.cellIterator();
-				for (int index = 0; cellItr.hasNext(); index++) {
-					Cell cell = cellItr.next();
-					String token = cell.toString();
+				for (Cell cell : row) {
+					String token = "";
+					switch (cell.getCellType()) {
+					case Cell.CELL_TYPE_NUMERIC:
+						Double doubleVal = cell.getNumericCellValue();
+						// TODO: Need to add different use cases to test number formatter is working as per requirement
+						// here
+						token = new java.text.DecimalFormat("0.0").format(doubleVal);
+						break;
+
+					case Cell.CELL_TYPE_STRING:
+						token = cell.getStringCellValue();
+						break;
+					default:
+						// TODO: Need to through custom exception
+						logger.error("Excel sheet cell Type => " + cell.getCellType() + " is not supported");
+						break;
+					}
 					if (token != null && !"".equals(token)) {
-						colMapedTokens.put(indexMappedHeaders.get(index), token);
+						colMapedTokens.put(indexMappedHeaders.get(cell.getColumnIndex()), token);
 					}
 				}
 				rowcount++;

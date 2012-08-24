@@ -8,7 +8,10 @@
 .clear-fix {
 	clear:both;
 }
-
+.ua-header{
+	z-index: 1;
+	position: relative;
+}
 .headerw {
 	width: 980px;
 	margin: 0 auto;
@@ -69,27 +72,38 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#009edf', end
 	height:30px;
 }	
 .language .styled-select {
+	margin-top: -2px;
 	float:right;
 	font-size: 15px;
 	width: 70px;
 	height: 30px;
 	overflow: hidden;
 	border: none;
-	background:url(images/arrowDark.png)  no-repeat scroll 60px 8px transparent;
+	background:url(images/arrowWhite.png)  no-repeat scroll 60px 10px transparent;
 }
 
 .welcome .styled-select {
+	margin-top: -2px;
 	float:right;
 	font-size: 15px;
 	width: 100px;
 	height: 30px;
 	overflow: hidden;
 	border: none;
-	background:url(images/arrowDark.png)  no-repeat scroll 90px 6px transparent;
+	background:url(images/arrowWhite.png)  no-repeat scroll 90px 10px transparent;
 }
 
-.styled-select select {
-	color: #B1B1B1;
+.language .styled-select select {
+	color: #E4ECFF;
+	padding: 2px 3px 3px;
+	background: transparent;
+	border: medium none;
+	font-size: 14px;
+	height: 30px;
+	padding: 3px;
+	width: 130px;
+}
+.welcome .styled-select select {
 	padding: 2px 3px 3px;
 	background: transparent;
 	border: medium none;
@@ -140,13 +154,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#aea5a8', end
 .tab-bar li{
 	color: #656565;
 	list-style-type: none;
-	margin-left:10px;
-	margin-right:10px;
+	margin-left:15px;
+	margin-right:15px;
 	height:30px;
 	float:left;
 	padding-left: 5px;
   padding-right: 5px;
-	padding-top: 5px;
+	padding-top: 10px;
 	border-radius:5px;
 }
 .tab-bar li:active{
@@ -154,10 +168,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#aea5a8', end
 	border-radius:5px;
 	padding-left: 5px;
   padding-right: 5px;
-	padding-top: 5px;
+	padding-top: 10px;
 	list-style-type: none;
-	margin-left:10px;
-	margin-right:10px;
+	margin-left:15px;
+	margin-right:15px;
 	height:30px;
 	float:left;
 	background: rgb(0,160,223); /* Old browsers */
@@ -185,7 +199,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00a0df', end
 	background-color: #FFFFFF;
   border: medium none;
   float: left;
-  height: 30px;
+  height: 28px;
   width: 200px;
 	border-radius: 3px 0 0 3px;
 } 
@@ -195,12 +209,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00a0df', end
 	background-color: #7BCE30;
   border-radius: 0 3px 3px 0;
   float: left;
-  height: 32px;
+  height: 30px;
   width: 30px;
 }
 
 .breadcrumb {
-	width:480px;
+	margin-top: 20px;
+	width:430px;
 	height:35px;
 	border-radius: 5px;
 	background: rgb(102,110,113); /* Old browsers */
@@ -215,16 +230,28 @@ background: linear-gradient(to bottom,  rgba(102,110,113,1) 0%,rgba(92,100,103,1
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#666e71', endColorstr='#494d50',GradientType=0 ); /* IE6-8 */
 }
 	
-.breadcrumb li{
-	background: url("images/breadcrumb_sep.png") no-repeat scroll 50px 0px transparent;
-  border-radius: 5px 5px 5px 5px;
-  color: #E0E3E4;
-  float: left;
-  height: 30px;
-  list-style-type: none;
-  padding: 5px 40px 2px 1px;
+.breadcrumb-image-li {
+	background: url("images/breadcrumb_sep.png") no-repeat scroll 0px 0px transparent;
 }
 
+.breadcrumb ul {
+	margin: 0 auto;
+  padding-left: 15px;
+  width: 400px;
+}
+.breadcrumb li{
+	color: #E0E3E4;
+  float: left;
+  font-size: 13px;
+  height: 30px;
+  list-style-type: none;
+  padding: 7px 20px 2px 5px;
+}
+
+.last-li{
+	color: #8EE659 !important;
+}
+	
 .society {
 	padding-top:20px;
 	clear: both;
@@ -245,8 +272,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#666e71', end
 
 .society-img {
 	background: url("images/img_not_avail.png") no-repeat scroll 0px 0px transparent;
-	border: 2px solid;
-  box-shadow: 3px 3px 1px;
+	border: 1px solid;
   height: 129px;
   margin-bottom: 20px;
   width: 185px;

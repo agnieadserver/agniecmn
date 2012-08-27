@@ -32,9 +32,6 @@ public class Account extends Composite {
 	SpanElement					accTitle;
 
 	@UiField
-	SpanElement					name;
-
-	@UiField
 	Image						accUserImg;
 	@UiField
 	Anchor						changePass;
@@ -53,13 +50,13 @@ public class Account extends Composite {
 	}
 
 	public void setAccName(String title) {
-		Window.alert("title length"+title.length());
 		accTitle.setInnerText(title);
-		name.setInnerText(title);
 	}
-	public void setUserImageResource(ImageResource resource){
+
+	public void setUserImageResource(ImageResource resource) {
 		accUserImg.setResource(resource);
 	}
+
 	public void setHeight(String height) {
 		container.setHeight(height);
 	}

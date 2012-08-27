@@ -125,12 +125,6 @@
 	margin-left: 10px;
 }
 
-.acc-det-name-elem {
-	height: 20px;
-	padding: 5px;
-	width: 200px;
-}
-
 .acc-det-elem {
 	height: 20px;
 	padding: 2px;
@@ -146,4 +140,4 @@
 	cursor: pointer;
 	color: green;
 }
-@external acc-drop-pan, acc-pan, acc-title-pan, img, title, acc-user-img, acc-det, acc-det-name-elem, acc-det-elem;
+@external acc-drop-pan, acc-pan, acc-title-pan, img, title, acc-user-img, acc-det, acc-det-elem;

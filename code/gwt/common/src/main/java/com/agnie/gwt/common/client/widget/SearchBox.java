@@ -44,8 +44,9 @@ public class SearchBox extends Composite {
 	
 	@UiChild
 	public void addInputWidget(Widget widget) {
-		this.widget=widget;
+		if (widget != null) {
 		inputWidgetContainer.add(widget);
+		}
 	}
 
 	public void setHeight(String height) {

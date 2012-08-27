@@ -2,15 +2,10 @@ package com.agnie.gwt.client;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
-import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import com.agnie.gwt.client.shared.Person;
-import com.agnie.gwt.client.ui.ValidatePersonView;
 import com.agnie.gwt.common.client.widget.Account;
 import com.agnie.gwt.common.client.widget.BreadCrumbPanel;
 import com.agnie.gwt.common.client.widget.DecoratedPanel;
@@ -24,6 +19,9 @@ import com.agnie.gwt.common.client.widget.StyledListBox;
 import com.agnie.gwt.common.client.widget.SuggestionBox;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -57,23 +55,11 @@ public class samples implements EntryPoint {
 	User us = new User();
 	BreadCrumbPanel		bcp=new BreadCrumbPanel();
 	private static SearchBoxResources	resource	= SearchBoxResources.INSTANCE;
-	Person p=new Person();
 	private ValidatorFactory factory = Validation.byDefaultProvider().configure().buildValidatorFactory();
 	
 
 	public void onModuleLoad() {
 		GWT.log("IN onmoduleLoad Start.");
-		Validator validator = factory.getValidator();
-		Set<ConstraintViolation<Person>> violations = validator.validate(p);
-		
-		for (ConstraintViolation<Person> constraintViolation : violations) {
-			System.out.println("message=="+constraintViolation.getMessage());
-			System.out.println("InvalidValue=="+constraintViolation.getInvalidValue());
-			System.out.println("MessageTmplate=="+constraintViolation.getMessageTemplate());
-			System.out.println("ConstraintDescriptor=="+constraintViolation.getConstraintDescriptor());
-			System.out.println("PropertyPath=="+constraintViolation.getPropertyPath());
-			
-		}
 //		img.setUrl("images/search.png");
 //		bcp.addBreadCrumb("BreadCrumb1",img);
 //		bcp.addBreadCrumb("BreadCrumb2");
@@ -123,16 +109,17 @@ public class samples implements EntryPoint {
 //		mpw.setMessage("Warning:warning warning height set to 60 px");
 //		mpw.setHeight("60px");
 //
-//		searchBox.setSize("200px", "20px");
-//		//searchBox.setLabel("suresh");
-//		img.setUrl("images/search.png");
-//		img.addClickHandler(new ClickHandler() {
-//
-//			public void onClick(ClickEvent event) {
-//				Window.alert("You are finding " + searchBox.getValue());
-//			}
-//		});
-//		searchBox.addInputWidget(img);
+		searchBox.setSize("200px", "20px");
+		searchBox.setLabel("suresh");
+		img.setUrl("images/search.png");
+		img.addClickHandler(new ClickHandler() {
+
+			public void onClick(ClickEvent event) {
+				Window.alert("You are finding " + searchBox.getValue());
+			}
+		});
+		searchBox.addInputWidget(img);
+		RootPanel.get().add(searchBox);
 //
 //		pt.setPageTitle("Title for page1");
 //		pt.addTitleImage(img);
@@ -214,11 +201,11 @@ public class samples implements EntryPoint {
 //			}
 //		});
 //		RootPanel.get().add(vselunPanel);
-		// ListBoxt Test -- end
-		acc.setAccName("UserName");
+//		//ListBoxt Test -- end
+//		acc.setAccName("UserName");
 //		acc1.setAccName("UserName1"+"Username1");
 //		acc2.setAccName("UserName2"+"UserName22222");
-		dp1.add(acc);
+//		dp1.add(acc);
 //		dp1.add(acc1);
 //		dp1.add(acc2);
 //		

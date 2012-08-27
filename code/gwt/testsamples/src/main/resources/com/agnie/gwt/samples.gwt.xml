@@ -3,7 +3,6 @@
 	<!-- Inherit the core Web Toolkit stuff. -->
 	<inherits name='com.google.gwt.user.User' />
 	<inherits name='com.agnie.gwt.common.AgnieCommon'/>
-	<inherits name='com.em.validation.Validation' />
 	<!-- We need the JUnit module in the main module, -->
 	<!-- otherwise eclipse complains (Google plugin bug?) -->
 	<!-- Inherit the default GWT style sheet. You can change -->

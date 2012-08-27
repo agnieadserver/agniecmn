@@ -8,7 +8,7 @@
 	gwt-image: 'arrowDarkImg';
 	cursor: pointer;
 	float: right;
-	margin-left: 25px;
+	margin-left: 10px;
 	margin-top:5px;
 	height: 5px;
 	width: 9px;
@@ -17,16 +17,15 @@
 	gwt-image: 'arrowImg';
 }
 .acc-pan .acc-title-pan {
-	max-width: 100px;
     min-height: 20px;
-    min-width: 100px;
     padding: 5px;
     border-radius:5px;
+    font-size: 14px;
 }	
 .acc-pan .title {
 	font-family: "Avant Garde", "Century Gothic", "Avant Garde Gothic",
 		"URW Gothic L", helvetica, sans-serif;
-	font-size: 13px;
+	
 	float:left;
 }
 
@@ -68,12 +67,9 @@
 
 
 .acc-pan .acc-drop-pan {
-	max-width: 250px;
     padding: 5px;
 	display: none;
 	min-height: 100px;
-	min-width: 200px;
-	box-shadow: 2px 2px 1px #777777;
 	border-radius: 0 5px 5px 5px;
 	font-family: "Avant Garde", "Century Gothic", "Avant Garde Gothic",
 		"URW Gothic L", helvetica, sans-serif;

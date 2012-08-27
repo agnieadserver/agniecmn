@@ -4,26 +4,24 @@
 		type='com.agnie.gwt.common.client.widget.AccountResources' />
 	<ui:with field='msg' type='com.agnie.gwt.common.client.Messages' />
 
-	<g:HTMLPanel>
-		<div class='{res.css.accPan}'>
-			<div class='{res.css.accTitlePan}'>
-				<span ui:field="accTitle" class='{res.css.title}'></span>
-				<img ui:field="accImg" class='{res.css.img}'></img>
+	<g:HTMLPanel addStyleNames='{res.css.accPan}'>
+		<div class='{res.css.accTitlePan}'>
+			<span ui:field="accTitle" class='{res.css.title}'></span>
+			<img ui:field="accImg" class='{res.css.img}'></img>
+		</div>
+		<div class='{res.css.accDropPan}'>
+			<div class='{res.css.accUserImg}'>
+				<g:Image ui:field="accUserImg"></g:Image>
 			</div>
-			<div class='{res.css.accDropPan}'>
-				<div class='{res.css.accUserImg}'>
-					<g:Image ui:field="accUserImg"></g:Image>
+			<div class='{res.css.accDet}'>
+				<div class='{res.css.accDetElem}'>
+					<g:Anchor ui:field="changePass" text='{msg.changePass}'></g:Anchor>
 				</div>
-				<div class='{res.css.accDet}'>
-					<div class='{res.css.accDetElem}'>
-						<g:Anchor ui:field="changePass" text='{msg.changePass}'></g:Anchor>
-					</div>
-					<div class='{res.css.accDetElem}'>
-						<g:Anchor ui:field="modify" text='{msg.modify}'></g:Anchor>
-					</div>
-					<div class='{res.css.accDetElem}'>
-						<g:Anchor ui:field="logout" text='{msg.logout}'></g:Anchor>
-					</div>
+				<div class='{res.css.accDetElem}'>
+					<g:Anchor ui:field="modify" text='{msg.modify}'></g:Anchor>
+				</div>
+				<div class='{res.css.accDetElem}'>
+					<g:Anchor ui:field="logout" text='{msg.logout}'></g:Anchor>
 				</div>
 			</div>
 		</div>

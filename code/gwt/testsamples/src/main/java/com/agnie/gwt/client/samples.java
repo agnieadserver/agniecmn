@@ -42,88 +42,86 @@ public class samples implements EntryPoint {
 	List<String>						celllist	= new ArrayList<String>();
 	SuggestionBox						sb			= new SuggestionBox();
 	DecoratedPanel						dp;
-	VerticalPanel						dp1=new VerticalPanel();
+	VerticalPanel						dp1			= new VerticalPanel();
 	SearchBox							searchBox	= new SearchBox();
 	Image								img			= new Image();
 	PageTitle							pt			= new PageTitle();
-	StyledListBox						slb 		=new StyledListBox();
-	List<User> sel = new ArrayList<User>();
-	List<User> av = new ArrayList<User>();
-	Account		acc=new Account();
-	Account		acc1=new Account();
-	Account		acc2=new Account();
-	User us = new User();
-	BreadCrumbPanel		bcp=new BreadCrumbPanel();
+	StyledListBox						slb			= new StyledListBox();
+	List<User>							sel			= new ArrayList<User>();
+	List<User>							av			= new ArrayList<User>();
+	Account								acc			= new Account();
+	Account								acc1		= new Account();
+	Account								acc2		= new Account();
+	User								us			= new User();
+	BreadCrumbPanel						bcp			= new BreadCrumbPanel();
 	private static SearchBoxResources	resource	= SearchBoxResources.INSTANCE;
-	private ValidatorFactory factory = Validation.byDefaultProvider().configure().buildValidatorFactory();
-	
 
 	public void onModuleLoad() {
 		GWT.log("IN onmoduleLoad Start.");
-//		img.setUrl("images/search.png");
-//		bcp.addBreadCrumb("BreadCrumb1",img);
-//		bcp.addBreadCrumb("BreadCrumb2");
-//		bcp.addBreadCrumb("BreadCrumb3");
-//		for(int i=0;i<bcp.getBreadCrumbCount();i++){
-//		GWT.log("breadcrumbcount=="+bcp.getBreadCrumbCount());
-//		GWT.log(bcp.getBreadCrumbText(i));
-//		
-//		}
-//		int i=bcp.getBreadCrumbCount()-1;
-//		GWT.log("last node index=="+i);
-//		RootPanel.get().add(bcp);
+		// img.setUrl("images/search.png");
+		// bcp.addBreadCrumb("BreadCrumb1",img);
+		// bcp.addBreadCrumb("BreadCrumb2");
+		// bcp.addBreadCrumb("BreadCrumb3");
+		// for(int i=0;i<bcp.getBreadCrumbCount();i++){
+		// GWT.log("breadcrumbcount=="+bcp.getBreadCrumbCount());
+		// GWT.log(bcp.getBreadCrumbText(i));
+		//
+		// }
+		// int i=bcp.getBreadCrumbCount()-1;
+		// GWT.log("last node index=="+i);
+		// RootPanel.get().add(bcp);
 		// RendererSample rendSample = new RendererSample();
-//		UserRenderer ur = new UserRenderer();
-//		for (int i = 0; i < 5; i++) {
-//			celllist.add("sug" + i);
-//		}
-//		sb.setData(celllist);
-//		sb.setWidth("300px");
-//		sb.setHeight("300px");
-//		dp = new DecoratedPanel("Decorated Panel");
-//
-//		dp.addContent(save);
-//		dp.addContent(tb);
-//		dp.closeClickHandler(new ClickHandler() {
-//
-//			public void onClick(ClickEvent event) {
-//				dp.getParent().removeFromParent();
-//			}
-//		});
-//		ltb.setLabel("username");
-//		lpb.setLabel("password");
-//		GWT.log("In Entry point ltb.getLabel==" + ltb.getLabel() + "ltb.getText()==" + ltb.getText());
-//		save.addClickHandler(new ClickHandler() {
-//
-//			public void onClick(ClickEvent event) {
-//				GWT.log("In Entry point save ltb.getLabel==" + ltb.getLabel() + "ltb.getText()==" + ltb.getText());
-//			}
-//		});
-//		mpi.setType(MessageType.INFORMATION);
-//		mpi.setMessage("Information: infromation information height set nothing");
-//		// mpi.setHeight("20px");
-//		mpe.setType(MessageType.ERROR);
-//		mpe.setMessage("Error:error error height set to 40px");
-//		mpe.setHeight("40px");
-//		mpw.setType(MessageType.WARNING);
-//		mpw.setMessage("Warning:warning warning height set to 60 px");
-//		mpw.setHeight("60px");
-//
-		searchBox.setSize("200px", "20px");
-		searchBox.setLabel("suresh");
-		img.setUrl("images/search.png");
-		img.addClickHandler(new ClickHandler() {
+		// UserRenderer ur = new UserRenderer();
+		// for (int i = 0; i < 5; i++) {
+		// celllist.add("sug" + i);
+		// }
+		// sb.setData(celllist);
+		// sb.setWidth("300px");
+		// sb.setHeight("300px");
+		// dp = new DecoratedPanel("Decorated Panel");
+		//
+		// dp.addContent(save);
+		// dp.addContent(tb);
+		// dp.closeClickHandler(new ClickHandler() {
+		//
+		// public void onClick(ClickEvent event) {
+		// dp.getParent().removeFromParent();
+		// }
+		// });
+		// ltb.setLabel("username");
+		// lpb.setLabel("password");
+		// GWT.log("In Entry point ltb.getLabel==" + ltb.getLabel() + "ltb.getText()==" + ltb.getText());
+		// save.addClickHandler(new ClickHandler() {
+		//
+		// public void onClick(ClickEvent event) {
+		// GWT.log("In Entry point save ltb.getLabel==" + ltb.getLabel() + "ltb.getText()==" + ltb.getText());
+		// }
+		// });
+		// mpi.setType(MessageType.INFORMATION);
+		// mpi.setMessage("Information: infromation information height set nothing");
+		// // mpi.setHeight("20px");
+		// mpe.setType(MessageType.ERROR);
+		// mpe.setMessage("Error:error error height set to 40px");
+		// mpe.setHeight("40px");
+		// mpw.setType(MessageType.WARNING);
+		// mpw.setMessage("Warning:warning warning height set to 60 px");
+		// mpw.setHeight("60px");
+		//
+		// searchBox.setSize("200px", "20px");
+		// searchBox.setLabel("suresh");
+		// img.setUrl("images/search.png");
+		// img.addClickHandler(new ClickHandler() {
+		//
+		// public void onClick(ClickEvent event) {
+		// Window.alert("You are finding " + searchBox.getValue());
+		// }
+		// });
+		// searchBox.addInputWidget(img);
+		// RootPanel.get().add(searchBox);
+		//
+		// pt.setPageTitle("Title for page1");
+		// pt.addTitleImage(img);
 
-			public void onClick(ClickEvent event) {
-				Window.alert("You are finding " + searchBox.getValue());
-			}
-		});
-		searchBox.addInputWidget(img);
-		RootPanel.get().add(searchBox);
-//
-//		pt.setPageTitle("Title for page1");
-//		pt.addTitleImage(img);
-		
 		// RootPanel.get().add(ltb);
 		// RootPanel.get().add(save);
 		// RootPanel.get().add(mpi);
@@ -154,61 +152,61 @@ public class samples implements EntryPoint {
 		// HomeContentView view = new HomeContentView();
 		// RootPanel.get().add(view);
 		// Form Field Test -- end
-//		RootPanel.get().add(pt);
-//		RootPanel.get().add(searchBox);
-//		RootPanel.get().add(sb);
+		// RootPanel.get().add(pt);
+		// RootPanel.get().add(searchBox);
+		// RootPanel.get().add(sb);
 		// Locale Box Test -- start
-//		LocaleListBox box = new LocaleListBox();
-//		LocaleListBox box1 = new LocaleListBox();
-//		slb.addListBox(box);
-//		RootPanel.get().add(box1);
-//		RootPanel.get().add(slb);
+		// LocaleListBox box = new LocaleListBox();
+		// LocaleListBox box1 = new LocaleListBox();
+		// slb.addListBox(box);
+		// RootPanel.get().add(box1);
+		// RootPanel.get().add(slb);
 		// Locale Box Test -- end
 
 		// ListBoxt Test -- start
-//		HorizontalPanel hlpanel = new HorizontalPanel();
-//		final ListBoxTest lbTest = new ListBoxTest();
-//		hlpanel.add(lbTest);
-//		Button btnlbTest = new Button("List Box Test");
-//		hlpanel.add(btnlbTest);
-//		btnlbTest.addClickHandler(new ClickHandler() {
-//
-//			public void onClick(ClickEvent arg0) {
-//				Window.alert("User = >" + lbTest.getSelected());
-//			}
-//		});
-//		RootPanel.get().add(hlpanel);
+		// HorizontalPanel hlpanel = new HorizontalPanel();
+		// final ListBoxTest lbTest = new ListBoxTest();
+		// hlpanel.add(lbTest);
+		// Button btnlbTest = new Button("List Box Test");
+		// hlpanel.add(btnlbTest);
+		// btnlbTest.addClickHandler(new ClickHandler() {
+		//
+		// public void onClick(ClickEvent arg0) {
+		// Window.alert("User = >" + lbTest.getSelected());
+		// }
+		// });
+		// RootPanel.get().add(hlpanel);
 		// ListBoxt Test -- end
 
 		// ListBoxt Test -- start
-//		VerticalPanel vselunPanel = new VerticalPanel();
-//		final SelectUnselectTest selTest = new SelectUnselectTest();
-//		vselunPanel.add(selTest);
-//		Button shwAva = new Button("Show available List");
-//		vselunPanel.add(shwAva);
-//		shwAva.addClickHandler(new ClickHandler() {
-//
-//			public void onClick(ClickEvent arg0) {
-//				selTest.showAvailable();
-//			}
-//		});
-//		Button shwSel = new Button("Show Selected List");
-//		vselunPanel.add(shwSel);
-//		shwSel.addClickHandler(new ClickHandler() {
-//
-//			public void onClick(ClickEvent arg0) {
-//				selTest.showSelected();
-//			}
-//		});
-//		RootPanel.get().add(vselunPanel);
-//		//ListBoxt Test -- end
-//		acc.setAccName("UserName");
-//		acc1.setAccName("UserName1"+"Username1");
-//		acc2.setAccName("UserName2"+"UserName22222");
-//		dp1.add(acc);
-//		dp1.add(acc1);
-//		dp1.add(acc2);
-//		
-//		RootPanel.get().add(dp1);
+		// VerticalPanel vselunPanel = new VerticalPanel();
+		// final SelectUnselectTest selTest = new SelectUnselectTest();
+		// vselunPanel.add(selTest);
+		// Button shwAva = new Button("Show available List");
+		// vselunPanel.add(shwAva);
+		// shwAva.addClickHandler(new ClickHandler() {
+		//
+		// public void onClick(ClickEvent arg0) {
+		// selTest.showAvailable();
+		// }
+		// });
+		// Button shwSel = new Button("Show Selected List");
+		// vselunPanel.add(shwSel);
+		// shwSel.addClickHandler(new ClickHandler() {
+		//
+		// public void onClick(ClickEvent arg0) {
+		// selTest.showSelected();
+		// }
+		// });
+		// RootPanel.get().add(vselunPanel);
+		// //ListBoxt Test -- end
+		acc.setAccName("UserName");
+		acc1.setAccName("UserName1" + "Username1");
+		acc2.setAccName("UserName2" + "UserName22222");
+		dp1.add(acc);
+		dp1.add(acc1);
+		dp1.add(acc2);
+
+		RootPanel.get().add(dp1);
 	}
 }

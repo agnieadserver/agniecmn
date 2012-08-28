@@ -2,19 +2,16 @@ package com.agnie.common.util.tablefile;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * AbstractTableFileIterator will be abstract or base for reading csv, or excel sheet or any other file in table format
- * as a Generic Bean/POJO iterator. Which takes InputStream or Reader and iterate over it line by line. When you iterate
- * it, it will return entity bean for every record with values populated as per following rule. Use SimpleIterators if
- * table is mapped to single bean, and doesn't contain any child at any level.
+ * AbstractSimpleTableFileIterator will be abstract or base for reading csv, or excel sheet or any other file in Simple
+ * plane table format as a Generic Bean/POJO iterator. Which takes InputStream or Reader and iterate over it line by
+ * line. When you iterate it, it will return entity bean for every record with values populated as per following rule.
  * <p>
  * Entity you want to get populate should attach TableHeader annotation to the property setters. TableHeader takes one
  * parameter "name".
@@ -30,15 +27,15 @@ import org.apache.commons.logging.LogFactory;
  * the TableFileIterator.
  * 
  */
-public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
+public abstract class AbstractSimpleTableFileIterator<T> implements Iterator<T> {
 
-	protected static final Log	logger					= LogFactory.getLog(AbstractTableFileIterator.class);
-	private boolean				tokenProduced			= false;
-	protected Class<T>			cls;
-	protected long				rowcount				= 0;
-	protected boolean			throwValidationErrors	= false;
-	private Map<String, String>	nextTokens				= null;
-	protected TokenProcessor<T>	processor;
+	protected static final Log		logger					= LogFactory.getLog(AbstractSimpleTableFileIterator.class);
+	private boolean					tokenProduced			= false;
+	protected Class<T>				cls;
+	protected long					rowcount				= 0;
+	protected boolean				throwValidationErrors	= false;
+	private Map<String, String>		nextTokens				= null;
+	private SimpleTokenProcessor<T>	processor;
 
 	/**
 	 * Sub class of this class must call init() method a the end of the constructor to initialise the Iterator.
@@ -46,7 +43,7 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 	 * @param cls
 	 * @throws IOException
 	 */
-	public AbstractTableFileIterator(Class<T> cls) throws IOException {
+	public AbstractSimpleTableFileIterator(Class<T> cls) throws IOException {
 		this(cls, false);
 	}
 
@@ -60,10 +57,10 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 	 * @throws IOException
 	 */
 	@SuppressWarnings("unchecked")
-	public AbstractTableFileIterator(Class<T> cls, boolean throwValidationErrors) throws IOException {
+	public AbstractSimpleTableFileIterator(Class<T> cls, boolean throwValidationErrors) throws IOException {
 		this.cls = cls;
 		this.throwValidationErrors = throwValidationErrors;
-		processor = TokenProcessorFactory.getConverter(cls, throwValidationErrors);
+		processor = SimpleTokenProcessorFactory.getConverter(cls, throwValidationErrors);
 	}
 
 	/**
@@ -126,20 +123,9 @@ public abstract class AbstractTableFileIterator<T> implements Iterator<T> {
 	 */
 	private T getBean() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		if ((nextTokens != null && nextTokens.size() > 0)) {
-			List<Map<String, String>> rawTokens = new ArrayList<Map<String, String>>();
-			rawTokens.add(nextTokens);
-			while (true) {
-				try {
-					Map<String, String> lastTokens = nextTokens;
-					nextTokens = readTokens();
-					if (processor.checkIfNextRecord(nextTokens, lastTokens)) {
-						return processor.getBean(rawTokens);
-					}
-					rawTokens.add(nextTokens);
-				} catch (IOException e) {
-					logger.error("Error while reading the tokens from Table File", e);
-				}
-			}
+			T bean = processor.getBean(nextTokens);
+			tokenProduced = false;
+			return bean;
 		}
 		return null;
 	}

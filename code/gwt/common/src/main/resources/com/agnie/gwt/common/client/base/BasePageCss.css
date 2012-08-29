@@ -4,22 +4,7 @@ body {
 	padding: 0;
 }
 
-@sprite .header_wrap {
-	gwt-image: 'headerWrap';
-	background-attachment: scroll;
-	background-clip: border-box;
-	background-color: transparent;
-	background-origin: padding-box;
-	background-position: left top;
-	background-repeat: repeat-x;
-	background-size: auto auto;
-	width: 100%;
-	height: 82px;
-	padding-top: 1px;
-}
-
 .content-body {
-	background: none repeat scroll 0 0 #EEEEEE;
 	height: auto !important;
 	height: 600px;
 	min-height: 600px;
@@ -146,4 +131,4 @@ input,textarea {
 	width: 980px;
 	margin: 0 auto;
 }
-@external right-side-content, single-center-content, box, box-blue, smaller, disabled, clearfix, float-right, float-left, footer, content-body, header_wrap, menu, menu-nav, .fullpage, header, content-wrapper;
+@external right-side-content, single-center-content, box, box-blue, smaller, disabled, clearfix, float-right, float-left, footer, content-body, menu, menu-nav, fullpage, header, content-wrapper;

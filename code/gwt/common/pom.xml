@@ -101,6 +101,7 @@
 						<cssFile>com/agnie/gwt/common/client/widget/SelectUnselectCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/AccountCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/StyledListBoxCss.css</cssFile>
+						<cssFile>com/agnie/gwt/common/client/widget/ErrorTextBoxCss.css</cssFile>
 					</cssFiles>
 				</configuration>
 			</plugin>

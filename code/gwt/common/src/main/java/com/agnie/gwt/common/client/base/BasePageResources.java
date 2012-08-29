@@ -11,6 +11,4 @@ public interface BasePageResources extends ClientBundle {
 	@Source("BasePageCss.css")
 	BasePageCss css();
 
-	@Source("header_wrap.jpg")
-	ImageResource headerWrap();
 }

@@ -125,10 +125,10 @@
 }
 
 .main-menu .tabs .active a {
-	background: none repeat scroll 0 0 #D8E9F1;
+	background: none repeat scroll 0 0 #CACACA;
 	color: #081F2D;
 	font-size: 17px;
-	line-height: 28px;
+	line-height: 18px;
 	padding: 12px 15px 15px;
 	text-shadow: 1px 1px 1px #FFFFFF;
 	text-decoration: none;
@@ -169,7 +169,7 @@
 
 .sec-sub-menu .tabs div {
 	float: left;
-	margin: 12px 20px 0 0;
+	margin: 20px 20px 0 0;
 }
 
 .sec-sub-menu .tabs div.active {

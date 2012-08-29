@@ -9,6 +9,7 @@ import javax.validation.ValidatorFactory;
 import com.agnie.gwt.common.client.widget.Account;
 import com.agnie.gwt.common.client.widget.BreadCrumbPanel;
 import com.agnie.gwt.common.client.widget.DecoratedPanel;
+import com.agnie.gwt.common.client.widget.ErrorTextBox;
 import com.agnie.gwt.common.client.widget.LabelPasswordBox;
 import com.agnie.gwt.common.client.widget.LabelTextBox;
 import com.agnie.gwt.common.client.widget.MessagePanel;
@@ -41,7 +42,7 @@ public class samples implements EntryPoint {
 	TextBox								tb			= new TextBox();
 	List<String>						celllist	= new ArrayList<String>();
 	SuggestionBox						sb			= new SuggestionBox();
-	DecoratedPanel						dp;
+	DecoratedPanel						dp			= new DecoratedPanel();
 	VerticalPanel						dp1			= new VerticalPanel();
 	SearchBox							searchBox	= new SearchBox();
 	Image								img			= new Image();
@@ -55,6 +56,7 @@ public class samples implements EntryPoint {
 	User								us			= new User();
 	BreadCrumbPanel						bcp			= new BreadCrumbPanel();
 	private static SearchBoxResources	resource	= SearchBoxResources.INSTANCE;
+	ErrorTextBox						etb			= new ErrorTextBox();
 
 	public void onModuleLoad() {
 		GWT.log("IN onmoduleLoad Start.");
@@ -200,13 +202,20 @@ public class samples implements EntryPoint {
 		// });
 		// RootPanel.get().add(vselunPanel);
 		// //ListBoxt Test -- end
-		acc.setAccName("UserName");
-		acc1.setAccName("UserName1" + "Username1");
-		acc2.setAccName("UserName2" + "UserName22222");
-		dp1.add(acc);
-		dp1.add(acc1);
-		dp1.add(acc2);
+		// acc.setAccName("UserName");
+		// acc1.setAccName("UserName1" + "Username1");
+		// acc2.setAccName("UserName2" + "UserName22222");
+		// dp1.add(acc);
+		// dp1.add(acc1);
+		// dp1.add(acc2);
+		//
+		// RootPanel.get().add(dp1);
 
+		etb.setErrorMessage("data entered is not valid");
+		etb.setText("username");
+		dp1.add(etb);
+		dp1.add(tb);
+		dp1.add(img);
 		RootPanel.get().add(dp1);
 	}
 }

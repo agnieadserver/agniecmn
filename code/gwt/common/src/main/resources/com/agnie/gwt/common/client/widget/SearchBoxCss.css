@@ -4,7 +4,7 @@
     min-width: 200px;
     text-align: left;
 }
-.text-box {
+.search-box .text-box {
 	font-family:"Avant Garde","Century Gothic","Avant Garde Gothic","URW Gothic L",helvetica,sans-serif;
 	border:1px solid white;
 	background-color:white;

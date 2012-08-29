@@ -1,0 +1,14 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	<ui:with field='res'
+		type='com.agnie.gwt.common.client.widget.ErrorTextBoxResources' />
+
+	<g:HTMLPanel addStyleNames='{res.css.errorTextBoxPan}'>
+		<g:TextBox ui:field="textBox" addStyleNames='{res.css.textBox}'></g:TextBox>
+		<g:HTMLPanel ui:field="errorPan" addStyleNames='{res.css.errorPan}'>
+				<img ui:field="img" class='{res.css.errorImg}'></img>
+				<span ui:field="message" class='{res.css.errorMessage}'></span>
+				<a ui:field="close" class='{res.css.anchor}'></a>
+		</g:HTMLPanel>
+	</g:HTMLPanel>
+</ui:UiBinder>

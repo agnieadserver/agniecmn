@@ -13,15 +13,16 @@
 @sprite .message-pan .warning {
 	gwt-image: 'warning';
 }
-
-.anchor {
+.message-pan {
+}	
+.message-pan .anchor {
 	cursor: pointer;
 	float: right;
 	margin: 0 auto;
 	font-size: 1px;
 }
 
-.error-message-pan {
+.message-pan .error-message-pan {
 	border: solid 2px red;
 	border-radius: 5px;
 	padding: 5px;
@@ -29,14 +30,14 @@
 	margin-left: 5px;
 }
 
-.error-message {
+.message-pan .error-message {
 	color: red;
 	font-size: 15px;
 	font-weight: bold;
 	margin-left: 5px;
 }
 
-.info-message-pan {
+.message-pan .info-message-pan {
 	border: solid 2px green;
 	border-radius: 5px;
 	padding: 5px;
@@ -44,14 +45,14 @@
 	margin-left: 5px;
 }
 
-.info-message {
+.message-pan .info-message {
 	color: green;
 	font-size: 15px;
 	font-weight: bold;
 	margin-left: 5px;
 }
 
-.warning-message-pan {
+.message-pan .warning-message-pan {
 	border: solid 2px pink;
 	border-radius: 5px;
 	padding: 5px;
@@ -59,10 +60,10 @@
 	margin-left: 5px;
 }
 
-.warning-message {
+.message-pan .warning-message {
 	color: pink;
 	font-size: 15px;
 	font-weight: bold;
 	margin-left: 5px;
 }
-@external error, info, warning, anchor, close-btn, error-message-pan, info-message-pan, warning-message-pan, error-message, info-message, warning-message;
+@external error, info, warning, anchor, message-pan, close-btn, error-message-pan, info-message-pan, warning-message-pan, error-message, info-message, warning-message;

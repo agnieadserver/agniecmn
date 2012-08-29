@@ -13,6 +13,7 @@ import com.agnie.gwt.common.client.widget.ErrorTextBox;
 import com.agnie.gwt.common.client.widget.LabelPasswordBox;
 import com.agnie.gwt.common.client.widget.LabelTextBox;
 import com.agnie.gwt.common.client.widget.MessagePanel;
+import com.agnie.gwt.common.client.widget.MessagePanel.MessageType;
 import com.agnie.gwt.common.client.widget.PageTitle;
 import com.agnie.gwt.common.client.widget.SearchBox;
 import com.agnie.gwt.common.client.widget.SearchBoxResources;
@@ -102,12 +103,12 @@ public class samples implements EntryPoint {
 		// mpi.setType(MessageType.INFORMATION);
 		// mpi.setMessage("Information: infromation information height set nothing");
 		// // mpi.setHeight("20px");
-		// mpe.setType(MessageType.ERROR);
-		// mpe.setMessage("Error:error error height set to 40px");
-		// mpe.setHeight("40px");
-		// mpw.setType(MessageType.WARNING);
-		// mpw.setMessage("Warning:warning warning height set to 60 px");
-		// mpw.setHeight("60px");
+		 mpe.setType(MessageType.ERROR);
+		 mpe.setMessage("Error:error error height set to 40px");
+		 mpe.setHeight("40px");
+		 mpw.setType(MessageType.WARNING);
+		 mpw.setMessage("Warning:warning warning height set to 60 px");
+		 mpw.setHeight("60px");
 		//
 		// searchBox.setSize("200px", "20px");
 		// searchBox.setLabel("suresh");
@@ -214,8 +215,8 @@ public class samples implements EntryPoint {
 		etb.setErrorMessage("data entered is not valid");
 		etb.setText("username");
 		dp1.add(etb);
-		dp1.add(tb);
-		dp1.add(img);
+		dp1.add(mpw);
+		dp1.add(mpe);
 		RootPanel.get().add(dp1);
 	}
 }

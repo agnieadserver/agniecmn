@@ -1,0 +1,56 @@
+.error-text-box-pan {
+	background: none repeat scroll 0 0 transparent;
+}	
+.error-text-box-pan .text-box {
+	background-color: white;
+    border: 1px solid #CDCDCD;
+    border-radius: 4px 4px 4px 4px;
+    float: none;
+    font-family: "Avant Garde","Century Gothic","Avant Garde Gothic","URW Gothic L",helvetica,sans-serif;
+}
+
+.error-text-box-pan .error-pan {
+	background: none repeat scroll 0 0 #FBFBFB;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 2px 2px 5px gray;
+    padding: 2px;
+    display: none;
+    margin-top: 20px;
+    position: fixed;
+    z-index: 2;
+}
+
+.error-text-box-pan .error-pan-display {
+	display: block;
+}
+
+.error-text-box-pan:hover .error-pan {
+	display: block;
+}
+
+@sprite .error-text-box-pan .error-img {
+	gwt-image: 'warning';
+	float: left;
+	height: 25px;
+    overflow: hidden;
+    width: 25px;
+}
+
+.error-text-box-pan .error-message {
+	color: #9B9B9B;
+    font-size: 16px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 2px;
+    float:left;
+    font-family: "Avant Garde","Century Gothic","Avant Garde Gothic","URW Gothic L",helvetica,sans-serif;
+}
+
+@sprite .error-text-box-pan .anchor {
+	gwt-image: 'closeBtn';
+	cursor: pointer;
+	float: right;
+	margin: 0 auto;
+	font-size: 1px;
+}
+@external error-text-box-pan, text-box, error-pan-display, error-pan, error-img, error-message, anchor;

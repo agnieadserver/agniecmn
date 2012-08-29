@@ -13,9 +13,9 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * a common widget to display  messages like info, error and warning.
+ * a common widget to display messages like info, error and warning.
  * 
- *
+ * 
  */
 public class MessagePanel extends Composite {
 	private static MessagePanelResources	resource	= MessagePanelResources.INSTANCE;
@@ -30,13 +30,12 @@ public class MessagePanel extends Composite {
 	private static MyUiBinder	uiBinder	= GWT.create(MyUiBinder.class);
 
 	protected HTMLPanel			container;
-
+	@UiField
+	HTMLPanel					messagePan;
 	@UiField
 	Image						img;
 	@UiField
 	SpanElement					message;
-	@UiField
-	HTMLPanel					messagePan;
 	@UiField
 	Anchor						close;
 	public String				type;
@@ -53,10 +52,11 @@ public class MessagePanel extends Composite {
 			}
 		});
 	}
+
 	/**
 	 * 
 	 * enum to set Message type Error Warning Information etc.
-	 *
+	 * 
 	 */
 	public static enum MessageType {
 		ERROR("Error_Message"), WARNING("Warning_Message"), INFORMATION("Information_Message");
@@ -74,45 +74,52 @@ public class MessagePanel extends Composite {
 			return key;
 		}
 	}
+
 	/**
 	 * sets Message in Message Panel.
-	 * @param String message.
+	 * 
+	 * @param String
+	 *            message.
 	 */
 	public void setMessage(String message) {
 		this.message.setInnerText(message);
 	}
-	
+
 	/**
 	 * sets height of Message Panel.
 	 */
 	public void setHeight(String height) {
 		container.setHeight(height);
 	}
+
 	/**
 	 * sets width of Message Panel.
 	 */
 	public void setWidth(String width) {
 		container.setWidth(width);
 	}
+
 	/**
 	 * sets type of message like ERROR,WARNING,INFO.
-	 * @param enum MessageType
+	 * 
+	 * @param enum
+	 *            MessageType
 	 */
 	public void setType(MessageType mt) {
 		type = new String();
 		type = mt.toString();
 		GWT.log("type==" + mt.toString());
 		if (type.equals("ERROR")) {
-			container.addStyleName(resource.css().errorMessagePan());
+			messagePan.addStyleName(resource.css().errorMessagePan());
 			message.addClassName(resource.css().errorMessage());
 			img.setResource(resource.error());
 		} else if (type.equals("WARNING")) {
-			container.addStyleName(resource.css().warningMessagePan());
+			messagePan.addStyleName(resource.css().warningMessagePan());
 			message.addClassName(resource.css().warningMessage());
 			img.setResource(resource.warning());
 
 		} else if (type.equals("INFORMATION")) {
-			container.addStyleName(resource.css().infoMessagePan());
+			messagePan.addStyleName(resource.css().infoMessagePan());
 			message.addClassName(resource.css().infoMessage());
 			img.setResource(resource.info());
 		}

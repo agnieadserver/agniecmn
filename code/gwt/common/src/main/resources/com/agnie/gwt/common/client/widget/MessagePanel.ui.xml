@@ -3,13 +3,11 @@
 	<ui:with field='res'
 		type='com.agnie.gwt.common.client.widget.MessagePanelResources' />
 
-	<g:HTMLPanel>
+	<g:HTMLPanel addStyleNames='{res.css.messagePan}'>
 		<g:HTMLPanel ui:field="messagePan">
-			<div>
-				<g:Image ui:field="img"></g:Image>
-				<span ui:field="message"></span>
-				<g:Anchor ui:field="close" addStyleNames='{res.css.anchor}'></g:Anchor>
-			</div>
+			<g:Image ui:field="img"></g:Image>
+			<span ui:field="message"></span>
+			<g:Anchor ui:field="close" addStyleNames='{res.css.anchor}'></g:Anchor>
 		</g:HTMLPanel>
 	</g:HTMLPanel>
 </ui:UiBinder>

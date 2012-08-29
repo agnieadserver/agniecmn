@@ -1,6 +1,5 @@
-package com.agnie.common.util.jdbc;
+package com.agnie.common.util.entity;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,9 +12,10 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.agnie.common.util.tablefile.SimpleJDBCTableIterator;
+import com.agnie.common.util.jdbc.JDBCUtil;
+import com.agnie.common.util.jdbc.SimpleCompany;
 
-public class SimpleJdbcIteratorTest {
+public class EntityExtractorTest {
 
 	@BeforeClass
 	public static void init() {
@@ -41,6 +41,7 @@ public class SimpleJdbcIteratorTest {
 					stmt.close();
 				}
 			}
+			initJDBCTest();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			Assert.assertTrue(false);
@@ -60,57 +61,79 @@ public class SimpleJdbcIteratorTest {
 	}
 
 	@Test
-	public void JDBCTest() {
-		initJDBCTest();
-		SimpleJDBCTableIterator<SimpleCompany> itr;
-		List<SimpleCompany> actual = new ArrayList<SimpleCompany>();
+	public void simpleEntityExtratorTest() {
 		try {
-			itr = new SimpleJDBCTableIterator<SimpleCompany>(SimpleCompany.class, JDBCUtil.getConnection(), "SELECT * FROM SIMPLE_ITERATOR_TEST");
-			int count = 0;
-			while (itr.hasNext()) {
-				SimpleCompany com = itr.next();
-				count++;
-				Assert.assertNotNull(com);
-				actual.add(com);
-			}
-			Assert.assertEquals(3, count);
-		} catch (IOException e) {
-			e.printStackTrace();
+			EntityExtractor<SimpleCompany> entExt = new EntityExtractor<SimpleCompany>(SimpleCompany.class, JDBCUtil.getConnection());
+
+			SimpleCompany actual = entExt.getEntity("SELECT * FROM SIMPLE_ITERATOR_TEST WHERE id=1");
+			SimpleCompany expected = new SimpleCompany();
+			expected.setId(1);
+			expected.setCompanyName("Tata Motors");
+			expected.setLocation("Bhosari");
+			Assert.assertEquals(expected, actual);
+
+		} catch (Exception e) {
 			Assert.assertTrue(false);
-		} catch (SQLException e) {
+		}
+	}
+
+	@Test
+	public void simpleListEntityExtractorTest() {
+		try {
+			EntityExtractor<SimpleCompany> entExt = new EntityExtractor<SimpleCompany>(SimpleCompany.class, JDBCUtil.getConnection());
+
+			List<SimpleCompany> actual = entExt.getList("SELECT * FROM SIMPLE_ITERATOR_TEST WHERE id IN(1,2,3)");
+			Assert.assertNotNull(actual);
+			Assert.assertEquals(3, actual.size());
+			List<SimpleCompany> expected = new ArrayList<SimpleCompany>();
+			SimpleCompany com = new SimpleCompany();
+			com.setId(1);
+			com.setCompanyName("Tata Motors");
+			com.setLocation("Bhosari");
+			expected.add(com);
+			com = new SimpleCompany();
+			com.setId(2);
+			com.setCompanyName("BMW");
+			com.setLocation("Chakan");
+			expected.add(com);
+			com = new SimpleCompany();
+			com.setId(3);
+			com.setCompanyName("Volvo");
+			com.setLocation("Benglore");
+			expected.add(com);
+			Assert.assertEquals(expected, actual);
+
+		} catch (Exception e) {
+			Assert.assertTrue(false);
+		}
+	}
+
+	@Test
+	public void simpleMutlipleRecordTest() {
+		try {
+			EntityExtractor<SimpleCompany> entExt = new EntityExtractor<SimpleCompany>(SimpleCompany.class, JDBCUtil.getConnection());
+
+			SimpleCompany actual = entExt.getEntity("SELECT * FROM SIMPLE_ITERATOR_TEST WHERE company='Volvo'");
+			Assert.assertTrue(false);
+		} catch (MultipleRecordsExcpetion e) {
+			Assert.assertTrue(true);
+		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.assertTrue(false);
 		}
-		Assert.assertNotNull(actual);
-		List<SimpleCompany> expected = new ArrayList<SimpleCompany>();
-		SimpleCompany com = new SimpleCompany();
-		com.setId(1);
-		com.setCompanyName("Tata Motors");
-		com.setLocation("Bhosari");
-		expected.add(com);
-		com = new SimpleCompany();
-		com.setId(2);
-		com.setCompanyName("BMW");
-		com.setLocation("Chakan");
-		expected.add(com);
-		com = new SimpleCompany();
-		com.setId(3);
-		com.setCompanyName("Volvo");
-		com.setLocation("Benglore");
-		expected.add(com);
-		Assert.assertEquals(expected, actual);
 	}
 
-	private void initJDBCTest() {
+	private static void initJDBCTest() {
 		Connection conn = null;
 		try {
 			conn = JDBCUtil.getConnection();
 			Statement stmt = null;
 			try {
 				stmt = conn.createStatement();
-				stmt.addBatch("INSERT INTO SIMPLE_ITERATOR_TEST ( `company`, `location`) VALUES  ( 'Tata Motors', 'Bhosari' )");
-				stmt.addBatch("INSERT INTO SIMPLE_ITERATOR_TEST ( `company`, `location`) VALUES  ( 'BMW', 'Chakan' )");
-				stmt.addBatch("INSERT INTO SIMPLE_ITERATOR_TEST ( `company`, `location`) VALUES  ( 'Volvo', 'Benglore' )");
+				stmt.addBatch("INSERT INTO SIMPLE_ITERATOR_TEST ( `id`, `company`, `location`) VALUES  ( 1, 'Tata Motors', 'Bhosari' )");
+				stmt.addBatch("INSERT INTO SIMPLE_ITERATOR_TEST ( `id`, `company`, `location`) VALUES  ( 2, 'BMW', 'Chakan' )");
+				stmt.addBatch("INSERT INTO SIMPLE_ITERATOR_TEST ( `id`, `company`, `location`) VALUES  ( 3, 'Volvo', 'Benglore' )");
+				stmt.addBatch("INSERT INTO SIMPLE_ITERATOR_TEST ( `id`, `company`, `location`) VALUES  ( 4, 'Volvo', 'Benglore' )");
 				stmt.executeBatch();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -174,5 +197,4 @@ public class SimpleJdbcIteratorTest {
 			}
 		}
 	}
-
 }

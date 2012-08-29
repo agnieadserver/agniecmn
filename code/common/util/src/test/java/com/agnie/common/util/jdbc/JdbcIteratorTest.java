@@ -2,10 +2,8 @@ package com.agnie.common.util.jdbc;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ResourceBundle;
 
 import junit.framework.Assert;
 
@@ -24,7 +22,7 @@ public class JdbcIteratorTest {
 	public static void init() {
 		Connection conn = null;
 		try {
-			conn = getConnection();
+			conn = JDBCUtil.getConnection();
 			StringBuffer create = new StringBuffer();
 			create.append("CREATE  TABLE ITERATOR_TEST ( ");
 			create.append("`id` INT NOT NULL AUTO_INCREMENT , ");
@@ -71,7 +69,7 @@ public class JdbcIteratorTest {
 		JDBCTableIterator<MultiColWrapperBean> itr;
 		MultiColWrapperBean actual = null;
 		try {
-			itr = new JDBCTableIterator<MultiColWrapperBean>(MultiColWrapperBean.class, getConnection(), "SELECT * FROM ITERATOR_TEST");
+			itr = new JDBCTableIterator<MultiColWrapperBean>(MultiColWrapperBean.class, JDBCUtil.getConnection(), "SELECT * FROM ITERATOR_TEST");
 			int count = 0;
 			while (itr.hasNext()) {
 				actual = itr.next();
@@ -127,7 +125,7 @@ public class JdbcIteratorTest {
 	private void initJDBCTest() {
 		Connection conn = null;
 		try {
-			conn = getConnection();
+			conn = JDBCUtil.getConnection();
 			Statement stmt = null;
 			try {
 				stmt = conn.createStatement();
@@ -167,7 +165,7 @@ public class JdbcIteratorTest {
 	public static void shutdown() {
 		Connection conn = null;
 		try {
-			conn = getConnection();
+			conn = JDBCUtil.getConnection();
 			StringBuffer create = new StringBuffer();
 			create.append("drop table ITERATOR_TEST");
 			Statement stmt = null;
@@ -198,19 +196,6 @@ public class JdbcIteratorTest {
 				Assert.assertTrue(false);
 			}
 		}
-	}
-
-	private static Connection getConnection() throws SQLException {
-		Connection conn = null;
-		ResourceBundle resource = ResourceBundle.getBundle("testdbserver");
-		String server = resource.getString("server.host");
-		String port = resource.getString("server.port");
-		String database = resource.getString("database");
-		String username = resource.getString("username");
-		String password = resource.getString("password");
-
-		conn = DriverManager.getConnection("jdbc:mysql://" + server + ":" + port + "/" + database, username, password);
-		return conn;
 	}
 
 }

@@ -49,7 +49,7 @@ public class SimpleJDBCTableIterator<T> extends AbstractSimpleTableFileIterator<
 		resultSet = stmt.executeQuery(sql);
 		ResultSetMetaData meta = resultSet.getMetaData();
 		for (int index = 1; index <= meta.getColumnCount(); index++) {
-			String columnName = meta.getColumnName(index);
+			String columnName = meta.getColumnLabel(index);
 			if (columnName.contains("_")) {
 				// replace "_" with empty space " " with assumption that developer when uses this iterator will pass on
 				// column name with _ if it has to map with given header of property of the bean. This would be useful

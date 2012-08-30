@@ -14,13 +14,14 @@ import org.reflections.Reflections;
  * 
  */
 public class SingleColumnConverterFactory {
-	protected static final Log												logger		= LogFactory.getLog(SingleColumnConverterFactory.class);
+	protected static final Log												logger			= LogFactory.getLog(SingleColumnConverterFactory.class);
 	/*
 	 * mapping map will hold the mapping between constraint created as a annotation and its respective validator
 	 */
-	private static java.util.Map<Class<?>, AbstractSingleColumnConverter>	mapping		= new HashMap<Class<?>, AbstractSingleColumnConverter>();
+	private static java.util.Map<Class<?>, AbstractSingleColumnConverter>	mapping			= new HashMap<Class<?>, AbstractSingleColumnConverter>();
 
-	private static SingleColumnConverterFactory								INSTANCE	= null;
+	private static SingleColumnConverterFactory								INSTANCE		= null;
+	private static BasicEnumSingleColumnConverter							enumConverter	= new BasicEnumSingleColumnConverter();
 
 	private SingleColumnConverterFactory() {
 		initialize();
@@ -66,6 +67,9 @@ public class SingleColumnConverterFactory {
 	 * @return
 	 */
 	public AbstractSingleColumnConverter getConverter(Class<?> cls) {
+		if (cls.isEnum()) {
+			return enumConverter;
+		}
 		AbstractSingleColumnConverter converter = mapping.get(cls);
 		return converter;
 	}

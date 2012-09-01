@@ -8,49 +8,51 @@
     float: none;
     font-family: "Avant Garde","Century Gothic","Avant Garde Gothic","URW Gothic L",helvetica,sans-serif;
 }
-
 .error-text-box-pan .error-pan {
 	background: none repeat scroll 0 0 #FBFBFB;
     border-radius: 4px 4px 4px 4px;
-    box-shadow: 2px 2px 5px gray;
-    padding: 2px;
-    display: none;
-    margin-top: 20px;
-    position: fixed;
+    box-shadow: 0px 0px 5px gray;
+    padding: 10px 7px;
+    display: block;
+    margin-top: 10px;
+    position: absolute;
     z-index: 2;
 }
-
-.error-text-box-pan .error-pan-display {
-	display: block;
-}
-
-.error-text-box-pan:hover .error-pan {
-	display: block;
+.error-text-box-pan .error-pan:before {
+	border-color: transparent transparent white;
+    border-style: solid;
+    border-width: 10px;
+    content: " ";
+    height: 0;
+    left: 83px;
+    position: absolute;
+    top: -20px;
+    width: 0;
 }
 
 @sprite .error-text-box-pan .error-img {
 	gwt-image: 'warning';
-	float: left;
 	height: 25px;
     overflow: hidden;
     width: 25px;
+    float:left;
 }
 
 .error-text-box-pan .error-message {
+	float:left;
 	color: #9B9B9B;
-    font-size: 16px;
+    font-size: 13px;
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 2px;
-    float:left;
     font-family: "Avant Garde","Century Gothic","Avant Garde Gothic","URW Gothic L",helvetica,sans-serif;
 }
 
-@sprite .error-text-box-pan .anchor {
+@sprite .error-text-box-pan .close {
 	gwt-image: 'closeBtn';
 	cursor: pointer;
-	float: right;
 	margin: 0 auto;
 	font-size: 1px;
+	float:right;
 }
-@external error-text-box-pan, text-box, error-pan-display, error-pan, error-img, error-message, anchor;
+@external error-text-box-pan, text-box, error-pan, error-img, error-message, close;

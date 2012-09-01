@@ -9,7 +9,7 @@ import javax.validation.ValidatorFactory;
 import com.agnie.gwt.common.client.widget.Account;
 import com.agnie.gwt.common.client.widget.BreadCrumbPanel;
 import com.agnie.gwt.common.client.widget.DecoratedPanel;
-import com.agnie.gwt.common.client.widget.ErrorTextBox;
+import com.agnie.gwt.common.client.widget.TextBox;
 import com.agnie.gwt.common.client.widget.LabelPasswordBox;
 import com.agnie.gwt.common.client.widget.LabelTextBox;
 import com.agnie.gwt.common.client.widget.MessagePanel;
@@ -27,7 +27,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
@@ -57,7 +56,7 @@ public class samples implements EntryPoint {
 	User								us			= new User();
 	BreadCrumbPanel						bcp			= new BreadCrumbPanel();
 	private static SearchBoxResources	resource	= SearchBoxResources.INSTANCE;
-	ErrorTextBox						etb			= new ErrorTextBox();
+	TextBox						etb			= new TextBox();
 
 	public void onModuleLoad() {
 		GWT.log("IN onmoduleLoad Start.");
@@ -91,7 +90,7 @@ public class samples implements EntryPoint {
 		// dp.getParent().removeFromParent();
 		// }
 		// });
-		// ltb.setLabel("username");
+		 ltb.setLabel("username");
 		// lpb.setLabel("password");
 		// GWT.log("In Entry point ltb.getLabel==" + ltb.getLabel() + "ltb.getText()==" + ltb.getText());
 		// save.addClickHandler(new ClickHandler() {
@@ -212,9 +211,14 @@ public class samples implements EntryPoint {
 		//
 		// RootPanel.get().add(dp1);
 
-		etb.setErrorMessage("data entered is not valid");
+		etb.setErrorMessage("data entered is not valid plz enter your name");
+		etb.setErrorMessVisible(true);
+		etb.setErrorPanWidth(400);
 		etb.setText("username");
-		dp1.add(etb);
+		ltb.setErrorMessage("data entered is not valid plz enter your name");
+		ltb.setErrorMessVisible(true);
+		ltb.setErrorPanWidth(400);
+		dp1.add(ltb);
 		dp1.add(mpw);
 		dp1.add(mpe);
 		RootPanel.get().add(dp1);

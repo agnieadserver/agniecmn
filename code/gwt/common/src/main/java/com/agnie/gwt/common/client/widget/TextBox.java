@@ -1,12 +1,11 @@
 package com.agnie.gwt.common.client.widget;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.event.dom.client.KeyPressHandler;
@@ -15,7 +14,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -23,47 +22,65 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  * 
  */
-public class ErrorTextBox extends Composite {
-	private static ErrorTextBoxResources	resource	= ErrorTextBoxResources.INSTANCE;
+public class TextBox extends Composite {
+	private static TextBoxResources	resource	= TextBoxResources.INSTANCE;
 
 	static {
 		resource.css().ensureInjected();
 	}
 
-	interface MyUiBinder extends UiBinder<Widget, ErrorTextBox> {
+	interface MyUiBinder extends UiBinder<Widget, TextBox> {
 	}
 
-	private static MyUiBinder	uiBinder	= GWT.create(MyUiBinder.class);
+	private static MyUiBinder				uiBinder		= GWT.create(MyUiBinder.class);
 
 	@UiField
-	TextBox						textBox;
+	com.google.gwt.user.client.ui.TextBox	textBox;
 
 	@UiField
-	HTMLPanel					errorPan;
+	HTMLPanel								errorPan;
 
 	@UiField
-	ImageElement				img;
+	ImageElement							img;
 
 	@UiField
-	SpanElement					message;
+	SpanElement								message;
 
 	@UiField
-	AnchorElement				close;
+	Image									close;
 
-	protected HTMLPanel			container;
+	protected HTMLPanel						container;
+	public int								messSpanwidth	= 0;
 
-	public ErrorTextBox() {
+	public TextBox() {
 
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
 		initWidget(container);
+		errorPan.setVisible(false);
+
+	}
+
+	public void setErrorMessVisible(boolean visible) {
+		errorPan.setVisible(visible);
+	}
+
+	public void setErrorPanWidth(int width) {
+		errorPan.setWidth(width + "px");
+		messSpanwidth = width - 70;
+		String messSpanWidthStr = messSpanwidth + "px";
+		this.message.setAttribute("style", "width:" + messSpanWidthStr + ";"); 
 		
-//		textBox.addFocusHandler(new FocusHandler() {
-//			
-//			@Override
-//			public void onFocus(FocusEvent event) {
-//				errorPan.addStyleName(resource.css().errorPanDisplay());
-//			}
-//		});
+		close.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				errorPan.setVisible(false);
+			}
+		});
+	}
+
+	public void setErrorPanHeight(int height) {
+		errorPan.setHeight(height + "px");
 	}
 
 	public void setText(String text) {
@@ -110,10 +127,6 @@ public class ErrorTextBox extends Composite {
 		return this.textBox.getValue();
 	}
 
-//	public void removeFromParent() {
-//		this.textBox.removeFromParent();
-//	}
-
 	public void removeStyleName(String style) {
 		this.textBox.removeStyleName(style);
 	}
@@ -158,7 +171,8 @@ public class ErrorTextBox extends Composite {
 		this.message.setInnerText(message);
 	}
 
-	public static ErrorTextBoxResources getResources() {
+	public static TextBoxResources getResources() {
 		return resource;
 	}
+
 }

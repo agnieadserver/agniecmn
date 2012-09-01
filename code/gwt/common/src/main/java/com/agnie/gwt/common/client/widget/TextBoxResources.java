@@ -2,20 +2,19 @@ package com.agnie.gwt.common.client.widget;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.DataResource;
 import com.google.gwt.resources.client.ImageResource;
-import com.google.gwt.resources.client.ClientBundle.Source;
 
-public interface ErrorTextBoxResources extends ClientBundle{
-	public static ErrorTextBoxResources	INSTANCE	= GWT.create(ErrorTextBoxResources.class);
+public interface TextBoxResources extends ClientBundle{
+	public static TextBoxResources	INSTANCE	= GWT.create(TextBoxResources.class);
 
-	@Source("ErrorTextBoxCss.css")
-	ErrorTextBoxCss css();
+	@Source("TextBoxCss.css")
+	TextBoxCss css();
 	
 	@Source("close.png")
 	ImageResource closeBtn();
 	
 	@Source("warning.png")
 	ImageResource warning();
-	
 	
 }

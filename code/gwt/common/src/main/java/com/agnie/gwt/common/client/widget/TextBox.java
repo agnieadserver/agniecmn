@@ -18,7 +18,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * ErrorTextBox is a TextBox with error message
+ * A type of widget TextBox extends existing TextBox with error message feature.
  * 
  * 
  */
@@ -50,7 +50,7 @@ public class TextBox extends Composite {
 	Image									close;
 
 	protected HTMLPanel						container;
-	public int								messSpanwidth	= 0;
+	
 
 	public TextBox() {
 
@@ -59,12 +59,20 @@ public class TextBox extends Composite {
 		errorPan.setVisible(false);
 
 	}
-
+	/**
+	 * sets error-message to visible or not
+	 * @param visible
+	 */
 	public void setErrorMessVisible(boolean visible) {
 		errorPan.setVisible(visible);
 	}
 
+	/**
+	 * sets error panel width
+	 * @param width
+	 */
 	public void setErrorPanWidth(int width) {
+		int	messSpanwidth	= 0;
 		errorPan.setWidth(width + "px");
 		messSpanwidth = width - 70;
 		String messSpanWidthStr = messSpanwidth + "px";
@@ -78,11 +86,20 @@ public class TextBox extends Composite {
 			}
 		});
 	}
-
+	
+	
+	/**
+	 * sets errorPan height
+	 * @param height
+	 */
 	public void setErrorPanHeight(int height) {
 		errorPan.setHeight(height + "px");
 	}
 
+	/**
+	 * sets text in textbox
+	 * @param text
+	 */
 	public void setText(String text) {
 		this.textBox.setText(text);
 	}
@@ -158,15 +175,25 @@ public class TextBox extends Composite {
 	public void setValue(String value) {
 		this.textBox.setValue(value);
 	}
-
+	
+	/**
+	 * set text box visible or not
+	 */
 	public void setVisible(boolean visible) {
 		this.textBox.setVisible(visible);
 	}
 
+	/**
+	 * set TextBox width
+	 */
 	public void setWidth(String width) {
 		this.textBox.setWidth(width);
 	}
 
+	/**
+	 * sets error message in message panel
+	 * @param message
+	 */
 	public void setErrorMessage(String message) {
 		this.message.setInnerText(message);
 	}

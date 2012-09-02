@@ -233,6 +233,6 @@ public class samples implements EntryPoint {
 		ptb.setErrorPanWidth(400);
 		ptb.setText("password");
 		dp1.add(ptb);
-		RootPanel.get().add(lpb);
+		RootPanel.get().add(ptb);
 	}
 }

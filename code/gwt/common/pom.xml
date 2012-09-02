@@ -102,7 +102,6 @@
 						<cssFile>com/agnie/gwt/common/client/widget/AccountCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/StyledListBoxCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/TextBoxCss.css</cssFile>
-						<cssFile>com/agnie/gwt/common/client/widget/PasswordTextBoxCss.css</cssFile>
 					</cssFiles>
 				</configuration>
 			</plugin>

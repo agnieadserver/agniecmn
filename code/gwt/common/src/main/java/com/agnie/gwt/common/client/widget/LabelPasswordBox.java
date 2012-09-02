@@ -30,11 +30,7 @@ public class LabelPasswordBox extends LabelTextBox{
 			
 			@Override
 			public void onFocus(FocusEvent arg0) {
-				GWT.log("element by tag name"+getElement().getElementsByTagName("passwordTextBox"));
-				GWT.log("attribute=="+getElement().getAttribute("type").toString());
 				changeTypeToPass();
-				
-				GWT.log("attribute After set =="+getElement().getAttribute("type").toString());
 				removeStyle();
 			}
 		});

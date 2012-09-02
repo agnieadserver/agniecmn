@@ -66,11 +66,11 @@ public class LabelTextBox extends TextBox {
 	}
 	
 	protected void removeStyle() {
-		super.removeStyleName("text-field-label");
+		super.textBox.removeStyleName("text-field-label");
 	}
 
 	protected void addStyle() {
-		super.addStyleName("text-field-label");
+		super.textBox.addStyleName("text-field-label");
 	}
 
 	/**

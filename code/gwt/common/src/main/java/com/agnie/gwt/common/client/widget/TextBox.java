@@ -60,6 +60,13 @@ public class TextBox extends Composite {
 
 	}
 	/**
+	 * sets whether this widget is enabled or not
+	 * @param enabled
+	 */
+	public void setEnabled(boolean enabled){
+		textBox.setEnabled(enabled);
+	}
+	/**
 	 * sets error-message to visible or not
 	 * @param visible
 	 */

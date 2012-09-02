@@ -3,7 +3,7 @@
 	<ui:with field='res'
 		type='com.agnie.gwt.common.client.widget.TextBoxResources' />
 
-	<g:HTMLPanel addStyleNames='{res.css.errorTextBoxPan}'>
+	<g:HTMLPanel addStyleNames='{res.css.textBoxPan}'>
 		<g:TextBox ui:field="textBox" addStyleNames='{res.css.textBox}'></g:TextBox>
 		<g:HTMLPanel ui:field="errorPan" addStyleNames='{res.css.errorPan}'>
 				<img src="images/transperent.png" ui:field="img" class='{res.css.errorImg}'></img>

@@ -9,6 +9,7 @@ import javax.validation.ValidatorFactory;
 import com.agnie.gwt.common.client.widget.Account;
 import com.agnie.gwt.common.client.widget.BreadCrumbPanel;
 import com.agnie.gwt.common.client.widget.DecoratedPanel;
+import com.agnie.gwt.common.client.widget.PasswordTextBox;
 import com.agnie.gwt.common.client.widget.TextBox;
 import com.agnie.gwt.common.client.widget.LabelPasswordBox;
 import com.agnie.gwt.common.client.widget.LabelTextBox;
@@ -56,7 +57,8 @@ public class samples implements EntryPoint {
 	User								us			= new User();
 	BreadCrumbPanel						bcp			= new BreadCrumbPanel();
 	private static SearchBoxResources	resource	= SearchBoxResources.INSTANCE;
-	TextBox						etb			= new TextBox();
+	TextBox								etb			= new TextBox();
+	PasswordTextBox						ptb			= new PasswordTextBox();
 
 	public void onModuleLoad() {
 		GWT.log("IN onmoduleLoad Start.");
@@ -90,8 +92,8 @@ public class samples implements EntryPoint {
 		// dp.getParent().removeFromParent();
 		// }
 		// });
-		 ltb.setLabel("username");
-		// lpb.setLabel("password");
+		ltb.setLabel("username");
+		lpb.setLabel("password");
 		// GWT.log("In Entry point ltb.getLabel==" + ltb.getLabel() + "ltb.getText()==" + ltb.getText());
 		// save.addClickHandler(new ClickHandler() {
 		//
@@ -102,12 +104,12 @@ public class samples implements EntryPoint {
 		// mpi.setType(MessageType.INFORMATION);
 		// mpi.setMessage("Information: infromation information height set nothing");
 		// // mpi.setHeight("20px");
-		 mpe.setType(MessageType.ERROR);
-		 mpe.setMessage("Error:error error height set to 40px");
-		 mpe.setHeight("40px");
-		 mpw.setType(MessageType.WARNING);
-		 mpw.setMessage("Warning:warning warning height set to 60 px");
-		 mpw.setHeight("60px");
+		mpe.setType(MessageType.ERROR);
+		mpe.setMessage("Error:error error height set to 40px");
+		mpe.setHeight("40px");
+		mpw.setType(MessageType.WARNING);
+		mpw.setMessage("Warning:warning warning height set to 60 px");
+		mpw.setHeight("60px");
 		//
 		// searchBox.setSize("200px", "20px");
 		// searchBox.setLabel("suresh");
@@ -211,16 +213,26 @@ public class samples implements EntryPoint {
 		//
 		// RootPanel.get().add(dp1);
 
-		etb.setErrorMessage("data entered is not valid plz enter your name");
-		etb.setErrorMessVisible(true);
-		etb.setErrorPanWidth(400);
-		etb.setText("username");
-		ltb.setErrorMessage("data entered is not valid plz enter your name");
-		ltb.setErrorMessVisible(true);
-		ltb.setErrorPanWidth(400);
-		dp1.add(ltb);
+//		etb.setErrorMessage("data entered is not valid plz enter your name");
+//		etb.setErrorMessVisible(true);
+//		etb.setErrorPanWidth(400);
+//		etb.setText("username");
+//		ltb.setErrorMessage("data entered is not valid plz enter your name");
+//		ltb.setErrorMessVisible(true);
+//		ltb.setErrorPanWidth(400);
+		lpb.setErrorMessage("data entered is not valid plz enter your password");
+		lpb.setErrorMessVisible(true);
+		lpb.setErrorPanWidth(400);
+		//dp1.add(ltb);
+		dp1.add(lpb);
 		dp1.add(mpw);
 		dp1.add(mpe);
-		RootPanel.get().add(dp1);
+		
+		ptb.setErrorMessage("data entered is not valid plz enter your password");
+		ptb.setErrorMessVisible(true);
+		ptb.setErrorPanWidth(400);
+		ptb.setText("password");
+		dp1.add(ptb);
+		RootPanel.get().add(lpb);
 	}
 }

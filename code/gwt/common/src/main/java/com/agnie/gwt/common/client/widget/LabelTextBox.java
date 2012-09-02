@@ -42,6 +42,7 @@ public class LabelTextBox extends TextBox {
 				removeStyle();
 			}
 		});
+		
 		super.addBlurHandler(new BlurHandler() {
 
 			@Override
@@ -63,7 +64,7 @@ public class LabelTextBox extends TextBox {
 		});
 
 	}
-
+	
 	protected void removeStyle() {
 		super.removeStyleName("text-field-label");
 	}
@@ -106,4 +107,5 @@ public class LabelTextBox extends TextBox {
 		else
 			return "";
 	}
+	
 }

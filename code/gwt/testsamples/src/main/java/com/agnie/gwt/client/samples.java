@@ -57,7 +57,7 @@ public class samples implements EntryPoint {
 	User								us			= new User();
 	BreadCrumbPanel						bcp			= new BreadCrumbPanel();
 	private static SearchBoxResources	resource	= SearchBoxResources.INSTANCE;
-	TextBox								etb			= new TextBox();
+	TextBox								tB			= new TextBox();
 	PasswordTextBox						ptb			= new PasswordTextBox();
 
 	public void onModuleLoad() {
@@ -213,10 +213,10 @@ public class samples implements EntryPoint {
 		//
 		// RootPanel.get().add(dp1);
 
-//		etb.setErrorMessage("data entered is not valid plz enter your name");
-//		etb.setErrorMessVisible(true);
-//		etb.setErrorPanWidth(400);
-//		etb.setText("username");
+		tB.setErrorMessage("data entered is not valid plz enter your name");
+		tB.setErrorMessVisible(true);
+		tB.setErrorPanWidth(400);
+		tB.setText("username");
 //		ltb.setErrorMessage("data entered is not valid plz enter your name");
 //		ltb.setErrorMessVisible(true);
 //		ltb.setErrorPanWidth(400);
@@ -233,6 +233,6 @@ public class samples implements EntryPoint {
 		ptb.setErrorPanWidth(400);
 		ptb.setText("password");
 		dp1.add(ptb);
-		RootPanel.get().add(ptb);
+		RootPanel.get().add(tB);
 	}
 }

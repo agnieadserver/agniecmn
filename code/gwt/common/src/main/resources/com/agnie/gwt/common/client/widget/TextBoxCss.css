@@ -38,7 +38,7 @@
     float:left;
 }
 
-.text-box-pan .error-message {
+.text-box-pan .error-mesage {
 	float:left;
 	color: #9B9B9B;
     font-size: 13px;
@@ -55,4 +55,4 @@
 	font-size: 1px;
 	float:right;
 }
-@external text-box-pan, text-box, error-pan, error-img, error-message, close;
+@external text-box-pan, text-box, error-pan, error-img, error-mesage, close;

@@ -32,7 +32,7 @@ public class TextBox extends Composite {
 	interface MyUiBinder extends UiBinder<Widget, TextBox> {
 	}
 
-	private static MyUiBinder				uiBinder		= GWT.create(MyUiBinder.class);
+	private static MyUiBinder				uiBinder	= GWT.create(MyUiBinder.class);
 
 	@UiField
 	com.google.gwt.user.client.ui.TextBox	textBox;
@@ -50,7 +50,6 @@ public class TextBox extends Composite {
 	Image									close;
 
 	protected HTMLPanel						container;
-	
 
 	public TextBox() {
 
@@ -59,15 +58,19 @@ public class TextBox extends Composite {
 		errorPan.setVisible(false);
 
 	}
+
 	/**
 	 * sets whether this widget is enabled or not
+	 * 
 	 * @param enabled
 	 */
-	public void setEnabled(boolean enabled){
+	public void setEnabled(boolean enabled) {
 		textBox.setEnabled(enabled);
 	}
+
 	/**
 	 * sets error-message to visible or not
+	 * 
 	 * @param visible
 	 */
 	public void setErrorMessVisible(boolean visible) {
@@ -76,27 +79,20 @@ public class TextBox extends Composite {
 
 	/**
 	 * sets error panel width
+	 * 
 	 * @param width
 	 */
 	public void setErrorPanWidth(int width) {
-		int	messSpanwidth	= 0;
+		int messSpanwidth = 0;
 		errorPan.setWidth(width + "px");
 		messSpanwidth = width - 70;
 		String messSpanWidthStr = messSpanwidth + "px";
-		this.message.setAttribute("style", "width:" + messSpanWidthStr + ";"); 
-		
-		close.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				errorPan.setVisible(false);
-			}
-		});
+		this.message.setAttribute("style", "width:" + messSpanWidthStr + ";");
 	}
-	
-	
+
 	/**
 	 * sets errorPan height
+	 * 
 	 * @param height
 	 */
 	public void setErrorPanHeight(int height) {
@@ -105,6 +101,7 @@ public class TextBox extends Composite {
 
 	/**
 	 * sets text in textbox
+	 * 
 	 * @param text
 	 */
 	public void setText(String text) {
@@ -136,7 +133,7 @@ public class TextBox extends Composite {
 	}
 
 	public void addStyleName(String style) {
-		this.container.addStyleName(style);
+		this.textBox.addStyleName(style);
 	}
 
 	public int getMaxLength() {
@@ -182,12 +179,12 @@ public class TextBox extends Composite {
 	public void setValue(String value) {
 		this.textBox.setValue(value);
 	}
-	
+
 	/**
 	 * set text box visible or not
 	 */
 	public void setVisible(boolean visible) {
-		this.container.setVisible(visible);
+		this.textBox.setVisible(visible);
 	}
 
 	/**
@@ -199,10 +196,18 @@ public class TextBox extends Composite {
 
 	/**
 	 * sets error message in message panel
+	 * 
 	 * @param message
 	 */
 	public void setErrorMessage(String message) {
 		this.message.setInnerText(message);
+		close.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				errorPan.setVisible(false);
+			}
+		});
 	}
 
 	public static TextBoxResources getResources() {

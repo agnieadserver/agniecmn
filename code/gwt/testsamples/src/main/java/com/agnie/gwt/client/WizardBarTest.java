@@ -14,11 +14,11 @@ public class WizardBarTest extends Composite {
 
 	public WizardBarTest() {
 		final WizardBar wizard = new WizardBar();
-		wizard.addStep("Step " + WizardBar.NO_MACRO + ": Config first", "First Step Add society details");
-		wizard.addStep("Step " + WizardBar.NO_MACRO + ": Config second", "Second Step add member details");
-		wizard.addStep("Step " + WizardBar.NO_MACRO + ": Config third", "Third Step add parking details");
-		wizard.addStep("Step " + WizardBar.NO_MACRO + ": Config fourth", "Fourth Step Add society details");
-		wizard.addStep("Step " + WizardBar.NO_MACRO + ": Config fifth", "Fifth Step add member details");
+		wizard.addStep("Step " + WizardBar.NO_MACRO + ":Add society details ", "");
+		wizard.addStep("Step " + WizardBar.NO_MACRO + ":Add member details ", "");
+		wizard.addStep("Step " + WizardBar.NO_MACRO + ":Add parking details ", "");
+		wizard.addStep("Step " + WizardBar.NO_MACRO + ":Add society details ", "");
+		wizard.addStep("Step " + WizardBar.NO_MACRO + ":Add member details ", "");
 		wizard.selectStep(4);
 
 		VerticalPanel panel = new VerticalPanel();

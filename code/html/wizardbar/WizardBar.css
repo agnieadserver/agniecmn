@@ -1,0 +1,67 @@
+.first-step {
+	font-family: "Avant Garde","Century Gothic","Avant Garde Gothic","URW Gothic L",helvetica,sans-serif;
+	color: #FFF8FF;
+ 	background-color: #65C000;
+  border-radius: 5px 0 0 5px;
+  float: left;
+  font-size: 10px;
+  height: 21px;
+  padding-top: 6px;
+  text-align: center;
+  width: 136px;
+}
+.middle-step {
+	font-family: "Avant Garde","Century Gothic","Avant Garde Gothic","URW Gothic L",helvetica,sans-serif;
+	color: #FFF8FF;
+  float: left;
+  font-size: 10px;
+  height: 20px;
+  padding-top: 7px;
+  text-align: center;
+  width: 138px;
+	background-color:#01A0E2;
+}
+
+.middle-step-large {
+	font-family: "Avant Garde","Century Gothic","Avant Garde Gothic","URW Gothic L",helvetica,sans-serif;
+	color: #FFF8FF;
+	padding-top: 6px;
+ 	float: left;
+ 	font-size: 10px;
+ 	height: 21px;
+ 	text-align: center;
+ 	width: 166px;
+	background-color:#01A0E2;
+}
+
+.end-step-large {
+	font-family: "Avant Garde","Century Gothic","Avant Garde Gothic","URW Gothic L",helvetica,sans-serif;
+	padding-top: 6px;
+	color: #FFF8FF;
+ 	float: left;
+ 	font-size: 10px;
+ 	height: 21px;
+ 	text-align: center;
+ 	width: 150px;
+	background-color:#01A0E2;
+}
+.separator_active {
+	background: url("images/wiz_sep_active.png") no-repeat scroll 0 0 transparent;
+	float:left;
+	height: 27px;
+  width: 40px;
+}
+
+.separator_non_active {
+	background: url("images/wiz_sep_non_active.png") no-repeat scroll 0 0 transparent;
+	float:left;
+	height: 27px;
+  width: 40px;
+}
+
+.separator_end {
+	background: url("images/wiz_sep_end.png") no-repeat scroll 0 0 transparent;
+	float:left;
+	height: 27px;
+  width: 26px;
+}

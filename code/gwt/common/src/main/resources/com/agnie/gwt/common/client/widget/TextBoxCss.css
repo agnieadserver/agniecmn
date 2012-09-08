@@ -8,6 +8,10 @@
     float: none;
     font-family: "Avant Garde","Century Gothic","Avant Garde Gothic","URW Gothic L",helvetica,sans-serif;
 }
+.text-box-error{
+	border: 1px solid red !important;
+    box-shadow: 0 1px 3px peru inset !important;
+}
 .text-box-pan .error-pan {
 	background: none repeat scroll 0 0 #FBFBFB;
     border-radius: 4px 4px 4px 4px;
@@ -55,4 +59,4 @@
 	font-size: 1px;
 	float:right;
 }
-@external text-box-pan, text-box, error-pan, error-img, error-mesage, close;
+@external text-box-pan, text-box, text-box-error, error-pan, error-img, error-mesage, close;

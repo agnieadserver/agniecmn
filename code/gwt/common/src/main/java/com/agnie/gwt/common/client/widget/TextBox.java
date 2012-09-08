@@ -6,6 +6,7 @@ import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.event.dom.client.KeyPressHandler;
@@ -56,7 +57,7 @@ public class TextBox extends Composite {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
 		initWidget(container);
 		errorPan.setVisible(false);
-
+		
 	}
 
 	/**
@@ -205,11 +206,13 @@ public class TextBox extends Composite {
 	 */
 	public void setErrorMessage(String message) {
 		this.message.setInnerText(message);
+		textBox.addStyleName("text-box-error");
 		close.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				errorPan.setVisible(false);
+				textBox.removeStyleName("text-box-error");
 			}
 		});
 	}

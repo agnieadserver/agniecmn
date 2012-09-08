@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.user.client.ui.HTMLPanel;
 
 /**
  * LabelPasswordBox is an 'extended GWT LabelTextBox' to show  label(e.g.'password')<br> as text field default value(in little bit light color).<br>
@@ -50,8 +51,25 @@ public class LabelPasswordBox extends LabelTextBox{
 			}
 		});
 	}
+	
 	/**
-	 * changes type of text fiel to password field
+	 * to get textbox
+	 * @return
+	 */
+	public TextBox getTextBox() {
+		return this.getTextBox();
+	}
+	
+	/**
+	 * to get ErrorMessage Panel
+	 * @return
+	 */
+	public HTMLPanel getErrorPan(){
+		return this.errorPan;
+	}
+	
+	/**
+	 * changes type of text field to password field
 	 */
 	private void changeTypeToPass(){
 		super.textBox.getElement().setAttribute("type", "password");

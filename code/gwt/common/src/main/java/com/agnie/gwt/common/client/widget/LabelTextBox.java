@@ -6,6 +6,7 @@ import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.user.client.ui.HTMLPanel;
 
 /**
  * LabelTextBox is an extension of GWT TextBox to show label as text field default value(in little bit light color).
@@ -63,6 +64,23 @@ public class LabelTextBox extends TextBox {
 			}
 		});
 
+	}
+	/**
+	 * to get textbox
+	 * @return
+	 */
+	
+	public TextBox getTextBox() {
+		return this;
+	}
+	
+	
+	/**
+	 * to get ErrorMessage Panel
+	 * @return
+	 */
+	public HTMLPanel getErrorPan(){
+		return this.errorPan;
 	}
 	
 	protected void removeStyle() {

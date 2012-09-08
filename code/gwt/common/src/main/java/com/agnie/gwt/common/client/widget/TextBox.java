@@ -133,7 +133,7 @@ public class TextBox extends Composite {
 	}
 
 	public void addStyleName(String style) {
-		this.textBox.addStyleName(style);
+		this.container.addStyleName(style);
 	}
 
 	public int getMaxLength() {
@@ -149,7 +149,7 @@ public class TextBox extends Composite {
 	}
 
 	public void removeStyleName(String style) {
-		this.textBox.removeStyleName(style);
+		this.container.removeStyleName(style);
 	}
 
 	public void setFocus(boolean focused) {
@@ -173,7 +173,11 @@ public class TextBox extends Composite {
 	}
 
 	public void setStyleName(String style) {
-		this.textBox.setStyleName(style);
+		this.container.setStyleName(style);
+	}
+	
+	public String getStyleName(){
+		return this.container.getStyleName();
 	}
 
 	public void setValue(String value) {
@@ -184,7 +188,7 @@ public class TextBox extends Composite {
 	 * set text box visible or not
 	 */
 	public void setVisible(boolean visible) {
-		this.textBox.setVisible(visible);
+		this.container.setVisible(visible);
 	}
 
 	/**

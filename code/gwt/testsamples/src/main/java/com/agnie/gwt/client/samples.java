@@ -140,8 +140,8 @@ public class samples implements EntryPoint {
 		// TAB Bar Test -- end
 
 		// Bread Crumb Test -- start
-		// BreadCrumbTest test = new BreadCrumbTest();
-		// RootPanel.get().add(test);
+//		 BreadCrumbTest test = new BreadCrumbTest();
+//		 RootPanel.get().add(test);
 		// Bread CrumbTest -- end
 
 		// Wizard Bar Test -- start
@@ -235,8 +235,8 @@ public class samples implements EntryPoint {
 //		ptb.setErrorPanWidth(400);
 //		ptb.setText("password");
 //		dp1.add(ptb);
-		wb.addStep("step1");
-		wb.addStep("step2");
-		RootPanel.get().add(wb);
+//		wb.addStep("step1");
+//		wb.addStep("step2");
+//		RootPanel.get().add(wb);
 	}
 }

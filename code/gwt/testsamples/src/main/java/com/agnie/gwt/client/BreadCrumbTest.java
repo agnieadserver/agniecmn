@@ -10,8 +10,8 @@ public class BreadCrumbTest extends Composite {
 
 	public BreadCrumbTest() {
 		BreadCrumbPanel panel = new BreadCrumbPanel();
-		panel.addBreadCrumb("Societies >> ");
-		panel.addBreadCrumb("Dashboard >> ");
+		panel.addBreadCrumb("Societies");
+		panel.addBreadCrumb("Dashboard");
 		panel.addBreadCrumb("Account Summary");
 		panel.getBreadCrumb(0).addClickHandler(new ClickHandler() {
 

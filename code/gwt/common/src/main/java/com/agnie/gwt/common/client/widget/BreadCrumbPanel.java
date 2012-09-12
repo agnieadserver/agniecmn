@@ -90,6 +90,13 @@ public class BreadCrumbPanel extends Composite {
 
 		item.setWordWrap(false);
 		ClickDelegatePanel delWidget = new ClickDelegatePanel(item);
+		if(panel.getWidgetCount()!=0){
+		delWidget.focusablePanel.removeStyleName("node");
+		delWidget.focusablePanel.addStyleName("last-node");
+			int index=panel.getWidgetCount()-1;
+			panel.getWidget(index).removeStyleName("last-node");
+			panel.getWidget(index).addStyleName("node");
+		}
 		panel.add(delWidget);
 	}
 

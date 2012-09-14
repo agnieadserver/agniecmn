@@ -140,13 +140,13 @@ public class samples implements EntryPoint {
 		// TAB Bar Test -- end
 
 		// Bread Crumb Test -- start
-//		 BreadCrumbTest test = new BreadCrumbTest();
-//		 RootPanel.get().add(test);
+		 BreadCrumbTest test = new BreadCrumbTest();
+		 RootPanel.get().add(test);
 		// Bread CrumbTest -- end
 
 		// Wizard Bar Test -- start
-		 WizardBarTest wbtest = new WizardBarTest();
-		 RootPanel.get().add(wbtest);
+//		 WizardBarTest wbtest = new WizardBarTest();
+//		 RootPanel.get().add(wbtest);
 		// Wizard Bar Test -- end
 
 		// Green Button Test -- start

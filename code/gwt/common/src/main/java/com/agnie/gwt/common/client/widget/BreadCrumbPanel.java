@@ -29,7 +29,7 @@ public class BreadCrumbPanel extends Composite {
 
 	private class ClickDelegatePanel extends Composite implements BreadCrumb {
 
-		protected static final String	NODE_STYLE	= "node";
+		protected static final String	NODE_STYLE	= "last-node";
 		private FocusPanel				focusablePanel;
 		private boolean					enabled		= true;
 
@@ -90,12 +90,13 @@ public class BreadCrumbPanel extends Composite {
 
 		item.setWordWrap(false);
 		ClickDelegatePanel delWidget = new ClickDelegatePanel(item);
-		if(panel.getWidgetCount()!=0){
-		delWidget.focusablePanel.removeStyleName("node");
-		delWidget.focusablePanel.addStyleName("last-node");
-			int index=panel.getWidgetCount()-1;
-			panel.getWidget(index).removeStyleName("last-node");
-			panel.getWidget(index).addStyleName("node");
+		/* If breadcrumb contains only one widget then no any separator needed when it(count) exceeds 1 we need to add separator */
+		if(panel.getWidgetCount()>1){			//at here we have to add separator
+			int index=panel.getWidgetCount()-1;	//except last node
+			for(int i=0;i<=index;i++){			//in between all nodes 
+			panel.getWidget(i).removeStyleName("last-node"); //so remove style without separator
+			panel.getWidget(i).addStyleName("node");		//add style with separator
+			}
 		}
 		panel.add(delWidget);
 	}

@@ -11,16 +11,16 @@ public interface WizardBarResources extends ClientBundle {
 	@Source("WizardBarCss.css")
 	WizardBarCss css();
 
-	@Source("navBtn.gif")
+	@Source("inactive.png")
 	ImageResource navButton();
 
-	@Source("navCurrentBtn.gif")
+	@Source("current_btn.png")
 	ImageResource navCurrentButton();
 
-	@Source("navDoneBtn.gif")
+	@Source("done.png")
 	ImageResource navDoneButton();
 
-	@Source("navLastDoneBtn.gif")
+	@Source("last_done.png")
 	ImageResource navLastDoneButton();
 
 }

@@ -5,4 +5,6 @@ import com.agnie.trial.guice.server.Account;
 public interface BillingService {
 
 	boolean chargeOrder(String item, Account account);
+
+	void printOwnerBalance();
 }

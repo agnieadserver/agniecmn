@@ -22,4 +22,14 @@ public class SavingAccount implements Account {
 		this.balance += amount;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "SavingAccount [balance=" + balance + "]";
+	}
+
 }

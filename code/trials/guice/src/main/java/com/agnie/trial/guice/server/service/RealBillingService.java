@@ -41,4 +41,9 @@ public class RealBillingService implements BillingService {
 		return false;
 	}
 
+	@Override
+	public void printOwnerBalance() {
+		System.out.println("Biller balance => " + billerAccount);
+	}
+
 }

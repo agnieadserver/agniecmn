@@ -53,6 +53,16 @@
 			<artifactId>reflections</artifactId>
 			<version>0.9.8</version>
 		</dependency>
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+			<version>3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.inject.extensions</groupId>
+			<artifactId>guice-servlet</artifactId>
+			<version>3.0</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<!-- Generate compiled stuff in the folder used for developing mode -->
@@ -70,9 +80,7 @@
 						<goals>
 							<goal>compile</goal>
 							<goal>test</goal>
-							<!--
-							<goal>i18n</goal>
-							-->
+							<!-- <goal>i18n</goal> -->
 							<goal>generateAsync</goal>
 						</goals>
 					</execution>

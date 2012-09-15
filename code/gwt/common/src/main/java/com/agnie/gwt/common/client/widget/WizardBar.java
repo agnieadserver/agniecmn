@@ -122,7 +122,10 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 	public void addStep(Widget step) {
 		int currentCount = getStepCount();
 		// Remove "final" style class from previous step widget
+		
 		ClickDelegatePanel delWidget = new ClickDelegatePanel(step);
+		String className="step"+currentCount;
+		delWidget.addStyleName(className);
 		delWidget.addStyleName(resource.css().lastElement());
 		if (currentCount == 0) {
 			delWidget.addStyleName(resource.css().firstElement());

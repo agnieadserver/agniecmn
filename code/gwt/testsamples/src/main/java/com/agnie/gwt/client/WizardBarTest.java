@@ -12,13 +12,13 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class WizardBarTest extends Composite {
 
-	public WizardBarTest() {
+	public WizardBarTest() { 
 		final WizardBar wizard = new WizardBar();
-		wizard.addStep("Step " + WizardBar.NO_MACRO + ":Add society details ", "");
-		wizard.addStep("Step " + WizardBar.NO_MACRO + ":Add member details ", "");
-		wizard.addStep("Step " + WizardBar.NO_MACRO + ":Add parking details ", "");
-		wizard.addStep("Step " + WizardBar.NO_MACRO + ":Add society details ", "");
-		wizard.addStep("Step " + WizardBar.NO_MACRO + ":Add member details ", "");
+		wizard.addStep("Step " + WizardBar.NO_MACRO + ":", "Add society details");
+		wizard.addStep("Step " + WizardBar.NO_MACRO + ":", "Add member details");
+		wizard.addStep("Step " + WizardBar.NO_MACRO + ":", "Add parking details");
+		wizard.addStep("Step " + WizardBar.NO_MACRO + ":", "Add society details");
+		wizard.addStep("Step " + WizardBar.NO_MACRO + ":", "Add member details");
 		wizard.selectStep(4);
 
 		VerticalPanel panel = new VerticalPanel();

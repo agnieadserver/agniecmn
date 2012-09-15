@@ -6,15 +6,34 @@
     border-radius: 5px 0 0 5px;
 }
 
+.step0 {
+	padding-top:5px;
+}
+
+.step1 {
+	padding-top:5px;
+}
+
+.step2 {
+	padding-top:5px;
+}
+
+.step3 {
+	padding-top:5px;
+}
+
+.step4 {
+	padding-top:5px;
+}
 @sprite .wizard div {
 	gwt-image: 'navButton';
-	width: auto;
 	background-position: right top;
-	background-color:#01A0E2;
+	background-color:#9A9A9A;
 	background-repeat: no-repeat;
 	float: left;
-	height: 28px;
 	list-style: none outside none;
+	height: 23px ;
+	width:196px ;
 }
 
 .wizard div.inactive  {
@@ -22,47 +41,49 @@
 }
 
 .wizard div a em {
-	font-size: 10px;
+	font-size: 12px;
 	font-weight:bold;
-	display: block;
 	font-style: normal;
-	margin: 6px 0 0 2px;
+	margin: 6px 0 0 0;
 	color: white;
-	width: 203px;
 }
 
 .wizard div a span {
+	font-size: 12px;
+	font-weight:normal;
+	color: white;
 }
 
 @sprite .wizard div.done  {
 	gwt-image: 'navDoneButton';
-	background-color: #C36615;
-	width: auto;
+	background-color: #01A0E2;
 	background-position: right top;
-	
+	width:196px;
+	height:23px;
 }
 
 @sprite .wizard div.last-done {
 	gwt-image: 'navLastDoneButton';
-	background-color: #C36615;
-	width: auto;
+	background-color: #01A0E2;
 	background-position: right top;
-	
+	width:196px;
+	height:23px;
 }
 
 @sprite .wizard div.active {
 	gwt-image: 'navCurrentButton';
 	background-color: #65C000;
-	width: auto;
 	background-position: right top;
-	
+	width:196px;
+	height:23px;
 }
 
 .wizard div.last-element  {
 	background-image: none;
 	float: none;
-	border-radius: 0 5px 5px 0;	
-	width: auto;
+	border-radius: 0 5px 5px 0;
+	width:196px;
+	height:23px;	
 }
 
 .wizard div:hover {
@@ -70,4 +91,4 @@
 	text-decoration: none;
 }
 
-@external wizard, last-element, active, last-done, done, inactive, first-element;
+@external step0, step1, step2, step3, step4, wizard, last-element, active, last-done, done, inactive, first-element;

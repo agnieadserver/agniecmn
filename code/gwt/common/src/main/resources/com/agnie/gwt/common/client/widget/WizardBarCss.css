@@ -25,6 +25,7 @@
 .step4 {
 	padding-top:5px;
 }
+
 @sprite .wizard div {
 	gwt-image: 'navButton';
 	background-position: right top;
@@ -72,14 +73,16 @@
 
 @sprite .wizard div.active {
 	gwt-image: 'navCurrentButton';
-	background-color: #65C000;
+	background-color: #65C000 !important;
 	background-position: right top;
 	width:196px;
 	height:23px;
 }
 
-.wizard div.last-element  {
-	background-image: none;
+@sprite .wizard div.last-element  {
+	gwt-image: 'lastButton';
+	background-position: right top;
+	background-color:#9A9A9A;
 	float: none;
 	border-radius: 0 5px 5px 0;
 	width:196px;

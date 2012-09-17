@@ -22,5 +22,8 @@ public interface WizardBarResources extends ClientBundle {
 
 	@Source("last_done.png")
 	ImageResource navLastDoneButton();
+	
+	@Source("last_transparent.png")
+	ImageResource lastButton();
 
 }

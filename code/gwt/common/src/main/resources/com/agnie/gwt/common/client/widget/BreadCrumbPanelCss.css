@@ -1,5 +1,6 @@
 /**********************************	BreadCrumb related css will start here **********************************/
 .bread-crumb {
+	font-size: 14px;
 	border-radius: 5px 5px 5px 5px;
     float: left;
     height: 33px;

@@ -3,6 +3,7 @@
  */
 package com.agnie.gwt.common.client.widget;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -90,8 +91,9 @@ public class BreadCrumbPanel extends Composite {
 
 		item.setWordWrap(false);
 		ClickDelegatePanel delWidget = new ClickDelegatePanel(item);
+		GWT.log("WidgetCount=="+panel.getWidgetCount());
 		/* If breadcrumb contains only one widget then no any separator needed when it(count) exceeds 1 we need to add separator */
-		if(panel.getWidgetCount()>1){			//at here we have to add separator
+		if(panel.getWidgetCount()>=1){			//at here we have to add separator
 			int index=panel.getWidgetCount()-1;	//except last node
 			for(int i=0;i<=index;i++){			//in between all nodes 
 			panel.getWidget(i).removeStyleName("last-node"); //so remove style without separator

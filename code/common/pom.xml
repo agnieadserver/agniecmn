@@ -21,5 +21,7 @@
 	</dependencies>
 	<modules>
 		<module>util</module>
-  	</modules>	
+    <module>commons</module>
+    <module>test-common</module>
+  </modules>	
 </project>

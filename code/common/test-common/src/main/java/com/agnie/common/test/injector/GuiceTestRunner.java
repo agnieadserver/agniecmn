@@ -1,4 +1,4 @@
-package com.agnie.common.injector;
+package com.agnie.common.test.injector;
 
 import java.lang.reflect.Constructor;
 import java.util.List;

@@ -5,7 +5,6 @@ import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -44,7 +43,12 @@ public class Account extends Composite {
 	protected boolean			visibleDropPan	= false;
 
 	public Account() {
+		this(resource.css().accPan());
+	}
+
+	public Account(String styleClassName) {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
+		container.addStyleName(styleClassName);
 		initWidget(container);
 		setUserImageResource(resource.person());
 	}

@@ -43,6 +43,7 @@ public class EntityExtractor<E> {
 			E entity = itr.next();
 			result.add(entity);
 		}
+		itr.releaseResources();
 		return result;
 	}
 

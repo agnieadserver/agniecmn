@@ -73,6 +73,7 @@ public class SimpleJdbcIteratorTest {
 				Assert.assertNotNull(com);
 				actual.add(com);
 			}
+			itr.releaseResources();
 			Assert.assertEquals(3, count);
 		} catch (IOException e) {
 			e.printStackTrace();

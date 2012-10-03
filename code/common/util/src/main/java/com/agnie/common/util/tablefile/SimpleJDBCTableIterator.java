@@ -26,6 +26,7 @@ public class SimpleJDBCTableIterator<T> extends AbstractSimpleTableFileIterator<
 	private ResultSet			resultSet;
 	private ArrayList<String>	indexMappedHeaders	= new ArrayList<String>();
 	private Connection			connection;
+	private Statement			stmt;
 
 	/**
 	 * It is the responsibility of caller of this constructor to close the passed connection. After the given work is
@@ -45,7 +46,7 @@ public class SimpleJDBCTableIterator<T> extends AbstractSimpleTableFileIterator<
 	}
 
 	private void init() throws SQLException {
-		Statement stmt = connection.createStatement();
+		stmt = connection.createStatement();
 		resultSet = stmt.executeQuery(sql);
 		ResultSetMetaData meta = resultSet.getMetaData();
 		for (int index = 1; index <= meta.getColumnCount(); index++) {
@@ -79,5 +80,30 @@ public class SimpleJDBCTableIterator<T> extends AbstractSimpleTableFileIterator<
 			logger.error(e);
 		}
 		return null;
+	}
+
+	public void releaseResources() {
+		try {
+			resultSet.close();
+		} catch (SQLException se) {
+			// Handle errors for JDBC
+			logger.error(se);
+		} catch (Exception e) {
+			// Handle errors for Class.forName
+			logger.error(e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (stmt != null)
+					connection.close();
+			} catch (SQLException se) {
+			}// do nothing
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}// end finally try
+		}// end try
 	}
 }

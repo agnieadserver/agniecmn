@@ -69,7 +69,7 @@
     padding: 5px;
 	display: none;
 	min-height: 100px;
-	border-radius: 0 5px 5px 5px;
+	border-radius: 0 0 5px 5px;
 	font-family: "Avant Garde", "Century Gothic", "Avant Garde Gothic",
 		"URW Gothic L", helvetica, sans-serif;
 	font-size: 13px;
@@ -122,7 +122,6 @@
 
 .acc-det-elem {
 	height: 20px;
-	padding: 2px;
 	width: 130px;
 }
 

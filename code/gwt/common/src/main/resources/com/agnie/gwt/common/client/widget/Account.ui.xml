@@ -4,8 +4,11 @@
 		type='com.agnie.gwt.common.client.widget.AccountResources' />
 	<ui:with field='msg' type='com.agnie.gwt.common.client.Messages' />
 
-	<g:HTMLPanel >
+	<g:HTMLPanel>
 		<div class='{res.css.accTitlePan}'>
+			<span>
+				<ui:text from='{msg.welcome}'></ui:text>
+			</span>
 			<span ui:field="accTitle" class='{res.css.title}'></span>
 			<img ui:field="accImg" class='{res.css.img}'></img>
 		</div>

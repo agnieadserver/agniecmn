@@ -20,4 +20,9 @@ public class PearsonService {
 	public List<Pearson> getAll() {
 		return this.pmapper.getAll();
 	}
+
+	@Transactional
+	public String getPearsonNameByEmailId(String emailId) {
+		return this.pmapper.getName(emailId);
+	}
 }

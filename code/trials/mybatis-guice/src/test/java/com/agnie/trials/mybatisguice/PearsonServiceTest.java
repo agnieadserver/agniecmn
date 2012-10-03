@@ -115,6 +115,7 @@ public class PearsonServiceTest {
 		System.out.println(ps.getPearsonByEmailId("pranoti.patil@gmail.com"));
 		List<Pearson> list = ps.getAll();
 		System.out.println(list);
+		System.out.println(ps.getPearsonNameByEmailId("pranoti.patil@gmail.com"));
 	}
 
 }

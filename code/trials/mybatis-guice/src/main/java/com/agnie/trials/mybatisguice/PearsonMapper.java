@@ -12,4 +12,7 @@ public interface PearsonMapper {
 
 	@Select("SELECT * FROM test.PEARSON")
 	List<Pearson> getAll();
+
+	@Select("SELECT FNAME FROM test.PEARSON WHERE EMAILID=#{emailId}")
+	String getName(@Param("emailId") String emailId);
 }

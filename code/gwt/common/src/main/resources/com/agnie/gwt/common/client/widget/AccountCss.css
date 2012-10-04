@@ -1,5 +1,4 @@
 .acc-pan {
-	border-radius: 5px 5px 0 0;
     padding: 5px;
 }
 
@@ -12,15 +11,19 @@
 	height: 5px;
 	width: 9px;
 }
-@sprite .acc-pan:hover .img{
-	gwt-image: 'arrowImg';
-}
+
 .acc-pan .acc-title-pan {
     min-height: 20px;
     padding: 5px;
     border-radius:5px;
     font-size: 14px;
-}	
+    font-family: "Avant Garde","Century Gothic","Avant Garde Gothic","URW Gothic L",helvetica,sans-serif;
+}
+
+.acc-pan .acc-title-pan span {
+	float:left;
+}
+
 .acc-pan .title {
 	font-family: "Avant Garde", "Century Gothic", "Avant Garde Gothic",
 		"URW Gothic L", helvetica, sans-serif;
@@ -28,48 +31,13 @@
 	float:left;
 }
 
-.acc-pan:hover .title {
-	font-family: "Avant Garde", "Century Gothic", "Avant Garde Gothic",
-		"URW Gothic L", helvetica, sans-serif;
-	font-size: 13px;
-	float:left;
-}
-
-.acc-pan:hover .acc-title-pan{
-	border-radius:5px 5px 0px 0px;
-	background: rgb(242, 242, 242); /* Old browsers */
-	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
-	background:
-		url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2YyZjJmMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjMzJSIgc3RvcC1jb2xvcj0iI2YxZjFmMSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY2JSIgc3RvcC1jb2xvcj0iI2YwZjBmMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlZWVlZWUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-	background: -moz-linear-gradient(top, rgba(242, 242, 242, 1) 0%,
-		rgba(241, 241, 241, 1) 33%, rgba(240, 240, 240, 1) 66%,
-		rgba(238, 238, 238, 1) 100% ); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(242,
-		242, 242, 1) ), color-stop(33%, rgba(241, 241, 241, 1) ),
-		color-stop(66%, rgba(240, 240, 240, 1) ),
-		color-stop(100%, rgba(238, 238, 238, 1) ) ); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, rgba(242, 242, 242, 1) 0%,
-		rgba(241, 241, 241, 1) 33%, rgba(240, 240, 240, 1) 66%,
-		rgba(238, 238, 238, 1) 100% ); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, rgba(242, 242, 242, 1) 0%,
-		rgba(241, 241, 241, 1) 33%, rgba(240, 240, 240, 1) 66%,
-		rgba(238, 238, 238, 1) 100% ); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, rgba(242, 242, 242, 1) 0%,
-		rgba(241, 241, 241, 1) 33%, rgba(240, 240, 240, 1) 66%,
-		rgba(238, 238, 238, 1) 100% ); /* IE10+ */
-	background: linear-gradient(to bottom, rgba(242, 242, 242, 1) 0%,
-		rgba(241, 241, 241, 1) 33%, rgba(240, 240, 240, 1) 66%,
-		rgba(238, 238, 238, 1) 100% ); /* W3C */
-	filter: progid :DXImageTransform.Microsoft.gradient (startColorstr ='#f2f2f2', endColorstr =   '#eeeeee', GradientType =   0 );
-	/* IE6-8 */
-}
-
-
 .acc-pan .acc-drop-pan {
+	box-shadow: 0 0 0px, 0 6px 7px gray;
+	margin-top: 12px;
     padding: 5px;
 	display: none;
-	min-height: 100px;
-	border-radius: 0 0 5px 5px;
+	min-height: 85px;
+	border-radius: 5px;
 	font-family: "Avant Garde", "Century Gothic", "Avant Garde Gothic",
 		"URW Gothic L", helvetica, sans-serif;
 	font-size: 13px;
@@ -102,11 +70,23 @@
 	/* IE6-8 */
 }
 
+.acc-pan .acc-drop-pan:before {
+	border-color: transparent transparent #F1F1F1;
+    border-style: solid;
+    border-width: 10px;
+    content: " ";
+    height: 0;
+    left: 50px;
+    position: relative;
+    top: -32px;
+    width: 0;
+}
+
 .acc-pan:hover .acc-drop-pan {
 	display: block;
 }
 
-.acc-user-img {
+.acc-pan .acc-user-img {
 	float: left;
 	height: 50px;
 	width: 50px;
@@ -115,23 +95,23 @@
 	margin-left: 5px;
 }
 
-.acc-det {
-	float: left;
-	margin-left: 10px;
+.acc-pan .acc-det {
+	float: right;
 }
 
-.acc-det-elem {
-	height: 20px;
-	width: 130px;
+.acc-pan .acc-det-elem {
+	margin-top: 3px;
+	border-radius: 2px 2px 2px 2px;
+    height: 20px;
+    padding: 2px 5px;
+    width: 130px;
+    color: black;
 }
 
-.acc-det-elem a {
-	cursor: pointer;
-	color: black;
+.acc-pan .acc-det-elem:hover {
+	background-color: #009CDD;
+    cursor: pointer;
+    color: white;
 }
 
-.acc-det-elem a:hover {
-	cursor: pointer;
-	color: green;
-}
 @external acc-drop-pan, acc-pan, acc-title-pan, img, title, acc-user-img, acc-det, acc-det-elem;

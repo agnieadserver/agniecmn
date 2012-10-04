@@ -208,7 +208,7 @@ public class samples implements EntryPoint {
 		 dp1.add(acc1);
 		 dp1.add(acc2);
 		
-		 RootPanel.get().add(dp1);
+		 RootPanel.get().add(acc);
 //
 //		tB.setErrorMessage("data entered is not valid plz enter your name");
 //		tB.setErrorMessVisible(true);

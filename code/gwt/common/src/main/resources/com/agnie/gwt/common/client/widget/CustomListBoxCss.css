@@ -1,0 +1,36 @@
+.custom-list-box-pan {
+    padding: 5px;
+    border: 2px solid gray;
+}
+
+.custom-list-box-pan .custom-list-title-pan {
+	margin-bottom: 5px;
+    min-height: 20px;
+    border-radius:5px;
+    font-size: 14px;
+    font-family: "Avant Garde","Century Gothic","Avant Garde Gothic","URW Gothic L",helvetica,sans-serif;
+}
+
+.custom-list-box-pan .custom-list-title-pan span {
+	float:left;
+}
+
+.custom-list-box-pan .custom-list-title {
+	font-family: "Avant Garde", "Century Gothic", "Avant Garde Gothic",
+		"URW Gothic L", helvetica, sans-serif;
+	
+	float:left;
+}
+
+@sprite .custom-list-box-pan .custom-list-img{
+	gwt-image: 'arrowDarkImg';
+	cursor: pointer;
+	float: right;
+	margin-left: 10px;
+	margin-top:6px;
+	height: 5px;
+	width: 9px;
+}
+
+
+@external custom-list-box-pan, custom-list-title-pan, custom-list-title, custom-list-img;

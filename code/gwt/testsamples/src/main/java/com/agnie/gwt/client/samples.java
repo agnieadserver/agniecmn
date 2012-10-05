@@ -6,6 +6,7 @@ import java.util.List;
 import com.agnie.gwt.client.renderer.RendererSample;
 import com.agnie.gwt.common.client.widget.Account;
 import com.agnie.gwt.common.client.widget.BreadCrumbPanel;
+import com.agnie.gwt.common.client.widget.CustomListBox;
 import com.agnie.gwt.common.client.widget.DecoratedPanel;
 import com.agnie.gwt.common.client.widget.LabelPasswordBox;
 import com.agnie.gwt.common.client.widget.LabelTextBox;
@@ -49,12 +50,13 @@ public class samples implements EntryPoint {
 	Account								acc			= new Account();
 	Account								acc1		= new Account();
 	Account								acc2		= new Account();
+	CustomListBox						clb			= new CustomListBox();
 	User								us			= new User();
 	BreadCrumbPanel						bcp			= new BreadCrumbPanel();
 	private static SearchBoxResources	resource	= SearchBoxResources.INSTANCE;
 	TextBox								tB			= new TextBox();
 	PasswordTextBox						ptb			= new PasswordTextBox();
-	WizardBar							wb			=new WizardBar();
+	WizardBar							wb			= new WizardBar();
 
 	public void onModuleLoad() {
 		GWT.log("IN onmoduleLoad Start.");
@@ -70,16 +72,16 @@ public class samples implements EntryPoint {
 		// int i=bcp.getBreadCrumbCount()-1;
 		// GWT.log("last node index=="+i);
 		// RootPanel.get().add(bcp);
-//		 RendererSample rendSample = new RendererSample();
-//		 RootPanel.get().add(rendSample);
-//		 UserRenderer ur = new UserRenderer();
-//		 for (int i = 0; i < 5; i++) {
-//		 celllist.add("sug" + i);
-//		 }
-//		 sb.setData(celllist);
-//		 sb.setWidth("300px");
-//		 sb.setHeight("300px");
-		 //dp = new DecoratedPanel("Decorated Panel");
+		// RendererSample rendSample = new RendererSample();
+		// RootPanel.get().add(rendSample);
+		// UserRenderer ur = new UserRenderer();
+		// for (int i = 0; i < 5; i++) {
+		// celllist.add("sug" + i);
+		// }
+		// sb.setData(celllist);
+		// sb.setWidth("300px");
+		// sb.setHeight("300px");
+		// dp = new DecoratedPanel("Decorated Panel");
 		//
 		// dp.addContent(save);
 		// dp.addContent(tb);
@@ -89,8 +91,8 @@ public class samples implements EntryPoint {
 		// dp.getParent().removeFromParent();
 		// }
 		// });
-//		ltb.setLabel("username");
-//		lpb.setLabel("password");
+		// ltb.setLabel("username");
+		// lpb.setLabel("password");
 		// GWT.log("In Entry point ltb.getLabel==" + ltb.getLabel() + "ltb.getText()==" + ltb.getText());
 		// save.addClickHandler(new ClickHandler() {
 		//
@@ -101,12 +103,12 @@ public class samples implements EntryPoint {
 		// mpi.setType(MessageType.INFORMATION);
 		// mpi.setMessage("Information: infromation information height set nothing");
 		// // mpi.setHeight("20px");
-//		mpe.setType(MessageType.ERROR);
-//		mpe.setMessage("Error:error error height set to 40px");
-//		mpe.setHeight("40px");
-//		mpw.setType(MessageType.WARNING);
-//		mpw.setMessage("Warning:warning warning height set to 60 px");
-//		mpw.setHeight("60px");
+		// mpe.setType(MessageType.ERROR);
+		// mpe.setMessage("Error:error error height set to 40px");
+		// mpe.setHeight("40px");
+		// mpw.setType(MessageType.WARNING);
+		// mpw.setMessage("Warning:warning warning height set to 60 px");
+		// mpw.setHeight("60px");
 		//
 		// searchBox.setSize("200px", "20px");
 		// searchBox.setLabel("suresh");
@@ -135,13 +137,13 @@ public class samples implements EntryPoint {
 		// TAB Bar Test -- end
 
 		// Bread Crumb Test -- start
-//		 BreadCrumbTest test = new BreadCrumbTest();
-//		 RootPanel.get().add(test);
+		// BreadCrumbTest test = new BreadCrumbTest();
+		// RootPanel.get().add(test);
 		// Bread CrumbTest -- end
 
 		// Wizard Bar Test -- start
-//		 WizardBarTest wbtest = new WizardBarTest();
-//		 RootPanel.get().add(wbtest);
+		// WizardBarTest wbtest = new WizardBarTest();
+		// RootPanel.get().add(wbtest);
 		// Wizard Bar Test -- end
 
 		// Green Button Test -- start
@@ -201,37 +203,40 @@ public class samples implements EntryPoint {
 		// });
 		// RootPanel.get().add(vselunPanel);
 		// //ListBoxt Test -- end
-		 acc.setAccName("UserName");
-		 acc1.setAccName("UserName1" + "Username1");
-		 acc2.setAccName("UserName2" + "UserName22222");
-		 dp1.add(acc);
-		 dp1.add(acc1);
-		 dp1.add(acc2);
+		// acc.setAccName("UserName");
+		// acc1.setAccName("UserName1" + "Username1");
+		// acc2.setAccName("UserName2" + "UserName22222");
+		// dp1.add(acc);
+		// dp1.add(acc1);
+		// dp1.add(acc2);
+		//
+		// RootPanel.get().add(acc);
+		clb.setWidth("100px");
+		RootPanel.get().add(clb);
 		
-		 RootPanel.get().add(acc);
-//
-//		tB.setErrorMessage("data entered is not valid plz enter your name");
-//		tB.setErrorMessVisible(true);
-//		tB.setErrorPanWidth(400);
-//		tB.setText("username");
-//		ltb.setErrorMessage("data entered is not valid plz enter your name");
-//		ltb.setErrorMessVisible(true);
-//		ltb.setErrorPanWidth(400);
-//		lpb.setErrorMessage("data entered is not valid plz enter your password");
-//		lpb.setErrorMessVisible(true);
-//		lpb.setErrorPanWidth(400);
-//		//dp1.add(ltb);
-//		dp1.add(lpb);
-//		dp1.add(mpw);
-//		dp1.add(mpe);
-		
-//		ptb.setErrorMessage("data entered is not valid plz enter your password");
-//		ptb.setErrorMessVisible(true);
-//		ptb.setErrorPanWidth(400);
-//		ptb.setText("password");
-//		dp1.add(ptb);
-//		wb.addStep("step1");
-//		wb.addStep("step2");
-//		RootPanel.get().add(wb);
+		//
+		// tB.setErrorMessage("data entered is not valid plz enter your name");
+		// tB.setErrorMessVisible(true);
+		// tB.setErrorPanWidth(400);
+		// tB.setText("username");
+		// ltb.setErrorMessage("data entered is not valid plz enter your name");
+		// ltb.setErrorMessVisible(true);
+		// ltb.setErrorPanWidth(400);
+		// lpb.setErrorMessage("data entered is not valid plz enter your password");
+		// lpb.setErrorMessVisible(true);
+		// lpb.setErrorPanWidth(400);
+		// //dp1.add(ltb);
+		// dp1.add(lpb);
+		// dp1.add(mpw);
+		// dp1.add(mpe);
+
+		// ptb.setErrorMessage("data entered is not valid plz enter your password");
+		// ptb.setErrorMessVisible(true);
+		// ptb.setErrorPanWidth(400);
+		// ptb.setText("password");
+		// dp1.add(ptb);
+		// wb.addStep("step1");
+		// wb.addStep("step2");
+		// RootPanel.get().add(wb);
 	}
 }

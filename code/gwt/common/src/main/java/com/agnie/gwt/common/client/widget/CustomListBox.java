@@ -20,7 +20,7 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 /**
- * Account widget.To show users account detail.
+ * CustomListBox  widget.
  * 
  */
 public class CustomListBox extends Composite {
@@ -76,7 +76,6 @@ public class CustomListBox extends Composite {
 
 	public void initCellList() {
 		cellList = new CellList<String>(cell);
-		cellList.setVisibleRange(0,3);
 
 		cellList.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 

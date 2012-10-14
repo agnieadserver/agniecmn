@@ -9,8 +9,7 @@ public class MyServletModule extends ServletModule {
 	@Override
 	protected void configureServlets() {
 		bind(String.class).annotatedWith(Names.named("sir-name")).to(String.class).in(ServletScopes.REQUEST);
-		filter("/*").through(new ExtractSirName());
+		filter("/*").through(ExtractSirName.class);
 		serve("/samples/sampleService").with(SampleServiceImpl.class);
 	}
-
 }

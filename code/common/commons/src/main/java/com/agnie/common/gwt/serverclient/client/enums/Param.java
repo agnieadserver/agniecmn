@@ -1,4 +1,4 @@
-package com.agnie.gwt.common.client.enums;
+package com.agnie.common.gwt.serverclient.client.enums;
 
 public enum Param {
 

@@ -16,6 +16,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<gwtVersion>2.5.0-rc1</gwtVersion>
+		<gwtpluginVersion>2.5.0-rc1</gwtpluginVersion>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -56,4 +57,45 @@
 			<version>1.2.14</version>
 		</dependency>
 	</dependencies>
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>com/agnie/common/gwt/server/client/client/**/*.java</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>target/generated-sources/gwt</directory>
+				<includes>
+					<include>com/agnie/common/gwt/server/client/client/**/*.java</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+		<plugins>
+			<!-- GWT Maven Plugin -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>${gwtpluginVersion}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>test</goal>
+							<!-- <goal>i18n</goal> -->
+							<goal>generateAsync</goal>
+						</goals>
+					</execution>
+					<!-- <execution> <id>css-generation</id> <phase>generate-sources</phase> 
+						<goals> <goal>css</goal> </goals> </execution> -->
+				</executions>
+				<!-- Plugin configuration. There are many available options, see gwt-maven-plugin 
+					documentation at codehaus.org -->
+			</plugin>
+		</plugins>
+	</build>
 </project>

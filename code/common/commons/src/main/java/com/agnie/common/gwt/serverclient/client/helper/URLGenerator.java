@@ -1,7 +1,7 @@
-package com.agnie.gwt.common.client.helper;
+package com.agnie.common.gwt.serverclient.client.helper;
 
-import com.agnie.gwt.common.client.enums.Cokie;
-import com.agnie.gwt.common.client.enums.QueryString;
+import com.agnie.common.gwt.serverclient.client.enums.Cokie;
+import com.agnie.common.gwt.serverclient.client.enums.QueryString;
 import com.google.gwt.user.client.Cookies;
 
 public class URLGenerator {

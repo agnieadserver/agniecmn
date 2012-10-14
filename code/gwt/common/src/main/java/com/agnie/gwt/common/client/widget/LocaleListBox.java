@@ -4,10 +4,10 @@
 
 package com.agnie.gwt.common.client.widget;
 
-import com.agnie.gwt.common.client.enums.Language;
-import com.agnie.gwt.common.client.enums.QueryString;
-import com.agnie.gwt.common.client.helper.URLGenerator;
-import com.agnie.gwt.common.client.helper.URLInfo;
+import com.agnie.common.gwt.serverclient.client.enums.Language;
+import com.agnie.common.gwt.serverclient.client.enums.QueryString;
+import com.agnie.common.gwt.serverclient.client.helper.URLGenerator;
+import com.agnie.common.gwt.serverclient.client.helper.URLInfo;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -22,8 +22,7 @@ import com.google.gwt.user.client.ui.ListBox;
 public class LocaleListBox extends ListBox {
 
 	public static final String	SELECT	= "select";
-	
-	
+
 	public LocaleListBox() {
 		setName(QueryString.LOCALE.getKey());
 		String selectedLocale = Location.getParameter(QueryString.LOCALE.getKey());

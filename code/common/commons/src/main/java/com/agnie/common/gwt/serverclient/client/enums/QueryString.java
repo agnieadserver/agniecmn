@@ -1,4 +1,4 @@
-package com.agnie.gwt.common.client.enums;
+package com.agnie.common.gwt.serverclient.client.enums;
 
 public enum QueryString {
 	SOURCE("source"), SESSION("sessionid"), GWT_DEV_MODE("gwt.codesvr"), LOCALE("locale"), QUERY_STR_SPLITTER("?"), PARAM_SPLITTER("&"), PAGE_SECTION_LOCATOR("#"), USER_NAME("user"), DOMAIN("domain");

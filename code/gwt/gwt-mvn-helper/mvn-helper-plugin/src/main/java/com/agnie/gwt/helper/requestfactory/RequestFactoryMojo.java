@@ -46,23 +46,24 @@ import com.thoughtworks.qdox.model.Type;
  */
 public class RequestFactoryMojo extends AbstractMojo {
 
-	protected final static String		IMP_RF_INSTANCE_REQUEST		= "com.google.web.bindery.requestfactory.shared.InstanceRequest";
-	protected final static String		IMP_RF_REQUEST				= "com.google.web.bindery.requestfactory.shared.Request";
-	protected final static String		IMP_RF_REQUEST_CONTEXT		= "com.google.web.bindery.requestfactory.shared.RequestContext";
-	protected final static String		IMP_RF_SERVICE				= "com.google.web.bindery.requestfactory.shared.Service";
-	protected final static String		IMP_RF_PROXY_FOR			= "com.google.web.bindery.requestfactory.shared.ProxyFor";
-	protected final static String		IMP_RF_VALUE_PROXY			= "com.google.web.bindery.requestfactory.shared.ValueProxy";
-	protected final static String		IMP_RF_ENTITY_PROXY			= "com.google.web.bindery.requestfactory.shared.EntityProxy";
-	protected final static String		IMP_RF_ENTITY_PROXY_ID		= "com.google.web.bindery.requestfactory.shared.EntityProxyId";
-	protected final static String		MARKER_RF_ENTITY_PROXY		= "com.agnie.gwt.helper.requestfactory.marker.RFEntityProxy";
-	protected final static String		MARKER_RF_VALUE_PROXY		= "com.agnie.gwt.helper.requestfactory.marker.RFValueProxy";
-	protected final static String		MARKER_RF_SERVICE_METHOD	= "com.agnie.gwt.helper.requestfactory.marker.RFServiceMethod";
-	protected final static String		MARKER_RF_PROXY_METHOD		= "com.agnie.gwt.helper.requestfactory.marker.RFProxyMethod";
-	protected final static String		MARKER_RF_SERVICE			= "com.agnie.gwt.helper.requestfactory.marker.RFService";
+	protected final static String		IMP_RF_INSTANCE_REQUEST				= "com.google.web.bindery.requestfactory.shared.InstanceRequest";
+	protected final static String		IMP_RF_REQUEST						= "com.google.web.bindery.requestfactory.shared.Request";
+	protected final static String		IMP_RF_REQUEST_CONTEXT				= "com.google.web.bindery.requestfactory.shared.RequestContext";
+	protected final static String		IMP_RF_SERVICE						= "com.google.web.bindery.requestfactory.shared.Service";
+	protected final static String		IMP_RF_PROXY_FOR					= "com.google.web.bindery.requestfactory.shared.ProxyFor";
+	protected final static String		IMP_RF_VALUE_PROXY					= "com.google.web.bindery.requestfactory.shared.ValueProxy";
+	protected final static String		IMP_RF_ENTITY_PROXY					= "com.google.web.bindery.requestfactory.shared.EntityProxy";
+	protected final static String		IMP_RF_ENTITY_PROXY_ID				= "com.google.web.bindery.requestfactory.shared.EntityProxyId";
+	protected final static String		IMP_RF_ENTITY_PROXY_DEFAULT_LOCATOR	= "com.google.web.bindery.requestfactory.shared.Locator.class";
+	protected final static String		MARKER_RF_ENTITY_PROXY				= "com.agnie.gwt.helper.requestfactory.marker.RFEntityProxy";
+	protected final static String		MARKER_RF_VALUE_PROXY				= "com.agnie.gwt.helper.requestfactory.marker.RFValueProxy";
+	protected final static String		MARKER_RF_SERVICE_METHOD			= "com.agnie.gwt.helper.requestfactory.marker.RFServiceMethod";
+	protected final static String		MARKER_RF_PROXY_METHOD				= "com.agnie.gwt.helper.requestfactory.marker.RFProxyMethod";
+	protected final static String		MARKER_RF_SERVICE					= "com.agnie.gwt.helper.requestfactory.marker.RFService";
 
-	final static Set<String>			primitives					= new HashSet<String>();
-	final static Set<String>			supportedTypes				= new HashSet<String>();
-	final static Map<String, String>	wrappers					= new HashMap<String, String>();
+	final static Set<String>			primitives							= new HashSet<String>();
+	final static Set<String>			supportedTypes						= new HashSet<String>();
+	final static Map<String, String>	wrappers							= new HashMap<String, String>();
 
 	static {
 		primitives.add("int");
@@ -298,14 +299,17 @@ public class RequestFactoryMojo extends AbstractMojo {
 							targetFile.getParentFile().mkdirs();
 							generateEntityProxy(clazz, targetFile, builder);
 						}
-						targetFile = getTargetFile(source, RFType.ENTITY_REQUEST);
-						if (isUpToDate(sourceFile, targetFile)) {
-							getLog().debug(targetFile.getAbsolutePath() + " is up to date. Generation skipped");
-							// up to date, but still need to report generated-sources
-							// directory as sourceRoot
-						} else {
-							targetFile.getParentFile().mkdirs();
-							generateEntityRequest(clazz, targetFile, builder);
+						Object genEntityRequest = an.getNamedParameter("generateEntityRequest");
+						if (genEntityRequest == null || ("true".equals(((String)genEntityRequest).toLowerCase())) ) {
+							targetFile = getTargetFile(source, RFType.ENTITY_REQUEST);
+							if (isUpToDate(sourceFile, targetFile)) {
+								getLog().debug(targetFile.getAbsolutePath() + " is up to date. Generation skipped");
+								// up to date, but still need to report generated-sources
+								// directory as sourceRoot
+							} else {
+								targetFile.getParentFile().mkdirs();
+								generateEntityRequest(clazz, targetFile, builder);
+							}
 						}
 						fileGenerated = true;
 						break;
@@ -552,7 +556,17 @@ public class RequestFactoryMojo extends AbstractMojo {
 		writer.println();
 		writer.println(" /* Generated type dont change the contents */");
 		writer.println();
-		writer.println("@ProxyFor(" + clazz.getFullyQualifiedName() + ".class)");
+		for (Annotation an : clazz.getAnnotations()) {
+			if (an.getType().getJavaClass().isA(MARKER_RF_ENTITY_PROXY)) {
+				Object locator = an.getNamedParameter("value");
+				if (locator == null || IMP_RF_ENTITY_PROXY_DEFAULT_LOCATOR.equals(locator.toString())) {
+					writer.println("@ProxyFor(" + clazz.getFullyQualifiedName() + ".class)");
+				} else {
+					writer.println("@ProxyFor(value =" + clazz.getFullyQualifiedName() + ".class, locator = " + locator + ")");
+				}
+				break;
+			}
+		}
 		String targetClsName = clazz.getName() + RFType.ENTITY_PROXY.getPostFix();
 		writer.println("public interface " + targetClsName + " extends EntityProxy {");
 		JavaMethod[] methods = clazz.getMethods(true);

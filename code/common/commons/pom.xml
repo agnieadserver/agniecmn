@@ -62,13 +62,13 @@
 			<resource>
 				<directory>src/main/java</directory>
 				<includes>
-					<include>com/agnie/common/gwt/server/client/client/**/*.java</include>
+					<include>com/agnie/common/gwt/serverclient/client/**/*.java</include>
 				</includes>
 			</resource>
 			<resource>
 				<directory>target/generated-sources/gwt</directory>
 				<includes>
-					<include>com/agnie/common/gwt/server/client/client/**/*.java</include>
+					<include>com/agnie/common/gwt/serverclient/client/**/*.java</include>
 				</includes>
 			</resource>
 			<resource>

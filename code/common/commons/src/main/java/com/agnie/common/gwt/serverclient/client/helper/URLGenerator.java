@@ -1,195 +1,108 @@
 package com.agnie.common.gwt.serverclient.client.helper;
 
-import com.agnie.common.gwt.serverclient.client.enums.Cokie;
 import com.agnie.common.gwt.serverclient.client.enums.QueryString;
-import com.google.gwt.user.client.Cookies;
 
 public class URLGenerator {
-	/*
-	 * TODO Initialize through maven build variables.
-	 */
-	public static final String	LOGIN_REQUEST	= "login.jsp";
-	public static final String	MAIN_PAGE		= "useradmin.jsp";
 
-	private static boolean fillParams(StringBuffer url, URLInfo params) {
+	/**
+	 * Internal method to add parameter.
+	 * 
+	 * @param url
+	 * @param params
+	 * @return
+	 */
+	protected boolean fillParams(StringBuffer url, URLInfo params) {
 		String param = params.getParameter(QueryString.GWT_DEV_MODE.getKey());
 		boolean qpexists = false;
 		if (param != null && !("".equals(param.trim()))) {
 			if (!qpexists) {
-				url.append(QueryString.QUERY_STR_SPLITTER.getKey());
+				url.append(QueryString.QUESTION_MARK.getKey());
 				qpexists = true;
 			} else {
-				url.append(QueryString.PARAM_SPLITTER.getKey());
+				url.append(QueryString.AMPERSAND.getKey());
 			}
 			url.append(QueryString.GWT_DEV_MODE.getKey() + "=" + param);
 		}
 		param = params.getParameter(QueryString.DOMAIN.getKey());
 		if (param != null && !("".equals(param.trim()))) {
 			if (!qpexists) {
-				url.append(QueryString.QUERY_STR_SPLITTER.getKey());
+				url.append(QueryString.QUESTION_MARK.getKey());
 				qpexists = true;
 			} else {
-				url.append(QueryString.PARAM_SPLITTER.getKey());
+				url.append(QueryString.AMPERSAND.getKey());
 			}
 			url.append(QueryString.DOMAIN.getKey() + "=" + param);
 		}
 		return qpexists;
 	}
 
-	public static String getLoginURL(URLInfo params) {
-		StringBuffer url = new StringBuffer();
-		String location = params.getHostURL();
-		if (location.contains(QueryString.QUERY_STR_SPLITTER.getKey())) {
-			location = location.substring(0, location.indexOf(QueryString.QUERY_STR_SPLITTER.getKey()));
-		}
-		location = location.substring(0, location.lastIndexOf("/"));
-		url.append(location + "/" + LOGIN_REQUEST);
-		boolean qpexists = fillParams(url, params);
-		String param = params.getParameter(QueryString.LOCALE.getKey());
-		if (param != null && !("".equals(param.trim()))) {
-			if (!qpexists) {
-				url.append(QueryString.QUERY_STR_SPLITTER.getKey());
-				qpexists = true;
-			} else {
-				url.append(QueryString.PARAM_SPLITTER.getKey());
-			}
-			url.append(QueryString.LOCALE.getKey() + "=" + param);
-		}
-		param = params.getParameter(QueryString.SOURCE.getKey());
-		if (param != null && !("".equals(param.trim()))) {
-			// param = location + "/" + MAIN_PAGE;
-			// } else if (param.contains(LOGIN_REQUEST)) {
-			// param = param.substring(0, location.lastIndexOf("/") + 1);
-			// }
-			if (!qpexists) {
-				url.append(QueryString.QUERY_STR_SPLITTER.getKey());
-				qpexists = true;
-			} else {
-				url.append(QueryString.PARAM_SPLITTER.getKey());
-			}
-			url.append(QueryString.SOURCE.getKey() + "=" + param);
-		}
-
-		return url.toString();
-	}
-
-	public static String getChangeLocaleURL(URLInfo params, String newLocale) {
+	/**
+	 * This can be used generically to change the locale of given application can be called from server and client both
+	 * the sides.
+	 * 
+	 * @param params
+	 * @param newLocale
+	 * @return
+	 */
+	public String getChangeLocaleURL(URLInfo params, String newLocale) {
+		// sample URL "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997#sample=test"
 		String path = params.getHostURL();
 		StringBuffer url = new StringBuffer();
 		String postfix = "";
 		String location = null;
-		if (path.contains(QueryString.PAGE_SECTION_LOCATOR.getKey())) {
-			postfix = path.substring(path.indexOf(QueryString.PAGE_SECTION_LOCATOR.getKey()));
-			location = path.substring(0, path.indexOf(QueryString.PAGE_SECTION_LOCATOR.getKey()));
+		if (path.contains(QueryString.HASH.getKey())) {
+			// just remove "#sample=test"
+			postfix = path.substring(path.indexOf(QueryString.HASH.getKey()));
+			// remain "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997"
+			location = path.substring(0, path.indexOf(QueryString.HASH.getKey()));
 		} else {
 			location = path;
 		}
-		if (location.contains(QueryString.QUERY_STR_SPLITTER.getKey())) {
-			location = path.substring(0, path.indexOf(QueryString.QUERY_STR_SPLITTER.getKey()));
+		if (location.contains(QueryString.QUESTION_MARK.getKey())) {
+			// removed all query parameters including "?" so it removes "?gwt.server=127.0.0.1:9997"
+			location = path.substring(0, path.indexOf(QueryString.QUESTION_MARK.getKey()));
+			// remains "http://localhost:8080/useradmin/login.jsp"
 			url.append(location);
-			boolean qpexists = fillParams(url, params);
-			String param = params.getParameter(QueryString.SOURCE.getKey());
-			if (param != null && !("".equals(param.trim()))) {
-				if (!qpexists) {
-					url.append(QueryString.QUERY_STR_SPLITTER.getKey());
-					qpexists = true;
-				} else {
-					url.append(QueryString.PARAM_SPLITTER.getKey());
+			// execution comes here that means url already contains the query parameters. So add "?"
+			url.append(QueryString.QUESTION_MARK.getKey());
+			// added "?" so "http://localhost:8080/useradmin/login.jsp?"
+			boolean first = true;
+			boolean addedMinimumOneParam = false;
+			for (String paramKey : params.getParameterKeySet()) {
+				// skip locale key add rest of the parameters in url
+				if (!(QueryString.LOCALE.getKey().equals(paramKey))) {
+					if (first) {
+						first = false;
+					} else {
+						url.append(QueryString.AMPERSAND.getKey());
+					}
+					boolean innerFirst = true;
+					for (String value : params.getAllValues(paramKey)) {
+						if (innerFirst) {
+							innerFirst = false;
+						} else {
+							url.append(QueryString.AMPERSAND.getKey());
+						}
+						url.append(paramKey + "=" + value);
+					}
+					addedMinimumOneParam = true;
 				}
-				url.append(QueryString.SOURCE.getKey() + "=" + param);
 			}
-			if (!qpexists) {
-				url.append(QueryString.QUERY_STR_SPLITTER.getKey());
-				qpexists = true;
-			} else {
-				url.append(QueryString.PARAM_SPLITTER.getKey());
+			// after loop url becomes "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997"
+			if (addedMinimumOneParam) {
+				// If at least one parameter is added into query parameter
+				url.append(QueryString.AMPERSAND.getKey());
 			}
+			// after loop url becomes "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&"
 			url.append(QueryString.LOCALE.getKey() + "=" + newLocale);
+			// after loop url becomes "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&locale=en"
 		} else {
 			url.append(location);
-			url.append(QueryString.QUERY_STR_SPLITTER.getKey() + QueryString.LOCALE.getKey() + "=" + newLocale);
+			url.append(QueryString.QUESTION_MARK.getKey() + QueryString.LOCALE.getKey() + "=" + newLocale);
 		}
 		url.append(postfix);
-		return url.toString();
-	}
-
-	public static String getAfterLoginRedirectUrl(URLInfo params) {
-		StringBuffer url = new StringBuffer();
-		String location = params.getHostURL();
-		if (location.contains(QueryString.QUERY_STR_SPLITTER.getKey())) {
-			location = location.substring(0, location.indexOf(QueryString.QUERY_STR_SPLITTER.getKey()));
-		}
-		location = location.substring(0, location.lastIndexOf("/"));
-		String param = params.getParameter(QueryString.SOURCE.getKey());
-		if (param == null || "".equals(param.trim())) {
-			param = location + "/" + MAIN_PAGE;
-		} else if (param.contains(LOGIN_REQUEST)) {
-			param = param.substring(0, location.lastIndexOf("/") + 1);
-		}
-		url.append(param);
-		boolean qpexists = fillParams(url, params);
-		param = params.getParameter(QueryString.LOCALE.getKey());
-		if (param != null && !("".equals(param.trim()))) {
-			if (!qpexists) {
-				url.append(QueryString.QUERY_STR_SPLITTER.getKey());
-				qpexists = true;
-			} else {
-				url.append(QueryString.PARAM_SPLITTER.getKey());
-			}
-			url.append(QueryString.LOCALE.getKey() + "=" + param);
-		}
-		String sessionid = Cookies.getCookie(Cokie.AUTH.getKey());
-		if (sessionid != null && !("".equals(sessionid.trim()))) {
-			if (!qpexists) {
-				url.append(QueryString.QUERY_STR_SPLITTER.getKey());
-				qpexists = true;
-			} else {
-				url.append(QueryString.PARAM_SPLITTER.getKey());
-			}
-			url.append(QueryString.SESSION.getKey() + "=" + sessionid);
-		}
-		return url.toString();
-	}
-
-	public static String getAfterLoginRedirectUrl(URLInfo params, String homeURL) {
-		StringBuffer url = new StringBuffer();
-		String location = params.getHostURL();
-		if (location.contains(QueryString.QUERY_STR_SPLITTER.getKey())) {
-			location = location.substring(0, location.indexOf(QueryString.QUERY_STR_SPLITTER.getKey()));
-		}
-		location = location.substring(0, location.lastIndexOf("/"));
-		String param = params.getParameter(QueryString.SOURCE.getKey());
-		if (param == null || "".equals(param.trim())) {
-			if (homeURL == null || "".equals(homeURL.trim())) {
-				param = location + "/" + MAIN_PAGE;
-			} else {
-				param = homeURL;
-			}
-		} else if (param.contains(LOGIN_REQUEST)) {
-			param = param.substring(0, location.lastIndexOf("/") + 1);
-		}
-		url.append(param);
-		boolean qpexists = fillParams(url, params);
-		param = params.getParameter(QueryString.LOCALE.getKey());
-		if (param != null && !("".equals(param.trim()))) {
-			if (!qpexists) {
-				url.append(QueryString.QUERY_STR_SPLITTER.getKey());
-				qpexists = true;
-			} else {
-				url.append(QueryString.PARAM_SPLITTER.getKey());
-			}
-			url.append(QueryString.LOCALE.getKey() + "=" + param);
-		}
-		String sessionid = Cookies.getCookie(Cokie.AUTH.getKey());
-		if (sessionid != null && !("".equals(sessionid.trim()))) {
-			if (!qpexists) {
-				url.append(QueryString.QUERY_STR_SPLITTER.getKey());
-				qpexists = true;
-			} else {
-				url.append(QueryString.PARAM_SPLITTER.getKey());
-			}
-			url.append(QueryString.SESSION.getKey() + "=" + sessionid);
-		}
+		// after loop url becomes
+		// "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&locale=en#sample=test"
 		return url.toString();
 	}
 }

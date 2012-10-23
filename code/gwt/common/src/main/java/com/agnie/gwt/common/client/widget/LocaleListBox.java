@@ -23,6 +23,8 @@ public class LocaleListBox extends ListBox {
 
 	public static final String	SELECT	= "select";
 
+	private URLGenerator		ug		= new URLGenerator();
+
 	public LocaleListBox() {
 		setName(QueryString.LOCALE.getKey());
 		String selectedLocale = Location.getParameter(QueryString.LOCALE.getKey());
@@ -49,7 +51,7 @@ public class LocaleListBox extends ListBox {
 
 				String selectLocale = getSelectedLocale();
 				if (!SELECT.equals(selectLocale)) {
-					Window.Location.assign(URLGenerator.getChangeLocaleURL((URLInfo) GWT.create(URLInfo.class), selectLocale));
+					Window.Location.assign(ug.getChangeLocaleURL((URLInfo) GWT.create(URLInfo.class), selectLocale));
 				}
 			}
 		});

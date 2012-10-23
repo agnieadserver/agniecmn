@@ -45,4 +45,12 @@ public interface URLInfo {
 	 * @return UTF-8 encoded URL
 	 */
 	String getUTF8EncodedURL(String url);
+
+	/**
+	 * 
+	 * @param encodedUrl
+	 *            which is already encoded and need to be decoded.
+	 * @return UTF-8 decoded url.
+	 */
+	String decodeUTF8URL(String encodedUrl);
 }

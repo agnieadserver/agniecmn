@@ -3,6 +3,7 @@ package com.agnie.common.helper;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,6 +75,14 @@ public class TestURLInfoImpl implements URLInfo {
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public String decodeUTF8URL(String encodedUrl) {
+		try {
+			return URLDecoder.decode(encodedUrl, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
 		}
 		return null;
 	}

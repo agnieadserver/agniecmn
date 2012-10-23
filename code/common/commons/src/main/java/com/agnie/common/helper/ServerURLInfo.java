@@ -4,6 +4,7 @@
 package com.agnie.common.helper;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Set;
 
@@ -50,6 +51,14 @@ public class ServerURLInfo implements URLInfo {
 
 	public String getHost() {
 		return request.getServerName() + ":" + request.getServerPort();
+	}
+
+	public String decodeUTF8URL(String encodedUrl) {
+		try {
+			return URLDecoder.decode(encodedUrl, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+		}
+		return null;
 	}
 
 }

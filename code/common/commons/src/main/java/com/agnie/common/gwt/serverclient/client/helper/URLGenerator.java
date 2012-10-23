@@ -23,16 +23,6 @@ public class URLGenerator {
 			}
 			url.append(QueryString.GWT_DEV_MODE.getKey() + "=" + param);
 		}
-		param = params.getParameter(QueryString.DOMAIN.getKey());
-		if (param != null && !("".equals(param.trim()))) {
-			if (!qpexists) {
-				url.append(QueryString.QUESTION_MARK.getKey());
-				qpexists = true;
-			} else {
-				url.append(QueryString.AMPERSAND.getKey());
-			}
-			url.append(QueryString.DOMAIN.getKey() + "=" + param);
-		}
 		return qpexists;
 	}
 

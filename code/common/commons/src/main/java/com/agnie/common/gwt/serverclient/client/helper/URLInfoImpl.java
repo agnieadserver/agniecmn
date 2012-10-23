@@ -34,4 +34,8 @@ public class URLInfoImpl implements URLInfo {
 		return URL.encode(url);
 	}
 
+	public String decodeUTF8URL(String encodedUrl) {
+		return URL.decode(encodedUrl);
+	}
+
 }

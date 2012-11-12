@@ -6,6 +6,7 @@ import java.util.List;
 import com.agnie.gwt.client.renderer.RendererSample;
 import com.agnie.gwt.common.client.widget.Account;
 import com.agnie.gwt.common.client.widget.BreadCrumbPanel;
+import com.agnie.gwt.common.client.widget.CloseBtn;
 import com.agnie.gwt.common.client.widget.CustomListBox;
 import com.agnie.gwt.common.client.widget.DecoratedPanel;
 import com.agnie.gwt.common.client.widget.LabelPasswordBox;
@@ -21,6 +22,9 @@ import com.agnie.gwt.common.client.widget.TextBox;
 import com.agnie.gwt.common.client.widget.WizardBar;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -30,36 +34,37 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class samples implements EntryPoint {
-	LabelPasswordBox					lpb			= new LabelPasswordBox();
-	LabelTextBox						ltb			= new LabelTextBox();
-	Button								save		= new Button("save");
-	MessagePanel						mpi			= new MessagePanel();
-	MessagePanel						mpe			= new MessagePanel();
-	MessagePanel						mpw			= new MessagePanel();
-	TextBox								tb			= new TextBox();
-	List<String>						celllist	= new ArrayList<String>();
-	SuggestionBox						sb			= new SuggestionBox();
-	DecoratedPanel						dp			= new DecoratedPanel();
-	VerticalPanel						dp1			= new VerticalPanel();
-	SearchBox							searchBox	= new SearchBox();
-	Image								img			= new Image();
-	PageTitle							pt			= new PageTitle();
-	StyledListBox						slb			= new StyledListBox();
-	List<User>							sel			= new ArrayList<User>();
-	List<User>							av			= new ArrayList<User>();
-	Account								acc			= new Account();
-	Account								acc1		= new Account();
-	Account								acc2		= new Account();
-	CustomListBox						clb			= new CustomListBox();
-	User								us			= new User();
-	BreadCrumbPanel						bcp			= new BreadCrumbPanel();
-	private static SearchBoxResources	resource	= SearchBoxResources.INSTANCE;
-	TextBox								tB			= new TextBox();
-	PasswordTextBox						ptb			= new PasswordTextBox();
-	WizardBar							wb			= new WizardBar();
+	LabelPasswordBox lpb = new LabelPasswordBox();
+	LabelTextBox ltb = new LabelTextBox();
+	Button save = new Button("save");
+	MessagePanel mpi = new MessagePanel();
+	MessagePanel mpe = new MessagePanel();
+	MessagePanel mpw = new MessagePanel();
+	TextBox tb = new TextBox();
+	List<String> celllist = new ArrayList<String>();
+	SuggestionBox sb = new SuggestionBox();
+	DecoratedPanel dp = new DecoratedPanel();
+	VerticalPanel dp1 = new VerticalPanel();
+	SearchBox searchBox = new SearchBox();
+	Image img = new Image();
+	PageTitle pt = new PageTitle();
+	StyledListBox slb = new StyledListBox();
+	List<User> sel = new ArrayList<User>();
+	List<User> av = new ArrayList<User>();
+	Account acc = new Account();
+	Account acc1 = new Account();
+	Account acc2 = new Account();
+	CustomListBox clb = new CustomListBox();
+	User us = new User();
+	BreadCrumbPanel bcp = new BreadCrumbPanel();
+	private static SearchBoxResources resource = SearchBoxResources.INSTANCE;
+	TextBox tB = new TextBox();
+	PasswordTextBox ptb = new PasswordTextBox();
+	WizardBar wb = new WizardBar();
+	CloseBtn cb = new CloseBtn();
 
 	public void onModuleLoad() {
-		GWT.log("IN onmoduleLoad Start.");
+		// GWT.log("IN onmoduleLoad Start.");
 		// img.setUrl("images/search.png");
 		// bcp.addBreadCrumb("BreadCrumb1",img);
 		// bcp.addBreadCrumb("BreadCrumb2");
@@ -93,11 +98,13 @@ public class samples implements EntryPoint {
 		// });
 		// ltb.setLabel("username");
 		// lpb.setLabel("password");
-		// GWT.log("In Entry point ltb.getLabel==" + ltb.getLabel() + "ltb.getText()==" + ltb.getText());
+		// GWT.log("In Entry point ltb.getLabel==" + ltb.getLabel() +
+		// "ltb.getText()==" + ltb.getText());
 		// save.addClickHandler(new ClickHandler() {
 		//
 		// public void onClick(ClickEvent event) {
-		// GWT.log("In Entry point save ltb.getLabel==" + ltb.getLabel() + "ltb.getText()==" + ltb.getText());
+		// GWT.log("In Entry point save ltb.getLabel==" + ltb.getLabel() +
+		// "ltb.getText()==" + ltb.getText());
 		// }
 		// });
 		// mpi.setType(MessageType.INFORMATION);
@@ -211,9 +218,9 @@ public class samples implements EntryPoint {
 		// dp1.add(acc2);
 		//
 		// RootPanel.get().add(acc);
-		clb.setWidth("100px");
-		RootPanel.get().add(clb);
-		
+		// clb.setWidth("100px");
+		// RootPanel.get().add(clb);
+
 		//
 		// tB.setErrorMessage("data entered is not valid plz enter your name");
 		// tB.setErrorMessVisible(true);
@@ -238,5 +245,13 @@ public class samples implements EntryPoint {
 		// wb.addStep("step1");
 		// wb.addStep("step2");
 		// RootPanel.get().add(wb);
+		cb.addClickHandler(new ClickHandler() {
+
+			public void onClick(ClickEvent event) {
+				GWT.log("close clicked");
+				Window.alert("Don't click again");
+			}
+		});
+		RootPanel.get().add(cb);
 	}
 }

@@ -149,8 +149,8 @@ public class samples implements EntryPoint {
 		// Bread CrumbTest -- end
 
 		// Wizard Bar Test -- start
-		// WizardBarTest wbtest = new WizardBarTest();
-		// RootPanel.get().add(wbtest);
+		 WizardBarTest wbtest = new WizardBarTest();
+		 RootPanel.get().add(wbtest);
 		// Wizard Bar Test -- end
 
 		// Green Button Test -- start
@@ -245,13 +245,13 @@ public class samples implements EntryPoint {
 		// wb.addStep("step1");
 		// wb.addStep("step2");
 		// RootPanel.get().add(wb);
-		cb.addClickHandler(new ClickHandler() {
-
-			public void onClick(ClickEvent event) {
-				GWT.log("close clicked");
-				Window.alert("Don't click again");
-			}
-		});
-		RootPanel.get().add(cb);
+//		cb.addClickHandler(new ClickHandler() {
+//
+//			public void onClick(ClickEvent event) {
+//				GWT.log("close clicked");
+//				Window.alert("Don't click again");
+//			}
+//		});
+//		RootPanel.get().add(cb);
 	}
 }

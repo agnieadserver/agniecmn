@@ -85,6 +85,18 @@
 	background-color:#9A9A9A;
 	float: none;
 	border-radius: 0 5px 5px 0;
+	border-right: 5px solid #9A9A9A;
+	width:196px;
+	height:23px;	
+}
+
+@sprite .wizard div.last-active-element  {
+	gwt-image: 'lastButton';
+	background-position: right top;
+	background-color:#9A9A9A;
+	float: none;
+	border-radius: 0 5px 5px 0;
+	border-right: 5px solid #65C000;
 	width:196px;
 	height:23px;	
 }
@@ -94,4 +106,4 @@
 	text-decoration: none;
 }
 
-@external step0, step1, step2, step3, step4, wizard, last-element, active, last-done, done, inactive, first-element;
+@external step0, step1, step2, step3, step4, wizard, last-element, last-active-element, active, last-done, done, inactive, first-element;

@@ -40,8 +40,10 @@ public class Service {
 
 	@Transactional
 	public void remove(String id) {
-		SecondParent parent = em.find(SecondParent.class, id);
-		em.remove(parent);
+		List<SecondParent> list = em.createQuery("SELECT sp FROM SecondParent sp", SecondParent.class).getResultList();
+		for (SecondParent secondParent : list) {
+			em.remove(secondParent);
+		}
 	}
 
 }

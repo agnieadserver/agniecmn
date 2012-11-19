@@ -4,18 +4,18 @@ import java.util.Date;
 
 import com.agnie.gwt.helper.requestfactory.marker.RFEntityProxy;
 import com.agnie.gwt.helper.requestfactory.marker.RFProxyMethod;
-import com.agnie.gwt.requestfactory.helper.Enum.Status;
-import com.agnie.gwt.requestfactory.helper.Enum.UserStatus;
+import com.agnie.gwt.requestfactory.helper.Status;
+import com.agnie.gwt.requestfactory.helper.UserStatus;
 
-@RFEntityProxy(value = OtherEntityLocator.class,generateEntityRequest=false)
+@RFEntityProxy(value = OtherEntityLocator.class, generateEntityRequest = false)
 public class OtherEntity extends BaseEntity {
 
-	private String		id;
-	private double		salary;
-	private String		location;
-	private Status		status;
-	private Date		date;
-	private UserStatus	userStatus;
+	private String id;
+	private double salary;
+	private String location;
+	private Status status;
+	private Date date;
+	private UserStatus userStatus;
 
 	// //Negative test case to test it uncomment
 	// private java.sql.Date sqlDate;

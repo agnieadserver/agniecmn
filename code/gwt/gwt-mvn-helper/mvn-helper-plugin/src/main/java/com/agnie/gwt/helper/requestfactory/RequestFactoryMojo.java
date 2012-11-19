@@ -281,7 +281,8 @@ public class RequestFactoryMojo extends AbstractMojo {
 						File targetFile = getTargetFile(source, RFType.VALUE_PROXY);
 						if (isUpToDate(sourceFile, targetFile)) {
 							getLog().debug(targetFile.getAbsolutePath() + " is up to date. Generation skipped");
-							// up to date, but still need to report generated-sources
+							// up to date, but still need to report
+							// generated-sources
 							// directory as sourceRoot
 						} else {
 							targetFile.getParentFile().mkdirs();
@@ -293,18 +294,20 @@ public class RequestFactoryMojo extends AbstractMojo {
 						File targetFile = getTargetFile(source, RFType.ENTITY_PROXY);
 						if (isUpToDate(sourceFile, targetFile)) {
 							getLog().debug(targetFile.getAbsolutePath() + " is up to date. Generation skipped");
-							// up to date, but still need to report generated-sources
+							// up to date, but still need to report
+							// generated-sources
 							// directory as sourceRoot
 						} else {
 							targetFile.getParentFile().mkdirs();
 							generateEntityProxy(clazz, targetFile, builder);
 						}
 						Object genEntityRequest = an.getNamedParameter("generateEntityRequest");
-						if (genEntityRequest == null || ("true".equals(((String)genEntityRequest).toLowerCase())) ) {
+						if (genEntityRequest == null || ("true".equals(((String) genEntityRequest).toLowerCase()))) {
 							targetFile = getTargetFile(source, RFType.ENTITY_REQUEST);
 							if (isUpToDate(sourceFile, targetFile)) {
 								getLog().debug(targetFile.getAbsolutePath() + " is up to date. Generation skipped");
-								// up to date, but still need to report generated-sources
+								// up to date, but still need to report
+								// generated-sources
 								// directory as sourceRoot
 							} else {
 								targetFile.getParentFile().mkdirs();
@@ -317,7 +320,8 @@ public class RequestFactoryMojo extends AbstractMojo {
 						File targetFile = getTargetFile(source, RFType.SERVICE_REQUEST);
 						if (isUpToDate(sourceFile, targetFile)) {
 							getLog().debug(targetFile.getAbsolutePath() + " is up to date. Generation skipped");
-							// up to date, but still need to report generated-sources
+							// up to date, but still need to report
+							// generated-sources
 							// directory as sourceRoot
 						} else {
 							targetFile.getParentFile().mkdirs();
@@ -612,7 +616,8 @@ public class RequestFactoryMojo extends AbstractMojo {
 			// System.out.println(type.getGenericValue());
 			List<String> genericParams = getInnerTypes(type.getGenericValue());
 			StringBuilder finalCls = new StringBuilder();
-			// Here we are not calling getMappedType on outerType as it is assumed that custom generic types won't be
+			// Here we are not calling getMappedType on outerType as it is
+			// assumed that custom generic types won't be
 			// used only Set, List or Map generic types will be supported
 			finalCls.append(getOuterType(type.getGenericValue()));
 			finalCls.append("<");
@@ -696,7 +701,8 @@ public class RequestFactoryMojo extends AbstractMojo {
 		 */
 		if (ltind > commaind || (ltind < commaind && gtind < commaind)) {
 			tokens.add(inside.substring(0, commaind));
-			// Retrieve the first token and recursively call the same method to get rest of the tokens if generic
+			// Retrieve the first token and recursively call the same method to
+			// get rest of the tokens if generic
 			// parameters are more than two numbers
 			tokens.addAll(tokenizeGenericParams(inside.substring(commaind + 1, inside.length())));
 			return tokens;
@@ -720,8 +726,8 @@ public class RequestFactoryMojo extends AbstractMojo {
 		String postFix = "";
 
 		/*
-		 * Thought works library has some bug if Or we are not using it properly. If we load array type from their
-		 * builder, it doesn't provide dimension information rather. So we need to calculate it on our own
+		 * Thought works library has some bug Or we are not using it properly. If we load array type from their builder,
+		 * it doesn't provide dimension information. So we need to calculate it on our own
 		 */
 		if (name.contains("[")) {
 			postFix = name.substring(name.indexOf('['), name.length());
@@ -752,7 +758,8 @@ public class RequestFactoryMojo extends AbstractMojo {
 			}
 		} else if (jvCls.isEnum()) {
 			/*
-			 * Here enums are not considered with array and inside generic types
+			 * Here enums are not considered with array and inside generic types. Thought works library seems to have
+			 * some bug in it. It doesn't recognise enum defined as inner type of class.
 			 */
 			return jvCls.asType().getValue();
 		} else {

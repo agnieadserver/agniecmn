@@ -7,8 +7,8 @@ import java.util.List;
 import com.agnie.gwt.helper.requestfactory.marker.RFEntityProxy;
 import com.agnie.gwt.helper.requestfactory.marker.RFProxyMethod;
 import com.agnie.gwt.helper.requestfactory.marker.RFServiceMethod;
-import com.agnie.gwt.requestfactory.helper.Enum.Status;
-import com.agnie.gwt.requestfactory.helper.Enum.UserStatus;
+import com.agnie.gwt.requestfactory.helper.Status;
+import com.agnie.gwt.requestfactory.helper.UserStatus;
 
 @RFEntityProxy
 public class Entity extends BaseEntity {

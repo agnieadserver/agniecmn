@@ -18,11 +18,7 @@ public class ACLCtxManager {
 
 	public static ACLCtxManager getInstance() {
 		if (instance == null) {
-			synchronized (ACLCtxManager.class) {
-				if (instance == null) {
-					instance = new ACLCtxManager();
-				}
-			}
+			instance = new ACLCtxManager();
 		}
 		return instance;
 	}

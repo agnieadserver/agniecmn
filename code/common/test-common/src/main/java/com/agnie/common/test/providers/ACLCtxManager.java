@@ -8,9 +8,9 @@ import com.agnie.common.server.auth.ACLContext;
  */
 public class ACLCtxManager {
 
-	private static ACLCtxManager instance;
+	private static ACLCtxManager	instance;
 
-	private ACLContext context;
+	private ACLContext				context;
 
 	private ACLCtxManager() {
 

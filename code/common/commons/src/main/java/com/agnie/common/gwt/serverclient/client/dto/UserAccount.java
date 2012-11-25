@@ -13,12 +13,12 @@ public class UserAccount implements Serializable, TableBean {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	private String title;
-	private String firstName;
-	private String lastName;
-	private String userName;
-	private Language language = Language.ENGLISH;
+	private static final long	serialVersionUID	= 1L;
+	private String				title;
+	private String				firstName;
+	private String				lastName;
+	private String				userName;
+	private Language			language			= Language.ENGLISH;
 
 	/**
 	 * @return the title
@@ -105,15 +105,11 @@ public class UserAccount implements Serializable, TableBean {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result
-				+ ((language == null) ? 0 : language.hashCode());
-		result = prime * result
-				+ ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((language == null) ? 0 : language.hashCode());
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result
-				+ ((userName == null) ? 0 : userName.hashCode());
+		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
 		return result;
 	}
 
@@ -163,9 +159,7 @@ public class UserAccount implements Serializable, TableBean {
 	 */
 	@Override
 	public String toString() {
-		return "UserAccount [title=" + title + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", userName=" + userName
-				+ ", language=" + language + "]";
+		return "UserAccount [title=" + title + ", firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName + ", language=" + language + "]";
 	}
 
 	public void insertError(String arg0, String arg1, List<String> arg2) {

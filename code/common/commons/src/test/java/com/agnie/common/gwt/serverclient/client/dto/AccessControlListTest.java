@@ -16,8 +16,7 @@ public class AccessControlListTest {
 			acl.addPermission("perm_domain_edit");
 			acl.addPermission("perm_domain_edit_user_view");
 			acl.addPermission("perm_domain_create");
-			Assert.assertEquals("perm_domain_create" + "\n"
-					+ "perm_domain_edit_user_view" + "\n", acl.toString());
+			Assert.assertEquals("perm_domain_create" + "\n" + "perm_domain_edit_user_view" + "\n", acl.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail();

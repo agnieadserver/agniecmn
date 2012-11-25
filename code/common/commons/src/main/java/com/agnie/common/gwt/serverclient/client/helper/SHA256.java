@@ -8,8 +8,8 @@ package com.agnie.common.gwt.serverclient.client.helper;
  */
 public class SHA256 {
 	public static native String getSHA256Base64(String data) /*-{
-		var s = $wnd.b64_sha256(data);
-		return s;
-	}-*/;
+																var s = $wnd.b64_sha256(data);
+																return s;
+																}-*/;
 
 }

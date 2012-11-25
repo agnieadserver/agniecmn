@@ -7,40 +7,39 @@ import java.util.List;
 import com.agnie.common.gwt.serverclient.client.helper.InvalidPermission;
 
 /**
- * To hold permission information in tree structure with assumption that every
- * permission string starts with "perm" string.
+ * To hold permission information in tree structure with assumption that every permission string starts with "perm"
+ * string.
  * 
  */
 public class AccessControlList implements Serializable {
 
-	private static final String ROOT_NODE = "perm";
-	private static final String SEPERATOR = "_";
+	private static final String	ROOT_NODE			= "perm";
+	private static final String	SEPERATOR			= "_";
 
 	/**
      * 
      */
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	/*
 	 * root "perm" node
 	 */
-	private Node root;
+	private Node				root;
 
-	private boolean owner = false;
+	private boolean				owner				= false;
 
 	/*
-	 * Inner node class to hold individual node information separated by
-	 * SEPERATOR
+	 * Inner node class to hold individual node information separated by SEPERATOR
 	 */
 	public static class Node implements Serializable {
 		/**
          * 
          */
-		private static final long serialVersionUID = 1L;
-		private String code;
+		private static final long	serialVersionUID	= 1L;
+		private String				code;
 		@SuppressWarnings("unused")
-		private Node parent;
-		private List<Node> childs = new ArrayList<Node>();
+		private Node				parent;
+		private List<Node>			childs				= new ArrayList<Node>();
 
 		@Override
 		public int hashCode() {
@@ -121,9 +120,7 @@ public class AccessControlList implements Serializable {
 			boolean resp = false;
 			if (pm.startsWith(this.code)) {
 				if (pm.contains(SEPERATOR)) {
-					if (childs.size() > 0
-							&& this.code.equals(pm.substring(0,
-									pm.indexOf(SEPERATOR)))) {
+					if (childs.size() > 0 && this.code.equals(pm.substring(0, pm.indexOf(SEPERATOR)))) {
 						String subpm = pm.substring(pm.indexOf(SEPERATOR) + 1);
 						for (Node child : childs) {
 							if (child.check(subpm)) {
@@ -184,8 +181,7 @@ public class AccessControlList implements Serializable {
 	 * @throws InvalidPermission
 	 */
 	public void addPermission(String pm) throws InvalidPermission {
-		if (pm != null && !("".equals(pm.trim()))
-				&& pm.startsWith(ROOT_NODE + SEPERATOR)) {
+		if (pm != null && !("".equals(pm.trim())) && pm.startsWith(ROOT_NODE + SEPERATOR)) {
 			String subpm = pm.substring(pm.indexOf(SEPERATOR) + 1);
 			if (subpm != null && !("".equals(subpm.trim()))) {
 				if (root == null) {

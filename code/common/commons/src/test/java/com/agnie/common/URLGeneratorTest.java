@@ -75,7 +75,7 @@ public class URLGeneratorTest {
 
 	@Test
 	public void thirdLevelChangeLocalURLTest() throws MalformedURLException {
-		
+
 		String url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1";
 		String expectedUrl = "http://localhost:8080/useradmin/login.jsp?param1=value1&gwt.server=127.0.0.1:9997&locale=mr";
 		URLInfo ui = new TestURLInfoImpl(url);

@@ -6,7 +6,7 @@ package com.agnie.common.gwt.serverclient.client.helper;
 /**
  * 
  */
-public class InvalidPermission extends Exception {
+public class InvalidPermission extends RuntimeException {
 
 	/**
      * 

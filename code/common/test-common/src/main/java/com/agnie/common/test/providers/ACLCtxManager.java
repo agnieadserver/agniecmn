@@ -1,27 +1,17 @@
 package com.agnie.common.test.providers;
 
 import com.agnie.common.server.auth.ACLContext;
+import com.google.inject.Singleton;
 
 /**
+ * This class should not be instantiated directly and used. It should be always need to used by getting it injected from
+ * Guice injector.
  * 
- *
  */
+@Singleton
 public class ACLCtxManager {
 
-	private static ACLCtxManager	instance;
-
-	private ACLContext				context;
-
-	private ACLCtxManager() {
-
-	}
-
-	public static ACLCtxManager getInstance() {
-		if (instance == null) {
-			instance = new ACLCtxManager();
-		}
-		return instance;
-	}
+	private ACLContext	context;
 
 	/**
 	 * @return the context

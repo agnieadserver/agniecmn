@@ -6,7 +6,7 @@ import com.google.inject.Provider;
 /**
  * This provider has been specifically been created to facilitate setting required ACLContext for testing purpose. This
  * class shouldn't be used in main code. Usage is limited to single threaded environment. If its being used in multi
- * threaded environment then behaviour is not guarenteed.
+ * threaded environment then behaviour is not guaranteed.
  * 
  */
 public class ACLContextProvider implements Provider<ACLContext> {

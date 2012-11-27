@@ -1,7 +1,6 @@
 package com.agnie.common.test.providers;
 
 import com.agnie.common.server.auth.ACLContext;
-import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 /**
@@ -12,8 +11,11 @@ import com.google.inject.Provider;
  */
 public class ACLContextProvider implements Provider<ACLContext> {
 
-	@Inject
 	private ACLCtxManager	mgr;
+
+	public ACLContextProvider(ACLCtxManager mgr) {
+		this.mgr = mgr;
+	}
 
 	public ACLContext get() {
 		return mgr.getContext();

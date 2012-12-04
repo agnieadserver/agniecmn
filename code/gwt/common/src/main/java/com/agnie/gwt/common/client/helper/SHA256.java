@@ -1,4 +1,4 @@
-package com.agnie.common.gwt.serverclient.client.helper;
+package com.agnie.gwt.common.client.helper;
 
 /**
  * To encrypt the given string with SHA256 Base 64 encryption. To make use of this class one need to include util.js in

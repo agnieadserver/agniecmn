@@ -1,5 +1,5 @@
 .acc-pan {
-    padding: 5px;
+    padding-top: 5px;
 }
 
 @sprite .acc-pan .img{
@@ -14,7 +14,6 @@
 
 .acc-pan .acc-title-pan {
     min-height: 20px;
-    padding: 5px;
     border-radius:5px;
     font-size: 14px;
     font-family: "Avant Garde","Century Gothic","Avant Garde Gothic","URW Gothic L",helvetica,sans-serif;
@@ -82,8 +81,8 @@
     width: 0;
 }
 
-.acc-pan:hover .acc-drop-pan {
-	display: block;
+.acc-drop-pan-visible {
+	display: block !important;
 }
 
 .acc-pan .acc-user-img {

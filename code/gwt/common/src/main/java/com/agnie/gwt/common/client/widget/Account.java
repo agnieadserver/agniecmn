@@ -1,7 +1,10 @@
 package com.agnie.gwt.common.client.widget;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.SpanElement;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -29,7 +32,10 @@ public class Account extends Composite {
 
 	@UiField
 	SpanElement					accTitle;
-
+	@UiField
+	DivElement					accDropPan;
+	@UiField
+	Image		                accImg;
 	@UiField
 	Image						accUserImg;
 	@UiField
@@ -51,6 +57,19 @@ public class Account extends Composite {
 		container.addStyleName(styleClassName);
 		initWidget(container);
 		setUserImageResource(resource.person());
+		accImg.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				if(visibleDropPan){
+					accDropPan.removeClassName(resource.css().accDropPanVisible());
+					visibleDropPan=false;
+				}else{
+				accDropPan.addClassName(resource.css().accDropPanVisible());
+				visibleDropPan=true;
+				}
+			}
+		});
 	}
 
 	public void setAccName(String title) {

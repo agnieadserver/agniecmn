@@ -11,9 +11,9 @@
 				
 			</span>
 			<span ui:field="accTitle" class='{res.css.title}'></span>
-			<img ui:field="accImg" class='{res.css.img}'></img>
+			<g:Image ui:field="accImg" addStyleNames='{res.css.img}'></g:Image>
 		</div>
-		<div class='{res.css.accDropPan}'>
+		<div ui:field="accDropPan" class='{res.css.accDropPan}'>
 			<div class='{res.css.accUserImg}'>
 				<g:Image ui:field="accUserImg"></g:Image>
 			</div>

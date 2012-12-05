@@ -55,12 +55,12 @@ public class SelectUnselect<T> extends Composite {
 
 	@UiHandler("mvlft")
 	void moveLeft(ClickEvent event) {
-		selected.addRowData(available.moveSelectedItems());
+		available.addRowData(selected.moveSelectedItems());
 	}
 
 	@UiHandler("mvrgt")
 	void moveRight(ClickEvent event) {
-		available.addRowData(selected.moveSelectedItems());
+		selected.addRowData(available.moveSelectedItems());
 	}
 
 	public List<T> getSelected() {

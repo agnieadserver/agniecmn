@@ -4,10 +4,14 @@
 	ui:generateFormat='com.google.gwt.i18n.rebind.format.PropertiesFormat'
 	ui:generateKeys="com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator"
 	ui:generateLocales="default">
+	<ui:with field='msg' type='com.agnie.gwt.common.client.Messages' />
 	<ui:with field='res'
 		type='com.agnie.gwt.common.client.widget.SelectUnselectResources' />
 	<g:HTMLPanel addStyleNames='{res.css.selUnselPan}'>
 		<div class='{res.css.fltLeft}'>
+			<div ui:field="avlLabel" style="text-align: center;">
+				<ui:text from='{msg.available}'></ui:text>
+			</div>
 			<uac:ListBox ui:field="available" height="150px" width="150px"></uac:ListBox>
 		</div>
 		<div class='{res.css.btnPan}'>
@@ -18,7 +22,11 @@
 				<g:Button ui:field="mvrgt" ></g:Button>
 			</div>
 		</div>
+		
 		<div class='{res.css.fltLeft}'>
+			<div ui:field="selLabel" style="text-align: center;">
+				<ui:text from='{msg.selected}'></ui:text>
+			</div>
 			<uac:ListBox ui:field="selected" height="150px" width="150px"></uac:ListBox>
 		</div>
 	</g:HTMLPanel>

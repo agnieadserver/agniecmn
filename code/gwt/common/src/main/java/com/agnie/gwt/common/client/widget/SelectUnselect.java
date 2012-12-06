@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.agnie.gwt.common.client.widget.ListBox.GetText;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiFactory;
@@ -31,6 +32,11 @@ public class SelectUnselect<T> extends Composite {
 
 	@UiField
 	Button		mvrgt;
+	
+	@UiField
+	DivElement	avlLabel;
+	@UiField
+	DivElement	selLabel;
 
 	GetText<T>	getText;
 
@@ -46,6 +52,13 @@ public class SelectUnselect<T> extends Composite {
 		available.setRowData(av);
 		mvlft.setText("<<");
 		mvrgt.setText(">>");
+	}
+	
+	public void setAvlLabel(String label){
+		avlLabel.setInnerText(label);
+	}
+	public void setSelLabel(String label){
+		selLabel.setInnerText(label);
 	}
 
 	@UiFactory

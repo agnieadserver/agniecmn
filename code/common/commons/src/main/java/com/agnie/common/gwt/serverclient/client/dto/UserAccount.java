@@ -14,11 +14,20 @@ public class UserAccount implements Serializable, TableBean {
 	 * 
 	 */
 	private static final long	serialVersionUID	= 1L;
+	private String				id;
 	private String				title;
 	private String				firstName;
 	private String				lastName;
 	private String				userName;
 	private Language			language			= Language.ENGLISH;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the title

@@ -54,6 +54,11 @@ public class SelectUnselect<T> extends Composite {
 		mvrgt.setText(">>");
 	}
 	
+	public void setButtonStyle(String style){
+		mvlft.addStyleName(style);
+		mvrgt.addStyleName(style);
+	}
+	
 	public void setAvlLabel(String label){
 		avlLabel.setInnerText(label);
 	}

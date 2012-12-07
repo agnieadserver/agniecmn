@@ -5,14 +5,14 @@
 	<ui:with field='msg' type='com.agnie.gwt.common.client.Messages' />
 
 	<g:HTMLPanel>
-		<div class='{res.css.accTitlePan}'>
+		<g:HTMLPanel ui:field="accTitlePan" addStyleNames='{res.css.accTitlePan}'>
 			<span>
 				<ui:text from='{msg.welcome}'></ui:text>
 				
 			</span>
 			<span ui:field="accTitle" class='{res.css.title}'></span>
 			<g:Image ui:field="accImg" addStyleNames='{res.css.img}'></g:Image>
-		</div>
+		</g:HTMLPanel>
 		<div ui:field="accDropPan" class='{res.css.accDropPan}'>
 			<div class='{res.css.accUserImg}'>
 				<g:Image ui:field="accUserImg"></g:Image>

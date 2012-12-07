@@ -8,6 +8,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -29,7 +30,9 @@ public class Account extends Composite {
 	}
 
 	private static MyUiBinder	uiBinder		= GWT.create(MyUiBinder.class);
-
+	
+	@UiField
+	HTMLPanel					accTitlePan;
 	@UiField
 	SpanElement					accTitle;
 	@UiField
@@ -57,7 +60,9 @@ public class Account extends Composite {
 		container.addStyleName(styleClassName);
 		initWidget(container);
 		setUserImageResource(resource.person());
-		accImg.addClickHandler(new ClickHandler() {
+		
+		accTitlePan.sinkEvents(Event.ONCLICK);//'enables' click events for the HtmlPanel 
+		accTitlePan.addHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
@@ -69,9 +74,9 @@ public class Account extends Composite {
 				visibleDropPan=true;
 				}
 			}
-		});
+		}, ClickEvent.getType());
 	}
-
+	
 	public void setAccName(String title) {
 		accTitle.setInnerText(title);
 	}

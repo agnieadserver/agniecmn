@@ -16,10 +16,10 @@
 		</div>
 		<div class='{res.css.btnPan}'>
 			<div>
-				<g:Button ui:field="mvlft" ></g:Button>
+				<g:Button ui:field="mvrgt" ></g:Button>
 			</div>
 			<div>
-				<g:Button ui:field="mvrgt" ></g:Button>
+				<g:Button ui:field="mvlft" ></g:Button>
 			</div>
 		</div>
 		

@@ -3,7 +3,6 @@ package com.agnie.gwt.common.client.widget;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -39,6 +38,8 @@ public class CloseBtn extends Composite {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
 		container.addStyleName(styleClassName);
 		initWidget(container);
+		
+		closeBtn.setUrl(GWT.getModuleBaseURL()+"imagess/transparent.png");
 	}
 
 	/**

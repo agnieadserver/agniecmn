@@ -5,4 +5,5 @@
 	<inherits name="com.google.gwt.resources.Resources" />
 	<inherits name="com.agnie.common.gwt.serverclient.commonserverclient" />
 	<source path='client' />
+	<public path="public"/>
 </module>

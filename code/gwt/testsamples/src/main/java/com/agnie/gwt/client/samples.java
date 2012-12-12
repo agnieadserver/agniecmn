@@ -189,26 +189,26 @@ public class samples implements EntryPoint {
 		// ListBoxt Test -- end
 
 		// ListBoxt Test -- start
-		 VerticalPanel vselunPanel = new VerticalPanel();
-		 final SelectUnselectTest selTest = new SelectUnselectTest();
-		 vselunPanel.add(selTest);
-		 Button shwAva = new Button("Show available List");
-		 vselunPanel.add(shwAva);
-		 shwAva.addClickHandler(new ClickHandler() {
-		
-		 public void onClick(ClickEvent arg0) {
-		 selTest.showAvailable();
-		 }
-		 });
-		 Button shwSel = new Button("Show Selected List");
-		 vselunPanel.add(shwSel);
-		 shwSel.addClickHandler(new ClickHandler() {
-		
-		 public void onClick(ClickEvent arg0) {
-		 selTest.showSelected();
-		 }
-		 });
-		 RootPanel.get().add(vselunPanel);
+//		 VerticalPanel vselunPanel = new VerticalPanel();
+//		 final SelectUnselectTest selTest = new SelectUnselectTest();
+//		 vselunPanel.add(selTest);
+//		 Button shwAva = new Button("Show available List");
+//		 vselunPanel.add(shwAva);
+//		 shwAva.addClickHandler(new ClickHandler() {
+//		
+//		 public void onClick(ClickEvent arg0) {
+//		 selTest.showAvailable();
+//		 }
+//		 });
+//		 Button shwSel = new Button("Show Selected List");
+//		 vselunPanel.add(shwSel);
+//		 shwSel.addClickHandler(new ClickHandler() {
+//		
+//		 public void onClick(ClickEvent arg0) {
+//		 selTest.showSelected();
+//		 }
+//		 });
+//		 RootPanel.get().add(vselunPanel);
 		// //ListBoxt Test -- end
 		 //acc.setAccName("UserName");
 		// acc1.setAccName("UserName1" + "Username1");
@@ -245,13 +245,13 @@ public class samples implements EntryPoint {
 		// wb.addStep("step1");
 		// wb.addStep("step2");
 		// RootPanel.get().add(wb);
-//		cb.addClickHandler(new ClickHandler() {
-//
-//			public void onClick(ClickEvent event) {
-//				GWT.log("close clicked");
-//				Window.alert("Don't click again");
-//			}
-//		});
-//		RootPanel.get().add(cb);
+		cb.addClickHandler(new ClickHandler() {
+
+			public void onClick(ClickEvent event) {
+				GWT.log("close clicked");
+				Window.alert("Don't click again");
+			}
+		});
+		RootPanel.get().add(cb);
 	}
 }

@@ -6,12 +6,12 @@ import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -24,7 +24,7 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  */
 public class TextBox extends Composite {
-	private static TextBoxResources	resource	= TextBoxResources.INSTANCE;
+	private static TextBoxResources resource = TextBoxResources.INSTANCE;
 
 	static {
 		resource.css().ensureInjected();
@@ -33,31 +33,31 @@ public class TextBox extends Composite {
 	interface MyUiBinder extends UiBinder<Widget, TextBox> {
 	}
 
-	private static MyUiBinder				uiBinder	= GWT.create(MyUiBinder.class);
+	private static MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
 
 	@UiField
-	com.google.gwt.user.client.ui.TextBox	textBox;
+	com.google.gwt.user.client.ui.TextBox textBox;
 
 	@UiField
-	HTMLPanel								errorPan;
+	HTMLPanel errorPan;
 
 	@UiField
-	ImageElement							img;
+	ImageElement img;
 
 	@UiField
-	SpanElement								message;
+	SpanElement message;
 
 	@UiField
-	Image									close;
+	Image close;
 
-	protected HTMLPanel						container;
+	protected HTMLPanel container;
 
 	public TextBox() {
 
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
 		initWidget(container);
 		errorPan.setVisible(false);
-		
+
 	}
 
 	/**
@@ -176,8 +176,8 @@ public class TextBox extends Composite {
 	public void setStyleName(String style) {
 		this.container.setStyleName(style);
 	}
-	
-	public String getStyleName(){
+
+	public String getStyleName() {
 		return this.container.getStyleName();
 	}
 
@@ -219,6 +219,11 @@ public class TextBox extends Composite {
 
 	public static TextBoxResources getResources() {
 		return resource;
+	}
+
+	@UiFactory
+	public static String getBasePath() {
+		return GWT.getModuleBaseURL();
 	}
 
 }

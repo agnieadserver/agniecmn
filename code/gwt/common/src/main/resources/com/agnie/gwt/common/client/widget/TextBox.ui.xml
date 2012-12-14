@@ -2,13 +2,13 @@
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 	<ui:with field='res'
 		type='com.agnie.gwt.common.client.widget.TextBoxResources' />
-
+	<ui:with type="java.lang.String" field="moduleBaseUrl"></ui:with>
 	<g:HTMLPanel addStyleNames='{res.css.textBoxPan}'>
 		<g:TextBox ui:field="textBox" addStyleNames='{res.css.textBox}'></g:TextBox>
 		<g:HTMLPanel ui:field="errorPan" addStyleNames='{res.css.errorPan}'>
-				<img src="images/transperent.png" ui:field="img" class='{res.css.errorImg}'></img>
+				<img src="{moduleBaseUrl}images/transparent.png" ui:field="img" class='{res.css.errorImg}'></img>
 			  	<span  ui:field="message" class='{res.css.errorMesage}'></span>
-				<g:Image url="images/transperent.png" ui:field="close" addStyleNames='{res.css.close}'></g:Image>
+				<g:Image url="{moduleBaseUrl}images/transparent.png" ui:field="close" addStyleNames='{res.css.close}'></g:Image>
 		</g:HTMLPanel>
 	</g:HTMLPanel>
 </ui:UiBinder>

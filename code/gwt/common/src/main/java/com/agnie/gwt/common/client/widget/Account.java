@@ -77,6 +77,18 @@ public class Account extends Composite {
 		}, ClickEvent.getType());
 	}
 	
+	public void addChangePassClickHandler(ClickHandler handler){
+		changePass.addClickHandler(handler);
+	}
+	
+	public void addModifyClickHandler(ClickHandler handler){
+		modify.addClickHandler(handler);
+	}
+	
+	public void addLogoutClickHandler(ClickHandler handler){
+		logout.addClickHandler(handler);
+	}
+	
 	public void setAccName(String title) {
 		accTitle.setInnerText(title);
 	}

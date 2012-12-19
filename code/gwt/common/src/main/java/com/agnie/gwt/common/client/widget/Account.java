@@ -30,7 +30,7 @@ public class Account extends Composite {
 	}
 
 	private static MyUiBinder	uiBinder		= GWT.create(MyUiBinder.class);
-	
+
 	@UiField
 	HTMLPanel					accTitlePan;
 	@UiField
@@ -38,7 +38,7 @@ public class Account extends Composite {
 	@UiField
 	DivElement					accDropPan;
 	@UiField
-	Image		                accImg;
+	Image						accImg;
 	@UiField
 	Image						accUserImg;
 	@UiField
@@ -54,41 +54,52 @@ public class Account extends Composite {
 	public Account() {
 		this(resource.css().accPan());
 	}
-
+	CancelClickHandler cancleClikInstance=new CancelClickHandler();
 	public Account(String styleClassName) {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
 		container.addStyleName(styleClassName);
 		initWidget(container);
 		setUserImageResource(resource.person());
-		
-		accTitlePan.sinkEvents(Event.ONCLICK);//'enables' click events for the HtmlPanel 
+
+		accTitlePan.sinkEvents(Event.ONCLICK);// 'enables' click events for the
+												// HtmlPanel
 		accTitlePan.addHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
-				if(visibleDropPan){
-					accDropPan.removeClassName(resource.css().accDropPanVisible());
-					visibleDropPan=false;
-				}else{
-				accDropPan.addClassName(resource.css().accDropPanVisible());
-				visibleDropPan=true;
+				if (visibleDropPan) {
+					hide();
+				} else {
+					show();
 				}
 			}
 		}, ClickEvent.getType());
 	}
 	
-	public void addChangePassClickHandler(ClickHandler handler){
+	private void hide(){
+		accDropPan.removeClassName(resource.css().accDropPanVisible());
+		visibleDropPan = false;
+	}
+	
+	private void show(){
+		accDropPan.addClassName(resource.css().accDropPanVisible());
+		visibleDropPan = true;
+	}
+	public void addChangePassClickHandler(ClickHandler handler) {
 		changePass.addClickHandler(handler);
+		changePass.addClickHandler(cancleClikInstance);
 	}
-	
-	public void addModifyClickHandler(ClickHandler handler){
+
+	public void addModifyClickHandler(ClickHandler handler) {
 		modify.addClickHandler(handler);
+		modify.addClickHandler(cancleClikInstance);
 	}
-	
-	public void addLogoutClickHandler(ClickHandler handler){
+
+	public void addLogoutClickHandler(ClickHandler handler) {
 		logout.addClickHandler(handler);
+		logout.addClickHandler(cancleClikInstance);
 	}
-	
+
 	public void setAccName(String title) {
 		accTitle.setInnerText(title);
 	}
@@ -107,6 +118,15 @@ public class Account extends Composite {
 
 	public static AccountResources getResources() {
 		return resource;
+	}
+	
+	private class CancelClickHandler implements ClickHandler {
+
+		@Override
+		public void onClick(ClickEvent event) {
+			hide();
+		}
+		
 	}
 
 }

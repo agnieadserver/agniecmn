@@ -8,6 +8,7 @@ import com.agnie.gwt.common.client.widget.Account;
 import com.agnie.gwt.common.client.widget.BreadCrumbPanel;
 import com.agnie.gwt.common.client.widget.CloseBtn;
 import com.agnie.gwt.common.client.widget.CustomListBox;
+import com.agnie.gwt.common.client.widget.CustomMenuPan;
 import com.agnie.gwt.common.client.widget.DecoratedPanel;
 import com.agnie.gwt.common.client.widget.GreenButton;
 import com.agnie.gwt.common.client.widget.LabelPasswordBox;
@@ -52,19 +53,19 @@ public class samples implements EntryPoint {
 //	StyledListBox slb = new StyledListBox();
 //	List<User> sel = new ArrayList<User>();
 //	List<User> av = new ArrayList<User>();
-//	Account acc = new Account();
+	Account acc = new Account();
 //	Account acc1 = new Account();
 //	Account acc2 = new Account();
 //	CustomListBox clb = new CustomListBox();
 //	User us = new User();
 //	BreadCrumbPanel bcp = new BreadCrumbPanel();
 //	private static SearchBoxResources resource = SearchBoxResources.INSTANCE;
-	TextBox tB = new TextBox();
+//	TextBox tB = new TextBox();
 //	PasswordTextBox ptb = new PasswordTextBox();
 //	WizardBar wb = new WizardBar();
 //	CloseBtn cb = new CloseBtn();
-	GreenButton gb=new GreenButton("Hello");
-
+//	GreenButton gb=new GreenButton("Hello");
+	CustomMenuPan cMenuPan=new CustomMenuPan();
 	public void onModuleLoad() {
 		// GWT.log("IN onmoduleLoad Start.");
 		// img.setUrl("images/search.png");
@@ -212,14 +213,20 @@ public class samples implements EntryPoint {
 //		 });
 //		 RootPanel.get().add(vselunPanel);
 		// //ListBoxt Test -- end
-		 //acc.setAccName("UserName");
+		 acc.setAccName("UserName");
+		 acc.addChangePassClickHandler(new ClickHandler() {
+			
+			public void onClick(ClickEvent event) {
+				Window.alert("Are you sure to change your password");
+			}
+		});
 		// acc1.setAccName("UserName1" + "Username1");
 		// acc2.setAccName("UserName2" + "UserName22222");
 		// dp1.add(acc);
 		// dp1.add(acc1);
 		// dp1.add(acc2);
 		//
-		// RootPanel.get().add(acc);
+		 RootPanel.get().add(acc);
 		// clb.setWidth("100px");
 		// RootPanel.get().add(clb);
 
@@ -254,9 +261,10 @@ public class samples implements EntryPoint {
 //				Window.alert("Don't click again");
 //			}
 //		});
-		 VerticalPanel vPanel = new VerticalPanel();
-		 vPanel.add(gb);
-		 vPanel.add(tB);
-		RootPanel.get().add(vPanel);
+//		 VerticalPanel vPanel = new VerticalPanel();
+//		 vPanel.add(gb);
+//		 vPanel.add(tB);
+//		RootPanel.get().add(vPanel);
+//		RootPanel.get().add(cMenuPan);
 	}
 }

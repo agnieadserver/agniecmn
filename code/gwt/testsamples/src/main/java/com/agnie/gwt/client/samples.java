@@ -13,6 +13,7 @@ import com.agnie.gwt.common.client.widget.DecoratedPanel;
 import com.agnie.gwt.common.client.widget.GreenButton;
 import com.agnie.gwt.common.client.widget.LabelPasswordBox;
 import com.agnie.gwt.common.client.widget.LabelTextBox;
+import com.agnie.gwt.common.client.widget.MenuPan;
 import com.agnie.gwt.common.client.widget.MessagePanel;
 import com.agnie.gwt.common.client.widget.PageTitle;
 import com.agnie.gwt.common.client.widget.PasswordTextBox;
@@ -29,6 +30,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -66,6 +68,8 @@ public class samples implements EntryPoint {
 //	CloseBtn cb = new CloseBtn();
 //	GreenButton gb=new GreenButton("Hello");
 	CustomMenuPan cMenuPan=new CustomMenuPan();
+	MenuPanTest menuPanTest=new MenuPanTest();
+	
 	public void onModuleLoad() {
 		// GWT.log("IN onmoduleLoad Start.");
 		// img.setUrl("images/search.png");
@@ -213,20 +217,20 @@ public class samples implements EntryPoint {
 //		 });
 //		 RootPanel.get().add(vselunPanel);
 		// //ListBoxt Test -- end
-		 acc.setAccName("UserName");
-		 acc.addChangePassClickHandler(new ClickHandler() {
-			
-			public void onClick(ClickEvent event) {
-				Window.alert("Are you sure to change your password");
-			}
-		});
+//		 acc.setAccName("UserName");
+//		 acc.addChangePassClickHandler(new ClickHandler() {
+//			
+//			public void onClick(ClickEvent event) {
+//				Window.alert("Are you sure to change your password");
+//			}
+//		});
 		// acc1.setAccName("UserName1" + "Username1");
 		// acc2.setAccName("UserName2" + "UserName22222");
 		// dp1.add(acc);
 		// dp1.add(acc1);
 		// dp1.add(acc2);
 		//
-		 RootPanel.get().add(acc);
+//		 RootPanel.get().add(acc);
 		// clb.setWidth("100px");
 		// RootPanel.get().add(clb);
 
@@ -265,6 +269,9 @@ public class samples implements EntryPoint {
 //		 vPanel.add(gb);
 //		 vPanel.add(tB);
 //		RootPanel.get().add(vPanel);
-//		RootPanel.get().add(cMenuPan);
+		RootPanel.get().add(cMenuPan);
+		
+		
+//		RootPanel.get().add(menuPanTest.getMenuPan());
 	}
 }

@@ -1,11 +1,13 @@
 package com.agnie.gwt.common.client.widget;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -31,12 +33,17 @@ public class SearchBox extends Composite {
 	
 	Widget						widget;
 	protected HTMLPanel			container;
-
+	public Image				img			= new Image();
 	public SearchBox() {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
 		initWidget(container);
+		img.setResource(resource.searchImg());
+		addInputWidget(img);
 	}
 	
+	public void addSearchImgClickHandler(ClickHandler handler){
+		this.img.addClickHandler(handler);
+	}
 	
 	public void setLabel(String label){
 		search.setLabel(label);

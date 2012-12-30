@@ -39,7 +39,7 @@ public class CloseBtn extends Composite {
 		container.addStyleName(styleClassName);
 		initWidget(container);
 		
-		closeBtn.setUrl(GWT.getModuleBaseURL()+"imagess/transparent.png");
+		closeBtn.setUrl(GWT.getModuleBaseURL()+"images/transparent.png");
 	}
 
 	/**

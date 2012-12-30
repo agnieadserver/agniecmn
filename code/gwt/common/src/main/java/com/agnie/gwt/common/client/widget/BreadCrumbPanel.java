@@ -27,6 +27,8 @@ public class BreadCrumbPanel extends Composite {
 	public interface BreadCrumb extends HasClickHandlers {
 
 	}
+	
+	
 
 	private class ClickDelegatePanel extends Composite implements BreadCrumb {
 
@@ -63,7 +65,9 @@ public class BreadCrumbPanel extends Composite {
 	}
 
 	private static final String	BREAD_CRUMB_CONTAINER_DEFAULT_STYLE	= "bread-crumb";
+	private HTMLPanel			container;
 	private HTMLPanel			panel;
+	
 
 	public BreadCrumbPanel() {
 		this(BREAD_CRUMB_CONTAINER_DEFAULT_STYLE);
@@ -73,8 +77,12 @@ public class BreadCrumbPanel extends Composite {
 	 * Creates an empty Bread Crumb panel.
 	 */
 	public BreadCrumbPanel(String styleClassName) {
+		container=new HTMLPanel("");
+		container.addStyleName("clearfix");
+		
 		panel = new HTMLPanel("");
-		initWidget(panel);
+		container.add(panel);
+		initWidget(container);
 		sinkEvents(Event.ONCLICK);
 		panel.addStyleName(styleClassName);
 	}

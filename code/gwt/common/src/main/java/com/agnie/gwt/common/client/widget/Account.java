@@ -55,11 +55,13 @@ public class Account extends Composite {
 		this(resource.css().accPan());
 	}
 	CancelClickHandler cancleClikInstance=new CancelClickHandler();
+	
 	public Account(String styleClassName) {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
 		container.addStyleName(styleClassName);
 		initWidget(container);
 		setUserImageResource(resource.person());
+		accImg.setUrl(GWT.getModuleBaseURL()+"images/transparent.png");
 
 		accTitlePan.sinkEvents(Event.ONCLICK);// 'enables' click events for the
 												// HtmlPanel

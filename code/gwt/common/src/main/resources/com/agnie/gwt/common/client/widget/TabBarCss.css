@@ -68,10 +68,6 @@
 	top: 83px;/* changed value from 3px to 73px for hs tabar location*/
 }
 
-.disabled {
-	display: none;
-}
-
 .tabs a {
 	font-weight: bold;
 	text-decoration: none;
@@ -261,6 +257,6 @@
 /* ----------------------------from hs---------------------------------------------*/
 /*##################################	All Menu related Css Ends here ##################################*/
 
-@external tabBox, tabs, active, inactive, menu, disabled, main-menu, sec-sub-menu-panel, sec-sub-menu,  thir-ver-sub-menu-panel, thir-ver-sub-menu;
+@external tabBox, tabs, active, inactive, menu, main-menu, sec-sub-menu-panel, sec-sub-menu,  thir-ver-sub-menu-panel, thir-ver-sub-menu;
 
 

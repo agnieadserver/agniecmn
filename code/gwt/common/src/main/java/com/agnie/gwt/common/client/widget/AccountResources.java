@@ -10,6 +10,9 @@ public interface AccountResources extends ClientBundle {
 	@Source("AccountCss.css")
 	AccountCss css();
 	
+	@Source("acc-triangle.png")
+	ImageResource accTriangle();
+	
 	@Source("arrow.png")
 	ImageResource arrowImg();
 	
@@ -18,4 +21,7 @@ public interface AccountResources extends ClientBundle {
 	
 	@Source("person50x50.png")
 	ImageResource person();
+	
+	@Source("acc-triangle-silver.png")
+	ImageResource accTriangleSilver();
 }

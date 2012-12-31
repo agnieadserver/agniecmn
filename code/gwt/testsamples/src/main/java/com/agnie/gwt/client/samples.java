@@ -217,7 +217,7 @@ public class samples implements EntryPoint {
 //		 });
 //		 RootPanel.get().add(vselunPanel);
 		// //ListBoxt Test -- end
-//		 acc.setAccName("UserName");
+		 acc.setAccName("UserName");
 //		 acc.addChangePassClickHandler(new ClickHandler() {
 //			
 //			public void onClick(ClickEvent event) {
@@ -230,7 +230,7 @@ public class samples implements EntryPoint {
 		// dp1.add(acc1);
 		// dp1.add(acc2);
 		//
-//		 RootPanel.get().add(acc);
+		 RootPanel.get().add(acc);
 		// clb.setWidth("100px");
 		// RootPanel.get().add(clb);
 
@@ -269,7 +269,7 @@ public class samples implements EntryPoint {
 //		 vPanel.add(gb);
 //		 vPanel.add(tB);
 //		RootPanel.get().add(vPanel);
-		RootPanel.get().add(cMenuPan);
+//		RootPanel.get().add(cMenuPan);
 		
 		
 //		RootPanel.get().add(menuPanTest.getMenuPan());

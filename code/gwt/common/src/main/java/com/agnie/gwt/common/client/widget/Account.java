@@ -9,6 +9,7 @@ import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -37,6 +38,8 @@ public class Account extends Composite {
 	SpanElement					accTitle;
 	@UiField
 	DivElement					accDropPan;
+	@UiField
+	DivElement					accDropPanBody;
 	@UiField
 	Image						accImg;
 	@UiField

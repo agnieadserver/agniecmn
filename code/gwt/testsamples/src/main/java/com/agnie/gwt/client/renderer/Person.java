@@ -1,6 +1,8 @@
 package com.agnie.gwt.client.renderer;
 
-public class Person {
+import com.agnie.gwt.common.client.renderer.Title;
+
+public class Person implements Title{
 
 	private String	fname;
 	private String	lname;
@@ -65,6 +67,10 @@ public class Person {
 	 */
 	public void setAge(int age) {
 		this.age = age;
+	}
+
+	public String getTitle() {
+		return fname+" "+lname;
 	}
 
 }

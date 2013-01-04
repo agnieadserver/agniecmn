@@ -2,10 +2,10 @@
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:agcw='urn:import:com.agnie.gwt.common.client.widget'>
 	
 	<ui:with field='string'
-		type="java.lang.String" />
+		type="com.agnie.gwt.common.client.renderer.TitleString" />
 	<g:HTMLPanel>
 		<span>
-			<ui:text from="{string}" />
+			<ui:text from="{string.getTitle}" />
 		</span>
 	</g:HTMLPanel>
 </ui:UiBinder>

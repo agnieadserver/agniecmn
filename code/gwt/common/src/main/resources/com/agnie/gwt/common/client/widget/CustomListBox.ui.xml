@@ -8,6 +8,6 @@
 			<span ui:field="customListTitle" class='{res.css.customListTitle}'></span>
 			<g:Image ui:field="customListImg" addStyleNames='{res.css.customListImg}'></g:Image>
 		</g:HTMLPanel>
-		<c:CellList ui:field="cellList" ></c:CellList>
+		<!-- <c:CellList ui:field="cellList" ></c:CellList> -->
 	</g:HTMLPanel>
 </ui:UiBinder>

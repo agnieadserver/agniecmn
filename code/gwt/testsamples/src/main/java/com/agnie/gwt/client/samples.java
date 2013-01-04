@@ -3,73 +3,63 @@ package com.agnie.gwt.client;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.agnie.gwt.client.renderer.RendererSample;
+import com.agnie.gwt.client.renderer.CustomListCell;
+import com.agnie.gwt.client.renderer.PearsonCell;
+import com.agnie.gwt.client.renderer.Person;
+import com.agnie.gwt.common.client.renderer.TitleString;
 import com.agnie.gwt.common.client.widget.Account;
-import com.agnie.gwt.common.client.widget.BreadCrumbPanel;
-import com.agnie.gwt.common.client.widget.CloseBtn;
 import com.agnie.gwt.common.client.widget.CustomListBox;
 import com.agnie.gwt.common.client.widget.CustomMenuPan;
-import com.agnie.gwt.common.client.widget.DecoratedPanel;
-import com.agnie.gwt.common.client.widget.GreenButton;
-import com.agnie.gwt.common.client.widget.LabelPasswordBox;
-import com.agnie.gwt.common.client.widget.LabelTextBox;
-import com.agnie.gwt.common.client.widget.MenuPan;
-import com.agnie.gwt.common.client.widget.MessagePanel;
-import com.agnie.gwt.common.client.widget.PageTitle;
-import com.agnie.gwt.common.client.widget.PasswordTextBox;
-import com.agnie.gwt.common.client.widget.SearchBox;
-import com.agnie.gwt.common.client.widget.SearchBoxResources;
-import com.agnie.gwt.common.client.widget.StyledListBox;
-import com.agnie.gwt.common.client.widget.SuggestionBox;
-import com.agnie.gwt.common.client.widget.TextBox;
-import com.agnie.gwt.common.client.widget.WizardBar;
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class samples implements EntryPoint {
-//	LabelPasswordBox lpb = new LabelPasswordBox();
-//	LabelTextBox ltb = new LabelTextBox();
-//	Button save = new Button("save");
-//	MessagePanel mpi = new MessagePanel();
-//	MessagePanel mpe = new MessagePanel();
-//	MessagePanel mpw = new MessagePanel();
-//	TextBox tb = new TextBox();
-//	List<String> celllist = new ArrayList<String>();
-//	SuggestionBox sb = new SuggestionBox();
-//	DecoratedPanel dp = new DecoratedPanel();
-//	VerticalPanel dp1 = new VerticalPanel();
-//	SearchBox searchBox = new SearchBox();
-//	Image img = new Image();
-//	PageTitle pt = new PageTitle();
-//	StyledListBox slb = new StyledListBox();
-//	List<User> sel = new ArrayList<User>();
-//	List<User> av = new ArrayList<User>();
-	Account acc = new Account();
-//	Account acc1 = new Account();
-//	Account acc2 = new Account();
-//	CustomListBox clb = new CustomListBox();
-//	User us = new User();
-//	BreadCrumbPanel bcp = new BreadCrumbPanel();
-//	private static SearchBoxResources resource = SearchBoxResources.INSTANCE;
-//	TextBox tB = new TextBox();
-//	PasswordTextBox ptb = new PasswordTextBox();
-//	WizardBar wb = new WizardBar();
-//	CloseBtn cb = new CloseBtn();
-//	GreenButton gb=new GreenButton("Hello");
-	CustomMenuPan cMenuPan=new CustomMenuPan();
-	MenuPanTest menuPanTest=new MenuPanTest();
+	// LabelPasswordBox lpb = new LabelPasswordBox();
+	// LabelTextBox ltb = new LabelTextBox();
+	// Button save = new Button("save");
+	// MessagePanel mpi = new MessagePanel();
+	// MessagePanel mpe = new MessagePanel();
+	// MessagePanel mpw = new MessagePanel();
+	// TextBox tb = new TextBox();
+	// List<String> celllist = new ArrayList<String>();
+	// SuggestionBox sb = new SuggestionBox();
+	// DecoratedPanel dp = new DecoratedPanel();
+	// VerticalPanel dp1 = new VerticalPanel();
+	// SearchBox searchBox = new SearchBox();
+	// Image img = new Image();
+	// PageTitle pt = new PageTitle();
+	// StyledListBox slb = new StyledListBox();
+	// List<User> sel = new ArrayList<User>();
+	// List<User> av = new ArrayList<User>();
+	Account					acc			= new Account();
+	// Account acc1 = new Account();
+	// Account acc2 = new Account();
+	CustomListCell			clc			= new CustomListCell();
+	CustomListBox<TitleString>	clb			= new CustomListBox<TitleString>(clc);
 	
+	PearsonCell pCell= new PearsonCell();
+	CustomListBox<Person> personCustomListBox= new CustomListBox<Person>(pCell);
+
+	// User us = new User();
+	// BreadCrumbPanel bcp = new BreadCrumbPanel();
+	// private static SearchBoxResources resource = SearchBoxResources.INSTANCE;
+	// TextBox tB = new TextBox();
+	// PasswordTextBox ptb = new PasswordTextBox();
+	// WizardBar wb = new WizardBar();
+	// CloseBtn cb = new CloseBtn();
+	// GreenButton gb=new GreenButton("Hello");
+//	CustomMenuPan			cMenuPan	= new CustomMenuPan();
+//	MenuPanTest				menuPanTest	= new MenuPanTest();
+
 	public void onModuleLoad() {
 		// GWT.log("IN onmoduleLoad Start.");
 		// img.setUrl("images/search.png");
@@ -156,8 +146,8 @@ public class samples implements EntryPoint {
 		// Bread CrumbTest -- end
 
 		// Wizard Bar Test -- start
-//		 WizardBarTest wbtest = new WizardBarTest();
-//		 RootPanel.get().add(wbtest);
+		// WizardBarTest wbtest = new WizardBarTest();
+		// RootPanel.get().add(wbtest);
 		// Wizard Bar Test -- end
 
 		// Green Button Test -- start
@@ -196,44 +186,67 @@ public class samples implements EntryPoint {
 		// ListBoxt Test -- end
 
 		// ListBoxt Test -- start
-//		 VerticalPanel vselunPanel = new VerticalPanel();
-//		 final SelectUnselectTest selTest = new SelectUnselectTest();
-//		 vselunPanel.add(selTest);
-//		 Button shwAva = new Button("Show available List");
-//		 vselunPanel.add(shwAva);
-//		 shwAva.addClickHandler(new ClickHandler() {
-//		
-//		 public void onClick(ClickEvent arg0) {
-//		 selTest.showAvailable();
-//		 }
-//		 });
-//		 Button shwSel = new Button("Show Selected List");
-//		 vselunPanel.add(shwSel);
-//		 shwSel.addClickHandler(new ClickHandler() {
-//		
-//		 public void onClick(ClickEvent arg0) {
-//		 selTest.showSelected();
-//		 }
-//		 });
-//		 RootPanel.get().add(vselunPanel);
+		// VerticalPanel vselunPanel = new VerticalPanel();
+		// final SelectUnselectTest selTest = new SelectUnselectTest();
+		// vselunPanel.add(selTest);
+		// Button shwAva = new Button("Show available List");
+		// vselunPanel.add(shwAva);
+		// shwAva.addClickHandler(new ClickHandler() {
+		//
+		// public void onClick(ClickEvent arg0) {
+		// selTest.showAvailable();
+		// }
+		// });
+		// Button shwSel = new Button("Show Selected List");
+		// vselunPanel.add(shwSel);
+		// shwSel.addClickHandler(new ClickHandler() {
+		//
+		// public void onClick(ClickEvent arg0) {
+		// selTest.showSelected();
+		// }
+		// });
+		// RootPanel.get().add(vselunPanel);
 		// //ListBoxt Test -- end
-		 acc.setAccName("UserName");
-//		 acc.addChangePassClickHandler(new ClickHandler() {
-//			
-//			public void onClick(ClickEvent event) {
-//				Window.alert("Are you sure to change your password");
-//			}
-//		});
+		acc.setAccName("UserName");
+		// acc.addChangePassClickHandler(new ClickHandler() {
+		//
+		// public void onClick(ClickEvent event) {
+		// Window.alert("Are you sure to change your password");
+		// }
+		// });
 		// acc1.setAccName("UserName1" + "Username1");
 		// acc2.setAccName("UserName2" + "UserName22222");
 		// dp1.add(acc);
 		// dp1.add(acc1);
 		// dp1.add(acc2);
 		//
-		 RootPanel.get().add(acc);
-		// clb.setWidth("100px");
-		// RootPanel.get().add(clb);
+		// RootPanel.get().add(acc);
+		
+		/*CustomListBox test starts here*/
+		clb.setWidth("100px");
+		clb.setList(createDummyList());
+		clb.setSelectedItem(createDummyList().get(5), true);
+		
+		clb.addChangeHandler(new CustomListBox.ChangeHandler() {
 
+			public void onChange() {
+				Window.alert("CustomListBox<TitleString>addChangeHandler working");
+			}
+		});
+		
+		personCustomListBox.setWidth("200px");
+		personCustomListBox.setList(createPersonList());
+		personCustomListBox.addChangeHandler(new CustomListBox.ChangeHandler() {
+
+			public void onChange() {
+				Window.alert("CustomListBox<Person> addChangeHandler working");
+			}
+			
+		});
+
+		RootPanel.get().add(personCustomListBox);
+		
+		/*CustomListBox test ends here*/
 		//
 		// tB.setErrorMessage("data entered is not valid plz enter your name");
 		// tB.setErrorMessVisible(true);
@@ -258,20 +271,41 @@ public class samples implements EntryPoint {
 		// wb.addStep("step1");
 		// wb.addStep("step2");
 		// RootPanel.get().add(wb);
-//		cb.addClickHandler(new ClickHandler() {
-//
-//			public void onClick(ClickEvent event) {
-//				GWT.log("close clicked");
-//				Window.alert("Don't click again");
-//			}
-//		});
-//		 VerticalPanel vPanel = new VerticalPanel();
-//		 vPanel.add(gb);
-//		 vPanel.add(tB);
-//		RootPanel.get().add(vPanel);
-//		RootPanel.get().add(cMenuPan);
-		
-		
-//		RootPanel.get().add(menuPanTest.getMenuPan());
+		// cb.addClickHandler(new ClickHandler() {
+		//
+		// public void onClick(ClickEvent event) {
+		// GWT.log("close clicked");
+		// Window.alert("Don't click again");
+		// }
+		// });
+		// VerticalPanel vPanel = new VerticalPanel();
+		// vPanel.add(gb);
+		// vPanel.add(tB);
+		// RootPanel.get().add(vPanel);
+		// RootPanel.get().add(cMenuPan);
+
+		// RootPanel.get().add(menuPanTest.getMenuPan());
+	}
+
+
+	public List<TitleString> createDummyList() {
+		List<TitleString> list = new ArrayList<TitleString>();
+
+		for (int i = 0; i < 10; i++) {
+			list.add(new TitleString("UserName" + i));
+		}
+
+		return list;
+	}
+	public List<Person> createPersonList() {
+		List<Person> list=new ArrayList<Person>();
+		for(int i=0;i<10;i++){
+			Person p=new Person();
+			p.setFname("PersonF"+i);
+			p.setLname("PersonL"+i);
+			p.setEmailid("person@agnie."+i+".co."+"in");
+			list.add(p);
+		}
+		return list;
 	}
 }

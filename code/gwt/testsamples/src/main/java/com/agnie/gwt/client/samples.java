@@ -9,14 +9,9 @@ import com.agnie.gwt.client.renderer.Person;
 import com.agnie.gwt.common.client.renderer.TitleString;
 import com.agnie.gwt.common.client.widget.Account;
 import com.agnie.gwt.common.client.widget.CustomListBox;
-import com.agnie.gwt.common.client.widget.CustomMenuPan;
+import com.agnie.gwt.common.client.widget.LocaleListBox;
+import com.agnie.gwt.common.client.widget.StyledListBox;
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.ChangeHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
@@ -37,17 +32,17 @@ public class samples implements EntryPoint {
 	// SearchBox searchBox = new SearchBox();
 	// Image img = new Image();
 	// PageTitle pt = new PageTitle();
-	// StyledListBox slb = new StyledListBox();
+	StyledListBox				slb					= new StyledListBox();
 	// List<User> sel = new ArrayList<User>();
 	// List<User> av = new ArrayList<User>();
-	Account					acc			= new Account();
+	Account						acc					= new Account();
 	// Account acc1 = new Account();
 	// Account acc2 = new Account();
-	CustomListCell			clc			= new CustomListCell();
-	CustomListBox<TitleString>	clb			= new CustomListBox<TitleString>(clc);
-	
-	PearsonCell pCell= new PearsonCell();
-	CustomListBox<Person> personCustomListBox= new CustomListBox<Person>(pCell);
+	CustomListCell				clc					= new CustomListCell();
+	CustomListBox<TitleString>	clb					= new CustomListBox<TitleString>(clc);
+
+	PearsonCell					pCell				= new PearsonCell();
+	CustomListBox<Person>		personCustomListBox	= new CustomListBox<Person>(pCell);
 
 	// User us = new User();
 	// BreadCrumbPanel bcp = new BreadCrumbPanel();
@@ -57,8 +52,8 @@ public class samples implements EntryPoint {
 	// WizardBar wb = new WizardBar();
 	// CloseBtn cb = new CloseBtn();
 	// GreenButton gb=new GreenButton("Hello");
-//	CustomMenuPan			cMenuPan	= new CustomMenuPan();
-//	MenuPanTest				menuPanTest	= new MenuPanTest();
+	// CustomMenuPan cMenuPan = new CustomMenuPan();
+	// MenuPanTest menuPanTest = new MenuPanTest();
 
 	public void onModuleLoad() {
 		// GWT.log("IN onmoduleLoad Start.");
@@ -163,11 +158,19 @@ public class samples implements EntryPoint {
 		// RootPanel.get().add(searchBox);
 		// RootPanel.get().add(sb);
 		// Locale Box Test -- start
-		// LocaleListBox box = new LocaleListBox();
-		// LocaleListBox box1 = new LocaleListBox();
+		LocaleListBox box = new LocaleListBox();
+		// LocaleListBox box1 = new LocaleListBox(clc);
+		// box.addChangeHandler(new CustomListBox.ChangeHandler() {
+		//
+		// public void onChange() {
+		// Window.alert("Hello OnChange working");
+		// }
+		//
+		// });
 		// slb.addListBox(box);
+
 		// RootPanel.get().add(box1);
-		// RootPanel.get().add(slb);
+		RootPanel.get().add(box);
 		// Locale Box Test -- end
 
 		// ListBoxt Test -- start
@@ -221,32 +224,32 @@ public class samples implements EntryPoint {
 		// dp1.add(acc2);
 		//
 		// RootPanel.get().add(acc);
-		
-		/*CustomListBox test starts here*/
-		clb.setWidth("100px");
-		clb.setList(createDummyList());
-		clb.setSelectedItem(createDummyList().get(5), true);
-		
-		clb.addChangeHandler(new CustomListBox.ChangeHandler() {
 
-			public void onChange() {
-				Window.alert("CustomListBox<TitleString>addChangeHandler working");
-			}
-		});
-		
-		personCustomListBox.setWidth("200px");
-		personCustomListBox.setList(createPersonList());
-		personCustomListBox.addChangeHandler(new CustomListBox.ChangeHandler() {
+		/* CustomListBox test starts here */
+		// clb.setWidth("100px");
+		// clb.setList(createDummyList());
+		// clb.setSelectedItem(createDummyList().get(5), true);
+		//
+		// clb.addChangeHandler(new CustomListBox.ChangeHandler() {
+		//
+		// public void onChange() {
+		// Window.alert("CustomListBox<TitleString>addChangeHandler working");
+		// }
+		// });
+		//
+		// personCustomListBox.setWidth("200px");
+		// personCustomListBox.setList(createPersonList());
+		// personCustomListBox.addChangeHandler(new CustomListBox.ChangeHandler() {
+		//
+		// public void onChange() {
+		// Window.alert("CustomListBox<Person> addChangeHandler working");
+		// }
+		//
+		// });
+		//
+		// RootPanel.get().add(personCustomListBox);
 
-			public void onChange() {
-				Window.alert("CustomListBox<Person> addChangeHandler working");
-			}
-			
-		});
-
-		RootPanel.get().add(personCustomListBox);
-		
-		/*CustomListBox test ends here*/
+		/* CustomListBox test ends here */
 		//
 		// tB.setErrorMessage("data entered is not valid plz enter your name");
 		// tB.setErrorMessVisible(true);
@@ -287,7 +290,6 @@ public class samples implements EntryPoint {
 		// RootPanel.get().add(menuPanTest.getMenuPan());
 	}
 
-
 	public List<TitleString> createDummyList() {
 		List<TitleString> list = new ArrayList<TitleString>();
 
@@ -297,13 +299,14 @@ public class samples implements EntryPoint {
 
 		return list;
 	}
+
 	public List<Person> createPersonList() {
-		List<Person> list=new ArrayList<Person>();
-		for(int i=0;i<10;i++){
-			Person p=new Person();
-			p.setFname("PersonF"+i);
-			p.setLname("PersonL"+i);
-			p.setEmailid("person@agnie."+i+".co."+"in");
+		List<Person> list = new ArrayList<Person>();
+		for (int i = 0; i < 10; i++) {
+			Person p = new Person();
+			p.setFname("PersonF" + i);
+			p.setLname("PersonL" + i);
+			p.setEmailid("person@agnie." + i + ".co." + "in");
 			list.add(p);
 		}
 		return list;

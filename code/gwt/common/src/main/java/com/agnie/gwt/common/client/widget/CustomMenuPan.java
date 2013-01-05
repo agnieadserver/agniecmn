@@ -9,7 +9,6 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
@@ -33,8 +32,8 @@ public class CustomMenuPan extends Composite implements ContextMenuHandler {
 
 	@UiField
 	SpanElement					title;
-	
-	public HTMLPanel					container;
+
+	public HTMLPanel			container;
 
 	public CustomMenuPan() {
 		this(resource.css().customMenuPan());
@@ -42,11 +41,11 @@ public class CustomMenuPan extends Composite implements ContextMenuHandler {
 
 	MenuBar	popupMenuBar1To3	= new MenuBar(true);
 	MenuBar	popupMenuBar4To5	= new MenuBar(true);
-	Account	acc1			= new Account();
-	Account	acc2			= new Account();
-	Account	acc3			= new Account();
-	Account	acc4			= new Account();
-	Account	acc5			= new Account();
+	Account	acc1				= new Account();
+	Account	acc2				= new Account();
+	Account	acc3				= new Account();
+	Account	acc4				= new Account();
+	Account	acc5				= new Account();
 
 	public CustomMenuPan(String styleClassName) {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
@@ -112,15 +111,9 @@ public class CustomMenuPan extends Composite implements ContextMenuHandler {
 		popupMenuBar1To3.addItem(fItem);
 		popupMenuBar1To3.addItem(sItem);
 		popupMenuBar1To3.addItem(tItem);
-		
+
 		popupMenuBar4To5.addItem(frItem);
 		popupMenuBar4To5.addItem(fiItem);
-
-		if (contextMenu != null) {
-			Window.alert("Not null");
-		} else {
-			Window.alert(" null");
-		}
 
 		popupMenuBar1To3.setVisible(true);
 		popupMenuBar4To5.setVisible(true);

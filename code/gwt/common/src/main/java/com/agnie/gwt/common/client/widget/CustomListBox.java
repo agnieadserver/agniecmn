@@ -61,6 +61,7 @@ public class CustomListBox<TYPE extends Title> extends Composite {
 	final SingleSelectionModel<TYPE>	selectionModel	= new SingleSelectionModel<TYPE>();
 	List<TYPE>							listItem;
 	List<ChangeHandler>					changeHandler	= new ArrayList<ChangeHandler>();
+	private int							itemCount		= 0;
 
 	public CustomListBox(AbstractCell<TYPE> cell) {
 		this(resource.css().customListBoxPan(), cell);
@@ -140,6 +141,11 @@ public class CustomListBox<TYPE extends Title> extends Composite {
 		setListBoxTitle(list.get(0).getTitle());
 		cellList.setRowCount(list.size(), true);
 		cellList.setRowData(list);
+		itemCount = list.size();
+	}
+
+	public int getItemCount() {
+		return this.itemCount;
 	}
 
 	public void setSize(int width, int height) {

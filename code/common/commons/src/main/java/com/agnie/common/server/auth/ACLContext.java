@@ -21,6 +21,10 @@ public class ACLContext implements JexlContext {
 
 	private List<String>		checkPerms	= new ArrayList<String>();
 
+	public ACLContext() {
+
+	}
+
 	/**
 	 * @param acl
 	 */

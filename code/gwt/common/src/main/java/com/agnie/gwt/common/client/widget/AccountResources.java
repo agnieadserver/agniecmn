@@ -9,16 +9,16 @@ public interface AccountResources extends ClientBundle {
 
 	@Source("AccountCss.css")
 	AccountCss css();
-	
+
 	@Source("arrow.png")
 	ImageResource arrowImg();
-	
+
 	@Source("arrowDark.png")
 	ImageResource arrowDarkImg();
-	
+
 	@Source("person50x50.png")
 	ImageResource person();
-	
+
 	@Source("acc-triangle-silver.png")
 	ImageResource accTriangleSilver();
 }

@@ -75,9 +75,12 @@ public abstract class FocusWidget extends Composite implements HasClickHandlers 
 		super.onAttach();
 
 		// Accessibility: setting tab index to be 0 by default, ensuring element
-		// appears in tab sequence. We must ensure that the element doesn't already
-		// have a tabIndex set. This is not a problem for normal widgets, but when
-		// a widget is used to wrap an existing static element, it can already have
+		// appears in tab sequence. We must ensure that the element doesn't
+		// already
+		// have a tabIndex set. This is not a problem for normal widgets, but
+		// when
+		// a widget is used to wrap an existing static element, it can already
+		// have
 		// a tabIndex.
 		int tabIndex = getTabIndex();
 		if (-1 == tabIndex) {

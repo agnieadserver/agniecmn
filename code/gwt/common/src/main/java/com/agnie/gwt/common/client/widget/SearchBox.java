@@ -30,29 +30,30 @@ public class SearchBox extends Composite {
 	LabelTextBox				search;
 	@UiField
 	HTMLPanel					inputWidgetContainer;
-	
+
 	Widget						widget;
 	protected HTMLPanel			container;
 	public Image				img			= new Image();
+
 	public SearchBox() {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
 		initWidget(container);
 		img.setResource(resource.searchImg());
 		addInputWidget(img);
 	}
-	
-	public void addSearchImgClickHandler(ClickHandler handler){
+
+	public void addSearchImgClickHandler(ClickHandler handler) {
 		this.img.addClickHandler(handler);
 	}
-	
-	public void setLabel(String label){
+
+	public void setLabel(String label) {
 		search.setLabel(label);
 	}
-	
+
 	@UiChild
 	public void addInputWidget(Widget widget) {
 		if (widget != null) {
-		inputWidgetContainer.add(widget);
+			inputWidgetContainer.add(widget);
 		}
 	}
 

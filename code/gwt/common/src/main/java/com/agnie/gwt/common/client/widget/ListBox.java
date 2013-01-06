@@ -56,7 +56,7 @@ public class ListBox<T> extends com.google.gwt.user.client.ui.ListBox {
 		List<T> selected = new ArrayList<T>();
 		for (int index = 0; index < list.size(); index++) {
 			if (isItemSelected(index)) {
-				GWT.log("selected item== "+list.get(index));
+				GWT.log("selected item== " + list.get(index));
 				selected.add(list.get(index));
 			} else {
 				remaining.add(list.get(index));

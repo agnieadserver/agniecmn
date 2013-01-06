@@ -7,7 +7,6 @@ import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -123,9 +122,9 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 	public void addStep(Widget step) {
 		int currentCount = getStepCount();
 		// Remove "final" style class from previous step widget
-		
+
 		ClickDelegatePanel delWidget = new ClickDelegatePanel(step);
-		String className="step"+currentCount;
+		String className = "step" + currentCount;
 		delWidget.addStyleName(className);
 		delWidget.addStyleName(resource.css().lastElement());
 		if (currentCount == 0) {
@@ -291,8 +290,8 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 		selected.removeStyleName(resource.css().inactive());
 		selected.removeStyleName(resource.css().lastDone());
 		selected.addStyleName(resource.css().active());
-		if(index!=(panel.getWidgetCount()-1)){
-			panel.getWidget(panel.getWidgetCount()-1).removeStyleName(resource.css().lastActiveElement());
+		if (index != (panel.getWidgetCount() - 1)) {
+			panel.getWidget(panel.getWidgetCount() - 1).removeStyleName(resource.css().lastActiveElement());
 		}
 		if (fireEvents) {
 			SelectionEvent.fire(this, index);
@@ -329,7 +328,7 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 		selected = panel.getWidget(index);
 		selected.removeStyleName(resource.css().inactive());
 		selected.addStyleName(resource.css().active());
-		if(index==(panel.getWidgetCount()-1)){
+		if (index == (panel.getWidgetCount() - 1)) {
 			selected.addStyleName(resource.css().lastActiveElement());
 		}
 		if (fireEvents) {

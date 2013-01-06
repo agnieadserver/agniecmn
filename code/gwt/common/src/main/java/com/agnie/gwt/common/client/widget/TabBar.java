@@ -277,8 +277,10 @@ public class TabBar extends Composite implements HasBeforeSelectionHandlers<Inte
 		ClickDelegatePanel delPanel = (ClickDelegatePanel) panel.getWidget(index);
 		delPanel.setEnabled(enabled);
 		// Need to Decide on what style to apply in case of diabled tab.
-		// setStyleName(delPanel.getElement(), "gwt-TabBarItem-disabled", !enabled);
-		// setStyleName(delPanel.getElement().getParentElement(), "gwt-TabBarItem-wrapper-disabled", !enabled);
+		// setStyleName(delPanel.getElement(), "gwt-TabBarItem-disabled",
+		// !enabled);
+		// setStyleName(delPanel.getElement().getParentElement(),
+		// "gwt-TabBarItem-wrapper-disabled", !enabled);
 	}
 
 	/**

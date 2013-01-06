@@ -8,5 +8,5 @@ public interface MenuPanResources extends ClientBundle {
 
 	@Source("MenuPanCss.css")
 	MenuPanCss css();
-	
+
 }

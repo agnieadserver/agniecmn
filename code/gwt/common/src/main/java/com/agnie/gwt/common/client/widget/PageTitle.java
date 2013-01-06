@@ -36,6 +36,7 @@ public class PageTitle extends Composite {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
 		initWidget(container);
 	}
+
 	public void setPageTitle(String title) {
 		pageTitle.setInnerText(title);
 	}

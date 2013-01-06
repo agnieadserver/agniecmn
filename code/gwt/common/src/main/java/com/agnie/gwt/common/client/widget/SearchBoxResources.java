@@ -9,7 +9,7 @@ public interface SearchBoxResources extends ClientBundle {
 
 	@Source("SearchBoxCss.css")
 	SearchBoxCss css();
-	
+
 	@Source("searchImg.png")
 	ImageResource searchImg();
 }

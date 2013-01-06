@@ -50,7 +50,7 @@ public class CopyOfLocaleListBox extends ListBox {
 			public void onChange(ChangeEvent event) {
 
 				String selectLocale = getSelectedLocale();
-				Window.alert("SelecteLocale=="+selectLocale);
+				Window.alert("SelecteLocale==" + selectLocale);
 				if (!SELECT.equals(selectLocale)) {
 					Window.Location.assign(ug.getChangeLocaleURL((URLInfo) GWT.create(URLInfo.class), selectLocale));
 				}

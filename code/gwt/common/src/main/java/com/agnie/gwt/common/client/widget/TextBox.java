@@ -24,7 +24,7 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  */
 public class TextBox extends Composite {
-	private static TextBoxResources resource = TextBoxResources.INSTANCE;
+	private static TextBoxResources	resource	= TextBoxResources.INSTANCE;
 
 	static {
 		resource.css().ensureInjected();
@@ -33,24 +33,24 @@ public class TextBox extends Composite {
 	interface MyUiBinder extends UiBinder<Widget, TextBox> {
 	}
 
-	private static MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
+	private static MyUiBinder				uiBinder	= GWT.create(MyUiBinder.class);
 
 	@UiField
-	com.google.gwt.user.client.ui.TextBox textBox;
+	com.google.gwt.user.client.ui.TextBox	textBox;
 
 	@UiField
-	HTMLPanel errorPan;
+	HTMLPanel								errorPan;
 
 	@UiField
-	ImageElement img;
+	ImageElement							img;
 
 	@UiField
-	SpanElement message;
+	SpanElement								message;
 
 	@UiField
-	Image close;
+	Image									close;
 
-	protected HTMLPanel container;
+	protected HTMLPanel						container;
 
 	public TextBox() {
 

@@ -14,7 +14,7 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  */
 public class CloseBtn extends Composite {
-	private static CloseBtnResources resource = CloseBtnResources.INSTANCE;
+	private static CloseBtnResources	resource	= CloseBtnResources.INSTANCE;
 
 	static {
 		resource.css().ensureInjected();
@@ -23,12 +23,12 @@ public class CloseBtn extends Composite {
 	interface MyUiBinder extends UiBinder<Widget, CloseBtn> {
 	}
 
-	private static MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
+	private static MyUiBinder	uiBinder	= GWT.create(MyUiBinder.class);
 
 	@UiField
-	Image closeBtn;
+	Image						closeBtn;
 
-	protected HTMLPanel container;
+	protected HTMLPanel			container;
 
 	public CloseBtn() {
 		this(resource.css().closeWidget());
@@ -38,8 +38,8 @@ public class CloseBtn extends Composite {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
 		container.addStyleName(styleClassName);
 		initWidget(container);
-		
-		closeBtn.setUrl(GWT.getModuleBaseURL()+"images/transparent.png");
+
+		closeBtn.setUrl(GWT.getModuleBaseURL() + "images/transparent.png");
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class CloseBtn extends Composite {
 	public void addClickHandler(ClickHandler handler) {
 		this.closeBtn.addClickHandler(handler);
 	}
-	
+
 	public static CloseBtnResources getResources() {
 		return resource;
 	}

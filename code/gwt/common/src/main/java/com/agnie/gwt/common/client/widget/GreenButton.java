@@ -49,9 +49,9 @@ public class GreenButton extends FocusWidget {
 	public static GreenButtonResources getResources() {
 		return resource;
 	}
-	
+
 	@UiFactory
-	public static String getBasePath(){
+	public static String getBasePath() {
 		return GWT.getModuleBaseURL();
 	}
 

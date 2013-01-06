@@ -24,11 +24,10 @@ public class BreadCrumbPanel extends Composite {
 	static {
 		resource.css().ensureInjected();
 	}
+
 	public interface BreadCrumb extends HasClickHandlers {
 
 	}
-	
-	
 
 	private class ClickDelegatePanel extends Composite implements BreadCrumb {
 
@@ -67,7 +66,6 @@ public class BreadCrumbPanel extends Composite {
 	private static final String	BREAD_CRUMB_CONTAINER_DEFAULT_STYLE	= "bread-crumb";
 	private HTMLPanel			container;
 	private HTMLPanel			panel;
-	
 
 	public BreadCrumbPanel() {
 		this(BREAD_CRUMB_CONTAINER_DEFAULT_STYLE);
@@ -77,9 +75,9 @@ public class BreadCrumbPanel extends Composite {
 	 * Creates an empty Bread Crumb panel.
 	 */
 	public BreadCrumbPanel(String styleClassName) {
-		container=new HTMLPanel("");
+		container = new HTMLPanel("");
 		container.addStyleName("clearfix");
-		
+
 		panel = new HTMLPanel("");
 		container.add(panel);
 		initWidget(container);
@@ -99,13 +97,20 @@ public class BreadCrumbPanel extends Composite {
 
 		item.setWordWrap(false);
 		ClickDelegatePanel delWidget = new ClickDelegatePanel(item);
-		GWT.log("WidgetCount=="+panel.getWidgetCount());
-		/* If breadcrumb contains only one widget then no any separator needed when it(count) exceeds 1 we need to add separator */
-		if(panel.getWidgetCount()>=1){			//at here we have to add separator
-			int index=panel.getWidgetCount()-1;	//except last node
-			for(int i=0;i<=index;i++){			//in between all nodes 
-			panel.getWidget(i).removeStyleName("last-node"); //so remove style without separator
-			panel.getWidget(i).addStyleName("node");		//add style with separator
+		GWT.log("WidgetCount==" + panel.getWidgetCount());
+		/*
+		 * If breadcrumb contains only one widget then no any separator needed when it(count) exceeds 1 we need to add
+		 * separator
+		 */
+		if (panel.getWidgetCount() >= 1) { // at here we have to add separator
+			int index = panel.getWidgetCount() - 1; // except last node
+			for (int i = 0; i <= index; i++) { // in between all nodes
+				panel.getWidget(i).removeStyleName("last-node"); // so remove
+																	// style
+																	// without
+																	// separator
+				panel.getWidget(i).addStyleName("node"); // add style with
+															// separator
 			}
 		}
 		panel.add(delWidget);
@@ -166,8 +171,10 @@ public class BreadCrumbPanel extends Composite {
 		ClickDelegatePanel delPanel = (ClickDelegatePanel) panel.getWidget(index);
 		delPanel.setEnabled(enabled);
 		// Need to Decide on what style to apply in case of diabled tab.
-		// setStyleName(delPanel.getElement(), "gwt-TabBarItem-disabled", !enabled);
-		// setStyleName(delPanel.getElement().getParentElement(), "gwt-TabBarItem-wrapper-disabled", !enabled);
+		// setStyleName(delPanel.getElement(), "gwt-TabBarItem-disabled",
+		// !enabled);
+		// setStyleName(delPanel.getElement().getParentElement(),
+		// "gwt-TabBarItem-wrapper-disabled", !enabled);
 	}
 
 	/**

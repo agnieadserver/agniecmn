@@ -36,14 +36,14 @@ public class LabelTextBox extends TextBox {
 
 			@Override
 			public void onFocus(FocusEvent event) {
-				if(!dirtyFlag){
+				if (!dirtyFlag) {
 					setText("");
 				}
-				
+
 				removeStyle();
 			}
 		});
-		
+
 		super.addBlurHandler(new BlurHandler() {
 
 			@Override
@@ -52,37 +52,39 @@ public class LabelTextBox extends TextBox {
 				if (text.trim().isEmpty()) {
 					setText(getLabel());
 					addStyle();
-					dirtyFlag=false;
+					dirtyFlag = false;
 				}
 			}
 		});
 		super.addKeyPressHandler(new KeyPressHandler() {
-			
+
 			@Override
 			public void onKeyPress(KeyPressEvent event) {
-				dirtyFlag=true;
+				dirtyFlag = true;
 			}
 		});
 
 	}
+
 	/**
 	 * to get textbox
+	 * 
 	 * @return
 	 */
-	
+
 	public TextBox getTextBox() {
 		return this;
 	}
-	
-	
+
 	/**
 	 * to get ErrorMessage Panel
+	 * 
 	 * @return
 	 */
-	public HTMLPanel getErrorPan(){
+	public HTMLPanel getErrorPan() {
 		return this.errorPan;
 	}
-	
+
 	protected void removeStyle() {
 		super.textBox.removeStyleName("text-field-label");
 	}
@@ -125,5 +127,5 @@ public class LabelTextBox extends TextBox {
 		else
 			return "";
 	}
-	
+
 }

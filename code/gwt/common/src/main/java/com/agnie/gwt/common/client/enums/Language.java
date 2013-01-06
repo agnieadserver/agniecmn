@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.agnie.gwt.common.client.renderer.Title;
 
-public enum Language implements Serializable,Title {
+public enum Language implements Serializable, Title {
 	MARATHI("mr", "मराठी"), HINDI("hi", "हिन्दी"), ENGLISH("en", "English");
 	private String	code;
 	private String	label;

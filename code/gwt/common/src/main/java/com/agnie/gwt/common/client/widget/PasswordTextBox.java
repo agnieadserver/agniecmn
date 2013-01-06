@@ -1,8 +1,8 @@
 package com.agnie.gwt.common.client.widget;
 
-
 /**
- * A type of widget PasswordBox extends existing <br>TextBox 'widget with error message feature'.
+ * A type of widget PasswordBox extends existing <br>
+ * TextBox 'widget with error message feature'.
  * 
  * 
  */

@@ -9,8 +9,8 @@ public interface CloseBtnResources extends ClientBundle {
 
 	@Source("CloseBtnCss.css")
 	CloseBtnCss css();
-	
+
 	@Source("cross2.png")
 	ImageResource crossImg();
-	
+
 }

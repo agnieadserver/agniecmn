@@ -51,7 +51,9 @@ public class LocaleListBox extends CustomListBox<Language> {
 			}
 		}
 
-		/* As per single thread functionality of Browsers,To avoid infinite loop ,putting addChangeHandler in Sheduler */
+		/*
+		 * As per single thread functionality of Browsers,To avoid infinite loop ,putting addChangeHandler in Sheduler
+		 */
 
 		Scheduler.get().scheduleDeferred(new Command() {
 			public void execute() {

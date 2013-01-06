@@ -8,8 +8,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * StyledListBox with method to add any listbox widget.
- * In this the dropDown css is changed.
+ * StyledListBox with method to add any listbox widget. In this the dropDown css is changed.
  */
 public class StyledListBox extends Composite {
 	private static StyledListBoxResources	resource	= StyledListBoxResources.INSTANCE;
@@ -21,8 +20,7 @@ public class StyledListBox extends Composite {
 	interface MyUiBinder extends UiBinder<Widget, StyledListBox> {
 	}
 
-	private static MyUiBinder	uiBinder		= GWT.create(MyUiBinder.class);
-
+	private static MyUiBinder	uiBinder	= GWT.create(MyUiBinder.class);
 
 	protected HTMLPanel			container;
 
@@ -30,15 +28,16 @@ public class StyledListBox extends Composite {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
 		initWidget(container);
 	}
-	
+
 	/**
 	 * Sets ListBox widget in main container.
+	 * 
 	 * @param listBox
 	 */
 	@UiChild
-	public void addListBox(Widget listBox){
-		if(listBox!=null){
-		container.add(listBox);
+	public void addListBox(Widget listBox) {
+		if (listBox != null) {
+			container.add(listBox);
 		}
 	}
 

@@ -22,24 +22,25 @@ public class SelectUnselect<T> extends Composite {
 		resource.css().ensureInjected();
 	}
 	@UiField
-	ListBox<T>	available;
+	ListBox<T>								available;
 
 	@UiField
-	ListBox<T>	selected;
+	ListBox<T>								selected;
 
 	@UiField
-	Button		mvlft;
+	Button									mvlft;
 
 	@UiField
-	Button		mvrgt;
-	
-	@UiField
-	DivElement	avlLabel;
-	@UiField
-	DivElement	selLabel;
+	Button									mvrgt;
 
-	GetText<T>	getText;
+	@UiField
+	DivElement								avlLabel;
+	@UiField
+	DivElement								selLabel;
 
+	GetText<T>								getText;
+
+	@SuppressWarnings("rawtypes")
 	interface SelectUnselectUiBinder extends UiBinder<Widget, SelectUnselect> {
 	}
 
@@ -53,16 +54,17 @@ public class SelectUnselect<T> extends Composite {
 		mvlft.setText("<<");
 		mvrgt.setText(">>");
 	}
-	
-	public void setButtonStyle(String style){
+
+	public void setButtonStyle(String style) {
 		mvlft.addStyleName(style);
 		mvrgt.addStyleName(style);
 	}
-	
-	public void setAvlLabel(String label){
+
+	public void setAvlLabel(String label) {
 		avlLabel.setInnerText(label);
 	}
-	public void setSelLabel(String label){
+
+	public void setSelLabel(String label) {
 		selLabel.setInnerText(label);
 	}
 
@@ -102,6 +104,7 @@ public class SelectUnselect<T> extends Composite {
 		mvlft.setEnabled(false);
 		mvrgt.setEnabled(false);
 	}
+
 	public static SelectUnselectResources getResources() {
 		return resource;
 	}

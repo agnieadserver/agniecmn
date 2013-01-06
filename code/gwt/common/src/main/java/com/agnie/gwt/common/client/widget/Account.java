@@ -9,7 +9,6 @@ import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -57,14 +56,15 @@ public class Account extends Composite {
 	public Account() {
 		this(resource.css().accPan());
 	}
-	CancelClickHandler cancleClikInstance=new CancelClickHandler();
-	
+
+	CancelClickHandler	cancleClikInstance	= new CancelClickHandler();
+
 	public Account(String styleClassName) {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
 		container.addStyleName(styleClassName);
 		initWidget(container);
 		setUserImageResource(resource.person());
-		accImg.setUrl(GWT.getModuleBaseURL()+"images/transparent.png");
+		accImg.setUrl(GWT.getModuleBaseURL() + "images/transparent.png");
 
 		accTitlePan.sinkEvents(Event.ONCLICK);// 'enables' click events for the
 												// HtmlPanel
@@ -80,16 +80,17 @@ public class Account extends Composite {
 			}
 		}, ClickEvent.getType());
 	}
-	
-	private void hide(){
+
+	private void hide() {
 		accDropPan.removeClassName(resource.css().accDropPanVisible());
 		visibleDropPan = false;
 	}
-	
-	private void show(){
+
+	private void show() {
 		accDropPan.addClassName(resource.css().accDropPanVisible());
 		visibleDropPan = true;
 	}
+
 	public void addChangePassClickHandler(ClickHandler handler) {
 		changePass.addClickHandler(handler);
 		changePass.addClickHandler(cancleClikInstance);
@@ -124,14 +125,14 @@ public class Account extends Composite {
 	public static AccountResources getResources() {
 		return resource;
 	}
-	
+
 	private class CancelClickHandler implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {
 			hide();
 		}
-		
+
 	}
 
 }

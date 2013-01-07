@@ -37,7 +37,7 @@ public class LocaleListBox extends CustomListBox<Language> {
 		init();
 	}
 
-	public void init() {
+	private void init() {
 		String selectedLocale = Location.getParameter(QueryString.LOCALE.getKey());
 		if (selectedLocale == null || "".equals(selectedLocale)) {
 			selectedLocale = Language.ENGLISH.getCode();
@@ -73,7 +73,7 @@ public class LocaleListBox extends CustomListBox<Language> {
 		});
 	}
 
-	public List<Language> getList() {
+	private List<Language> getList() {
 		list = new ArrayList<Language>();
 
 		for (Language language : Language.values()) {
@@ -87,7 +87,7 @@ public class LocaleListBox extends CustomListBox<Language> {
 	 * 
 	 * @return
 	 */
-	public Language getSelectedLocale() {
+	private Language getSelectedLocale() {
 		return getSelectedItem();
 	}
 

@@ -12,6 +12,7 @@
 }
 
 .custom-list-box-pan .custom-list-title-pan {
+	cursor:pointer;
 	min-height: 20px;
 	font-size: 14px;
 	font-family: "Avant Garde", "Century Gothic", "Avant Garde Gothic",
@@ -28,6 +29,16 @@
 	float: left;
 }
 
+@sprite .custom-list-box-pan .custom-list-img-up {
+	gwt-image: 'arrowDarkUpImg';
+	cursor: pointer;
+	float: right;
+	margin-left: 10px;
+	margin-top: 6px;
+	height: 5px;
+	width: 9px;
+}
+
 @sprite .custom-list-box-pan .custom-list-img {
 	gwt-image: 'arrowDarkImg';
 	cursor: pointer;
@@ -37,4 +48,4 @@
 	height: 5px;
 	width: 9px;
 }
-@external custom-list-box-border, cell-list-separator, custom-list-box-pan, custom-list-title-pan, custom-list-title, custom-list-img;
+@external custom-list-box-border, cell-list-separator, custom-list-box-pan, custom-list-title-pan, custom-list-title, custom-list-img,custom-list-img-up;

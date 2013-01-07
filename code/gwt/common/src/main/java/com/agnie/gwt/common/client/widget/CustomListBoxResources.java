@@ -12,5 +12,8 @@ public interface CustomListBoxResources extends ClientBundle {
 
 	@Source("arrowDark.png")
 	ImageResource arrowDarkImg();
+	
+	@Source("arrowDarkUp.png")
+	ImageResource arrowDarkUpImg();
 
 }

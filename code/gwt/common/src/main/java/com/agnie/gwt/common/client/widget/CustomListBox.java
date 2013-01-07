@@ -12,6 +12,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellList;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -79,22 +80,26 @@ public class CustomListBox<TYPE extends Title> extends Composite {
 		cellList.setKeyboardSelectedRow(0);
 
 		cellList.setVisible(false);
-		customListImg.addClickHandler(new ClickHandler() {
 
+		listTitlePan.sinkEvents(Event.ONCLICK);
+		listTitlePan.addHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				if (cellList.isVisible()) {
 					cellList.setVisible(false);
 					cellList.removeStyleName(resource.css().cellListSeparator());
 					container.removeStyleName(resource.css().customListBoxBorder());
+					customListImg.removeStyleName(resource.css().customListImgUp());
+					customListImg.addStyleName(resource.css().customListImg());
 				} else {
 					cellList.setVisible(true);
 					cellList.addStyleName(resource.css().cellListSeparator());
 					container.addStyleName(resource.css().customListBoxBorder());
+					customListImg.removeStyleName(resource.css().customListImg());
+					customListImg.addStyleName(resource.css().customListImgUp());
 				}
-
 			}
-		});
+		}, ClickEvent.getType());
 	}
 
 	public void addChangeHandler(ChangeHandler handler) {

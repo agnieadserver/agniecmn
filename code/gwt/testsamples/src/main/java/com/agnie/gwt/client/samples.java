@@ -8,11 +8,12 @@ import com.agnie.gwt.client.renderer.PearsonCell;
 import com.agnie.gwt.client.renderer.Person;
 import com.agnie.gwt.common.client.renderer.TitleString;
 import com.agnie.gwt.common.client.widget.Account;
+import com.agnie.gwt.common.client.widget.CloseBtn;
 import com.agnie.gwt.common.client.widget.CustomListBox;
 import com.agnie.gwt.common.client.widget.LocaleListBox;
 import com.agnie.gwt.common.client.widget.StyledListBox;
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.HTMLPanel;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -50,12 +51,17 @@ public class samples implements EntryPoint {
 	// TextBox tB = new TextBox();
 	// PasswordTextBox ptb = new PasswordTextBox();
 	// WizardBar wb = new WizardBar();
-	// CloseBtn cb = new CloseBtn();
+	CloseBtn					cb					= new CloseBtn();
 	// GreenButton gb=new GreenButton("Hello");
 	// CustomMenuPan cMenuPan = new CustomMenuPan();
 	// MenuPanTest menuPanTest = new MenuPanTest();
-
+	DialogBoxTest				dbt					= new DialogBoxTest();
+	HTMLPanel hp=new HTMLPanel("Hello all how are you!\n Its exciting to styling any widget\n is it?");
 	public void onModuleLoad() {
+		cb.setTitle("CloseButton");
+		dbt.getDialogBox().addContent(hp);
+		dbt.getDialogBox().addContent(cb);
+		dbt.getDialogBox().show();
 		// GWT.log("IN onmoduleLoad Start.");
 		// img.setUrl("images/search.png");
 		// bcp.addBreadCrumb("BreadCrumb1",img);
@@ -170,7 +176,7 @@ public class samples implements EntryPoint {
 		// slb.addListBox(box);
 
 		// RootPanel.get().add(box1);
-		RootPanel.get().add(box);
+		// RootPanel.get().add(box);
 		// Locale Box Test -- end
 
 		// ListBoxt Test -- start
@@ -288,6 +294,7 @@ public class samples implements EntryPoint {
 		// RootPanel.get().add(cMenuPan);
 
 		// RootPanel.get().add(menuPanTest.getMenuPan());
+
 	}
 
 	public List<TitleString> createDummyList() {

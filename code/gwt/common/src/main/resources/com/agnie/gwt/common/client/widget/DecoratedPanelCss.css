@@ -11,20 +11,29 @@
 }
 
 .dec-panel {
-	border: 3px solid blue;
-	border-radius: 4px 3px 3px 3px;
-	background-color: #3BB9FF;
+	background: none repeat scroll 0 0 #EEEEEE;
+	border-radius: 5px 5px 5px 5px;
+	padding: 5px;
 }
 
 .content-pan {
-	background-color: #3BB9FF;
 	height: 90%;
+	padding: 5px;
 }
 
 .dec-panel .header-pan {
-	background-color: wheat;
 	height: 10%;
+	padding: 5px;
 	min-height: 25px;
+	background: #7d7e7d; /* Old browsers */
+	background: -moz-linear-gradient(top,  #7d7e7d 0%, #0e0e0e 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7d7e7d), color-stop(100%,#0e0e0e)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #7d7e7d 0%,#0e0e0e 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #7d7e7d 0%,#0e0e0e 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #7d7e7d 0%,#0e0e0e 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #7d7e7d 0%,#0e0e0e 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 ); /* IE6-9 */
+	
 }
 
 .dec-panel .header-pan a {
@@ -34,26 +43,16 @@
 }
 
 .dec-panel .header-pan a:hover {
-	background-color: red;
 	text-decoration: none;
 }
 
 .dec-panel .header-pan span {
 	font-size: 15px;
 	font-weight: bold;
+	float: left;
+	margin-right: 25px;
+	color: white;
+	text-shadow: 0px -1px black
 }
 
-.dec-panel:after {
-	background: none repeat scroll 0 0 #EEEEEE;
-	border-radius: 5px 5px 5px 5px;
-	box-shadow: 0 0 0 1px #E1E1E1 inset;
-	content: "";
-	height: 100%;
-	left: -4px;
-	padding: 4px;
-	position: absolute;
-	top: -4px;
-	width: 100%;
-	z-index: -1;
-}
 @external dec-panel,content-pan,header-pan,close-btn,min-btn,max-btn;

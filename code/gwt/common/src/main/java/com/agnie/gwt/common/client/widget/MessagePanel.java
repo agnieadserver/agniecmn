@@ -1,15 +1,17 @@
 package com.agnie.gwt.common.client.widget;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.SpanElement;
+import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -33,9 +35,9 @@ public class MessagePanel extends Composite {
 	@UiField
 	HTMLPanel					messagePan;
 	@UiField
-	Image						img;
+	ImageElement				img;
 	@UiField
-	SpanElement					message;
+	HTML						message;
 	@UiField
 	Anchor						close;
 	public String				type;
@@ -43,6 +45,7 @@ public class MessagePanel extends Composite {
 	public MessagePanel() {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
 		initWidget(container);
+
 		close.addStyleName(resource.css().closeBtn());
 		close.addClickHandler(new ClickHandler() {
 
@@ -82,7 +85,17 @@ public class MessagePanel extends Composite {
 	 *            message.
 	 */
 	public void setMessage(String message) {
-		this.message.setInnerText(message);
+		this.message.setText(message);
+	}
+	
+	/**
+	 * sets Message in MessagePanel 
+	 * @param html
+	 */
+
+	
+	public void setMessage(SafeHtml html) {
+		this.message.setHTML(html);
 	}
 
 	/**
@@ -111,22 +124,27 @@ public class MessagePanel extends Composite {
 		GWT.log("type==" + mt.toString());
 		if (type.equals("ERROR")) {
 			messagePan.addStyleName(resource.css().errorMessagePan());
-			message.addClassName(resource.css().errorMessage());
-			img.setResource(resource.error());
+			message.addStyleName(resource.css().errorMessage());
+			img.addClassName(resource.css().error());
 		} else if (type.equals("WARNING")) {
 			messagePan.addStyleName(resource.css().warningMessagePan());
-			message.addClassName(resource.css().warningMessage());
-			img.setResource(resource.warning());
+			message.addStyleName(resource.css().warningMessage());
+			img.addClassName(resource.css().warning());
 
 		} else if (type.equals("INFORMATION")) {
 			messagePan.addStyleName(resource.css().infoMessagePan());
-			message.addClassName(resource.css().infoMessage());
-			img.setResource(resource.info());
+			message.addStyleName(resource.css().infoMessage());
+			img.addClassName(resource.css().info());
 		}
 	}
 
 	public static MessagePanelResources getResources() {
 		return resource;
+	}
+	
+	@UiFactory
+	public static String getBasePath() {
+		return GWT.getModuleBaseURL();
 	}
 
 }

@@ -2,12 +2,23 @@
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 	<ui:with field='res'
 		type='com.agnie.gwt.common.client.widget.MessagePanelResources' />
+	<ui:with type="java.lang.String" field="moduleBaseUrl"></ui:with>	
 
 	<g:HTMLPanel addStyleNames='{res.css.messagePan}'>
 		<g:HTMLPanel ui:field="messagePan">
-			<g:Image ui:field="img"></g:Image>
-			<span ui:field="message"></span>
-			<g:Anchor ui:field="close" addStyleNames='{res.css.anchor}'></g:Anchor>
+			<table width="100%">
+				<tr>
+					<td style="width: 25px;">
+						<img ui:field="img" src="{moduleBaseUrl}images/transparent.png"></img>
+					</td>
+					<td >
+						<g:HTML ui:field="message"></g:HTML>
+					</td>
+					<td>
+						<g:Anchor ui:field="close"  addStyleNames='{res.css.anchor}'></g:Anchor>
+					</td>
+				</tr>
+			</table>
 		</g:HTMLPanel>
 	</g:HTMLPanel>
 </ui:UiBinder>

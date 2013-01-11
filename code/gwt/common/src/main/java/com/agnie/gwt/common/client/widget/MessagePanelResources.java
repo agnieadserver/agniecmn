@@ -10,7 +10,7 @@ public interface MessagePanelResources extends ClientBundle {
 	@Source("MessagePanelCss.css")
 	MessagePanelCss css();
 
-	@Source("Error.png")
+	@Source("error.png")
 	ImageResource error();
 
 	@Source("info.png")
@@ -19,7 +19,7 @@ public interface MessagePanelResources extends ClientBundle {
 	@Source("warning.png")
 	ImageResource warning();
 
-	@Source("close1.png")
+	@Source("cross2.png")
 	ImageResource closeBtn();
 
 }

@@ -8,6 +8,7 @@ import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
@@ -29,7 +30,7 @@ public class MessagePanel extends Composite {
 	interface MyUiBinder extends UiBinder<Widget, MessagePanel> {
 	}
 
-	private static MyUiBinder	uiBinder	= GWT.create(MyUiBinder.class);
+	private static MyUiBinder	uiBinder			= GWT.create(MyUiBinder.class);
 
 	protected HTMLPanel			container;
 	@UiField
@@ -41,6 +42,10 @@ public class MessagePanel extends Composite {
 	@UiField
 	Anchor						close;
 	public String				type;
+	private Timer				timer				= null;
+	private static final int	TIMEOUT				= 20000;
+	private String				prvMessagePanStyle	= "";
+	private String				prvImgStyle			= "";
 
 	public MessagePanel() {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
@@ -54,6 +59,41 @@ public class MessagePanel extends Composite {
 				container.setVisible(false);
 			}
 		});
+
+		this.hide();
+
+		timer = new Timer() {
+			public void run() {
+				MessagePanel.this.hide();
+			}
+		};
+	}
+
+	/**
+	 * To show the MessagePanel
+	 * 
+	 * @param milisecond
+	 *            delay to hide the MessagePanel
+	 * @param autoHide
+	 */
+
+	public void show(int milisecond, boolean autoHide) {
+
+		this.container.setVisible(true);
+		if (autoHide) {
+			timer.schedule(milisecond);
+		}
+	}
+
+	public void show(boolean autoHide) {
+		show(TIMEOUT, autoHide);
+	}
+
+	/**
+	 * To Hide the MessagePanel
+	 */
+	public void hide() {
+		this.container.setVisible(false);
 	}
 
 	/**
@@ -87,13 +127,13 @@ public class MessagePanel extends Composite {
 	public void setMessage(String message) {
 		this.message.setText(message);
 	}
-	
+
 	/**
-	 * sets Message in MessagePanel 
+	 * sets Message in MessagePanel
+	 * 
 	 * @param html
 	 */
 
-	
 	public void setMessage(SafeHtml html) {
 		this.message.setHTML(html);
 	}
@@ -113,35 +153,65 @@ public class MessagePanel extends Composite {
 	}
 
 	/**
-	 * sets type of message like ERROR,WARNING,INFO.
+	 * sets type of message like ERROR,WARNING,INFO. It overrides existing style
 	 * 
 	 * @param enum
 	 *            MessageType
 	 */
 	public void setType(MessageType mt) {
-		type = new String();
-		type = mt.toString();
-		GWT.log("type==" + mt.toString());
-		if (type.equals("ERROR")) {
-			messagePan.addStyleName(resource.css().errorMessagePan());
-			message.addStyleName(resource.css().errorMessage());
-			img.addClassName(resource.css().error());
-		} else if (type.equals("WARNING")) {
-			messagePan.addStyleName(resource.css().warningMessagePan());
-			message.addStyleName(resource.css().warningMessage());
-			img.addClassName(resource.css().warning());
 
-		} else if (type.equals("INFORMATION")) {
-			messagePan.addStyleName(resource.css().infoMessagePan());
-			message.addStyleName(resource.css().infoMessage());
-			img.addClassName(resource.css().info());
+		switch (mt) {
+
+		case ERROR: {
+
+			if (prvMessagePanStyle != null && !(prvMessagePanStyle.isEmpty())) {
+				messagePan.removeStyleName(prvMessagePanStyle);
+			}
+			prvMessagePanStyle = resource.css().errorMessagePan();
+			messagePan.addStyleName(prvMessagePanStyle);
+
+			if (prvImgStyle != null && !(prvImgStyle.isEmpty())) {
+				img.removeClassName(prvImgStyle);
+			}
+			prvImgStyle = resource.css().error();
+			img.addClassName(prvImgStyle);
+		}
+			break;
+		case WARNING: {
+			if (prvMessagePanStyle != null && !(prvMessagePanStyle.isEmpty())) {
+				messagePan.removeStyleName(prvMessagePanStyle);
+			}
+			prvMessagePanStyle = resource.css().warningMessagePan();
+			messagePan.addStyleName(prvMessagePanStyle);
+
+			if (prvImgStyle != null && !(prvImgStyle.isEmpty())) {
+				img.removeClassName(prvImgStyle);
+			}
+			prvImgStyle = resource.css().warning();
+			img.addClassName(prvImgStyle);
+
+		}
+			break;
+		case INFORMATION: {
+			if (prvMessagePanStyle != null && !(prvMessagePanStyle.isEmpty())) {
+				messagePan.removeStyleName(prvMessagePanStyle);
+			}
+			prvMessagePanStyle = resource.css().infoMessagePan();
+			messagePan.addStyleName(prvMessagePanStyle);
+			if (prvImgStyle != null && !(prvImgStyle.isEmpty())) {
+				img.removeClassName(prvImgStyle);
+			}
+			prvImgStyle = resource.css().info();
+			img.addClassName(prvImgStyle);
+		}
+			break;
 		}
 	}
 
 	public static MessagePanelResources getResources() {
 		return resource;
 	}
-	
+
 	@UiFactory
 	public static String getBasePath() {
 		return GWT.getModuleBaseURL();

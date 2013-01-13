@@ -5,8 +5,8 @@
 	<ui:with type="java.lang.String" field="moduleBaseUrl"></ui:with>	
 
 	<g:HTMLPanel addStyleNames='{res.css.messagePan}'>
-		<g:HTMLPanel ui:field="messagePan">
-			<table width="100%">
+		<g:HTMLPanel ui:field="messagePan" >
+			<table width="100%" >
 				<tr>
 					<td style="width: 25px;">
 						<img ui:field="img" src="{moduleBaseUrl}images/transparent.png"></img>

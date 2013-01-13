@@ -5,9 +5,14 @@ import java.util.List;
 
 import com.agnie.gwt.client.renderer.Person;
 import com.agnie.gwt.common.client.renderer.TitleString;
+import com.agnie.gwt.common.client.widget.Loader;
+import com.agnie.gwt.common.client.widget.LoaderResources;
 import com.agnie.gwt.common.client.widget.MessagePanel;
 import com.agnie.gwt.common.client.widget.MessagePanel.MessageType;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
@@ -17,9 +22,10 @@ public class samples implements EntryPoint {
 	// LabelPasswordBox lpb = new LabelPasswordBox();
 	// LabelTextBox ltb = new LabelTextBox();
 	// Button save = new Button("save");
-	 MessagePanel mpi = new MessagePanel();
-	 MessagePanel mpe = new MessagePanel();
-	 MessagePanel mpw = new MessagePanel();
+	MessagePanel	mpi	= new MessagePanel();
+	MessagePanel	mpe	= new MessagePanel();
+	MessagePanel	mpw	= new MessagePanel();
+
 	// TextBox tb = new TextBox();
 	// List<String> celllist = new ArrayList<String>();
 	// SuggestionBox sb = new SuggestionBox();
@@ -28,17 +34,17 @@ public class samples implements EntryPoint {
 	// SearchBox searchBox = new SearchBox();
 	// Image img = new Image();
 	// PageTitle pt = new PageTitle();
-	//StyledListBox				slb					= new StyledListBox();
+	// StyledListBox slb = new StyledListBox();
 	// List<User> sel = new ArrayList<User>();
 	// List<User> av = new ArrayList<User>();
-	//Account						acc					= new Account();
+	// Account acc = new Account();
 	// Account acc1 = new Account();
 	// Account acc2 = new Account();
-//	CustomListCell				clc					= new CustomListCell();
-//	CustomListBox<TitleString>	clb					= new CustomListBox<TitleString>(clc);
-//
-//	PearsonCell					pCell				= new PearsonCell();
-//	CustomListBox<Person>		personCustomListBox	= new CustomListBox<Person>(pCell);
+	// CustomListCell clc = new CustomListCell();
+	// CustomListBox<TitleString> clb = new CustomListBox<TitleString>(clc);
+	//
+	// PearsonCell pCell = new PearsonCell();
+	// CustomListBox<Person> personCustomListBox = new CustomListBox<Person>(pCell);
 
 	// User us = new User();
 	// BreadCrumbPanel bcp = new BreadCrumbPanel();
@@ -46,17 +52,17 @@ public class samples implements EntryPoint {
 	// TextBox tB = new TextBox();
 	// PasswordTextBox ptb = new PasswordTextBox();
 	// WizardBar wb = new WizardBar();
-	//CloseBtn					cb					= new CloseBtn();
+	// CloseBtn cb = new CloseBtn();
 	// GreenButton gb=new GreenButton("Hello");
 	// CustomMenuPan cMenuPan = new CustomMenuPan();
 	// MenuPanTest menuPanTest = new MenuPanTest();
-	//DialogBoxTest				dbt					= new DialogBoxTest();
-	//HTMLPanel hp=new HTMLPanel("Hello all how are you!\n Its exciting to styling any widget\n is it?");
+	// DialogBoxTest dbt = new DialogBoxTest();
+	// HTMLPanel hp=new HTMLPanel("Hello all how are you!\n Its exciting to styling any widget\n is it?");
 	public void onModuleLoad() {
-//		cb.setTitle("CloseButton");
-//		dbt.getDialogBox().addContent(hp);
-//		dbt.getDialogBox().addContent(cb);
-//		dbt.getDialogBox().show();
+		// cb.setTitle("CloseButton");
+		// dbt.getDialogBox().addContent(hp);
+		// dbt.getDialogBox().addContent(cb);
+		// dbt.getDialogBox().show();
 		// GWT.log("IN onmoduleLoad Start.");
 		// img.setUrl("images/search.png");
 		// bcp.addBreadCrumb("BreadCrumb1",img);
@@ -100,16 +106,16 @@ public class samples implements EntryPoint {
 		// "ltb.getText()==" + ltb.getText());
 		// }
 		// });
-		 mpi.setType(MessageType.INFORMATION);
-		 mpi.setMessage("Information: infromation information height set nothing");
-		 // mpi.setHeight("20px");
-		 mpe.setType(MessageType.ERROR);
-		 mpe.setMessage("Error:error error height set to 40px");
-		 mpe.setHeight("40px");
-		 mpw.setType(MessageType.WARNING);
-		 mpw.setMessage("Warning:warning warning height set to 60 px");
-		 mpw.setHeight("60px");
-		 mpw.setWidth("200px");
+		mpi.setType(MessageType.INFORMATION);
+		mpi.setMessage("Information: infromation information height set nothing");
+		// mpi.setHeight("20px");
+		mpe.setType(MessageType.ERROR);
+		mpe.setMessage("Error:error error height set to 40px");
+		mpe.setHeight("40px");
+		mpw.setType(MessageType.WARNING);
+		mpw.setMessage("Warning:warning warning height set to 60 px");
+		mpw.setHeight("60px");
+		mpw.setWidth("200px");
 		//
 		// searchBox.setSize("200px", "20px");
 		// searchBox.setLabel("suresh");
@@ -128,9 +134,9 @@ public class samples implements EntryPoint {
 
 		// RootPanel.get().add(ltb);
 		// RootPanel.get().add(save);
-		 RootPanel.get().add(mpi);
-		 RootPanel.get().add(mpw);
-		 RootPanel.get().add(mpe);
+		RootPanel.get().add(mpi);
+		RootPanel.get().add(mpw);
+		RootPanel.get().add(mpe);
 		// RootPanel.get().add(lpb);
 		// TAB Bar Test -- start
 		// TabBarTest tabbar = new TabBarTest();
@@ -160,7 +166,7 @@ public class samples implements EntryPoint {
 		// RootPanel.get().add(searchBox);
 		// RootPanel.get().add(sb);
 		// Locale Box Test -- start
-		//LocaleListBox box = new LocaleListBox();
+		// LocaleListBox box = new LocaleListBox();
 		// LocaleListBox box1 = new LocaleListBox(clc);
 		// box.addChangeHandler(new CustomListBox.ChangeHandler() {
 		//
@@ -212,7 +218,7 @@ public class samples implements EntryPoint {
 		// });
 		// RootPanel.get().add(vselunPanel);
 		// //ListBoxt Test -- end
-		//acc.setAccName("UserName");
+		// acc.setAccName("UserName");
 		// acc.addChangePassClickHandler(new ClickHandler() {
 		//
 		// public void onClick(ClickEvent event) {
@@ -290,7 +296,19 @@ public class samples implements EntryPoint {
 		// RootPanel.get().add(cMenuPan);
 
 		// RootPanel.get().add(menuPanTest.getMenuPan());
+		loaderTest();
+	}
 
+	private void loaderTest() {
+		Button test = new Button("Test");
+		RootPanel.get().add(test);
+		test.addClickHandler(new ClickHandler() {
+
+			public void onClick(ClickEvent event) {
+				Loader loader = new Loader(LoaderResources.INSTANCE.gettingSynced());
+				loader.show();
+			}
+		});
 	}
 
 	public List<TitleString> createDummyList() {

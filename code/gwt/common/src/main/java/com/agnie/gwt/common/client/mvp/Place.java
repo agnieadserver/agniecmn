@@ -32,8 +32,9 @@ public class Place<PLACE extends Enum<PLACE>> {
 
 		if (token != null) {
 			for (String singToken : token.split("&")) {
-				String[] keyValue = singToken.split("=");
-				parameters.put(keyValue[0], keyValue[1]);
+				if (!singToken.isEmpty()) {
+					parameters.put(singToken.substring(0, singToken.indexOf('=')), singToken.substring(singToken.indexOf('=') + 1, singToken.length()));
+				}
 			}
 		}
 	}

@@ -280,7 +280,7 @@ public class samples implements EntryPoint {
 
 		// RootPanel.get().add(menuPanTest.getMenuPan());
 		messagePanelTest();
-		loaderTest();
+		//loaderTest();
 	}
 
 	public void messagePanelTest() {

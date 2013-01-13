@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.agnie.gwt.client.renderer.Person;
 import com.agnie.gwt.common.client.renderer.TitleString;
+import com.agnie.gwt.common.client.widget.Loader;
+import com.agnie.gwt.common.client.widget.LoaderResources;
 import com.agnie.gwt.common.client.widget.MessagePanel;
 import com.agnie.gwt.common.client.widget.MessagePanel.MessageType;
 import com.google.gwt.core.client.EntryPoint;
@@ -12,7 +14,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -20,19 +21,16 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class samples implements EntryPoint {
 	// LabelPasswordBox lpb = new LabelPasswordBox();
 	// LabelTextBox ltb = new LabelTextBox();
-	Button			save	= new Button("save");
-	Button			save1	= new Button("save1");
-	Button			save2	= new Button("save2");
-	Button			save3	= new Button("save3");
-	MessagePanel	mpi		= new MessagePanel();
-	MessagePanel	mpe		= new MessagePanel();
-	MessagePanel	mpw		= new MessagePanel();
+	// Button save = new Button("save");
+	MessagePanel	mpi	= new MessagePanel();
+	MessagePanel	mpe	= new MessagePanel();
+	MessagePanel	mpw	= new MessagePanel();
+
 	// TextBox tb = new TextBox();
 	// List<String> celllist = new ArrayList<String>();
 	// SuggestionBox sb = new SuggestionBox();
 	// DecoratedPanel dp = new DecoratedPanel();
-	VerticalPanel	dp1		= new VerticalPanel();
-
+	// VerticalPanel dp1 = new VerticalPanel();
 	// SearchBox searchBox = new SearchBox();
 	// Image img = new Image();
 	// PageTitle pt = new PageTitle();
@@ -60,9 +58,7 @@ public class samples implements EntryPoint {
 	// MenuPanTest menuPanTest = new MenuPanTest();
 	// DialogBoxTest dbt = new DialogBoxTest();
 	// HTMLPanel hp=new HTMLPanel("Hello all how are you!\n Its exciting to styling any widget\n is it?");
-
 	public void onModuleLoad() {
-		messagePanelTest();
 		// cb.setTitle("CloseButton");
 		// dbt.getDialogBox().addContent(hp);
 		// dbt.getDialogBox().addContent(cb);
@@ -110,7 +106,16 @@ public class samples implements EntryPoint {
 		// "ltb.getText()==" + ltb.getText());
 		// }
 		// });
-		
+		mpi.setType(MessageType.INFORMATION);
+		mpi.setMessage("Information: infromation information height set nothing");
+		// mpi.setHeight("20px");
+		mpe.setType(MessageType.ERROR);
+		mpe.setMessage("Error:error error height set to 40px");
+		mpe.setHeight("40px");
+		mpw.setType(MessageType.WARNING);
+		mpw.setMessage("Warning:warning warning height set to 60 px");
+		mpw.setHeight("60px");
+		mpw.setWidth("200px");
 		//
 		// searchBox.setSize("200px", "20px");
 		// searchBox.setLabel("suresh");
@@ -129,8 +134,9 @@ public class samples implements EntryPoint {
 
 		// RootPanel.get().add(ltb);
 		// RootPanel.get().add(save);
-		
-
+		RootPanel.get().add(mpi);
+		RootPanel.get().add(mpw);
+		RootPanel.get().add(mpe);
 		// RootPanel.get().add(lpb);
 		// TAB Bar Test -- start
 		// TabBarTest tabbar = new TabBarTest();
@@ -290,69 +296,19 @@ public class samples implements EntryPoint {
 		// RootPanel.get().add(cMenuPan);
 
 		// RootPanel.get().add(menuPanTest.getMenuPan());
-
+		loaderTest();
 	}
-	
-	public void messagePanelTest(){
-		mpi.setType(MessageType.INFORMATION);
-		mpi.setMessage("Information: infromation information height set nothing");
 
-		mpi.setType(MessageType.ERROR);
-		mpi.setMessage("ERRORINFORMATION: infromation information height set nothing");
-		
-
-		save.addClickHandler(new ClickHandler() {
+	private void loaderTest() {
+		Button test = new Button("Test");
+		RootPanel.get().add(test);
+		test.addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
-				mpi.setType(MessageType.INFORMATION);
-				mpi.setMessage("Information: infromation information height set nothing");
-				mpi.show(true);
+				Loader loader = new Loader(LoaderResources.INSTANCE.gettingSynced());
+				loader.show();
 			}
 		});
-		save1.addClickHandler(new ClickHandler() {
-
-			public void onClick(ClickEvent event) {
-				mpi.setType(MessageType.WARNING);
-				mpi.setMessage("WARNInformation: infromation information height set nothing");
-				mpi.show(true);
-			}
-		});
-		save2.addClickHandler(new ClickHandler() {
-
-			public void onClick(ClickEvent event) {
-				mpi.setType(MessageType.ERROR);
-				mpi.setMessage("ERRORInformation: infromation information height set nothing");
-				mpi.show(true);
-			}
-		});
-		save3.addClickHandler(new ClickHandler() {
-
-			public void onClick(ClickEvent event) {
-				mpi.setType(MessageType.WARNING);
-				mpi.setMessage("WARNINGInformation: infromation information height set nothing");
-				mpi.show(true);
-			}
-		});
-		// mpi.setHeight("20px");
-		mpe.setType(MessageType.ERROR);
-		mpe.setMessage("Error:error error height set to 40px");
-		mpe.setHeight("40px");
-		mpw.setType(MessageType.WARNING);
-		mpw.setMessage("Warning:warning warning height set to 60 px");
-		mpw.setHeight("60px");
-		mpw.setWidth("200px");
-		
-		
-		mpe.show(false);
-		mpw.show(false);
-		RootPanel.get().add(mpi);
-		RootPanel.get().add(mpw);
-		RootPanel.get().add(mpe);
-		RootPanel.get().add(save);
-		RootPanel.get().add(save1);
-		RootPanel.get().add(save2);
-		RootPanel.get().add(save3);
-		
 	}
 
 	public List<TitleString> createDummyList() {

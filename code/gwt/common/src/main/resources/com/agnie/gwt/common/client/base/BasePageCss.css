@@ -61,6 +61,10 @@ a,img a,img,a img {
 	display: none;
 }
 
+:focus {
+	outline: none;
+}
+
 input[type="text"],input[type="password"],textarea {
 	border: 1px solid #AAAAAA;
 	border-radius: 4px 4px 4px 4px;

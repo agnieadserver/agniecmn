@@ -2,8 +2,6 @@ package com.agnie.gwt.common.client.widget;
 
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
-import com.google.gwt.event.dom.client.FocusEvent;
-import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -32,17 +30,18 @@ public class LabelTextBox extends TextBox {
 	public LabelTextBox(String label) {
 
 		setLabel(label);
-		super.addFocusHandler(new FocusHandler() {
-
-			@Override
-			public void onFocus(FocusEvent event) {
-				if (!dirtyFlag) {
-					setText("");
-				}
-
-				removeStyle();
-			}
-		});
+		this.label=label;
+		/*TODO:It is not working on some Chromium version so need to check.*/
+//		super.addFocusHandler(new FocusHandler() {
+//
+//			@Override
+//			public void onFocus(FocusEvent event) {
+//				if (!dirtyFlag) {
+//					setText("");
+//				}
+//				removeStyle();
+//			}
+//		});
 
 		super.addBlurHandler(new BlurHandler() {
 
@@ -50,20 +49,31 @@ public class LabelTextBox extends TextBox {
 			public void onBlur(BlurEvent event) {
 				String text = getValue();
 				if (text.trim().isEmpty()) {
-					setText(getLabel());
-					addStyle();
-					dirtyFlag = false;
+					reset();
 				}
 			}
 		});
+		
 		super.addKeyPressHandler(new KeyPressHandler() {
 
 			@Override
 			public void onKeyPress(KeyPressEvent event) {
+				if (!dirtyFlag) {
+					setText("");
+				}
+				removeStyle();
 				dirtyFlag = true;
 			}
 		});
 
+	}
+	/**
+	 * To reset textbox with default label.
+	 */
+	public void reset(){
+		setText(getLabel());
+		addStyle();
+		dirtyFlag = false;
 	}
 
 	/**

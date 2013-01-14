@@ -7,6 +7,7 @@ import com.agnie.gwt.client.renderer.CustomListCell;
 import com.agnie.gwt.client.renderer.PearsonCell;
 import com.agnie.gwt.client.renderer.Person;
 import com.agnie.gwt.client.ui.HomeContentView;
+import com.agnie.gwt.common.client.base.BasePageResourceLoader;
 import com.agnie.gwt.common.client.renderer.TitleString;
 import com.agnie.gwt.common.client.widget.Account;
 import com.agnie.gwt.common.client.widget.BreadCrumbPanel;
@@ -25,7 +26,6 @@ import com.agnie.gwt.common.client.widget.MessagePanel.MessageType;
 import com.agnie.gwt.common.client.widget.PageTitle;
 import com.agnie.gwt.common.client.widget.PasswordTextBox;
 import com.agnie.gwt.common.client.widget.SearchBox;
-import com.agnie.gwt.common.client.widget.StyledListBox;
 import com.agnie.gwt.common.client.widget.SuggestionBox;
 import com.agnie.gwt.common.client.widget.TextBox;
 import com.agnie.gwt.common.client.widget.WizardBar;
@@ -55,6 +55,8 @@ public class samples implements EntryPoint {
 
 	// MenuPanTest menuPanTest = new MenuPanTest();
 
+	BasePageResourceLoader	basePageResource	= new BasePageResourceLoader();
+
 	public void onModuleLoad() {
 
 		// GWT.log("IN onmoduleLoad Start.");
@@ -68,7 +70,8 @@ public class samples implements EntryPoint {
 
 		// messagePanelTest();
 		// loaderTest();
-		formFieldTest();
+		// formFieldTest();
+		labeledTextBoxPassBoxTest();
 	}
 
 	public void customMenuPanTest() {
@@ -77,18 +80,34 @@ public class samples implements EntryPoint {
 	}
 
 	public void labeledTextBoxPassBoxTest() {
-		LabelTextBox ltb = new LabelTextBox();
-		LabelPasswordBox lpb = new LabelPasswordBox();
+		final LabelTextBox ltb = new LabelTextBox("Labeled Text Box!");
+		final LabelPasswordBox lpb = new LabelPasswordBox("Labeled Password Box");
 		VerticalPanel dp1 = new VerticalPanel();
+		Button resetBtn = new Button("resetTexBox");
+		Button resetPassBtn = new Button("resetPassBox");
 
 		ltb.setErrorMessage("data entered is not valid plz enter your name");
-		ltb.setErrorMessVisible(true);
+		ltb.setErrorMessVisible(false);
 		ltb.setErrorPanWidth(400);
 		lpb.setErrorMessage("data entered is not valid plz enter your password");
 		lpb.setErrorMessVisible(true);
 		lpb.setErrorPanWidth(400);
 		dp1.add(ltb);
 		dp1.add(lpb);
+		resetBtn.addClickHandler(new ClickHandler() {
+
+			public void onClick(ClickEvent event) {
+				ltb.reset();
+			}
+		});
+		resetPassBtn.addClickHandler(new ClickHandler() {
+
+			public void onClick(ClickEvent event) {
+				lpb.reset();
+			}
+		});
+		dp1.add(resetBtn);
+		dp1.add(resetPassBtn);
 		RootPanel.get().add(dp1);
 	}
 
@@ -281,7 +300,6 @@ public class samples implements EntryPoint {
 	}
 
 	public void localeListBoxTest() {
-		StyledListBox slb = new StyledListBox();
 		// Locale Box Test -- start
 		LocaleListBox box = new LocaleListBox();
 		box.addChangeHandler(new CustomListBox.ChangeHandler() {
@@ -291,7 +309,6 @@ public class samples implements EntryPoint {
 			}
 
 		});
-		slb.addListBox(box);
 		RootPanel.get().add(box);
 		// Locale Box Test -- end
 	}

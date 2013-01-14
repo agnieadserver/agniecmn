@@ -3,8 +3,8 @@ package com.agnie.gwt.common.client.widget;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
-import com.google.gwt.event.dom.client.FocusEvent;
-import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
 /**
@@ -27,14 +27,24 @@ public class LabelPasswordBox extends LabelTextBox {
 
 	public LabelPasswordBox(String label) {
 
-		super.addFocusHandler(new FocusHandler() {
+		super.setLabel(label);
+
+		super.addKeyPressHandler(new KeyPressHandler() {
 
 			@Override
-			public void onFocus(FocusEvent arg0) {
+			public void onKeyPress(KeyPressEvent event) {
 				changeTypeToPass();
 				removeStyle();
 			}
 		});
+		// super.addFocusHandler(new FocusHandler() {
+		//
+		// @Override
+		// public void onFocus(FocusEvent arg0) {
+		// changeTypeToPass();
+		// removeStyle();
+		// }
+		// });
 		super.addBlurHandler(new BlurHandler() {
 
 			@Override
@@ -50,16 +60,17 @@ public class LabelPasswordBox extends LabelTextBox {
 				}
 			}
 		});
+
 	}
 
 	/**
-	 * to get textbox
-	 * 
-	 * @return
+	 * To reset field with default label.
 	 */
-	public TextBox getTextBox() {
-		return this.getTextBox();
+	public void reset() {
+		super.reset();
+		changeTypeToText();
 	}
+	
 
 	/**
 	 * to get ErrorMessage Panel
@@ -77,6 +88,9 @@ public class LabelPasswordBox extends LabelTextBox {
 		super.textBox.getElement().setAttribute("type", "password");
 	}
 
+	/**
+	 * To resume to text field / changes type of password field to text field
+	 */
 	private void changeTypeToText() {
 		super.textBox.getElement().setAttribute("type", "text");
 	}

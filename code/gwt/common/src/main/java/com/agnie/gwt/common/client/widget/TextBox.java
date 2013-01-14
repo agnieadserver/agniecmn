@@ -75,7 +75,13 @@ public class TextBox extends Composite {
 	 * @param visible
 	 */
 	public void setErrorMessVisible(boolean visible) {
-		errorPan.setVisible(visible);
+		if (visible) {
+			errorPan.setVisible(visible);
+			textBox.addStyleName("text-box-error");
+		} else {
+			errorPan.setVisible(visible);
+			textBox.removeStyleName("text-box-error");
+		}
 	}
 
 	/**
@@ -211,8 +217,7 @@ public class TextBox extends Composite {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				errorPan.setVisible(false);
-				textBox.removeStyleName("text-box-error");
+				setErrorMessVisible(false);
 			}
 		});
 	}

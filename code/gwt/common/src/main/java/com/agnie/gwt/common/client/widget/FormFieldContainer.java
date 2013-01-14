@@ -6,8 +6,10 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -43,11 +45,15 @@ public class FormFieldContainer extends Composite {
 	protected SpanElement		error;
 	protected HTMLPanel			container;
 	@UiField
-	protected HTMLPanel			inputContainer;
+	protected SimplePanel		inputContainer;
 
 	public FormFieldContainer() {
 		this(null, null, false);
 	}
+
+	public boolean				autoHide	= false;
+	private Timer				timer		= null;
+	private static final int	TIMEOUT		= 20000;
 
 	public FormFieldContainer(String label, Widget inputFieldContainer, boolean required) {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
@@ -57,6 +63,14 @@ public class FormFieldContainer extends Composite {
 		setLabel(label);
 		addInputFieldContainer(inputFieldContainer);
 		setRequired(required);
+
+		timer = new Timer() {
+
+			@Override
+			public void run() {
+				errorFixed();
+			}
+		};
 	}
 
 	public void setLabel(String label) {
@@ -80,7 +94,11 @@ public class FormFieldContainer extends Composite {
 		}
 	}
 
-	public void setError(String errorMessage) {
+
+	public void setError(String errorMessage,boolean autoHide) {
+		if (autoHide) {
+			timer.schedule(TIMEOUT);
+		} 
 		container.addStyleName(resource.css().formFieldError());
 		this.error.setInnerText(errorMessage);
 	}

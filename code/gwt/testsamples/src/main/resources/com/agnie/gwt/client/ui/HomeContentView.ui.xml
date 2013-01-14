@@ -1,15 +1,15 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:agcw='urn:import:com.agnie.gwt.common.client.widget' >
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:agcw='urn:import:com.agnie.gwt.common.client.widget'>
 
-	
+
 	<g:HTMLPanel>
 		<agcw:FormFieldContainer required="true"
 			label="First Name">
 			<agcw:inputfieldcontainer>
-				<g:TextBox></g:TextBox>
-			</agcw:inputfieldcontainer>
-			<agcw:inputfieldcontainer>
-				<g:Button>Test</g:Button>
+				<g:HTMLPanel>
+					<g:TextBox></g:TextBox>
+					<g:Button>Test</g:Button>
+				</g:HTMLPanel>
 			</agcw:inputfieldcontainer>
 		</agcw:FormFieldContainer>
 		<agcw:FormFieldContainer required="false"
@@ -19,7 +19,7 @@
 			</agcw:inputfieldcontainer>
 		</agcw:FormFieldContainer>
 		<agcw:FormFieldContainer required="true"
-			label="Last Name" error="LastName is required field">
+			label="Last Name"  ui:field="errorTest"  >
 			<agcw:inputfieldcontainer>
 				<g:TextBox></g:TextBox>
 			</agcw:inputfieldcontainer>

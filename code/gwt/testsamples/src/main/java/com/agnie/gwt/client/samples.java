@@ -68,6 +68,7 @@ public class samples implements EntryPoint {
 
 		// messagePanelTest();
 		// loaderTest();
+		formFieldTest();
 	}
 
 	public void customMenuPanTest() {
@@ -435,7 +436,6 @@ public class samples implements EntryPoint {
 		RootPanel.get().add(save1);
 		RootPanel.get().add(save2);
 		RootPanel.get().add(save3);
-
 	}
 
 	private void loaderTest() {

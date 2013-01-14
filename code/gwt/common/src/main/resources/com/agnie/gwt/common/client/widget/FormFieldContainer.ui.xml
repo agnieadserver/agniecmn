@@ -9,7 +9,7 @@
 			<span ui:field="required" class='{res.css.required}'></span>
 		</div>
 		<div class='{res.css.inputFieldContainer}'>
-			<g:HTMLPanel ui:field="inputContainer"></g:HTMLPanel>
+			<g:SimplePanel ui:field="inputContainer"></g:SimplePanel>
 			<div class='{res.css.formFieldErrorText}'>
 				<span ui:field="error"></span>
 			</div>

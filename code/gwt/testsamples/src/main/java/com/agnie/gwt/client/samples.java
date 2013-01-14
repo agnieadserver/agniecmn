@@ -3,284 +3,371 @@ package com.agnie.gwt.client;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.agnie.gwt.client.renderer.CustomListCell;
+import com.agnie.gwt.client.renderer.PearsonCell;
 import com.agnie.gwt.client.renderer.Person;
+import com.agnie.gwt.client.ui.HomeContentView;
 import com.agnie.gwt.common.client.renderer.TitleString;
+import com.agnie.gwt.common.client.widget.Account;
+import com.agnie.gwt.common.client.widget.BreadCrumbPanel;
+import com.agnie.gwt.common.client.widget.CloseBtn;
+import com.agnie.gwt.common.client.widget.CustomListBox;
+import com.agnie.gwt.common.client.widget.CustomMenuPan;
+import com.agnie.gwt.common.client.widget.DecoratedPanel;
+import com.agnie.gwt.common.client.widget.GreenButton;
+import com.agnie.gwt.common.client.widget.LabelPasswordBox;
+import com.agnie.gwt.common.client.widget.LabelTextBox;
 import com.agnie.gwt.common.client.widget.Loader;
 import com.agnie.gwt.common.client.widget.LoaderResources;
+import com.agnie.gwt.common.client.widget.LocaleListBox;
 import com.agnie.gwt.common.client.widget.MessagePanel;
 import com.agnie.gwt.common.client.widget.MessagePanel.MessageType;
+import com.agnie.gwt.common.client.widget.PageTitle;
+import com.agnie.gwt.common.client.widget.PasswordTextBox;
+import com.agnie.gwt.common.client.widget.SearchBox;
+import com.agnie.gwt.common.client.widget.StyledListBox;
+import com.agnie.gwt.common.client.widget.SuggestionBox;
+import com.agnie.gwt.common.client.widget.TextBox;
+import com.agnie.gwt.common.client.widget.WizardBar;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class samples implements EntryPoint {
-	// LabelPasswordBox lpb = new LabelPasswordBox();
-	// LabelTextBox ltb = new LabelTextBox();
-	// Button save = new Button("save");
-	// TextBox tb = new TextBox();
-	// List<String> celllist = new ArrayList<String>();
-	// SuggestionBox sb = new SuggestionBox();
-	// DecoratedPanel dp = new DecoratedPanel();
-	// VerticalPanel dp1 = new VerticalPanel();
-	// SearchBox searchBox = new SearchBox();
-	// Image img = new Image();
-	// PageTitle pt = new PageTitle();
-	// StyledListBox slb = new StyledListBox();
+
 	// List<User> sel = new ArrayList<User>();
 	// List<User> av = new ArrayList<User>();
-	// Account acc = new Account();
-	// Account acc1 = new Account();
-	// Account acc2 = new Account();
-	// CustomListCell clc = new CustomListCell();
-	// CustomListBox<TitleString> clb = new CustomListBox<TitleString>(clc);
-	//
-	// PearsonCell pCell = new PearsonCell();
-	// CustomListBox<Person> personCustomListBox = new CustomListBox<Person>(pCell);
 
 	// User us = new User();
-	// BreadCrumbPanel bcp = new BreadCrumbPanel();
+
 	// private static SearchBoxResources resource = SearchBoxResources.INSTANCE;
-	// TextBox tB = new TextBox();
-	// PasswordTextBox ptb = new PasswordTextBox();
-	// WizardBar wb = new WizardBar();
-	// CloseBtn cb = new CloseBtn();
-	// GreenButton gb=new GreenButton("Hello");
-	// CustomMenuPan cMenuPan = new CustomMenuPan();
+
 	// MenuPanTest menuPanTest = new MenuPanTest();
-	// DialogBoxTest dbt = new DialogBoxTest();
-	// HTMLPanel hp=new HTMLPanel("Hello all how are you!\n Its exciting to styling any widget\n is it?");
+
 	public void onModuleLoad() {
-		// cb.setTitle("CloseButton");
-		// dbt.getDialogBox().addContent(hp);
-		// dbt.getDialogBox().addContent(cb);
-		// dbt.getDialogBox().show();
+
 		// GWT.log("IN onmoduleLoad Start.");
-		// img.setUrl("images/search.png");
-		// bcp.addBreadCrumb("BreadCrumb1",img);
-		// bcp.addBreadCrumb("BreadCrumb2");
-		// bcp.addBreadCrumb("BreadCrumb3");
-		// for(int i=0;i<bcp.getBreadCrumbCount();i++){
-		// GWT.log("breadcrumbcount=="+bcp.getBreadCrumbCount());
-		// GWT.log(bcp.getBreadCrumbText(i));
-		//
-		// }
-		// int i=bcp.getBreadCrumbCount()-1;
-		// GWT.log("last node index=="+i);
-		// RootPanel.get().add(bcp);
+
 		// RendererSample rendSample = new RendererSample();
 		// RootPanel.get().add(rendSample);
+
 		// UserRenderer ur = new UserRenderer();
-		// for (int i = 0; i < 5; i++) {
-		// celllist.add("sug" + i);
-		// }
-		// sb.setData(celllist);
-		// sb.setWidth("300px");
-		// sb.setHeight("300px");
-		// dp = new DecoratedPanel("Decorated Panel");
-		//
-		// dp.addContent(save);
-		// dp.addContent(tb);
-		// dp.closeClickHandler(new ClickHandler() {
-		//
-		// public void onClick(ClickEvent event) {
-		// dp.getParent().removeFromParent();
-		// }
-		// });
-		// ltb.setLabel("username");
-		// lpb.setLabel("password");
-		// GWT.log("In Entry point ltb.getLabel==" + ltb.getLabel() +
-		// "ltb.getText()==" + ltb.getText());
-		// save.addClickHandler(new ClickHandler() {
-		//
-		// public void onClick(ClickEvent event) {
-		// GWT.log("In Entry point save ltb.getLabel==" + ltb.getLabel() +
-		// "ltb.getText()==" + ltb.getText());
-		// }
-		// });
-		//
-		// searchBox.setSize("200px", "20px");
-		// searchBox.setLabel("suresh");
-		// img.setUrl("images/search.png");
-		// img.addClickHandler(new ClickHandler() {
-		//
-		// public void onClick(ClickEvent event) {
-		// Window.alert("You are finding " + searchBox.getValue());
-		// }
-		// });
-		// searchBox.addInputWidget(img);
-		// RootPanel.get().add(searchBox);
-		//
-		// pt.setPageTitle("Title for page1");
-		// pt.addTitleImage(img);
-
-		// RootPanel.get().add(ltb);
-		// RootPanel.get().add(save);
-		// RootPanel.get().add(lpb);
-		// TAB Bar Test -- start
-		// TabBarTest tabbar = new TabBarTest();
-		// RootPanel.get().add(tabbar);
-		// TAB Bar Test -- end
-
-		// Bread Crumb Test -- start
-		// BreadCrumbTest test = new BreadCrumbTest();
-		// RootPanel.get().add(test);
-		// Bread CrumbTest -- end
-
-		// Wizard Bar Test -- start
-		// WizardBarTest wbtest = new WizardBarTest();
-		// RootPanel.get().add(wbtest);
-		// Wizard Bar Test -- end
-
-		// Green Button Test -- start
-		// GreenButton btn = new GreenButton("This is just a test");
-		// RootPanel.get().add(btn);
-		// Green Button Test -- end
-
-		// Form Field Test -- start
-		// HomeContentView view = new HomeContentView();
-		// RootPanel.get().add(view);
-		// Form Field Test -- end
-		// RootPanel.get().add(pt);
-		// RootPanel.get().add(searchBox);
-		// RootPanel.get().add(sb);
-		// Locale Box Test -- start
-		// LocaleListBox box = new LocaleListBox();
-		// LocaleListBox box1 = new LocaleListBox(clc);
-		// box.addChangeHandler(new CustomListBox.ChangeHandler() {
-		//
-		// public void onChange() {
-		// Window.alert("Hello OnChange working");
-		// }
-		//
-		// });
-		// slb.addListBox(box);
-
-		// RootPanel.get().add(box1);
-		// RootPanel.get().add(box);
-		// Locale Box Test -- end
-
-		// ListBoxt Test -- start
-		// HorizontalPanel hlpanel = new HorizontalPanel();
-		// final ListBoxTest lbTest = new ListBoxTest();
-		// hlpanel.add(lbTest);
-		// Button btnlbTest = new Button("List Box Test");
-		// hlpanel.add(btnlbTest);
-		// btnlbTest.addClickHandler(new ClickHandler() {
-		//
-		// public void onClick(ClickEvent arg0) {
-		// Window.alert("User = >" + lbTest.getSelected());
-		// }
-		// });
-		// RootPanel.get().add(hlpanel);
-		// ListBoxt Test -- end
-
-		// ListBoxt Test -- start
-		// VerticalPanel vselunPanel = new VerticalPanel();
-		// final SelectUnselectTest selTest = new SelectUnselectTest();
-		// vselunPanel.add(selTest);
-		// Button shwAva = new Button("Show available List");
-		// vselunPanel.add(shwAva);
-		// shwAva.addClickHandler(new ClickHandler() {
-		//
-		// public void onClick(ClickEvent arg0) {
-		// selTest.showAvailable();
-		// }
-		// });
-		// Button shwSel = new Button("Show Selected List");
-		// vselunPanel.add(shwSel);
-		// shwSel.addClickHandler(new ClickHandler() {
-		//
-		// public void onClick(ClickEvent arg0) {
-		// selTest.showSelected();
-		// }
-		// });
-		// RootPanel.get().add(vselunPanel);
-		// //ListBoxt Test -- end
-		// acc.setAccName("UserName");
-		// acc.addChangePassClickHandler(new ClickHandler() {
-		//
-		// public void onClick(ClickEvent event) {
-		// Window.alert("Are you sure to change your password");
-		// }
-		// });
-		// acc1.setAccName("UserName1" + "Username1");
-		// acc2.setAccName("UserName2" + "UserName22222");
-		// dp1.add(acc);
-		// dp1.add(acc1);
-		// dp1.add(acc2);
-		//
-		// RootPanel.get().add(acc);
-
-		/* CustomListBox test starts here */
-		// clb.setWidth("100px");
-		// clb.setList(createDummyList());
-		// clb.setSelectedItem(createDummyList().get(5), true);
-		//
-		// clb.addChangeHandler(new CustomListBox.ChangeHandler() {
-		//
-		// public void onChange() {
-		// Window.alert("CustomListBox<TitleString>addChangeHandler working");
-		// }
-		// });
-		//
-		// personCustomListBox.setWidth("200px");
-		// personCustomListBox.setList(createPersonList());
-		// personCustomListBox.addChangeHandler(new CustomListBox.ChangeHandler() {
-		//
-		// public void onChange() {
-		// Window.alert("CustomListBox<Person> addChangeHandler working");
-		// }
-		//
-		// });
-		//
-		// RootPanel.get().add(personCustomListBox);
-
-		/* CustomListBox test ends here */
-		//
-		// tB.setErrorMessage("data entered is not valid plz enter your name");
-		// tB.setErrorMessVisible(true);
-		// tB.setErrorPanWidth(400);
-		// tB.setText("username");
-		// ltb.setErrorMessage("data entered is not valid plz enter your name");
-		// ltb.setErrorMessVisible(true);
-		// ltb.setErrorPanWidth(400);
-		// lpb.setErrorMessage("data entered is not valid plz enter your password");
-		// lpb.setErrorMessVisible(true);
-		// lpb.setErrorPanWidth(400);
-		// //dp1.add(ltb);
-		// dp1.add(lpb);
-		// dp1.add(mpw);
-		// dp1.add(mpe);
-
-		// ptb.setErrorMessage("data entered is not valid plz enter your password");
-		// ptb.setErrorMessVisible(true);
-		// ptb.setErrorPanWidth(400);
-		// ptb.setText("password");
-		// dp1.add(ptb);
-		// wb.addStep("step1");
-		// wb.addStep("step2");
-		// RootPanel.get().add(wb);
-		// cb.addClickHandler(new ClickHandler() {
-		//
-		// public void onClick(ClickEvent event) {
-		// GWT.log("close clicked");
-		// Window.alert("Don't click again");
-		// }
-		// });
-		// VerticalPanel vPanel = new VerticalPanel();
-		// vPanel.add(gb);
-		// vPanel.add(tB);
-		// RootPanel.get().add(vPanel);
-		// RootPanel.get().add(cMenuPan);
 
 		// RootPanel.get().add(menuPanTest.getMenuPan());
-		messagePanelTest();
-		//loaderTest();
+
+		// messagePanelTest();
+		// loaderTest();
+	}
+
+	public void customMenuPanTest() {
+		CustomMenuPan cMenuPan = new CustomMenuPan();
+		RootPanel.get().add(cMenuPan);
+	}
+
+	public void labeledTextBoxPassBoxTest() {
+		LabelTextBox ltb = new LabelTextBox();
+		LabelPasswordBox lpb = new LabelPasswordBox();
+		VerticalPanel dp1 = new VerticalPanel();
+
+		ltb.setErrorMessage("data entered is not valid plz enter your name");
+		ltb.setErrorMessVisible(true);
+		ltb.setErrorPanWidth(400);
+		lpb.setErrorMessage("data entered is not valid plz enter your password");
+		lpb.setErrorMessVisible(true);
+		lpb.setErrorPanWidth(400);
+		dp1.add(ltb);
+		dp1.add(lpb);
+		RootPanel.get().add(dp1);
+	}
+
+	public void closeBtnTest() {
+		CloseBtn cb = new CloseBtn();
+		cb.addClickHandler(new ClickHandler() {
+
+			public void onClick(ClickEvent event) {
+				GWT.log("close clicked");
+				Window.alert("Don't click again");
+			}
+		});
+		RootPanel.get().add(cb);
+	}
+
+	public void passwordTextBoxTest() {
+		PasswordTextBox ptb = new PasswordTextBox();
+		ptb.setErrorMessage("data entered is not valid plz enter your password");
+		ptb.setErrorMessVisible(true);
+		ptb.setErrorPanWidth(400);
+		ptb.setText("password");
+		RootPanel.get().add(ptb);
+	}
+
+	public void textBoxTest() {
+		TextBox tB = new TextBox();
+		GreenButton gb = new GreenButton("Hello");
+		tB.setErrorMessage("data entered is not valid plz enter your name");
+		tB.setErrorMessVisible(true);
+		tB.setErrorPanWidth(400);
+		tB.setText("username");
+		VerticalPanel vPanel = new VerticalPanel();
+		vPanel.add(gb);
+		vPanel.add(tB);
+		RootPanel.get().add(vPanel);
+	}
+
+	public void wizardBarTes() {
+		WizardBar wb = new WizardBar();
+		wb.addStep("step1");
+		wb.addStep("step2");
+		RootPanel.get().add(wb);
+	}
+
+	public void formFieldTest() {
+		// Form Field Test -- start
+		HomeContentView view = new HomeContentView();
+		RootPanel.get().add(view);
+		// Form Field Test -- end
+	}
+
+	public void breadCrumbClassTest() {
+		// Bread Crumb Test -- start
+		BreadCrumbTest test = new BreadCrumbTest();
+		RootPanel.get().add(test);
+		// Bread CrumbTest -- end
+	}
+
+	public void tabBarTest() {
+		// TAB Bar Test -- start
+		TabBarTest tabbar = new TabBarTest();
+		RootPanel.get().add(tabbar);
+		// TAB Bar Test -- end
+	}
+
+	public void accPanTest() {
+		Account acc = new Account();
+		Account acc1 = new Account();
+		Account acc2 = new Account();
+		VerticalPanel dp1 = new VerticalPanel();
+
+		acc.setAccName("UserName");
+		acc.addChangePassClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				Window.alert("Are you sure to change your password");
+			}
+		});
+		acc1.setAccName("UserName1" + "Username1");
+		acc2.setAccName("UserName2" + "UserName22222");
+		dp1.add(acc);
+		dp1.add(acc1);
+		dp1.add(acc2);
+		RootPanel.get().add(dp1);
+	}
+
+	public void pageTitleTest() {
+		PageTitle pt = new PageTitle();
+		Image img = new Image();
+		pt.setPageTitle("Title for page1");
+		pt.addTitleImage(img);
+		RootPanel.get().add(pt);
+	}
+
+	public void labelPasswordTextBoxTest() {
+		LabelPasswordBox lpb = new LabelPasswordBox();
+		final LabelTextBox ltb = new LabelTextBox();
+		Button save = new Button("save");
+		ltb.setLabel("username");
+		lpb.setLabel("password");
+		GWT.log("In Entry point ltb.getLabel==" + ltb.getLabel() + "ltb.getText()==" + ltb.getText());
+		save.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				GWT.log("In Entry point save ltb.getLabel==" + ltb.getLabel() + "ltb.getText()==" + ltb.getText());
+			}
+		});
+		RootPanel.get().add(ltb);
+		RootPanel.get().add(save);
+		RootPanel.get().add(lpb);
+	}
+
+	public void decoratedPanelTest() {
+		TextBox tb = new TextBox();
+		Button save = new Button("save");
+		final DecoratedPanel dp = new DecoratedPanel("Decorated Panel");
+		dp.addContent(save);
+		dp.addContent(tb);
+		dp.closeClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				dp.getParent().removeFromParent();
+			}
+		});
+	}
+
+	public void suggestionBoxTest() {
+		List<String> celllist = new ArrayList<String>();
+		for (int i = 0; i < 5; i++) {
+			celllist.add("sug" + i);
+		}
+		SuggestionBox sb = new SuggestionBox();
+		sb.setData(celllist);
+		sb.setWidth("300px");
+		sb.setHeight("300px");
+		RootPanel.get().add(sb);
+	}
+
+	public void searchBoxTest() {
+		final SearchBox searchBox = new SearchBox();
+		Image img = new Image();
+		searchBox.setSize("200px", "20px");
+		searchBox.setLabel("suresh");
+
+		img.setUrl("images/search.png");
+		img.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				Window.alert("You are finding " + searchBox.getValue());
+			}
+		});
+		searchBox.addInputWidget(img);
+		RootPanel.get().add(searchBox);
+	}
+
+	public void dialogBoxTest() {
+		HTMLPanel hp = new HTMLPanel("Hello all how are you!\n Its exciting to styling any widget\n is it?");
+		CloseBtn cb = new CloseBtn();
+		DialogBoxTest dbt = new DialogBoxTest();
+		dbt.getDialogBox().addContent(hp);
+		dbt.getDialogBox().addContent(cb);
+		dbt.getDialogBox().show();
+	}
+
+	public void breadCrumbTest() {
+		// Wizard Bar Test -- start
+		WizardBarTest wbtest = new WizardBarTest();
+		RootPanel.get().add(wbtest);
+		// Wizard Bar Test -- end
+	}
+
+	public void breadCrumbPanelTest() {
+		BreadCrumbPanel bcp = new BreadCrumbPanel();
+		Image img = new Image();
+
+		img.setUrl("images/search.png");
+		// bcp.addBreadCrumb("BreadCrumb1",img);
+		bcp.addBreadCrumb("BreadCrumb2");
+		bcp.addBreadCrumb("BreadCrumb3");
+		for (int i = 0; i < bcp.getBreadCrumbCount(); i++) {
+			GWT.log("breadcrumbcount==" + bcp.getBreadCrumbCount());
+			GWT.log(bcp.getBreadCrumbText(i));
+		}
+		int i = bcp.getBreadCrumbCount() - 1;
+		GWT.log("last node index==" + i);
+		RootPanel.get().add(bcp);
+	}
+
+	public void greenBtnTest() {
+		// Green Button Test -- start
+		GreenButton btn = new GreenButton("This is just a test");
+		RootPanel.get().add(btn);
+		// Green Button Test -- end
+	}
+
+	public void localeListBoxTest() {
+		StyledListBox slb = new StyledListBox();
+		// Locale Box Test -- start
+		LocaleListBox box = new LocaleListBox();
+		box.addChangeHandler(new CustomListBox.ChangeHandler() {
+
+			public void onChange() {
+				Window.alert("Hello OnChange working");
+			}
+
+		});
+		slb.addListBox(box);
+		RootPanel.get().add(box);
+		// Locale Box Test -- end
+	}
+
+	public void listBoxTestV() {
+		// ListBoxt Test -- start
+		VerticalPanel vselunPanel = new VerticalPanel();
+		final SelectUnselectTest selTest = new SelectUnselectTest();
+		vselunPanel.add(selTest);
+		Button shwAva = new Button("Show available List");
+		vselunPanel.add(shwAva);
+		shwAva.addClickHandler(new ClickHandler() {
+
+			public void onClick(ClickEvent arg0) {
+				selTest.showAvailable();
+			}
+		});
+		Button shwSel = new Button("Show Selected List");
+		vselunPanel.add(shwSel);
+		shwSel.addClickHandler(new ClickHandler() {
+
+			public void onClick(ClickEvent arg0) {
+				selTest.showSelected();
+			}
+		});
+		RootPanel.get().add(vselunPanel);
+		// //ListBoxt Test -- end
+	}
+
+	public void listBoxTest() {
+		// ListBoxt Test -- start
+		HorizontalPanel hlpanel = new HorizontalPanel();
+		final ListBoxTest lbTest = new ListBoxTest();
+		hlpanel.add(lbTest);
+		Button btnlbTest = new Button("List Box Test");
+		hlpanel.add(btnlbTest);
+		btnlbTest.addClickHandler(new ClickHandler() {
+
+			public void onClick(ClickEvent arg0) {
+				Window.alert("User = >" + lbTest.getSelected());
+			}
+		});
+		RootPanel.get().add(hlpanel);
+		// ListBoxt Test -- end
+	}
+
+	public void customListBoxTest() {
+		CustomListCell clc = new CustomListCell();
+		CustomListBox<TitleString> clb = new CustomListBox<TitleString>(clc);
+
+		PearsonCell pCell = new PearsonCell();
+		CustomListBox<Person> personCustomListBox = new CustomListBox<Person>(pCell);
+		/* CustomListBox test starts here */
+		clb.setWidth("100px");
+		clb.setList(createDummyList());
+		clb.setSelectedItem(createDummyList().get(5), true);
+
+		clb.addChangeHandler(new CustomListBox.ChangeHandler() {
+
+			public void onChange() {
+				Window.alert("CustomListBox<TitleString>addChangeHandler working");
+			}
+		});
+
+		personCustomListBox.setWidth("200px");
+		personCustomListBox.setList(createPersonList());
+		personCustomListBox.addChangeHandler(new CustomListBox.ChangeHandler() {
+
+			public void onChange() {
+				Window.alert("CustomListBox<Person> addChangeHandler working");
+			}
+
+		});
+
+		RootPanel.get().add(personCustomListBox);
+
+		/* CustomListBox test ends here */
 	}
 
 	public void messagePanelTest() {

@@ -85,6 +85,8 @@ public class samples implements EntryPoint {
 		VerticalPanel dp1 = new VerticalPanel();
 		Button resetBtn = new Button("resetTexBox");
 		Button resetPassBtn = new Button("resetPassBox");
+		Button getBtn = new Button("getTexBox");
+		Button getPassBtn = new Button("getPassBox");
 
 		ltb.setErrorMessage("data entered is not valid plz enter your name");
 		ltb.setErrorMessVisible(false);
@@ -106,8 +108,22 @@ public class samples implements EntryPoint {
 				lpb.reset();
 			}
 		});
+		getBtn.addClickHandler(new ClickHandler() {
+
+			public void onClick(ClickEvent event) {
+				Window.alert("getValue==" + ltb.getValue());
+			}
+		});
+		getPassBtn.addClickHandler(new ClickHandler() {
+
+			public void onClick(ClickEvent event) {
+				Window.alert("getValue==" + lpb.getValue());
+			}
+		});
 		dp1.add(resetBtn);
 		dp1.add(resetPassBtn);
+		dp1.add(getBtn);
+		dp1.add(getPassBtn);
 		RootPanel.get().add(dp1);
 	}
 

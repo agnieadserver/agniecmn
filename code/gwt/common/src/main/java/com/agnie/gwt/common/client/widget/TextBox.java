@@ -68,7 +68,7 @@ public class TextBox extends Composite {
 			@Override
 			public void onKeyPress(KeyPressEvent event) {
 				if (!dirtyFlag) {
-					setErrorMessVisible(false);
+					onFirstKeyPress();
 				}
 				dirtyFlag = true;
 			}
@@ -79,6 +79,10 @@ public class TextBox extends Composite {
 				TextBox.this.setErrorMessVisible(false);
 			}
 		};
+	}
+	
+	public void onFirstKeyPress() {
+		setErrorMessVisible(false);
 	}
 
 	/**

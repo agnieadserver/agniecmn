@@ -59,12 +59,16 @@ public class LabelTextBox extends TextBox {
 			@Override
 			public void onKeyPress(KeyPressEvent event) {
 				if (!dirtyFlag) {
-					setText("");
+					onFirstKeyPress();
 				}
 				removeStyle();
 			}
 		});
 
+	}
+	public void onFirstKeyPress() {
+		super.onFirstKeyPress();
+		setText("");
 	}
 	/**
 	 * To reset textbox with default label.

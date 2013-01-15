@@ -3,12 +3,38 @@
 	<ui:with field='res'
 		type='com.agnie.gwt.common.client.widget.TextBoxResources' />
 	<ui:with type="java.lang.String" field="moduleBaseUrl"></ui:with>
+
+	<ui:style>
+		.message {
+			color: white;
+			font-size: 13px;
+			font-weight: bold;
+			margin-left: 5px;
+		}
+		.error-pan {
+			position: absolute;
+		}
+	</ui:style>
+
 	<g:HTMLPanel addStyleNames='{res.css.textBoxPan}'>
 		<g:TextBox ui:field="textBox" addStyleNames='{res.css.textBox}'></g:TextBox>
-		<g:HTMLPanel ui:field="errorPan" addStyleNames='{res.css.errorPan}'>
-				<img src="{moduleBaseUrl}images/transparent.png" ui:field="img" class='{res.css.errorImg}'></img>
-			  	<span  ui:field="message" class='{res.css.errorMesage}'></span>
-				<g:Image url="{moduleBaseUrl}images/transparent.png" ui:field="close" addStyleNames='{res.css.close}'></g:Image>
+		<g:HTMLPanel ui:field="errorPan" addStyleNames="{style.error-pan}">
+			<div ui:field="textBoxTriangle" class="{res.css.textBoxTrianlge}"></div>
+			<g:HTMLPanel ui:field="errorPanBody" addStyleNames='{res.css.errorPanBody}'>
+				<table width="100%">
+					<tr>
+						<td style="width: 20px;">
+							<g:Anchor ui:field="img" addStyleNames='{res.css.errorImg}'></g:Anchor>
+						</td>
+						<td>
+							<g:HTML ui:field="message" addStyleNames="{style.message}"></g:HTML>
+						</td>
+						<td style="width: 20px;">
+							<g:Anchor ui:field="close" addStyleNames='{res.css.close}'></g:Anchor>
+						</td>
+					</tr>
+				</table>
+			</g:HTMLPanel>
 		</g:HTMLPanel>
 	</g:HTMLPanel>
 </ui:UiBinder>

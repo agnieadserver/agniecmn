@@ -1,21 +1,22 @@
 package com.agnie.gwt.common.client.widget;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.ImageElement;
-import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -42,15 +43,19 @@ public class TextBox extends Composite {
 	HTMLPanel								errorPan;
 
 	@UiField
-	ImageElement							img;
+	Anchor									img;
 
 	@UiField
-	SpanElement								message;
+	HTML									message;
 
 	@UiField
-	Image									close;
+	Anchor									close;
 
 	protected HTMLPanel						container;
+	protected boolean						dirtyFlag	= false;
+
+	private Timer							timer		= null;
+	private static final int				TIMEOUT		= 20000;
 
 	public TextBox() {
 
@@ -58,6 +63,30 @@ public class TextBox extends Composite {
 		initWidget(container);
 		errorPan.setVisible(false);
 
+		textBox.addKeyPressHandler(new KeyPressHandler() {
+
+			@Override
+			public void onKeyPress(KeyPressEvent event) {
+				if (!dirtyFlag) {
+					setErrorMessVisible(false);
+				}
+				dirtyFlag = true;
+			}
+		});
+
+		timer = new Timer() {
+			public void run() {
+				TextBox.this.setErrorMessVisible(false);
+			}
+		};
+	}
+
+	/**
+	 * To reset textBox to default values.
+	 */
+	public void reset() {
+		dirtyFlag = false;
+		setErrorMessVisible(false);
 	}
 
 	/**
@@ -79,9 +108,49 @@ public class TextBox extends Composite {
 			errorPan.setVisible(visible);
 			textBox.addStyleName("text-box-error");
 		} else {
-			errorPan.setVisible(visible);
+			errorPan.setVisible(false);
 			textBox.removeStyleName("text-box-error");
 		}
+	}
+
+	/**
+	 * To set error message.
+	 * @param message
+	 * @param autoHide To autohide the error message.
+	 */
+	public void setErrorMessage(String message, boolean autoHide) {
+		this.message.setText(message);
+		setErrorMessVisible(true);
+		if (autoHide) {
+			timer.schedule(TIMEOUT);
+		}
+		close.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				setErrorMessVisible(false);
+			}
+		});
+	}
+	
+	/**
+	 * To set error message.
+	 * @param message
+	 * @param autoHide To autohide the error message in given timeout.
+	 */
+	public void setErrorMessage(String message, boolean autoHide,int timeout) {
+		this.message.setText(message);
+		setErrorMessVisible(true);
+		if (autoHide) {
+			timer.schedule(timeout);
+		}
+		close.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				setErrorMessVisible(false);
+			}
+		});
 	}
 
 	/**
@@ -92,9 +161,9 @@ public class TextBox extends Composite {
 	public void setErrorPanWidth(int width) {
 		int messSpanwidth = 0;
 		errorPan.setWidth(width + "px");
-		messSpanwidth = width - 70;
+		messSpanwidth = width - 60;
 		String messSpanWidthStr = messSpanwidth + "px";
-		this.message.setAttribute("style", "width:" + messSpanWidthStr + ";");
+		this.message.setWidth(messSpanWidthStr);
 	}
 
 	/**
@@ -203,23 +272,6 @@ public class TextBox extends Composite {
 	 */
 	public void setWidth(String width) {
 		this.textBox.setWidth(width);
-	}
-
-	/**
-	 * sets error message in message panel
-	 * 
-	 * @param message
-	 */
-	public void setErrorMessage(String message) {
-		this.message.setInnerText(message);
-		textBox.addStyleName("text-box-error");
-		close.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				setErrorMessVisible(false);
-			}
-		});
 	}
 
 	public static TextBoxResources getResources() {

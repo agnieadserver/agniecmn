@@ -21,7 +21,7 @@ public class LabelTextBox extends TextBox {
 	}
 
 	private String							label		= new String();
-	protected boolean						dirtyFlag	= false;
+	
 
 	public LabelTextBox() {
 		this(null);
@@ -62,7 +62,6 @@ public class LabelTextBox extends TextBox {
 					setText("");
 				}
 				removeStyle();
-				dirtyFlag = true;
 			}
 		});
 
@@ -71,9 +70,9 @@ public class LabelTextBox extends TextBox {
 	 * To reset textbox with default label.
 	 */
 	public void reset(){
+		super.reset();
 		setText(getLabel());
 		addStyle();
-		dirtyFlag = false;
 	}
 
 	/**

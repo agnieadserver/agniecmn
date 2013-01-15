@@ -72,6 +72,7 @@ public class samples implements EntryPoint {
 		// loaderTest();
 		// formFieldTest();
 		labeledTextBoxPassBoxTest();
+		//accPanTest();
 	}
 
 	public void customMenuPanTest() {
@@ -88,12 +89,10 @@ public class samples implements EntryPoint {
 		Button getBtn = new Button("getTexBox");
 		Button getPassBtn = new Button("getPassBox");
 
-		ltb.setErrorMessage("data entered is not valid plz enter your name");
-		ltb.setErrorMessVisible(false);
-		ltb.setErrorPanWidth(400);
-		lpb.setErrorMessage("data entered is not valid plz enter your password");
-		lpb.setErrorMessVisible(true);
-		lpb.setErrorPanWidth(400);
+		ltb.setErrorMessage("required field",false);
+		//ltb.setErrorPanWidth(200);
+		lpb.setErrorMessage("required field",true);
+		//lpb.setErrorPanWidth(200);
 		dp1.add(ltb);
 		dp1.add(lpb);
 		resetBtn.addClickHandler(new ClickHandler() {
@@ -141,7 +140,7 @@ public class samples implements EntryPoint {
 
 	public void passwordTextBoxTest() {
 		PasswordTextBox ptb = new PasswordTextBox();
-		ptb.setErrorMessage("data entered is not valid plz enter your password");
+		ptb.setErrorMessage("Invalid data ",true);
 		ptb.setErrorMessVisible(true);
 		ptb.setErrorPanWidth(400);
 		ptb.setText("password");
@@ -151,7 +150,7 @@ public class samples implements EntryPoint {
 	public void textBoxTest() {
 		TextBox tB = new TextBox();
 		GreenButton gb = new GreenButton("Hello");
-		tB.setErrorMessage("data entered is not valid plz enter your name");
+		tB.setErrorMessage("Invalid data ",true);
 		tB.setErrorMessVisible(true);
 		tB.setErrorPanWidth(400);
 		tB.setText("username");

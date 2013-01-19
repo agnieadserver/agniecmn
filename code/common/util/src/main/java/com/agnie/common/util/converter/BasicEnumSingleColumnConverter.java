@@ -3,6 +3,8 @@ package com.agnie.common.util.converter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.agnie.common.util.client.converter.ConversionException;
+
 /**
  * 
  * Basic converter for Enum Types.

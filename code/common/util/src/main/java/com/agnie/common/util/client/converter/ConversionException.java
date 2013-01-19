@@ -1,21 +1,9 @@
-/**
- * 
- */
-package com.agnie.common.util.converter;
+package com.agnie.common.util.client.converter;
 
-/**
- *
- */
 public class ConversionException extends Exception {
 
-	/**
-	 * 
-	 */
 	private static final long	serialVersionUID	= 1L;
 
-	/**
-	 * 
-	 */
 	public ConversionException() {
 	}
 

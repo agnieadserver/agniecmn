@@ -1,4 +1,4 @@
-package com.agnie.common.util.converter;
+package com.agnie.common.util.client.converter;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

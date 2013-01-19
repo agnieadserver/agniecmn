@@ -7,10 +7,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.agnie.common.util.client.converter.MultiColumnType;
+import com.agnie.common.util.client.tablefile.DevException;
+import com.agnie.common.util.client.tablefile.TableBean;
+import com.agnie.common.util.client.tablefile.TableHeader;
 import com.agnie.common.util.tablefile.BaseTableBean;
-import com.agnie.common.util.tablefile.DevException;
-import com.agnie.common.util.tablefile.TableBean;
-import com.agnie.common.util.tablefile.TableHeader;
 import com.agnie.common.util.validator.NotNullValidator;
 import com.agnie.common.util.validator.Validator;
 import com.agnie.common.util.validator.ValidatorFactory;

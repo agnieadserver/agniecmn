@@ -9,7 +9,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.agnie.common.util.converter.MultiColumnType;
+import com.agnie.common.util.client.converter.MultiColumnType;
+import com.agnie.common.util.client.tablefile.TableType;
 import com.agnie.common.util.validator.NotNull;
 
 public class TableTypeTest {

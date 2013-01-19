@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.agnie.common.util.converter.MultiColumnType;
+import com.agnie.common.util.client.converter.MultiColumnType;
+import com.agnie.common.util.client.tablefile.TableBean;
 
 @MultiColumnType
 public class MultiBean implements TableBean {

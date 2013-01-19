@@ -3,7 +3,8 @@ package com.agnie.common.util.tablefile;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.agnie.common.util.converter.MultiColumnType;
+import com.agnie.common.util.client.converter.MultiColumnType;
+import com.agnie.common.util.client.tablefile.TableBean;
 import com.agnie.common.util.validator.NotNull;
 
 @MultiColumnType

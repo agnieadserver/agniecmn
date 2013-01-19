@@ -5,9 +5,6 @@ import java.util.Set;
 import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.Window.Location;
 
-/**
- * 
- */
 public class URLInfoImpl implements URLInfo {
 
 	public String getParameter(String name) {
@@ -36,6 +33,10 @@ public class URLInfoImpl implements URLInfo {
 
 	public String decodeUTF8URL(String encodedUrl) {
 		return URL.decode(encodedUrl);
+	}
+
+	public String getQueryString() {
+		return Location.getQueryString();
 	}
 
 }

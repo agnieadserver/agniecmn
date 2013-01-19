@@ -9,9 +9,10 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.agnie.common.util.tablefile.DevException;
-import com.agnie.common.util.tablefile.TableBean;
-import com.agnie.common.util.tablefile.TableHeader;
+import com.agnie.common.util.client.converter.MultiColumnType;
+import com.agnie.common.util.client.tablefile.DevException;
+import com.agnie.common.util.client.tablefile.TableBean;
+import com.agnie.common.util.client.tablefile.TableHeader;
 import com.agnie.common.util.validator.NotNull;
 import com.agnie.common.util.validator.NotNullValidator;
 

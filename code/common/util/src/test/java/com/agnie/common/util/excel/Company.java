@@ -3,10 +3,10 @@ package com.agnie.common.util.excel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.agnie.common.util.converter.MultiColumnType;
+import com.agnie.common.util.client.converter.MultiColumnType;
+import com.agnie.common.util.client.tablefile.TableHeader;
+import com.agnie.common.util.client.tablefile.TableType;
 import com.agnie.common.util.tablefile.BaseTableBean;
-import com.agnie.common.util.tablefile.TableHeader;
-import com.agnie.common.util.tablefile.TableType;
 import com.agnie.common.util.validator.NotNull;
 
 @MultiColumnType

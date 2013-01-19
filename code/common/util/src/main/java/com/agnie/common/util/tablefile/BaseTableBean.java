@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.agnie.common.util.client.tablefile.TableBean;
+import com.agnie.common.util.client.tablefile.TableType;
+
 /**
  * Abstract Base table bean to use it with TableType
  * 

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.agnie.common.helper;
 
 import java.io.UnsupportedEncodingException;
@@ -12,9 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.agnie.common.gwt.serverclient.client.helper.URLInfo;
 
-/**
- *
- */
 public class ServerURLInfo implements URLInfo {
 
 	private HttpServletRequest	request;
@@ -59,6 +53,10 @@ public class ServerURLInfo implements URLInfo {
 		} catch (UnsupportedEncodingException e) {
 		}
 		return null;
+	}
+
+	public String getQueryString() {
+		return request.getQueryString();
 	}
 
 }

@@ -20,6 +20,8 @@ public class TestURLInfoImpl implements URLInfo {
 
 	private URL							url;
 
+	private String						queryString;
+
 	private Map<String, List<String>>	parameterMap	= new HashMap<String, List<String>>();
 
 	public TestURLInfoImpl(String path) throws MalformedURLException {
@@ -33,7 +35,7 @@ public class TestURLInfoImpl implements URLInfo {
 		}
 		if (location.contains(QueryString.QUESTION_MARK.getKey())) {
 			// removed all query parameters including "?" so it removes "?gwt.server=127.0.0.1:9997"
-			String queryString = location.substring(location.indexOf(QueryString.QUESTION_MARK.getKey()) + 1, location.length());
+			queryString = location.substring(location.indexOf(QueryString.QUESTION_MARK.getKey()) + 1, location.length());
 			for (String paramPair : queryString.split(QueryString.AMPERSAND.getKey())) {
 				String[] param = paramPair.split("=");
 				List<String> values = parameterMap.get(param[0]);
@@ -85,6 +87,11 @@ public class TestURLInfoImpl implements URLInfo {
 		} catch (UnsupportedEncodingException e) {
 		}
 		return null;
+	}
+
+	@Override
+	public String getQueryString() {
+		return queryString;
 	}
 
 }

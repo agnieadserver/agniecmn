@@ -53,4 +53,11 @@ public interface URLInfo {
 	 * @return UTF-8 decoded url.
 	 */
 	String decodeUTF8URL(String encodedUrl);
+
+	/**
+	 * retrieve complete Query String from the URL
+	 * 
+	 * @return
+	 */
+	String getQueryString();
 }

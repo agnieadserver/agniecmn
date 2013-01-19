@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.agnie.common.gwt.serverclient.client.enums.Language;
-import com.agnie.common.util.converter.MultiColumnType;
-import com.agnie.common.util.tablefile.TableBean;
+import com.agnie.common.util.client.converter.MultiColumnType;
+import com.agnie.common.util.client.tablefile.TableBean;
 
 @MultiColumnType
 public class UserAccount implements Serializable, TableBean {

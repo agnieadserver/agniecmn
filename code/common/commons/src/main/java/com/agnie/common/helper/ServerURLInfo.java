@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.agnie.common.gwt.serverclient.client.enums.QueryString;
 import com.agnie.common.gwt.serverclient.client.helper.URLInfo;
 
 public class ServerURLInfo implements URLInfo {
@@ -22,7 +23,7 @@ public class ServerURLInfo implements URLInfo {
 	}
 
 	public String getHostURL() {
-		return request.getRequestURL().toString();
+		return request.getRequestURL().toString() + (request.getQueryString() != null ? QueryString.QUESTION_MARK.getKey() + request.getQueryString() : "");
 	}
 
 	public String[] getAllValues(String name) {

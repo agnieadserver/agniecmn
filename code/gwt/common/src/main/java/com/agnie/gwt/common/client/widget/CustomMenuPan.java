@@ -1,5 +1,9 @@
 package com.agnie.gwt.common.client.widget;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.agnie.common.gwt.serverclient.client.dto.UserAccount;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.event.dom.client.ContextMenuEvent;
@@ -39,13 +43,9 @@ public class CustomMenuPan extends Composite implements ContextMenuHandler {
 		this(resource.css().customMenuPan());
 	}
 
-	MenuBar	popupMenuBar1To3	= new MenuBar(true);
-	MenuBar	popupMenuBar4To5	= new MenuBar(true);
-	Account	acc1				= new Account();
-	Account	acc2				= new Account();
-	Account	acc3				= new Account();
-	Account	acc4				= new Account();
-	Account	acc5				= new Account();
+	MenuBar			popupMenuBar1To3	= new MenuBar(true);
+	MenuBar			popupMenuBar4To5	= new MenuBar(true);
+	List<Account>	accList				= new ArrayList<Account>();
 
 	public CustomMenuPan(String styleClassName) {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
@@ -56,14 +56,15 @@ public class CustomMenuPan extends Composite implements ContextMenuHandler {
 		this.contextMenu.hide();
 		this.contextMenu.setAutoHideEnabled(true);
 		addDomHandler(this, ContextMenuEvent.getType());
+		
+		createDummyAccounts();
 
 		Command c1 = new Command() {
 
 			@Override
 			public void execute() {
 				Window.alert("Command 1 executed.");
-				acc1.setAccName("Account1");
-				container.add(acc1);
+				container.add(accList.get(0));
 			}
 		};
 		Command c2 = new Command() {
@@ -71,8 +72,7 @@ public class CustomMenuPan extends Composite implements ContextMenuHandler {
 			@Override
 			public void execute() {
 				Window.alert("Command 2 executed.");
-				acc2.setAccName("Account2");
-				container.add(acc2);
+				container.add(accList.get(1));
 			}
 		};
 		Command c3 = new Command() {
@@ -80,8 +80,7 @@ public class CustomMenuPan extends Composite implements ContextMenuHandler {
 			@Override
 			public void execute() {
 				Window.alert("Command 3 executed.");
-				acc3.setAccName("Account3");
-				container.add(acc3);
+				container.add(accList.get(2));
 			}
 		};
 		Command c4 = new Command() {
@@ -89,8 +88,7 @@ public class CustomMenuPan extends Composite implements ContextMenuHandler {
 			@Override
 			public void execute() {
 				Window.alert("Command 4 executed.");
-				acc4.setAccName("Account4");
-				container.add(acc4);
+				container.add(accList.get(3));
 			}
 		};
 		Command c5 = new Command() {
@@ -98,8 +96,7 @@ public class CustomMenuPan extends Composite implements ContextMenuHandler {
 			@Override
 			public void execute() {
 				Window.alert("Command 5 executed.");
-				acc5.setAccName("Account5");
-				container.add(acc5);
+				container.add(accList.get(4));
 			}
 		};
 		MenuItem fItem = new MenuItem("Command1", true, c1);
@@ -135,4 +132,12 @@ public class CustomMenuPan extends Composite implements ContextMenuHandler {
 		this.title.setInnerText(title);
 	}
 
+	private void createDummyAccounts() {
+		for(int index=0;index<5;index++){
+		UserAccount ua = new UserAccount();
+		ua.setFirstName("firstName"+index);
+		ua.setLastName("lastName"+index);
+		accList.get(index).setUserAcc(ua);
+		}
+	}
 }

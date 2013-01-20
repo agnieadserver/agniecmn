@@ -1,5 +1,6 @@
 package com.agnie.gwt.common.client.widget;
 
+import com.agnie.common.gwt.serverclient.client.dto.UserAccount;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.SpanElement;
@@ -58,12 +59,13 @@ public class Account extends Composite {
 	}
 
 	CancelClickHandler	cancleClikInstance	= new CancelClickHandler();
+	UserAccount			userAcc;
 
 	public Account(String styleClassName) {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
 		container.addStyleName(styleClassName);
 		initWidget(container);
-		setUserImageResource(resource.person());
+
 		accImg.setUrl(GWT.getModuleBaseURL() + "images/transparent.png");
 
 		accTitlePan.sinkEvents(Event.ONCLICK);// 'enables' click events for the
@@ -79,6 +81,30 @@ public class Account extends Composite {
 				}
 			}
 		}, ClickEvent.getType());
+	}
+
+	private void setAccName(String title) {
+		accTitle.setInnerText(title);
+	}
+
+	private void setUserImageResource(ImageResource resource) {
+		accUserImg.setResource(resource);
+	}
+
+	private void setUserImageUrl(String imageUrl) {
+		accUserImg.setUrl(imageUrl);
+	}
+
+	public void setUserAcc(UserAccount userAcc) {
+		if (userAcc != null) {
+			this.userAcc = userAcc;
+			setAccName(userAcc.getFirstName() + " " + userAcc.getLastName());
+			if (!(userAcc.getUserImgUrl().isEmpty())) {
+				setUserImageUrl(userAcc.getUserImgUrl());
+			} else {
+				setUserImageResource(resource.person());
+			}
+		}
 	}
 
 	private void hide() {
@@ -106,14 +132,6 @@ public class Account extends Composite {
 		logout.addClickHandler(cancleClikInstance);
 	}
 
-	public void setAccName(String title) {
-		accTitle.setInnerText(title);
-	}
-
-	public void setUserImageResource(ImageResource resource) {
-		accUserImg.setResource(resource);
-	}
-
 	public void setHeight(String height) {
 		container.setHeight(height);
 	}
@@ -132,7 +150,6 @@ public class Account extends Composite {
 		public void onClick(ClickEvent event) {
 			hide();
 		}
-
 	}
 
 }

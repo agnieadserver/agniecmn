@@ -19,7 +19,16 @@ public class UserAccount implements Serializable, TableBean {
 	private String				firstName;
 	private String				lastName;
 	private String				userName;
+	private String				userImgUrl			= "";
 	private Language			language			= Language.ENGLISH;
+
+	public String getUserImgUrl() {
+		return userImgUrl;
+	}
+
+	public void setUserImgUrl(String userImgUrl) {
+		this.userImgUrl = userImgUrl;
+	}
 
 	public String getId() {
 		return id;

@@ -21,6 +21,7 @@ public interface URLInfo {
 	String[] getAllValues(String name);
 
 	/**
+	 * Complete HostURL including query string parameters
 	 * 
 	 * @return complete URL
 	 */
@@ -60,4 +61,11 @@ public interface URLInfo {
 	 * @return
 	 */
 	String getQueryString();
+
+	/**
+	 * Complete URL excluding Query Parameters.
+	 * 
+	 * @return
+	 */
+	String getHostBaseURL();
 }

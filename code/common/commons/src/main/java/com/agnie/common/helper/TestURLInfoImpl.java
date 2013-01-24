@@ -22,20 +22,21 @@ public class TestURLInfoImpl implements URLInfo {
 
 	private String						queryString;
 
+	private String						baseUrl;
+
 	private Map<String, List<String>>	parameterMap	= new HashMap<String, List<String>>();
 
 	public TestURLInfoImpl(String path) throws MalformedURLException {
 		this.urlStr = path;
 		url = new URL(urlStr);
-		String location = null;
 		if (path.contains(QueryString.HASH.getKey())) {
-			location = path.substring(0, path.indexOf(QueryString.HASH.getKey()));
+			baseUrl = path.substring(0, path.indexOf(QueryString.HASH.getKey()));
 		} else {
-			location = path;
+			baseUrl = path;
 		}
-		if (location.contains(QueryString.QUESTION_MARK.getKey())) {
+		if (baseUrl.contains(QueryString.QUESTION_MARK.getKey())) {
 			// removed all query parameters including "?" so it removes "?gwt.server=127.0.0.1:9997"
-			queryString = location.substring(location.indexOf(QueryString.QUESTION_MARK.getKey()) + 1, location.length());
+			queryString = baseUrl.substring(baseUrl.indexOf(QueryString.QUESTION_MARK.getKey()) + 1, baseUrl.length());
 			for (String paramPair : queryString.split(QueryString.AMPERSAND.getKey())) {
 				String[] param = paramPair.split("=");
 				List<String> values = parameterMap.get(param[0]);
@@ -45,6 +46,7 @@ public class TestURLInfoImpl implements URLInfo {
 				}
 				values.add(param[1]);
 			}
+			baseUrl = baseUrl.substring(0, baseUrl.indexOf(QueryString.QUESTION_MARK.getKey()));
 		}
 
 	}
@@ -92,6 +94,11 @@ public class TestURLInfoImpl implements URLInfo {
 	@Override
 	public String getQueryString() {
 		return queryString;
+	}
+
+	@Override
+	public String getHostBaseURL() {
+		return null;
 	}
 
 }

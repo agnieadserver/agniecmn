@@ -60,4 +60,8 @@ public class ServerURLInfo implements URLInfo {
 		return request.getQueryString();
 	}
 
+	public String getHostBaseURL() {
+		return request.getRequestURL().toString();
+	}
+
 }

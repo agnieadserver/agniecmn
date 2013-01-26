@@ -37,7 +37,11 @@ public class URLInfoImpl implements URLInfo {
 	}
 
 	public String getQueryString() {
-		return Location.getQueryString();
+		String queryString = Location.getQueryString();
+		if (queryString != null && !(queryString.isEmpty())) {
+			return Location.getQueryString().substring(queryString.indexOf(QueryString.QUESTION_MARK.getKey()) + 1, queryString.length());
+		}
+		return null;
 	}
 
 	public String getHostBaseURL() {

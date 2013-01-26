@@ -13,10 +13,10 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -34,34 +34,26 @@ public class TextBox extends Composite {
 	interface MyUiBinder extends UiBinder<Widget, TextBox> {
 	}
 
-	private static MyUiBinder				uiBinder	= GWT.create(MyUiBinder.class);
+	private static MyUiBinder				uiBinder		= GWT.create(MyUiBinder.class);
 
 	@UiField
 	com.google.gwt.user.client.ui.TextBox	textBox;
 
-	@UiField
-	HTMLPanel								errorPan;
-
-	@UiField
-	Anchor									img;
-
-	@UiField
-	HTML									message;
-
-	@UiField
-	Anchor									close;
-
 	protected HTMLPanel						container;
-	protected boolean						dirtyFlag	= false;
+	protected boolean						dirtyFlag		= false;
 
-	private Timer							timer		= null;
-	private static final int				TIMEOUT		= 20000;
+	private Timer							timer			= null;
+	private static final int				TIMEOUT			= 20000;
+
+	final PopupPanel						errorPan		= new PopupPanel();
+	private LeftErrorPan					leftErrorPan	= new LeftErrorPan();
 
 	public TextBox() {
 
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
 		initWidget(container);
-		errorPan.setVisible(false);
+
+		errorPan.add(leftErrorPan);
 
 		textBox.addKeyPressHandler(new KeyPressHandler() {
 
@@ -73,14 +65,13 @@ public class TextBox extends Composite {
 				dirtyFlag = true;
 			}
 		});
-
 		timer = new Timer() {
 			public void run() {
 				TextBox.this.setErrorMessVisible(false);
 			}
 		};
 	}
-	
+
 	public void onFirstKeyPress() {
 		setErrorMessVisible(false);
 	}
@@ -119,40 +110,51 @@ public class TextBox extends Composite {
 
 	/**
 	 * To set error message.
+	 * 
 	 * @param message
-	 * @param autoHide To autohide the error message.
+	 * @param autoHide
+	 *            To autohide the error message.
 	 */
 	public void setErrorMessage(String message, boolean autoHide) {
-		this.message.setText(message);
+		setErrorMessage(message, autoHide, TIMEOUT);
+	}
+
+	/**
+	 * To set error message.
+	 * 
+	 * @param message
+	 * @param autoHide
+	 *            To autohide the error message in given timeout.
+	 */
+	public void setErrorMessage(String message, boolean autoHide, int timeout) {
+		this.leftErrorPan.message.setText(message);
 		setErrorMessVisible(true);
 		if (autoHide) {
-			timer.schedule(TIMEOUT);
+			timer.schedule(timeout);
 		}
-		close.addClickHandler(new ClickHandler() {
+		this.leftErrorPan.close.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				setErrorMessVisible(false);
 			}
 		});
+		setErrorPanPositionLeft();
 	}
-	
-	/**
-	 * To set error message.
-	 * @param message
-	 * @param autoHide To autohide the error message in given timeout.
-	 */
-	public void setErrorMessage(String message, boolean autoHide,int timeout) {
-		this.message.setText(message);
-		setErrorMessVisible(true);
-		if (autoHide) {
-			timer.schedule(timeout);
-		}
-		close.addClickHandler(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				setErrorMessVisible(false);
+	private void setErrorPanPositionLeft() {
+		errorPan.setPopupPositionAndShow(new PositionCallback() {
+
+			public void setPosition(int offsetWidth, int offsetHeight) {
+				int x = 0, y = 0;
+
+				final int widgetX = TextBox.this.textBox.getAbsoluteLeft();
+				final int widgetY = TextBox.this.textBox.getAbsoluteTop();
+
+				x = widgetX - offsetWidth - 5;// -5 is for errorPan triangle
+				y = widgetY - 7; // -7 is for errorPan triangle.
+
+				errorPan.setPopupPosition(x, y);
 			}
 		});
 	}
@@ -167,7 +169,7 @@ public class TextBox extends Composite {
 		errorPan.setWidth(width + "px");
 		messSpanwidth = width - 60;
 		String messSpanWidthStr = messSpanwidth + "px";
-		this.message.setWidth(messSpanWidthStr);
+		this.leftErrorPan.message.setWidth(messSpanWidthStr);
 	}
 
 	/**

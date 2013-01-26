@@ -4,7 +4,7 @@ import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.PopupPanel;
 
 /**
  * LabelTextBox is an extension of GWT TextBox to show label as text field default value(in little bit light color).
@@ -94,7 +94,7 @@ public class LabelTextBox extends TextBox {
 	 * 
 	 * @return
 	 */
-	public HTMLPanel getErrorPan() {
+	public PopupPanel getErrorPan() {
 		return this.errorPan;
 	}
 

@@ -5,7 +5,7 @@ import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.PopupPanel;
 
 /**
  * LabelPasswordBox is an 'extended GWT LabelTextBox' to show label(e.g.'password')<br>
@@ -77,7 +77,7 @@ public class LabelPasswordBox extends LabelTextBox {
 	 * 
 	 * @return
 	 */
-	public HTMLPanel getErrorPan() {
+	public PopupPanel getErrorPan() {
 		return this.errorPan;
 	}
 

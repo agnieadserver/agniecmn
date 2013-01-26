@@ -109,6 +109,7 @@
 						<cssFile>com/agnie/gwt/common/client/widget/CustomMenuPanCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/MenuPanCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/TextBoxCss.css</cssFile>
+						<cssFile>com/agnie/gwt/common/client/widget/LeftErrorPanCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/CloseBtnCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/LoaderCss.css</cssFile>
 					</cssFiles>

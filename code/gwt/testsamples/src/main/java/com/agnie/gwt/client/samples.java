@@ -28,7 +28,6 @@ import com.agnie.gwt.common.client.widget.PageTitle;
 import com.agnie.gwt.common.client.widget.PasswordTextBox;
 import com.agnie.gwt.common.client.widget.SearchBox;
 import com.agnie.gwt.common.client.widget.SuggestionBox;
-import com.agnie.gwt.common.client.widget.TestTB;
 import com.agnie.gwt.common.client.widget.TextBox;
 import com.agnie.gwt.common.client.widget.WizardBar;
 import com.google.gwt.core.client.EntryPoint;
@@ -73,47 +72,9 @@ public class samples implements EntryPoint {
 		// messagePanelTest();
 		// loaderTest();
 		// formFieldTest();
-		//labeledTextBoxPassBoxTest();
-		accPanTest();
-		//testTBTest();
-	}
-	
-	public void testTBTest() {
-		HTMLPanel hpb=new HTMLPanel("");
-		hpb.addStyleName("sample-base");
-		
-		HTMLPanel hp=new HTMLPanel("");
-		hp.addStyleName("sample-class");
-		TestTB tTB=new TestTB();
-		hp.add(tTB);
-		hpb.add(hp);
-		RootPanel.get().add(tTB);
-		tTB.setErrorMessage("Required1234567 Field0", false);
-		
-		HTMLPanel hp1=new HTMLPanel("");
-		hp1.addStyleName("sample-class-one");
-		TestTB tTB1=new TestTB();
-		hp1.add(tTB1);
-		hpb.add(hp1);
-		RootPanel.get().add(tTB1);
-		tTB1.setErrorMessage("Required12345678 Field1", false);
-		
-		HTMLPanel hp2=new HTMLPanel("");
-		hp2.addStyleName("sample-class-two");
-		TestTB tTB2=new TestTB();
-		hp2.add(tTB2);
-		hpb.add(hp2);
-		RootPanel.get().add(tTB2);
-		tTB2.setErrorMessage("Required123456789 Field2", false);
-		
-		HTMLPanel hp3=new HTMLPanel("");
-		hp3.addStyleName("sample-class-three");
-		TestTB tTB3=new TestTB();
-		hp3.add(tTB3);
-		hpb.add(hp3);
-		RootPanel.get().add(tTB3);
-		tTB3.setErrorMessage("Required1234567890 Field3Required1234567890 Field3Required1234567890 Field3", false);
-		
+		 labeledTextBoxPassBoxTest();
+		// accPanTest();
+		//textBoxTest();
 	}
 
 	public void customMenuPanTest() {
@@ -123,19 +84,23 @@ public class samples implements EntryPoint {
 
 	public void labeledTextBoxPassBoxTest() {
 		final LabelTextBox ltb = new LabelTextBox("Labeled Text Box!");
-		final LabelPasswordBox lpb = new LabelPasswordBox("Labeled Password Box");
+		//final LabelPasswordBox lpb = new LabelPasswordBox("Labeled Password Box");
 		VerticalPanel dp1 = new VerticalPanel();
 		Button resetBtn = new Button("resetTexBox");
 		Button resetPassBtn = new Button("resetPassBox");
 		Button getBtn = new Button("getTexBox");
 		Button getPassBtn = new Button("getPassBox");
-
-		ltb.setErrorMessage("required field",false);
-		//ltb.setErrorPanWidth(200);
-		lpb.setErrorMessage("required field",true);
-		//lpb.setErrorPanWidth(200);
 		dp1.add(ltb);
-		dp1.add(lpb);
+		//dp1.add(lpb);
+		dp1.add(resetBtn);
+		dp1.add(resetPassBtn);
+		dp1.add(getBtn);
+		dp1.add(getPassBtn);
+		RootPanel.get().add(ltb);
+		ltb.setErrorMessage("required field", false);
+		// ltb.setErrorPanWidth(200);
+		//lpb.setErrorMessage("required field", true);
+		// lpb.setErrorPanWidth(200);
 		resetBtn.addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
@@ -145,7 +110,7 @@ public class samples implements EntryPoint {
 		resetPassBtn.addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
-				lpb.reset();
+			//	lpb.reset();
 			}
 		});
 		getBtn.addClickHandler(new ClickHandler() {
@@ -157,14 +122,9 @@ public class samples implements EntryPoint {
 		getPassBtn.addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
-				Window.alert("getValue==" + lpb.getValue());
+			//	Window.alert("getValue==" + lpb.getValue());
 			}
 		});
-		dp1.add(resetBtn);
-		dp1.add(resetPassBtn);
-		dp1.add(getBtn);
-		dp1.add(getPassBtn);
-		RootPanel.get().add(dp1);
 	}
 
 	public void closeBtnTest() {
@@ -181,7 +141,7 @@ public class samples implements EntryPoint {
 
 	public void passwordTextBoxTest() {
 		PasswordTextBox ptb = new PasswordTextBox();
-		ptb.setErrorMessage("Invalid data ",true);
+		ptb.setErrorMessage("Invalid data ", true);
 		ptb.setErrorMessVisible(true);
 		ptb.setErrorPanWidth(400);
 		ptb.setText("password");
@@ -190,15 +150,10 @@ public class samples implements EntryPoint {
 
 	public void textBoxTest() {
 		TextBox tB = new TextBox();
-		GreenButton gb = new GreenButton("Hello");
-		tB.setErrorMessage("Invalid data ",true);
 		tB.setErrorMessVisible(true);
-		tB.setErrorPanWidth(400);
 		tB.setText("username");
-		VerticalPanel vPanel = new VerticalPanel();
-		vPanel.add(gb);
-		vPanel.add(tB);
-		RootPanel.get().add(vPanel);
+		RootPanel.get().add(tB);
+		tB.setErrorMessage("Invalid data ", false);
 	}
 
 	public void wizardBarTes() {
@@ -235,7 +190,7 @@ public class samples implements EntryPoint {
 		Account acc2 = new Account();
 		VerticalPanel dp1 = new VerticalPanel();
 
-		UserAccount ua=new UserAccount();
+		UserAccount ua = new UserAccount();
 		ua.setFirstName("firstName");
 		ua.setLastName("lastName");
 		acc.setUserAcc(ua);
@@ -244,18 +199,18 @@ public class samples implements EntryPoint {
 				Window.alert("Are you sure to change your password");
 			}
 		});
-		UserAccount ua1=new UserAccount();
+		UserAccount ua1 = new UserAccount();
 		ua1.setFirstName("firstName1");
 		ua1.setLastName("lastName1");
 		ua1.setUserImgUrl("images/personE.png");
 		acc1.setUserAcc(ua1);
-		
-		UserAccount ua2=new UserAccount();
+
+		UserAccount ua2 = new UserAccount();
 		ua2.setFirstName("firstName2");
 		ua2.setLastName("lastName2");
 		ua2.setUserImgUrl("images/personE.png");
 		acc2.setUserAcc(ua2);
-		
+
 		dp1.add(acc);
 		dp1.add(acc1);
 		dp1.add(acc2);

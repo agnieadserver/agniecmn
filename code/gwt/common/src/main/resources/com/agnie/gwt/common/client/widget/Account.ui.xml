@@ -20,15 +20,21 @@
 					<g:Image ui:field="accUserImg"></g:Image>
 				</div>
 				<div class='{res.css.accDet}'>
-					<div class='{res.css.accDetElem}'>
-						<g:Anchor ui:field="changePass" text='{msg.changePass}'></g:Anchor>
-					</div>
-					<div class='{res.css.accDetElem}'>
-						<g:Anchor ui:field="modify" text='{msg.modify}'></g:Anchor>
-					</div>
-					<div class='{res.css.accDetElem}'>
-						<g:Anchor ui:field="logout" text='{msg.logout}'></g:Anchor>
-					</div>
+					<g:HTMLPanel ui:field="changePass" addStyleNames='{res.css.accDetElem}'>
+						<span>
+							<ui:text from='{msg.changePass}'></ui:text>
+						</span>
+					</g:HTMLPanel>
+					<g:HTMLPanel ui:field="modify" addStyleNames='{res.css.accDetElem}'>
+						<span>
+							<ui:text from='{msg.modify}'></ui:text>
+						</span>
+					</g:HTMLPanel>
+					<g:HTMLPanel ui:field="logout" addStyleNames='{res.css.accDetElem}'>
+						<span>
+							<ui:text from='{msg.logout}'></ui:text>
+						</span>
+					</g:HTMLPanel>
 				</div>
 			</div>
 		</div>

@@ -10,7 +10,6 @@ import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -45,11 +44,11 @@ public class Account extends Composite {
 	@UiField
 	Image						accUserImg;
 	@UiField
-	Anchor						changePass;
+	HTMLPanel					changePass;
 	@UiField
-	Anchor						modify;
+	HTMLPanel					modify;
 	@UiField
-	Anchor						logout;
+	HTMLPanel					logout;
 
 	protected HTMLPanel			container;
 	protected boolean			visibleDropPan	= false;
@@ -67,7 +66,7 @@ public class Account extends Composite {
 		initWidget(container);
 
 		accImg.setUrl(GWT.getModuleBaseURL() + "images/transparent.png");
-
+		setUserImageResource(resource.person());
 		accTitlePan.sinkEvents(Event.ONCLICK);// 'enables' click events for the
 												// HtmlPanel
 		accTitlePan.addHandler(new ClickHandler() {
@@ -118,18 +117,21 @@ public class Account extends Composite {
 	}
 
 	public void addChangePassClickHandler(ClickHandler handler) {
-		changePass.addClickHandler(handler);
-		changePass.addClickHandler(cancleClikInstance);
+		changePass.sinkEvents(Event.ONCLICK);
+		changePass.addHandler(handler, ClickEvent.getType());
+		changePass.addHandler(cancleClikInstance, ClickEvent.getType());
 	}
 
 	public void addModifyClickHandler(ClickHandler handler) {
-		modify.addClickHandler(handler);
-		modify.addClickHandler(cancleClikInstance);
+		modify.sinkEvents(Event.ONCLICK);
+		modify.addHandler(handler, ClickEvent.getType());
+		modify.addHandler(cancleClikInstance, ClickEvent.getType());
 	}
 
 	public void addLogoutClickHandler(ClickHandler handler) {
-		logout.addClickHandler(handler);
-		logout.addClickHandler(cancleClikInstance);
+		logout.sinkEvents(Event.ONCLICK);
+		logout.addHandler(handler, ClickEvent.getType());
+		logout.addHandler(cancleClikInstance, ClickEvent.getType());
 	}
 
 	public void setHeight(String height) {

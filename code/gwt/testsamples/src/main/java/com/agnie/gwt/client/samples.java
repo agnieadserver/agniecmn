@@ -72,8 +72,8 @@ public class samples implements EntryPoint {
 		// messagePanelTest();
 		// loaderTest();
 		// formFieldTest();
-		 labeledTextBoxPassBoxTest();
-		// accPanTest();
+		 //labeledTextBoxPassBoxTest();
+		 accPanTest();
 		//textBoxTest();
 	}
 
@@ -197,6 +197,18 @@ public class samples implements EntryPoint {
 		acc.addChangePassClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				Window.alert("Are you sure to change your password");
+			}
+		});
+		acc.addModifyClickHandler(new ClickHandler() {
+			
+			public void onClick(ClickEvent event) {
+				Window.alert("Are you sure to update your profile");
+			}
+		});
+		acc.addLogoutClickHandler(new ClickHandler() {
+			
+			public void onClick(ClickEvent event) {
+				Window.alert("Are you sure to logout");
 			}
 		});
 		UserAccount ua1 = new UserAccount();

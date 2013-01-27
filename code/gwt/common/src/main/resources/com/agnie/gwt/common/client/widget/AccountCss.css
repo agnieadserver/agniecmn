@@ -7,7 +7,10 @@
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-color:transparent;
-	width: inherit;
+	position: relative;
+    width: inherit;
+    z-index: 1;
+	height: 12px;
 }
 
 @sprite .acc-pan .img{

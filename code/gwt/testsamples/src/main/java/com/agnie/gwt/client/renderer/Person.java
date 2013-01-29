@@ -1,6 +1,6 @@
 package com.agnie.gwt.client.renderer;
 
-import com.agnie.gwt.common.client.renderer.Title;
+import com.agnie.common.gwt.serverclient.client.renderer.Title;
 
 public class Person implements Title{
 

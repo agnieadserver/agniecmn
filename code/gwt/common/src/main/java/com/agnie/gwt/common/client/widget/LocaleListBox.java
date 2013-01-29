@@ -7,10 +7,10 @@ package com.agnie.gwt.common.client.widget;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.agnie.common.gwt.serverclient.client.enums.Language;
 import com.agnie.common.gwt.serverclient.client.enums.QueryString;
 import com.agnie.common.gwt.serverclient.client.helper.URLGenerator;
 import com.agnie.common.gwt.serverclient.client.helper.URLInfo;
-import com.agnie.gwt.common.client.enums.Language;
 import com.agnie.gwt.common.client.renderer.LanguageCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;

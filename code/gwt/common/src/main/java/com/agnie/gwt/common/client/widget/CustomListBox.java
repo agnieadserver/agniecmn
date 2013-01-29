@@ -3,7 +3,7 @@ package com.agnie.gwt.common.client.widget;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.agnie.gwt.common.client.renderer.Title;
+import com.agnie.common.gwt.serverclient.client.renderer.Title;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.SpanElement;

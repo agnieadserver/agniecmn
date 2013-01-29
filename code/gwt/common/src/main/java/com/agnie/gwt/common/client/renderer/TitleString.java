@@ -1,5 +1,7 @@
 package com.agnie.gwt.common.client.renderer;
 
+import com.agnie.common.gwt.serverclient.client.renderer.Title;
+
 public class TitleString implements Title {
 	String	string;
 

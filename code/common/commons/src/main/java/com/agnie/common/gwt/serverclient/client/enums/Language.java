@@ -2,7 +2,9 @@ package com.agnie.common.gwt.serverclient.client.enums;
 
 import java.io.Serializable;
 
-public enum Language implements Serializable {
+import com.agnie.common.gwt.serverclient.client.renderer.Title;
+
+public enum Language implements Serializable, Title {
 	MARATHI("mr", "मराठी"), HINDI("hi", "हिन्दी"), ENGLISH("en", "English");
 	private String	code;
 	private String	label;
@@ -26,4 +28,8 @@ public enum Language implements Serializable {
 		return code;
 	}
 
+	@Override
+	public String getTitle() {
+		return label;
+	}
 }

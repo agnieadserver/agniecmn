@@ -1,6 +1,6 @@
 package com.agnie.gwt.common.client.renderer;
 
-import com.agnie.gwt.common.client.enums.Language;
+import com.agnie.common.gwt.serverclient.client.enums.Language;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;

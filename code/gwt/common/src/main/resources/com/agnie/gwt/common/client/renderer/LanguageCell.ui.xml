@@ -2,7 +2,7 @@
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:agcw='urn:import:com.agnie.gwt.common.client.widget'>
 	
 	<ui:with field='string'
-		type="com.agnie.gwt.common.client.enums.Language" />
+		type="com.agnie.common.gwt.serverclient.client.enums.Language" />
 	<g:HTMLPanel>
 		<span>
 			<ui:text from="{string.getTitle}" />

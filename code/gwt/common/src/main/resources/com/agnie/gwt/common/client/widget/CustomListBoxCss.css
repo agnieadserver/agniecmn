@@ -1,10 +1,12 @@
 .custom-list-box-pan {
-	padding: 5px;
 }
 
 .custom-list-box-border {
 	border: 2px solid gray;
 	border-radius: 5px;
+	background: none repeat scroll 0 0 white;
+	box-shadow: 1px 1px 7px 1px gray;
+	padding: 5px;
 }
 
 .custom-list-box-pan .cell-list-separator {

@@ -3,7 +3,7 @@
 	<ui:with field='res'
 		type='com.agnie.gwt.common.client.widget.CustomListBoxResources' />
 	<ui:with field='msg' type='com.agnie.gwt.common.client.Messages' />
-	<g:HTMLPanel addStyleNames="customListBoxPan">
+	<g:HTMLPanel addStyleNames="{res.css.customListBoxPan}">
 		<g:HTMLPanel ui:field="listTitlePan" addStyleNames='{res.css.customListTitlePan}'>
 			<span ui:field="customListTitle" class='{res.css.customListTitle}'></span>
 			<g:Image ui:field="customListImg" addStyleNames='{res.css.customListImg}'></g:Image>

@@ -24,5 +24,11 @@
 				<g:TextBox></g:TextBox>
 			</agcw:inputfieldcontainer>
 		</agcw:FormFieldContainer>
+		<agcw:FormFieldContainer required="true"
+			label="CustomListBox"   >
+			<agcw:inputfieldcontainer>
+				<g:HTMLPanel ui:field="custListPan"></g:HTMLPanel>
+			</agcw:inputfieldcontainer>
+		</agcw:FormFieldContainer>
 	</g:HTMLPanel>
 </ui:UiBinder>

@@ -71,9 +71,9 @@ public class samples implements EntryPoint {
 
 		// messagePanelTest();
 		// loaderTest();
-		// formFieldTest();
+		 formFieldTest();
 		 //labeledTextBoxPassBoxTest();
-		 accPanTest();
+		 //accPanTest();
 		//textBoxTest();
 	}
 

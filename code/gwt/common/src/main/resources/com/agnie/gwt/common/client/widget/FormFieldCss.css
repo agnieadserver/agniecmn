@@ -5,6 +5,7 @@
 }
 
 .input-field-container{
+	
 }
 .form-field-container:before, .form-field-container:after {
     content: "";
@@ -29,6 +30,7 @@ span.required {
 }
 
 .form-field-input {
+	float: left;
 }
 
 .form-field-label, input, button, select, textarea {
@@ -50,6 +52,7 @@ span.required {
 }
 
 .form-field-error-text {
+	clear: both;
     background-color: transparent;
     background-image: none;
     border: medium none;

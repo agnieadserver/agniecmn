@@ -4,13 +4,16 @@ import com.agnie.common.gwt.serverclient.client.dto.UserAccount;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.SpanElement;
+import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
@@ -36,7 +39,7 @@ public class Account extends Composite {
 	@UiField
 	SpanElement					accTitle;
 	@UiField
-	DivElement					accDropPan;
+	FocusPanel					accDropPan;
 	@UiField
 	DivElement					accDropPanBody;
 	@UiField
@@ -80,6 +83,12 @@ public class Account extends Composite {
 				}
 			}
 		}, ClickEvent.getType());
+
+	}
+
+	@UiHandler("accDropPan")
+	void handleBlurDiv(BlurEvent be) {
+		this.hide();
 	}
 
 	private void setAccName(String title) {
@@ -107,12 +116,13 @@ public class Account extends Composite {
 	}
 
 	private void hide() {
-		accDropPan.removeClassName(resource.css().accDropPanVisible());
+		accDropPan.removeStyleName(resource.css().accDropPanVisible());
 		visibleDropPan = false;
 	}
 
 	private void show() {
-		accDropPan.addClassName(resource.css().accDropPanVisible());
+		accDropPan.addStyleName(resource.css().accDropPanVisible());
+		accDropPan.setFocus(true);
 		visibleDropPan = true;
 	}
 

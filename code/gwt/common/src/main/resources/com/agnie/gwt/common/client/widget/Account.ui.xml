@@ -13,30 +13,32 @@
 			<span ui:field="accTitle" class='{res.css.title}'></span>
 			<g:Image ui:field="accImg" addStyleNames='{res.css.img}'></g:Image>
 		</g:HTMLPanel>
-		<div ui:field="accDropPan" class="{res.css.accDropPan}">
-			<div ui:field="accTriangle" class="{res.css.accTrianlge}"></div>
-			<div ui:field="accDropPanBody" class='{res.css.accDropPanBody}'>
-				<div class='{res.css.accUserImg}'>
-					<g:Image ui:field="accUserImg"></g:Image>
+		<g:FocusPanel ui:field="accDropPan" addStyleNames="{res.css.accDropPan}">
+			<g:HTMLPanel>
+				<div ui:field="accTriangle" class="{res.css.accTrianlge}"></div>
+				<div ui:field="accDropPanBody" class='{res.css.accDropPanBody}'>
+					<div class='{res.css.accUserImg}'>
+						<g:Image ui:field="accUserImg"></g:Image>
+					</div>
+					<div class='{res.css.accDet}'>
+						<g:HTMLPanel ui:field="changePass" addStyleNames='{res.css.accDetElem}'>
+							<span>
+								<ui:text from='{msg.changePass}'></ui:text>
+							</span>
+						</g:HTMLPanel>
+						<g:HTMLPanel ui:field="modify" addStyleNames='{res.css.accDetElem}'>
+							<span>
+								<ui:text from='{msg.modify}'></ui:text>
+							</span>
+						</g:HTMLPanel>
+						<g:HTMLPanel ui:field="logout" addStyleNames='{res.css.accDetElem}'>
+							<span>
+								<ui:text from='{msg.logout}'></ui:text>
+							</span>
+						</g:HTMLPanel>
+					</div>
 				</div>
-				<div class='{res.css.accDet}'>
-					<g:HTMLPanel ui:field="changePass" addStyleNames='{res.css.accDetElem}'>
-						<span>
-							<ui:text from='{msg.changePass}'></ui:text>
-						</span>
-					</g:HTMLPanel>
-					<g:HTMLPanel ui:field="modify" addStyleNames='{res.css.accDetElem}'>
-						<span>
-							<ui:text from='{msg.modify}'></ui:text>
-						</span>
-					</g:HTMLPanel>
-					<g:HTMLPanel ui:field="logout" addStyleNames='{res.css.accDetElem}'>
-						<span>
-							<ui:text from='{msg.logout}'></ui:text>
-						</span>
-					</g:HTMLPanel>
-				</div>
-			</div>
-		</div>
+			</g:HTMLPanel>
+		</g:FocusPanel>
 	</g:HTMLPanel>
 </ui:UiBinder>

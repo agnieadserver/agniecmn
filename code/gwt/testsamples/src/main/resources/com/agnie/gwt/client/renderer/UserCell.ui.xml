@@ -1,6 +1,6 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-	<ui:with field='user' />
+	<ui:with field='user' type="com.agnie.gwt.client.renderer.User"/>
 
 	<g:HTMLPanel>
 		<div class="clear housyingsoc-user-renderer">

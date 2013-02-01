@@ -1,5 +1,5 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'>
-	<ui:with field='person' />
+	<ui:with field='person' type="com.agnie.gwt.client.renderer.Person" />
 
 	<div>
 		First Name :

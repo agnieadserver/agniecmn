@@ -86,17 +86,9 @@ public class CustomListBox<TYPE extends Title> extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				if (cellList.isVisible()) {
-					cellList.setVisible(false);
-					cellList.removeStyleName(resource.css().cellListSeparator());
-					container.removeStyleName(resource.css().customListBoxBorder());
-					customListImg.removeStyleName(resource.css().customListImgUp());
-					customListImg.addStyleName(resource.css().customListImg());
+					hideCellList();
 				} else {
-					cellList.setVisible(true);
-					cellList.addStyleName(resource.css().cellListSeparator());
-					container.addStyleName(resource.css().customListBoxBorder());
-					customListImg.removeStyleName(resource.css().customListImg());
-					customListImg.addStyleName(resource.css().customListImgUp());
+					showCellList();
 				}
 			}
 		}, ClickEvent.getType());
@@ -121,12 +113,26 @@ public class CustomListBox<TYPE extends Title> extends Composite {
 						ch.onChange();
 					}
 					setListBoxTitle(selected.getTitle());
-					cellList.setVisible(false);
-					cellList.removeStyleName(resource.css().cellListSeparator());
-					container.removeStyleName(resource.css().customListBoxBorder());
+					hideCellList();
 				}
 			}
 		});
+	}
+	
+	private void hideCellList(){
+		cellList.setVisible(false);
+		cellList.removeStyleName(resource.css().cellListSeparator());
+		container.removeStyleName(resource.css().customListBoxBorder());
+		customListImg.removeStyleName(resource.css().customListImgUp());
+		customListImg.addStyleName(resource.css().customListImg());
+	}
+	
+	private void showCellList(){
+		cellList.setVisible(true);
+		cellList.addStyleName(resource.css().cellListSeparator());
+		container.addStyleName(resource.css().customListBoxBorder());
+		customListImg.removeStyleName(resource.css().customListImg());
+		customListImg.addStyleName(resource.css().customListImgUp());
 	}
 
 	public TYPE getSelectedItem() {

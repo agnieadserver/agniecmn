@@ -21,7 +21,7 @@
 }
 
 @sprite .left-error-pan .error-img {
-	gwt-image: 'warning';
+	gwt-image: 'error';
 	cursor: pointer;
 	float:right;
 }

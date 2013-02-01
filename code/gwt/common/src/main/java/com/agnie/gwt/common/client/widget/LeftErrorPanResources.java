@@ -11,8 +11,8 @@ public interface LeftErrorPanResources extends ClientBundle {
 	@Source("LeftErrorPanCss.css")
 	LeftErrorPanCss css();
 
-	@Source("warning-small.png")
-	ImageResource warning();
+	@Source("error-small.png")
+	ImageResource error();
 	
 	@Source("cross-small.png")
 	ImageResource closeBtn();

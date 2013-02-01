@@ -73,8 +73,8 @@ public class samples implements EntryPoint {
 		// loaderTest();
 		// formFieldTest();
 		 //labeledTextBoxPassBoxTest();
-		accPanTest();
-		//textBoxTest();
+		//accPanTest();
+		textBoxTest();
 	}
 
 	public void customMenuPanTest() {

@@ -7,13 +7,16 @@ import com.agnie.common.gwt.serverclient.client.renderer.Title;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.SpanElement;
+import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
@@ -56,6 +59,8 @@ public class CustomListBox<TYPE extends Title> extends Composite {
 	Image								customListImg;
 
 	CellList<TYPE>						cellList;
+	@UiField
+	FocusPanel							cellListContainer;
 
 	HTMLPanel							container;
 
@@ -71,11 +76,12 @@ public class CustomListBox<TYPE extends Title> extends Composite {
 	public CustomListBox(String styleClassName, AbstractCell<TYPE> cell) {
 		initCellList(cell);
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
+
 		container.addStyleName(styleClassName);
 		customListImg.setUrl(GWT.getModuleBaseURL() + "images/transparent.png");
 
 		initWidget(container);
-		container.add(cellList);
+		cellListContainer.add(cellList);
 
 		cellList.setKeyboardSelectedRow(0);
 
@@ -92,6 +98,11 @@ public class CustomListBox<TYPE extends Title> extends Composite {
 				}
 			}
 		}, ClickEvent.getType());
+	}
+
+	@UiHandler("cellListContainer")
+	void cellListContainerBlurHandler(BlurEvent be) {
+		this.hideCellList();
 	}
 
 	public void addChangeHandler(ChangeHandler handler) {
@@ -118,16 +129,19 @@ public class CustomListBox<TYPE extends Title> extends Composite {
 			}
 		});
 	}
-	
-	private void hideCellList(){
+
+	private void hideCellList() {
+		cellListContainer.setVisible(false);
 		cellList.setVisible(false);
 		cellList.removeStyleName(resource.css().cellListSeparator());
 		container.removeStyleName(resource.css().customListBoxBorder());
 		customListImg.removeStyleName(resource.css().customListImgUp());
 		customListImg.addStyleName(resource.css().customListImg());
 	}
-	
-	private void showCellList(){
+
+	private void showCellList() {
+		cellListContainer.setVisible(true);
+		cellListContainer.setFocus(true);
 		cellList.setVisible(true);
 		cellList.addStyleName(resource.css().cellListSeparator());
 		container.addStyleName(resource.css().customListBoxBorder());

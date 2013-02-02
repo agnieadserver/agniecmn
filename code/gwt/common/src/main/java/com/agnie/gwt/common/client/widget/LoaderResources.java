@@ -13,6 +13,9 @@ public interface LoaderResources extends ClientBundle {
 	@Source("loader.gif")
 	ImageResource defaultLoader();
 
+	@Source("communicating.gif")
+	ImageResource communicating();
+
 	@Source("LoaderCss.css")
 	LoaderCss css();
 }

@@ -75,8 +75,9 @@ public class samples implements EntryPoint {
 		 //labeledTextBoxPassBoxTest();
 		//accPanTest();
 		//textBoxTest();
-		customListBoxTest();
+		//customListBoxTest();
 		//localeListBoxTest();
+		breadCrumbClassTest();
 	}
 
 	public void localeListBoxTest() {

@@ -79,6 +79,54 @@ public class samples implements EntryPoint {
 		//localeListBoxTest();
 	}
 
+	public void localeListBoxTest() {
+		// Locale Box Test -- start
+		LocaleListBox box = new LocaleListBox();
+		box.addChangeHandler(new CustomListBox.ChangeHandler() {
+
+			public void onChange() {
+				Window.alert("Hello OnChange working");
+			}
+
+		});
+		RootPanel.get().add(box);
+		// Locale Box Test -- end
+	}
+
+	
+	public void customListBoxTest() {
+		CustomListCell clc = new CustomListCell();
+		CustomListBox<TitleString> clb = new CustomListBox<TitleString>(clc);
+
+		PearsonCell pCell = new PearsonCell();
+		CustomListBox<Person> personCustomListBox = new CustomListBox<Person>(pCell);
+		/* CustomListBox test starts here */
+		clb.setWidth("100px");
+		clb.setList(createDummyList());
+		clb.setSelectedItem(createDummyList().get(5), true);
+
+		clb.addChangeHandler(new CustomListBox.ChangeHandler() {
+
+			public void onChange() {
+				Window.alert("CustomListBox<TitleString>addChangeHandler working");
+			}
+		});
+
+		personCustomListBox.setWidth("200px");
+		personCustomListBox.setList(createPersonList());
+		personCustomListBox.setSelectedItem(createPersonList().get(2), true);
+		personCustomListBox.addChangeHandler(new CustomListBox.ChangeHandler() {
+
+			public void onChange() {
+				Window.alert("CustomListBox<Person> addChangeHandler working");
+			}
+
+		});
+
+		RootPanel.get().add(personCustomListBox);
+
+		/* CustomListBox test ends here */
+	}
 	public void customMenuPanTest() {
 		CustomMenuPan cMenuPan = new CustomMenuPan();
 		RootPanel.get().add(cMenuPan);
@@ -337,20 +385,7 @@ public class samples implements EntryPoint {
 		// Green Button Test -- end
 	}
 
-	public void localeListBoxTest() {
-		// Locale Box Test -- start
-		LocaleListBox box = new LocaleListBox();
-		box.addChangeHandler(new CustomListBox.ChangeHandler() {
-
-			public void onChange() {
-				Window.alert("Hello OnChange working");
-			}
-
-		});
-		RootPanel.get().add(box);
-		// Locale Box Test -- end
-	}
-
+	
 	public void listBoxTestV() {
 		// ListBoxt Test -- start
 		VerticalPanel vselunPanel = new VerticalPanel();
@@ -393,38 +428,7 @@ public class samples implements EntryPoint {
 		// ListBoxt Test -- end
 	}
 
-	public void customListBoxTest() {
-		CustomListCell clc = new CustomListCell();
-		CustomListBox<TitleString> clb = new CustomListBox<TitleString>(clc);
-
-		PearsonCell pCell = new PearsonCell();
-		CustomListBox<Person> personCustomListBox = new CustomListBox<Person>(pCell);
-		/* CustomListBox test starts here */
-		clb.setWidth("100px");
-		clb.setList(createDummyList());
-		clb.setSelectedItem(createDummyList().get(5), true);
-
-		clb.addChangeHandler(new CustomListBox.ChangeHandler() {
-
-			public void onChange() {
-				Window.alert("CustomListBox<TitleString>addChangeHandler working");
-			}
-		});
-
-		personCustomListBox.setWidth("200px");
-		personCustomListBox.setList(createPersonList());
-		personCustomListBox.addChangeHandler(new CustomListBox.ChangeHandler() {
-
-			public void onChange() {
-				Window.alert("CustomListBox<Person> addChangeHandler working");
-			}
-
-		});
-
-		RootPanel.get().add(personCustomListBox);
-
-		/* CustomListBox test ends here */
-	}
+	
 
 	public void messagePanelTest() {
 		Button save = new Button("save");
@@ -517,7 +521,7 @@ public class samples implements EntryPoint {
 
 	public List<Person> createPersonList() {
 		List<Person> list = new ArrayList<Person>();
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 5; i++) {
 			Person p = new Person();
 			p.setFname("PersonF" + i);
 			p.setLname("PersonL" + i);

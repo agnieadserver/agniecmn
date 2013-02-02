@@ -14,6 +14,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellList;
+import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
@@ -58,12 +59,12 @@ public class CustomListBox<TYPE extends Title> extends Composite {
 	@UiField
 	Image								customListImg;
 
-	CellList<TYPE>						cellList;
 	@UiField
 	FocusPanel							cellListContainer;
 
 	HTMLPanel							container;
 
+	CellList<TYPE>						cellList;
 	final SingleSelectionModel<TYPE>	selectionModel	= new SingleSelectionModel<TYPE>();
 	List<TYPE>							listItem;
 	List<ChangeHandler>					changeHandler	= new ArrayList<ChangeHandler>();
@@ -113,8 +114,10 @@ public class CustomListBox<TYPE extends Title> extends Composite {
 
 		cellList = new CellList<TYPE>(cell);
 
+		// disable KeyBoardSelectionPolicy to avoid firstItem selection problem(we can't select firstItem and it shows
+		// yellow background
+		cellList.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);
 		// Add a selection model to handle user selection.
-
 		cellList.setSelectionModel(selectionModel);
 		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			public void onSelectionChange(SelectionChangeEvent event) {
@@ -162,10 +165,13 @@ public class CustomListBox<TYPE extends Title> extends Composite {
 	}
 
 	public void setList(List<TYPE> list) {
+
 		listItem = list;
-		setListBoxTitle(list.get(0).getTitle());
-		cellList.setRowCount(list.size(), true);
 		cellList.setRowData(list);
+		setSelectedItem(list.get(0), true);
+		setListBoxTitle(getSelectedItem().getTitle());
+		cellList.setRowCount(list.size(), true);
+
 		itemCount = list.size();
 	}
 

@@ -72,13 +72,14 @@ public class samples implements EntryPoint {
 		// messagePanelTest();
 		// loaderTest();
 		// formFieldTest();
-		 //labeledTextBoxPassBoxTest();
+		labeledTextBoxPassBoxTest();
 		//accPanTest();
 		//textBoxTest();
 		//customListBoxTest();
 		//localeListBoxTest();
-		breadCrumbClassTest();
+		//breadCrumbClassTest();
 	}
+	 
 
 	public void localeListBoxTest() {
 		// Locale Box Test -- start
@@ -136,19 +137,32 @@ public class samples implements EntryPoint {
 	public void labeledTextBoxPassBoxTest() {
 		final LabelTextBox ltb = new LabelTextBox("Labeled Text Box!");
 		//final LabelPasswordBox lpb = new LabelPasswordBox("Labeled Password Box");
-		VerticalPanel dp1 = new VerticalPanel();
+		final VerticalPanel dp1 = new VerticalPanel();
+		Button errorMessBtn = new Button("SetErrorMessage");
+		Button nextPageBtn = new Button("NextPage");
 		Button resetBtn = new Button("resetTexBox");
 		Button resetPassBtn = new Button("resetPassBox");
 		Button getBtn = new Button("getTexBox");
 		Button getPassBtn = new Button("getPassBox");
+		
 		dp1.add(ltb);
+		dp1.add(errorMessBtn);//To test onDetach(textBox) for erroPan.hide
+		dp1.add(nextPageBtn);//To test onDetach(textBox) for erroPan.hide
 		//dp1.add(lpb);
 		dp1.add(resetBtn);
 		dp1.add(resetPassBtn);
 		dp1.add(getBtn);
 		dp1.add(getPassBtn);
-		RootPanel.get().add(ltb);
-		ltb.setErrorMessage("required field", false);
+		
+		
+		RootPanel.get().add(dp1);
+		errorMessBtn.addClickHandler(new ClickHandler() {
+			
+			public void onClick(ClickEvent event) {
+				ltb.setErrorMessage("required field", false);
+			}
+		});
+		
 		// ltb.setErrorPanWidth(200);
 		//lpb.setErrorMessage("required field", true);
 		// lpb.setErrorPanWidth(200);
@@ -174,6 +188,13 @@ public class samples implements EntryPoint {
 
 			public void onClick(ClickEvent event) {
 			//	Window.alert("getValue==" + lpb.getValue());
+			}
+		});
+		nextPageBtn.addClickHandler(new ClickHandler() {
+			
+			public void onClick(ClickEvent event) {
+				dp1.clear();
+				Window.Location.assign("http://127.0.0.1:8888/Test.html?gwt.codesvr=127.0.0.1:9997");
 			}
 		});
 	}

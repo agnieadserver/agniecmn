@@ -21,7 +21,6 @@ public class LabelTextBox extends TextBox {
 	}
 
 	private String							label		= new String();
-	
 
 	public LabelTextBox() {
 		this(null);
@@ -30,18 +29,18 @@ public class LabelTextBox extends TextBox {
 	public LabelTextBox(String label) {
 
 		setLabel(label);
-		this.label=label;
-		/*TODO:It is not working on some Chromium version so need to check.*/
-//		super.addFocusHandler(new FocusHandler() {
-//
-//			@Override
-//			public void onFocus(FocusEvent event) {
-//				if (!dirtyFlag) {
-//					setText("");
-//				}
-//				removeStyle();
-//			}
-//		});
+		this.label = label;
+		/* TODO:It is not working on some Chromium version so need to check. */
+		// super.addFocusHandler(new FocusHandler() {
+		//
+		// @Override
+		// public void onFocus(FocusEvent event) {
+		// if (!dirtyFlag) {
+		// setText("");
+		// }
+		// removeStyle();
+		// }
+		// });
 
 		super.addBlurHandler(new BlurHandler() {
 
@@ -53,7 +52,7 @@ public class LabelTextBox extends TextBox {
 				}
 			}
 		});
-		
+
 		super.addKeyPressHandler(new KeyPressHandler() {
 
 			@Override
@@ -66,14 +65,26 @@ public class LabelTextBox extends TextBox {
 		});
 
 	}
+
+	/**
+	 * To hide errorPan when this widget getsRemoved from Parent.
+	 */
+	@Override
+	public void onDetach() {
+		super.onDetach();//To avoid Uncaught exception<Should only call onAttach when the widget is detached from the browser's document>
+		this.errorPan.hide();
+		this.reset();
+	}
+
 	public void onFirstKeyPress() {
 		super.onFirstKeyPress();
 		setText("");
 	}
+
 	/**
 	 * To reset textbox with default label.
 	 */
-	public void reset(){
+	public void reset() {
 		super.reset();
 		setText(getLabel());
 		addStyle();

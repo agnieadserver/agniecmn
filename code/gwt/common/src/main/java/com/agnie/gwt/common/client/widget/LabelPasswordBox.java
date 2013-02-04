@@ -64,6 +64,17 @@ public class LabelPasswordBox extends LabelTextBox {
 	}
 
 	/**
+	 * To hide errorPan when this widget getsRemoved from Parent.
+	 */
+	
+	@Override
+	public void onDetach(){
+		super.onDetach();//To avoid Uncaught exception<Should only call onAttach when the widget is detached from the browser's document>
+		this.errorPan.hide();
+		this.reset();
+	}
+
+	/**
 	 * To reset field with default label.
 	 */
 	public void reset() {

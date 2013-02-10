@@ -60,6 +60,7 @@ public class RequestFactoryMojo extends AbstractMojo {
 	protected final static String		MARKER_RF_SERVICE_METHOD			= "com.agnie.gwt.helper.requestfactory.marker.RFServiceMethod";
 	protected final static String		MARKER_RF_PROXY_METHOD				= "com.agnie.gwt.helper.requestfactory.marker.RFProxyMethod";
 	protected final static String		MARKER_RF_SERVICE					= "com.agnie.gwt.helper.requestfactory.marker.RFService";
+	protected final static String		JAVAX_CONSTRAINT_MARKER_PKG			= "javax.validation.constraints";
 
 	final static Set<String>			primitives							= new HashSet<String>();
 	final static Set<String>			supportedTypes						= new HashSet<String>();
@@ -576,9 +577,14 @@ public class RequestFactoryMojo extends AbstractMojo {
 		JavaMethod[] methods = clazz.getMethods(true);
 		for (JavaMethod method : methods) {
 			if (!method.isStatic()) {
-				for (Annotation flAn : method.getAnnotations()) {
+				Annotation[] annotations = method.getAnnotations();
+				for (Annotation flAn : annotations) {
 					if (flAn.getType().getJavaClass().isA(MARKER_RF_PROXY_METHOD)) {
 						writer.println();
+						String anns = ValidatorConstraintCopier.getConstraints(annotations);
+						if (anns != null && !anns.isEmpty()) {
+							writer.print(anns);
+						}
 						writer.print("	" + getMappedType(method.getReturnType(true), builder) + " ");
 						writer.print("	" + method.getName() + "(");
 						JavaParameter parameters[] = method.getParameters();
@@ -605,6 +611,20 @@ public class RequestFactoryMojo extends AbstractMojo {
 		writer.println();
 		writer.println("}");
 		writer.close();
+	}
+
+	public String getConstrainAnnotationString(Annotation annotation) {
+		System.out.println("Annotation name => " + annotation.getType().getJavaClass().getName());
+		String javaxConstraint = annotation.getType().getJavaClass().getFullyQualifiedName();
+		Map paramMap = annotation.getNamedParameterMap();
+		for (Object obj : paramMap.keySet()) {
+			String key = (String) obj;
+			System.out.println("type of value => " + paramMap.get(key).getClass());
+			System.out.println("proptery => " + annotation.getProperty(key).getParameterValue().getClass());
+			System.out.println("proptery value=> " + annotation.getProperty(key).getParameterValue());
+			System.out.println("Key = >" + key + " Value => " + paramMap.get(key));
+		}
+		return javaxConstraint;
 	}
 
 	private String getMappedType(Type type, JavaDocBuilder builder) throws Exception {

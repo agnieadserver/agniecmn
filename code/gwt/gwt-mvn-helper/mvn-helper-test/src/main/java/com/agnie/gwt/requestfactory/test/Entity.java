@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 import com.agnie.gwt.helper.requestfactory.marker.RFEntityProxy;
 import com.agnie.gwt.helper.requestfactory.marker.RFProxyMethod;
 import com.agnie.gwt.helper.requestfactory.marker.RFServiceMethod;
@@ -27,6 +32,7 @@ public class Entity extends BaseEntity {
 	 * @return the id
 	 */
 	@RFProxyMethod
+	@Size(max = 10, min = 5, message = "id size message")
 	public String getId() {
 		return id;
 	}
@@ -44,6 +50,7 @@ public class Entity extends BaseEntity {
 	 * @return the salary
 	 */
 	@RFProxyMethod
+	@Digits(fraction = 4, integer = 10)
 	public double getSalary() {
 		return salary;
 	}
@@ -61,6 +68,7 @@ public class Entity extends BaseEntity {
 	 * @return the location
 	 */
 	@RFProxyMethod
+	@NotNull
 	public String getLocation() {
 		return location;
 	}
@@ -78,6 +86,7 @@ public class Entity extends BaseEntity {
 	 * @return the status
 	 */
 	@RFProxyMethod
+	@Pattern(regexp = "[A-Z]")
 	public Status getStatus() {
 		return status;
 	}

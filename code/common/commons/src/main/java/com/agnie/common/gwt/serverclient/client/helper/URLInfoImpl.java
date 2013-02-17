@@ -29,11 +29,11 @@ public class URLInfoImpl implements URLInfo {
 	}
 
 	public String getUTF8EncodedURL(String url) {
-		return URL.encode(url);
+		return URL.encodeQueryString(url);
 	}
 
 	public String decodeUTF8URL(String encodedUrl) {
-		return URL.decode(encodedUrl);
+		return URL.decodeQueryString(encodedUrl);
 	}
 
 	public String getQueryString() {

@@ -3,8 +3,11 @@
 <module rename-to='commonserverclient'>
 	<inherits name="com.google.gwt.user.User" />
 	<inherits name="com.agnie.common.util.util" />
+	<inherits name="com.google.gwt.http.HTTP" />
 	<source path="client" />
-	<replace-with class="com.agnie.common.gwt.serverclient.client.helper.URLInfoImpl">
-		<when-type-is class="com.agnie.common.gwt.serverclient.client.helper.URLInfo" />
+	<replace-with
+		class="com.agnie.common.gwt.serverclient.client.helper.URLInfoImpl">
+		<when-type-is
+			class="com.agnie.common.gwt.serverclient.client.helper.URLInfo" />
 	</replace-with>
 </module>

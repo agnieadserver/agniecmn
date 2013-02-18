@@ -2,6 +2,9 @@ package com.agnie.gwt.client;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
 
 import com.agnie.common.gwt.serverclient.client.dto.UserAccount;
 import com.agnie.gwt.client.renderer.CustomListCell;
@@ -41,6 +44,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.validation.client.impl.Validation;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -72,14 +76,59 @@ public class samples implements EntryPoint {
 		// messagePanelTest();
 		// loaderTest();
 		// formFieldTest();
-		labeledTextBoxPassBoxTest();
+		//labeledTextBoxPassBoxTest();
 		//accPanTest();
 		//textBoxTest();
 		//customListBoxTest();
 		//localeListBoxTest();
 		//breadCrumbClassTest();
+		testValidation();
 	}
 	 
+	private void testValidation(){
+		VerticalPanel vp=new VerticalPanel();
+		final com.agnie.gwt.client.validation.Person p=new com.agnie.gwt.client.validation.Person();
+		final TextBox tb=new TextBox();
+		Button setTextBtn=new Button("SetText");
+		HorizontalPanel hp=new HorizontalPanel();
+		hp.add(tb);
+		hp.add(setTextBtn);
+		
+		final TextBox emailtb=new TextBox();
+		Button setEmailBtn=new Button("setEmail");
+		HorizontalPanel hp1=new HorizontalPanel();
+		hp1.add(emailtb);
+		hp1.add(setEmailBtn);
+		
+		vp.add(hp);
+		vp.add(hp1);
+		RootPanel.get().add(vp);
+		final javax.validation.Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+		
+		setTextBtn.addClickHandler(new ClickHandler() {
+			
+			public void onClick(ClickEvent event) {
+				/*p.setName(tb.getText());
+				Window.alert("person name=="+p.getName()+" size="+p.getName().length() );
+				Set<ConstraintViolation<com.agnie.gwt.client.validation.Person>> violations = validator.validate(p);
+				//[message= Name must be at least 4 characters long., path= name, invalidValue=sd, desc=com.agnie.gwt.client.validation._PersonValidatorImpl$2@3909b7]
+				for (ConstraintViolation<com.agnie.gwt.client.validation.Person> violation : violations) {
+					Window.alert(violation.getPropertyPath()+violation.getMessage());
+				}*/
+			}
+		});
+		setEmailBtn.addClickHandler(new ClickHandler() {
+			
+			public void onClick(ClickEvent event) {
+				com.agnie.gwt.client.validation.Person p=new com.agnie.gwt.client.validation.Person();
+				p.setEmail(emailtb.getText());
+				javax.validation.Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+				Set<ConstraintViolation<com.agnie.gwt.client.validation.Person>> violations = validator.validate(p);
+				Window.alert("viola=="+violations);
+			}
+		});
+		
+	}
 
 	public void localeListBoxTest() {
 		// Locale Box Test -- start
@@ -94,7 +143,6 @@ public class samples implements EntryPoint {
 		RootPanel.get().add(box);
 		// Locale Box Test -- end
 	}
-
 	
 	public void customListBoxTest() {
 		CustomListCell clc = new CustomListCell();

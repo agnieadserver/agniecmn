@@ -1,6 +1,7 @@
 package com.agnie.common.gwt.serverclient.client.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import com.agnie.common.gwt.serverclient.client.enums.Language;
@@ -21,6 +22,7 @@ public class UserAccount implements Serializable, TableBean {
 	private String				userName;
 	private String				userImgUrl			= "";
 	private Language			language			= Language.ENGLISH;
+	private Date				lastUpdateTime;
 
 	public String getUserImgUrl() {
 		return userImgUrl;
@@ -112,6 +114,28 @@ public class UserAccount implements Serializable, TableBean {
 	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	/**
+	 * @return the lastUpdateTime
+	 */
+	public Date getLastUpdateTime() {
+		return lastUpdateTime;
+	}
+
+	/**
+	 * @param lastUpdateTime
+	 *            the lastUpdateTime to set
+	 */
+	public void setLastUpdateTime(Date lastUpdateTime) {
+		this.lastUpdateTime = lastUpdateTime;
+	}
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	/*

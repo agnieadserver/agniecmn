@@ -7,10 +7,10 @@ import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
 
-public class TypeSerializer extends JsonSerializer<Type> {
+public class EnumSerializer extends JsonSerializer<Enum<?>> {
 
 	@Override
-	public void serialize(Type value, JsonGenerator generator, SerializerProvider provider) throws IOException, JsonProcessingException {
+	public void serialize(Enum<?> value, JsonGenerator generator, SerializerProvider provider) throws IOException, JsonProcessingException {
 		generator.writeString(value.name());
 	}
 

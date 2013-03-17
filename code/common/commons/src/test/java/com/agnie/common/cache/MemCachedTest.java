@@ -104,7 +104,7 @@ class Phone {
 	private Type	type;
 	private String	phone;
 
-	@JsonSerialize(using = TypeSerializer.class)
+	@JsonSerialize(using = EnumSerializer.class)
 	public Type getType() {
 		return type;
 	}

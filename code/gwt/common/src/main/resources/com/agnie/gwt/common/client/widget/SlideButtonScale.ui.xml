@@ -1,0 +1,12 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	<ui:with field='msg' type='com.agnie.gwt.common.client.Messages' />
+	<ui:with field='res'
+		type='com.agnie.gwt.common.client.widget.SlideButtonScaleResources' />
+	<g:HTMLPanel addStyleNames="{res.css.slideButtonScale}">
+		<span ui:field="application" class="{res.css.application}">
+		</span>
+		<span ui:field="context" class="{res.css.context}">
+		</span>
+	</g:HTMLPanel>
+</ui:UiBinder>

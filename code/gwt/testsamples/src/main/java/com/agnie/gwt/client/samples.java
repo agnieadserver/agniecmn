@@ -30,6 +30,9 @@ import com.agnie.gwt.common.client.widget.MessagePanel.MessageType;
 import com.agnie.gwt.common.client.widget.PageTitle;
 import com.agnie.gwt.common.client.widget.PasswordTextBox;
 import com.agnie.gwt.common.client.widget.SearchBox;
+import com.agnie.gwt.common.client.widget.SlideButton;
+import com.agnie.gwt.common.client.widget.SlideButtonDrag;
+import com.agnie.gwt.common.client.widget.SlideButtonScale;
 import com.agnie.gwt.common.client.widget.SuggestionBox;
 import com.agnie.gwt.common.client.widget.TextBox;
 import com.agnie.gwt.common.client.widget.WizardBar;
@@ -37,6 +40,8 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -45,6 +50,8 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.validation.client.impl.Validation;
+import com.kiouri.sliderbar.client.event.BarValueChangedEvent;
+import com.kiouri.sliderbar.client.event.BarValueChangedHandler;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -82,9 +89,62 @@ public class samples implements EntryPoint {
 		//customListBoxTest();
 		//localeListBoxTest();
 		//breadCrumbClassTest();
-		testValidation();
+		//testValidation();
+		//testSlideBar();
+		//testSlideButtonScale();
+		//testSlideButtonDrag();
+		testSlideButton();
 	}
-	 
+	
+	private void testSlideButton(){
+		SlideButton sbh=new SlideButton();
+		/*sbh.setLeftTitle("LeftTitle");
+		sbh.setRightTitle("RightTitle");*/
+		sbh.addBarValueChangedHandler(new BarValueChangedHandler() {
+			
+			public void onBarValueChanged(BarValueChangedEvent event) {
+				Window.alert("Bar value changed=="+event.getValue());
+			}
+		});
+		sbh.setValue(0);
+		RootPanel.get().add(sbh);
+	}
+	
+	private void testSlideButtonDrag(){
+		SlideButtonDrag sbd=new SlideButtonDrag();
+		sbd.setHeight("30px");
+		sbd.setWidth("50px");
+		RootPanel.get().add(sbd);
+	}
+	
+	private void testSlideButtonScale(){
+		SlideButtonScale sbs=new SlideButtonScale();
+		int width=100;
+		int height=50;
+		sbs.setHeight(String.valueOf(height-4)+"px");
+		sbs.setWidth(String.valueOf(width-4)+"px");
+		sbs.addMouseDownHandler(new MouseDownHandler() {
+			
+			public void onMouseDown(MouseDownEvent event) {
+				Window.alert("Mouse down event="+event.getX());
+			}
+		});
+		RootPanel.get().add(sbs);
+	}
+	
+	private void testSlideBar(){
+		KDEHorizontalLeftBW sbh=new KDEHorizontalLeftBW(1,100,30);
+		sbh.addStyleName("slide-button");
+		sbh.addBarValueChangedHandler(new BarValueChangedHandler() {
+			
+			public void onBarValueChanged(BarValueChangedEvent event) {
+				Window.alert("Bar value changed=="+event.getValue());
+			}
+		});
+		sbh.setValue(0);
+		RootPanel.get().add(sbh);
+	}
+	
 	private void testValidation(){
 		VerticalPanel vp=new VerticalPanel();
 		final com.agnie.gwt.client.validation.Person p=new com.agnie.gwt.client.validation.Person();

@@ -1,15 +1,18 @@
 package com.agnie.gwt.common.client.widget;
 
 import com.google.gwt.user.client.ui.Widget;
-import com.kiouri.sliderbar.client.event.BarValueChangedEvent;
-import com.kiouri.sliderbar.client.event.BarValueChangedHandler;
 import com.kiouri.sliderbar.client.view.SliderBarHorizontal;
 
 /**
- * SlideButton Widget is an simple On-Off switch(Toggles between two states) with BarValueChangedHandler <br>
- * Fixed Size Width:200px Height:30px,changing size might cause errors. <br>
+ * 
+ *<p> SlideButton Widget is an simple On-Off switch(Toggles between two states) with BarValueChangedHandler <br>
+ * Fixed Size Width:200px Height:30px,changing size might cause errors.
+ *  <br>
  * dependency:- <br>
- * groupId:-gwt-slider-bar artifactId:-gwt-slider-bar version:-1.0
+ * groupId:-gwt-slider-bar artifactId:-gwt-slider-bar version:-1.0</p>
+ * <p>IMP:We have to adjust SlideButton drag element width for state0 as it is but for state1 it must be (width-4)
+ * we have to adjust in stateChangeHandler {for event.state1 =slideButton.getDragWidget().getElement().setScrollLeft(96); and <br>
+ * event.state0=slideButton.getDragWidget().getElement().setScrollLeft(100);</p>
  */
 public class SlideButton extends SliderBarHorizontal {
 
@@ -41,16 +44,6 @@ public class SlideButton extends SliderBarHorizontal {
 		this.setWidth(String.valueOf(width) + "px");
 		this.setMaxValue(maxValue);// For 2 steps value is 1
 
-		this.addBarValueChangedHandler(new BarValueChangedHandler() {
-
-			public void onBarValueChanged(BarValueChangedEvent event) {
-				if (1 == event.getValue()) {
-					sbd.setWidth("96px");// As SlideButtonDrag element goes beyond SlideButtonScale
-				} else {
-					sbd.setWidth("100px");
-				}
-			}
-		});
 	}
 
 	/**

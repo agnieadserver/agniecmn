@@ -97,12 +97,17 @@ public class samples implements EntryPoint {
 	}
 	
 	private void testSlideButton(){
-		SlideButton sbh=new SlideButton();
+		final SlideButton sbh=new SlideButton();
 		/*sbh.setLeftTitle("LeftTitle");
 		sbh.setRightTitle("RightTitle");*/
 		sbh.addBarValueChangedHandler(new BarValueChangedHandler() {
 			
 			public void onBarValueChanged(BarValueChangedEvent event) {
+				if(1==event.getValue()){
+					sbh.getDragWidget().setWidth("96px");
+				}else{
+					sbh.getDragWidget().setWidth("100px");
+				}
 				Window.alert("Bar value changed=="+event.getValue());
 			}
 		});

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='samples'>
+	<!-- Inherit the core Web Toolkit stuff. -->
+	<inherits name='com.google.gwt.user.User' />
+	<inherits name='com.agnie.gwt.common.AgnieCommon' />
+	<inherits name="org.hibernate.validator.HibernateValidator" />
+	<inherits name="com.kiouri.sliderbar.SliderBarMVP" />
+
+	<!-- Specify the app entry point class. -->
+	<entry-point class='com.agnie.gwt.client.samples' />
+
+	<!-- Specify the paths for translatable code -->
+	<source path='client' />
+	<source path='shared' />
+	<replace-with class="com.agnie.gwt.client.validation.SampleValidatorFactory">
+		<when-type-is class="javax.validation.ValidatorFactory" />
+	</replace-with>
+</module>

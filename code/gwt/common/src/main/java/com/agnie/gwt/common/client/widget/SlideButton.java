@@ -1,6 +1,11 @@
 package com.agnie.gwt.common.client.widget;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
+import com.kiouri.sliderbar.client.event.BarValueChangedHandler;
 import com.kiouri.sliderbar.client.view.SliderBarHorizontal;
 
 /**
@@ -21,6 +26,7 @@ public class SlideButton extends SliderBarHorizontal {
 	int						height		= 30;
 	SlideButtonScale		sbs			= new SlideButtonScale();
 	final SlideButtonDrag	sbd			= new SlideButtonDrag();
+	private List<HandlerRegistration> valueChangeHandlers=new ArrayList<HandlerRegistration>();
 
 	public SlideButton() {
 		/**
@@ -43,7 +49,33 @@ public class SlideButton extends SliderBarHorizontal {
 
 		this.setWidth(String.valueOf(width) + "px");
 		this.setMaxValue(maxValue);// For 2 steps value is 1
-
+	}
+	
+	@Override
+	/**
+	 * Adds BarValueChangedHandler (for handling changes of knob position)
+	 * @param barValueChangedHandler
+	 * @return HandlerRegistration used to remove this handler
+	 */
+	public HandlerRegistration addBarValueChangedHandler(
+			BarValueChangedHandler barValueChangedHandler){
+		HandlerRegistration hr=super.addBarValueChangedHandler(barValueChangedHandler);
+		valueChangeHandlers.add(hr);
+		return hr;
+	}
+	
+	/**
+	 * To clear BarValueChangeHandlers for slideButton.
+	 */
+	public void clearBarValueChangeHandlers(){
+		for (HandlerRegistration vch : valueChangeHandlers) {
+			vch.removeHandler();
+		}
+		valueChangeHandlers.clear();
+	}
+	
+	public List<HandlerRegistration> getValueChangeHandlerRegsList(){
+		return this.valueChangeHandlers;
 	}
 
 	/**

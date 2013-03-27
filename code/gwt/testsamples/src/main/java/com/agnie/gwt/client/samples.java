@@ -83,116 +83,130 @@ public class samples implements EntryPoint {
 		// messagePanelTest();
 		// loaderTest();
 		// formFieldTest();
-		//labeledTextBoxPassBoxTest();
-		//accPanTest();
-		//textBoxTest();
-		//customListBoxTest();
-		//localeListBoxTest();
-		//breadCrumbClassTest();
-		//testValidation();
-		//testSlideBar();
-		//testSlideButtonScale();
-		//testSlideButtonDrag();
+		// labeledTextBoxPassBoxTest();
+		// accPanTest();
+		// textBoxTest();
+		// customListBoxTest();
+		// localeListBoxTest();
+		// breadCrumbClassTest();
+		// testValidation();
+		// testSlideBar();
+		// testSlideButtonScale();
+		// testSlideButtonDrag();
 		testSlideButton();
 	}
-	
-	private void testSlideButton(){
-		final SlideButton sbh=new SlideButton();
-		/*sbh.setLeftTitle("LeftTitle");
-		sbh.setRightTitle("RightTitle");*/
+
+	private void testSlideButton() {
+		final SlideButton sbh = new SlideButton();
+		/*
+		 * sbh.setLeftTitle("LeftTitle"); sbh.setRightTitle("RightTitle");
+		 */
 		sbh.addBarValueChangedHandler(new BarValueChangedHandler() {
-			
+
 			public void onBarValueChanged(BarValueChangedEvent event) {
-				if(1==event.getValue()){
+				if (1 == event.getValue()) {
 					sbh.getDragWidget().setWidth("96px");
-				}else{
+				} else {
 					sbh.getDragWidget().setWidth("100px");
 				}
-				Window.alert("Bar value changed=="+event.getValue());
+				Window.alert("Bar value changed==" + event.getValue());
 			}
 		});
-		sbh.setValue(0);
+		sbh.addBarValueChangedHandler(new BarValueChangedHandler() {
+
+			public void onBarValueChanged(BarValueChangedEvent event) {
+				if (1 == event.getValue()) {
+					sbh.getDragWidget().setWidth("96px");
+				} else {
+					sbh.getDragWidget().setWidth("100px");
+				}
+				Window.alert("Bar value changedeeeee==" + event.getValue()+" ValueChangeHandlerRegsList size=="+sbh.getValueChangeHandlerRegsList().size());
+			}
+		});
+		// sbh.clearBarValueChangeHandlers();
+		
 		RootPanel.get().add(sbh);
 	}
-	
-	private void testSlideButtonDrag(){
-		SlideButtonDrag sbd=new SlideButtonDrag();
+
+	private void testSlideButtonDrag() {
+		SlideButtonDrag sbd = new SlideButtonDrag();
 		sbd.setHeight("30px");
 		sbd.setWidth("50px");
 		RootPanel.get().add(sbd);
 	}
-	
-	private void testSlideButtonScale(){
-		SlideButtonScale sbs=new SlideButtonScale();
-		int width=100;
-		int height=50;
-		sbs.setHeight(String.valueOf(height-4)+"px");
-		sbs.setWidth(String.valueOf(width-4)+"px");
+
+	private void testSlideButtonScale() {
+		SlideButtonScale sbs = new SlideButtonScale();
+		int width = 100;
+		int height = 50;
+		sbs.setHeight(String.valueOf(height - 4) + "px");
+		sbs.setWidth(String.valueOf(width - 4) + "px");
 		sbs.addMouseDownHandler(new MouseDownHandler() {
-			
+
 			public void onMouseDown(MouseDownEvent event) {
-				Window.alert("Mouse down event="+event.getX());
+				Window.alert("Mouse down event=" + event.getX());
 			}
 		});
 		RootPanel.get().add(sbs);
 	}
-	
-	private void testSlideBar(){
-		KDEHorizontalLeftBW sbh=new KDEHorizontalLeftBW(1,100,30);
+
+	private void testSlideBar() {
+		KDEHorizontalLeftBW sbh = new KDEHorizontalLeftBW(1, 100, 30);
 		sbh.addStyleName("slide-button");
 		sbh.addBarValueChangedHandler(new BarValueChangedHandler() {
-			
+
 			public void onBarValueChanged(BarValueChangedEvent event) {
-				Window.alert("Bar value changed=="+event.getValue());
+				Window.alert("Bar value changed==" + event.getValue());
 			}
 		});
 		sbh.setValue(0);
 		RootPanel.get().add(sbh);
 	}
-	
-	private void testValidation(){
-		VerticalPanel vp=new VerticalPanel();
-		final com.agnie.gwt.client.validation.Person p=new com.agnie.gwt.client.validation.Person();
-		final TextBox tb=new TextBox();
-		Button setTextBtn=new Button("SetText");
-		HorizontalPanel hp=new HorizontalPanel();
+
+	private void testValidation() {
+		VerticalPanel vp = new VerticalPanel();
+		final com.agnie.gwt.client.validation.Person p = new com.agnie.gwt.client.validation.Person();
+		final TextBox tb = new TextBox();
+		Button setTextBtn = new Button("SetText");
+		HorizontalPanel hp = new HorizontalPanel();
 		hp.add(tb);
 		hp.add(setTextBtn);
-		
-		final TextBox emailtb=new TextBox();
-		Button setEmailBtn=new Button("setEmail");
-		HorizontalPanel hp1=new HorizontalPanel();
+
+		final TextBox emailtb = new TextBox();
+		Button setEmailBtn = new Button("setEmail");
+		HorizontalPanel hp1 = new HorizontalPanel();
 		hp1.add(emailtb);
 		hp1.add(setEmailBtn);
-		
+
 		vp.add(hp);
 		vp.add(hp1);
 		RootPanel.get().add(vp);
 		final javax.validation.Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-		
+
 		setTextBtn.addClickHandler(new ClickHandler() {
-			
+
 			public void onClick(ClickEvent event) {
-				/*p.setName(tb.getText());
-				Window.alert("person name=="+p.getName()+" size="+p.getName().length() );
-				Set<ConstraintViolation<com.agnie.gwt.client.validation.Person>> violations = validator.validate(p);
-				//[message= Name must be at least 4 characters long., path= name, invalidValue=sd, desc=com.agnie.gwt.client.validation._PersonValidatorImpl$2@3909b7]
-				for (ConstraintViolation<com.agnie.gwt.client.validation.Person> violation : violations) {
-					Window.alert(violation.getPropertyPath()+violation.getMessage());
-				}*/
+				/*
+				 * p.setName(tb.getText()); Window.alert("person name=="+p.getName()+" size="+p.getName().length() );
+				 * Set<ConstraintViolation<com.agnie.gwt.client.validation.Person>> violations = validator.validate(p);
+				 * //[message= Name must be at least 4 characters long., path= name, invalidValue=sd,
+				 * desc=com.agnie.gwt.client.validation._PersonValidatorImpl$2@3909b7] for
+				 * (ConstraintViolation<com.agnie.gwt.client.validation.Person> violation : violations) {
+				 * Window.alert(violation.getPropertyPath()+violation.getMessage()); }
+				 */
 			}
 		});
 		setEmailBtn.addClickHandler(new ClickHandler() {
-			
+
 			public void onClick(ClickEvent event) {
-				com.agnie.gwt.client.validation.Person p=new com.agnie.gwt.client.validation.Person();
+				com.agnie.gwt.client.validation.Person p = new com.agnie.gwt.client.validation.Person();
 				p.setEmail(emailtb.getText());
 				javax.validation.Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 				Set<ConstraintViolation<com.agnie.gwt.client.validation.Person>> violations = validator.validate(p);
-				Window.alert("viola=="+violations);
+				Window.alert("viola==" + violations);
 			}
 		});
-		
+
 	}
 
 	public void localeListBoxTest() {
@@ -208,7 +222,7 @@ public class samples implements EntryPoint {
 		RootPanel.get().add(box);
 		// Locale Box Test -- end
 	}
-	
+
 	public void customListBoxTest() {
 		CustomListCell clc = new CustomListCell();
 		CustomListBox<TitleString> clb = new CustomListBox<TitleString>(clc);
@@ -242,6 +256,7 @@ public class samples implements EntryPoint {
 
 		/* CustomListBox test ends here */
 	}
+
 	public void customMenuPanTest() {
 		CustomMenuPan cMenuPan = new CustomMenuPan();
 		RootPanel.get().add(cMenuPan);
@@ -249,7 +264,7 @@ public class samples implements EntryPoint {
 
 	public void labeledTextBoxPassBoxTest() {
 		final LabelTextBox ltb = new LabelTextBox("Labeled Text Box!");
-		//final LabelPasswordBox lpb = new LabelPasswordBox("Labeled Password Box");
+		// final LabelPasswordBox lpb = new LabelPasswordBox("Labeled Password Box");
 		final VerticalPanel dp1 = new VerticalPanel();
 		Button errorMessBtn = new Button("SetErrorMessage");
 		Button nextPageBtn = new Button("NextPage");
@@ -257,27 +272,26 @@ public class samples implements EntryPoint {
 		Button resetPassBtn = new Button("resetPassBox");
 		Button getBtn = new Button("getTexBox");
 		Button getPassBtn = new Button("getPassBox");
-		
+
 		dp1.add(ltb);
-		dp1.add(errorMessBtn);//To test onDetach(textBox) for erroPan.hide
-		dp1.add(nextPageBtn);//To test onDetach(textBox) for erroPan.hide
-		//dp1.add(lpb);
+		dp1.add(errorMessBtn);// To test onDetach(textBox) for erroPan.hide
+		dp1.add(nextPageBtn);// To test onDetach(textBox) for erroPan.hide
+		// dp1.add(lpb);
 		dp1.add(resetBtn);
 		dp1.add(resetPassBtn);
 		dp1.add(getBtn);
 		dp1.add(getPassBtn);
-		
-		
+
 		RootPanel.get().add(dp1);
 		errorMessBtn.addClickHandler(new ClickHandler() {
-			
+
 			public void onClick(ClickEvent event) {
 				ltb.setErrorMessage("required field", false);
 			}
 		});
-		
+
 		// ltb.setErrorPanWidth(200);
-		//lpb.setErrorMessage("required field", true);
+		// lpb.setErrorMessage("required field", true);
 		// lpb.setErrorPanWidth(200);
 		resetBtn.addClickHandler(new ClickHandler() {
 
@@ -288,7 +302,7 @@ public class samples implements EntryPoint {
 		resetPassBtn.addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
-			//	lpb.reset();
+				// lpb.reset();
 			}
 		});
 		getBtn.addClickHandler(new ClickHandler() {
@@ -300,11 +314,11 @@ public class samples implements EntryPoint {
 		getPassBtn.addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
-			//	Window.alert("getValue==" + lpb.getValue());
+				// Window.alert("getValue==" + lpb.getValue());
 			}
 		});
 		nextPageBtn.addClickHandler(new ClickHandler() {
-			
+
 			public void onClick(ClickEvent event) {
 				dp1.clear();
 				Window.Location.assign("http://127.0.0.1:8888/Test.html?gwt.codesvr=127.0.0.1:9997");
@@ -385,13 +399,13 @@ public class samples implements EntryPoint {
 			}
 		});
 		acc.addModifyClickHandler(new ClickHandler() {
-			
+
 			public void onClick(ClickEvent event) {
 				Window.alert("Are you sure to update your profile");
 			}
 		});
 		acc.addLogoutClickHandler(new ClickHandler() {
-			
+
 			public void onClick(ClickEvent event) {
 				Window.alert("Are you sure to logout");
 			}
@@ -520,7 +534,6 @@ public class samples implements EntryPoint {
 		// Green Button Test -- end
 	}
 
-	
 	public void listBoxTestV() {
 		// ListBoxt Test -- start
 		VerticalPanel vselunPanel = new VerticalPanel();
@@ -562,8 +575,6 @@ public class samples implements EntryPoint {
 		RootPanel.get().add(hlpanel);
 		// ListBoxt Test -- end
 	}
-
-	
 
 	public void messagePanelTest() {
 		Button save = new Button("save");

@@ -1,0 +1,15 @@
+.desktop-main-panel {
+	height: 100%;
+	left: 50%;
+	margin-left: -450px;
+	position: absolute;
+	width: 900px;
+}
+
+.tablet-main-panel {
+	height: 100%;
+	left: 50%;
+	margin-left: -250px;
+	position: absolute;
+	width: 500px;
+}

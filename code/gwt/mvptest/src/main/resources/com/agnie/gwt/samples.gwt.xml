@@ -3,16 +3,26 @@
 	<!-- Inherit the core Web Toolkit stuff. -->
 	<inherits name='com.google.gwt.user.User' />
 	<inherits name='com.agnie.gwt.common.AgnieCommon' />
-	<inherits name="org.hibernate.validator.HibernateValidator" />
-	<inherits name="com.kiouri.sliderbar.SliderBarMVP" />
-
+	<inherits name="com.agnie.gwt.common.FormFactor" />
 	<!-- Specify the app entry point class. -->
 	<entry-point class='com.agnie.gwt.client.samples' />
 
 	<!-- Specify the paths for translatable code -->
 	<source path='client' />
 	<source path='shared' />
-	<replace-with class="com.agnie.gwt.client.validation.SampleValidatorFactory">
-		<when-type-is class="javax.validation.ValidatorFactory" />
+	<!-- Use ClientFactoryImplMobile for mobile form factor. -->
+	<replace-with class="com.agnie.gwt.client.DesktopViewFactory">
+		<when-type-is class="com.agnie.gwt.client.ViewFactory" />
+		<when-property-is name="formfactor" value="desktop" />
+	</replace-with>
+
+	<replace-with class="com.agnie.gwt.client.MobileViewFactory">
+		<when-type-is class="com.agnie.gwt.client.ViewFactory" />
+		<when-property-is name="formfactor" value="mobile" />
+	</replace-with>
+
+	<replace-with class="com.agnie.gwt.client.TabletViewFactory">
+		<when-type-is class="com.agnie.gwt.client.ViewFactory" />
+		<when-property-is name="formfactor" value="tablet" />
 	</replace-with>
 </module>

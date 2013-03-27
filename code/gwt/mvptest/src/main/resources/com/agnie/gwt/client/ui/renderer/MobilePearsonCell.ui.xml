@@ -1,0 +1,28 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'>
+	<ui:with field='person' type="com.agnie.gwt.client.Person" />
+
+	<div>
+		First Name :
+		<span>
+			<ui:text from='{person.getFname}' />
+		</span>
+		<p>
+			Last Name :
+			<span>
+				<ui:text from='{person.getLname}' />
+			</span>
+		</p>
+		<p>
+			Email :
+			<span>
+				<ui:text from='{person.getEmailid}' />
+			</span>
+		</p>
+		<p>
+			Age:
+			<span>
+				<ui:text from='{person.getAge}' />
+			</span>
+		</p>
+	</div>
+</ui:UiBinder>

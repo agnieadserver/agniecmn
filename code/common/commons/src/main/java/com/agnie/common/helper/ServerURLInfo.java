@@ -13,9 +13,12 @@ import com.agnie.common.gwt.serverclient.client.helper.URLInfo;
 public class ServerURLInfo implements URLInfo {
 
 	private HttpServletRequest	request;
+	private String				proxyServer;
 
 	public ServerURLInfo(HttpServletRequest request) {
 		this.request = request;
+		// Given header is sent by apache proxy server. by passing original host requested.
+		proxyServer = request.getHeader("X-Forwarded-Host");
 	}
 
 	public String getParameter(String name) {
@@ -23,7 +26,11 @@ public class ServerURLInfo implements URLInfo {
 	}
 
 	public String getHostURL() {
-		return request.getRequestURL().toString() + (request.getQueryString() != null ? QueryString.QUESTION_MARK.getKey() + request.getQueryString() : "");
+		String url = request.getRequestURL().toString();
+		if (proxyServer != null && !proxyServer.isEmpty()) {
+			url = url.replace(request.getServerName() + ":" + request.getServerPort(), proxyServer);
+		}
+		return url + (request.getQueryString() != null ? QueryString.QUESTION_MARK.getKey() + request.getQueryString() : "");
 	}
 
 	public String[] getAllValues(String name) {
@@ -45,7 +52,10 @@ public class ServerURLInfo implements URLInfo {
 	}
 
 	public String getHost() {
-		return request.getServerName() + ":" + request.getServerPort();
+		if (proxyServer != null && !proxyServer.isEmpty())
+			return proxyServer;
+		else
+			return request.getServerName() + ":" + request.getServerPort();
 	}
 
 	public String decodeUTF8URL(String encodedUrl) {
@@ -61,7 +71,11 @@ public class ServerURLInfo implements URLInfo {
 	}
 
 	public String getHostBaseURL() {
-		return request.getRequestURL().toString();
+		String url = request.getRequestURL().toString();
+		if (proxyServer != null && !proxyServer.isEmpty()) {
+			url = url.replace(request.getServerName() + ":" + request.getServerPort(), proxyServer);
+		}
+		return url;
 	}
 
 }

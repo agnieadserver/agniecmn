@@ -8,8 +8,8 @@
 	<name>GWT Libraries</name>
 	<properties>
 		<!-- Convenience property to set the GWT version -->
-		<gwtVersion>2.5.0-rc1</gwtVersion>
-		<gwtpluginVersion>2.5.0-rc1</gwtpluginVersion>
+		<gwtVersion>2.5.0</gwtVersion>
+		<gwtpluginVersion>2.5.0</gwtpluginVersion>
 		<!-- GWT needs at least java 1.5 -->
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>

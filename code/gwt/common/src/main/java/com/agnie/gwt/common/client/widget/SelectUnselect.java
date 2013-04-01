@@ -54,6 +54,14 @@ public class SelectUnselect<T> extends Composite {
 		mvlft.setText("<<");
 		mvrgt.setText(">>");
 	}
+	
+	public void setSelectedData(List<T> sel) {
+		selected.setRowData(sel);
+	}
+	
+	public void setAvailabelData(List<T> av) {
+		available.setRowData(av);
+	}
 
 	public void setButtonStyle(String style) {
 		mvlft.addStyleName(style);

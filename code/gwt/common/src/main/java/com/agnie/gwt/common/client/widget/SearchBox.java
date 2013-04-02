@@ -1,7 +1,11 @@
 package com.agnie.gwt.common.client.widget;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.uibinder.client.UiField;
@@ -34,6 +38,7 @@ public class SearchBox extends Composite {
 	Widget						widget;
 	protected HTMLPanel			container;
 	public Image				img			= new Image();
+	private List<HandlerRegistration>	handlers	= new ArrayList<HandlerRegistration>();
 
 	public SearchBox() {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
@@ -43,7 +48,14 @@ public class SearchBox extends Composite {
 	}
 
 	public void addSearchImgClickHandler(ClickHandler handler) {
-		this.img.addClickHandler(handler);
+		this.handlers.add(this.img.addClickHandler(handler));
+	}
+	
+	public void clearSearchImgClkHandlers() {
+		for (HandlerRegistration handler : this.handlers) {
+			handler.removeHandler();
+		}
+		this.handlers.clear();
 	}
 
 	public void setLabel(String label) {

@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.core.shared.GWT;
+import com.google.gwt.dom.client.NodeList;
+import com.google.gwt.dom.client.OptionElement;
+import com.google.gwt.dom.client.SelectElement;
 
 /**
  * 
@@ -19,6 +22,18 @@ public class ListBox<T> extends com.google.gwt.user.client.ui.ListBox {
 	public ListBox(boolean isMultipleSelect, GetText<T> gt) {
 		super(isMultipleSelect);
 		this.gt = gt;
+	}
+
+	/**
+	 * To set ListItem Label as it's Title(tooltip) for each ListItem.
+	 */
+	private void setTitle() {
+		SelectElement selectElement = SelectElement.as(this.getElement());
+		NodeList<OptionElement> options = selectElement.getOptions();
+		for (int i = 0; i < options.getLength(); i++) {
+			T t = this.list.get(i);
+			options.getItem(i).setTitle(gt.getText(t));
+		}
 	}
 
 	public ListBox(boolean isMultipleSelect) {
@@ -41,6 +56,7 @@ public class ListBox<T> extends com.google.gwt.user.client.ui.ListBox {
 			T t = this.list.get(index);
 			addItem(gt.getText(t));
 		}
+		this.setTitle();
 	}
 
 	public void addRowData(List<T> newdata) {
@@ -49,6 +65,7 @@ public class ListBox<T> extends com.google.gwt.user.client.ui.ListBox {
 			T t = newdata.get(index);
 			addItem(gt.getText(t));
 		}
+		this.setTitle();
 	}
 
 	public List<T> moveSelectedItems() {

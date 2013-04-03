@@ -93,7 +93,8 @@ public class samples implements EntryPoint {
 		// testSlideBar();
 		// testSlideButtonScale();
 		// testSlideButtonDrag();
-		testSlideButton();
+		//testSlideButton();
+		listBoxTestV();
 	}
 
 	private void testSlideButton() {

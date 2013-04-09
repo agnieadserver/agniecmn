@@ -46,6 +46,11 @@
 			<artifactId>gwtupload</artifactId>
 			<version>0.6.4</version>
 		</dependency>
+		<dependency>
+			<groupId>com.allen-sauer.gwt.dnd</groupId>
+			<artifactId>gwt-dnd</artifactId>
+			<version>3.2.1</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>

@@ -25,6 +25,13 @@ public class DialogBox extends PopupPanel{
 		this.add(decPanel);
 	}
 	
+	public void addDialogBoxStyleName(String styleName) {
+		this.addStyleName(styleName);
+	}
+	
+	public void addDecPanStyleName(String styleName) {
+		this.decPanel.addStyleName(styleName);
+	}
 	
 	public void setHeader(String header){
 		decPanel.setHeader(header);

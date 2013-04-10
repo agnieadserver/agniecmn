@@ -10,7 +10,7 @@ public interface DecoratedPanelResources extends ClientBundle {
 	@Source("DecoratedPanelCss.css")
 	DecoratedPanelCss css();
 
-	@Source("cross2darkred.png")
+	@Source("cross2.png")
 	ImageResource closeBtn();
 
 	@Source("min.png")

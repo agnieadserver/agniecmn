@@ -1,6 +1,7 @@
 package com.agnie.gwt.common.client.widget;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiChild;
@@ -46,6 +47,9 @@ public class FormFieldContainer extends Composite {
 	protected HTMLPanel			container;
 	@UiField
 	protected SimplePanel		inputContainer;
+	
+	@UiField
+	DivElement					labelDiv;
 
 	public FormFieldContainer() {
 		this(null, null, false);
@@ -58,7 +62,6 @@ public class FormFieldContainer extends Composite {
 	public FormFieldContainer(String label, Widget inputFieldContainer, boolean required) {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
 		container.addStyleName(resource.css().formFieldContainer());
-		inputContainer.addStyleName(resource.css().formFieldInput());
 		initWidget(container);
 		setLabel(label);
 		addInputFieldContainer(inputFieldContainer);
@@ -71,6 +74,7 @@ public class FormFieldContainer extends Composite {
 				errorFixed();
 			}
 		};
+		
 	}
 
 	public void setLabel(String label) {
@@ -99,12 +103,12 @@ public class FormFieldContainer extends Composite {
 		if (autoHide) {
 			timer.schedule(TIMEOUT);
 		} 
-		container.addStyleName(resource.css().formFieldError());
+		inputContainer.addStyleName(resource.css().formFieldError());
 		this.error.setInnerText(errorMessage);
 	}
 
 	public void errorFixed() {
-		container.removeStyleName(resource.css().formFieldError());
+		inputContainer.removeStyleName(resource.css().formFieldError());
 		this.error.setInnerText("");
 	}
 

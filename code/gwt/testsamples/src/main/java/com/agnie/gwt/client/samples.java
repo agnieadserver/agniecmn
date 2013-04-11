@@ -82,7 +82,7 @@ public class samples implements EntryPoint {
 
 		// messagePanelTest();
 		// loaderTest();
-		// formFieldTest();
+		 formFieldTest();
 		// labeledTextBoxPassBoxTest();
 		// accPanTest();
 		// textBoxTest();
@@ -95,7 +95,7 @@ public class samples implements EntryPoint {
 		// testSlideButtonDrag();
 		//testSlideButton();
 		//listBoxTestV();
-		dialogBoxTest();
+		//dialogBoxTest();
 	}
 
 	private void testSlideButton() {

@@ -4,7 +4,7 @@
 		type='com.agnie.gwt.common.client.widget.FormFieldResources' />
 
 	<g:HTMLPanel>
-		<div class='{res.css.formFieldLabel}'>
+		<div ui:field="labelDiv" class='{res.css.formFieldLabel}'>
 			<span ui:field="label"></span>
 			<span ui:field="required" class='{res.css.required}'></span>
 		</div>

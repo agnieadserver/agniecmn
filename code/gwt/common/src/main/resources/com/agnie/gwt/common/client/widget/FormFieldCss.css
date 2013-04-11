@@ -5,7 +5,7 @@
 }
 
 .input-field-container{
-	
+	float:left;
 }
 
 .form-field-container:before, .form-field-container:after {
@@ -42,14 +42,9 @@ span.required {
 }
 
 .form-field-error {
-    border: 1px solid red;
-    border-radius: 5px 5px 5px 5px;
-    box-shadow: 0 0 0px, 0 0 39px red inset;
-    clear: both;
-    color: #3E3E3E;
-    font-size: 15px;
-    margin-bottom: 5px;
-    text-align: left;
+   border: 1px solid red !important;
+   box-shadow: 0 1px 3px peru inset !important;
+   border-radius: 5px 5px 5px 5px;
 }
 
 .form-field-error-text {

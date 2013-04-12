@@ -38,6 +38,7 @@ public class LoaderRpcRequestBuilder extends RpcRequestBuilder {
 
 	public LoaderRpcRequestBuilder(Loader loader) {
 		this.loader = loader;
+		loader.hide();
 	}
 
 	public LoaderRpcRequestBuilder() {

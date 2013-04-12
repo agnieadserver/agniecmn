@@ -16,6 +16,7 @@ public class LoaderRequestTransport extends DefaultRequestTransport {
 
 	public LoaderRequestTransport(Loader loader) {
 		this.loader = loader;
+		loader.hide();
 	}
 
 	public LoaderRequestTransport() {

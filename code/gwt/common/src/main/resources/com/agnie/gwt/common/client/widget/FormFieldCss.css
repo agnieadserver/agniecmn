@@ -34,7 +34,7 @@ span.required {
 	float: left;
 }
 
-.form-field-label, input, button, select, textarea {
+.form-field-label, input, button, select {
     font-family: "Avant Garde", "Century Gothic", "Avant Garde Gothic", "URW Gothic L", helvetica, sans-serif;
     font-size: 15px;
     font-weight: normal;
@@ -44,7 +44,7 @@ span.required {
 .form-field-error {
    border: 1px solid red !important;
    box-shadow: 0 1px 3px peru inset !important;
-   border-radius: 5px 5px 5px 5px;
+   border-radius: 5px 5px 5px 5px !important;
 }
 
 .form-field-error-text {

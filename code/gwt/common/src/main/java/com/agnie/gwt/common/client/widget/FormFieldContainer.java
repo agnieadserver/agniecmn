@@ -74,7 +74,6 @@ public class FormFieldContainer extends Composite {
 				errorFixed();
 			}
 		};
-		
 	}
 
 	public void setLabel(String label) {
@@ -103,12 +102,12 @@ public class FormFieldContainer extends Composite {
 		if (autoHide) {
 			timer.schedule(TIMEOUT);
 		} 
-		inputContainer.addStyleName(resource.css().formFieldError());
+		inputContainer.getElement().getFirstChildElement().addClassName(resource.css().formFieldError());
 		this.error.setInnerText(errorMessage);
 	}
 
 	public void errorFixed() {
-		inputContainer.removeStyleName(resource.css().formFieldError());
+		inputContainer.getElement().getFirstChildElement().removeClassName(resource.css().formFieldError());
 		this.error.setInnerText("");
 	}
 

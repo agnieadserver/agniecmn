@@ -156,7 +156,7 @@ public class URLGenerator {
 				url.append(QueryString.AMPERSAND.getKey());
 			}
 			// remove '#' from param.
-			url.append(QueryString.HISTORY_HASH.getKey() + "=" + param.substring(1, param.length()));
+			url.append(QueryString.HISTORY_HASH.getKey() + "=" + params.getUTF8EncodedURL(param.substring(1, param.length())));
 		}
 		if (!qpexists) {
 			url.append(QueryString.QUESTION_MARK.getKey());
@@ -235,7 +235,7 @@ public class URLGenerator {
 		String param = params.getParameter(QueryString.SOURCE.getKey());
 		if (param != null && !param.isEmpty()) {
 			return params.decodeUTF8URL(param)
-					+ (params.getParameter(QueryString.HISTORY_HASH.getKey()) != null ? QueryString.HASH.getKey() + params.getParameter(QueryString.HISTORY_HASH.getKey()) : "");
+					+ (params.getParameter(QueryString.HISTORY_HASH.getKey()) != null ? QueryString.HASH.getKey() + params.decodeUTF8URL(params.getParameter(QueryString.HISTORY_HASH.getKey())) : "");
 		}
 		return null;
 	}

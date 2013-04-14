@@ -1,4 +1,4 @@
-package com.agnie.common.util.validator;
+package com.agnie.common.util.client.validator;
 
 public class ConstraintRegularExpressions {
 

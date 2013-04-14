@@ -4,6 +4,8 @@ import java.lang.annotation.Annotation;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.agnie.common.util.client.validator.ConstraintRegularExpressions;
+
 /**
  * Validator for @EMail constraint
  * 

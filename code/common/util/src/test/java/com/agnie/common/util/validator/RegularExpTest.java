@@ -7,6 +7,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import com.agnie.common.util.client.validator.ConstraintRegularExpressions;
+
 public class RegularExpTest {
 
 	@Test

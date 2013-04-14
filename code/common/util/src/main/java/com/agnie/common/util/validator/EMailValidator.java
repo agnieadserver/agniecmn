@@ -26,7 +26,7 @@ public class EMailValidator extends Validator {
 	public boolean validate(String value) {
 
 		if (value != null) {
-			Pattern pattern = Pattern.compile("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+			Pattern pattern = Pattern.compile(ConstraintRegularExpressions.EMAIL_VALIDATOR_EXP);
 			Matcher matcher = pattern.matcher(value);
 			return matcher.matches();
 		}

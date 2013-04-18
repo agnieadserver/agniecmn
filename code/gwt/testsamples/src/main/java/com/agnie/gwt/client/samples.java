@@ -82,7 +82,7 @@ public class samples implements EntryPoint {
 
 		// messagePanelTest();
 		// loaderTest();
-		 formFieldTest();
+		// formFieldTest();
 		// labeledTextBoxPassBoxTest();
 		// accPanTest();
 		// textBoxTest();
@@ -96,6 +96,7 @@ public class samples implements EntryPoint {
 		//testSlideButton();
 		//listBoxTestV();
 		//dialogBoxTest();
+		decoratedPanelTest();
 	}
 
 	private void testSlideButton() {
@@ -466,6 +467,7 @@ public class samples implements EntryPoint {
 				dp.getParent().removeFromParent();
 			}
 		});
+		RootPanel.get().add(dp);
 	}
 
 	public void suggestionBoxTest() {

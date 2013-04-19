@@ -36,8 +36,10 @@ import com.agnie.gwt.common.client.widget.SlideButtonScale;
 import com.agnie.gwt.common.client.widget.SuggestionBox;
 import com.agnie.gwt.common.client.widget.TextBox;
 import com.agnie.gwt.common.client.widget.WizardBar;
+import com.allen_sauer.gwt.dnd.client.PickupDragController;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.MouseDownEvent;
@@ -95,8 +97,28 @@ public class samples implements EntryPoint {
 		// testSlideButtonDrag();
 		//testSlideButton();
 		//listBoxTestV();
-		//dialogBoxTest();
-		decoratedPanelTest();
+		dialogBoxTest();
+		//decoratedPanelTest();
+		//newDandDropTest();
+	}
+	
+	private void newDandDropTest() {
+		// RootPanel.get().setPixelSize(600, 600);
+		 RootPanel.get().setStyleName("slide-button-scale");
+		    // create a DragController to manage drag-n-drop actions
+		    // note: This creates an implicit DropController for the boundary panel
+		    PickupDragController dragController = new PickupDragController(RootPanel.get(), true);
+
+		    // add a new image to the boundary panel and make it draggable
+		    Image img = new Image("http://code.google.com/webtoolkit/logo-185x175.png");
+		    HTMLPanel cnt=new HTMLPanel("");
+		    cnt.addStyleName("border");
+		   
+		    SlideButtonDrag sbDrag=new SlideButtonDrag();
+		    cnt.add(sbDrag);
+		    RootPanel.get().add(cnt, 40, 30);
+		    dragController.makeDraggable(sbDrag);
+
 	}
 
 	private void testSlideButton() {
@@ -107,22 +129,22 @@ public class samples implements EntryPoint {
 		sbh.addBarValueChangedHandler(new BarValueChangedHandler() {
 
 			public void onBarValueChanged(BarValueChangedEvent event) {
-				if (1 == event.getValue()) {
+				/*if (1 == event.getValue()) {
 					sbh.getDragWidget().setWidth("96px");
 				} else {
 					sbh.getDragWidget().setWidth("100px");
-				}
+				}*/
 				Window.alert("Bar value changed==" + event.getValue());
 			}
 		});
 		sbh.addBarValueChangedHandler(new BarValueChangedHandler() {
 
 			public void onBarValueChanged(BarValueChangedEvent event) {
-				if (1 == event.getValue()) {
+				/*if (1 == event.getValue()) {
 					sbh.getDragWidget().setWidth("96px");
 				} else {
 					sbh.getDragWidget().setWidth("100px");
-				}
+				}*/
 				Window.alert("Bar value changedeeeee==" + event.getValue()+" ValueChangeHandlerRegsList size=="+sbh.getValueChangeHandlerRegsList().size());
 			}
 		});
@@ -462,7 +484,7 @@ public class samples implements EntryPoint {
 		final DecoratedPanel dp = new DecoratedPanel("Decorated Panel");
 		dp.addContent(save);
 		dp.addContent(tb);
-		dp.closeClickHandler(new ClickHandler() {
+		dp.addCloseHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				dp.getParent().removeFromParent();
 			}
@@ -501,7 +523,13 @@ public class samples implements EntryPoint {
 	public void dialogBoxTest() {
 		HTMLPanel hp = new HTMLPanel("Hello all how are you!\n Its exciting to styling any widget\n is it?");
 		CloseBtn cb = new CloseBtn();
-		DialogBoxTest dbt = new DialogBoxTest();
+		final DialogBoxTest dbt = new DialogBoxTest();
+		dbt.getDialogBox().addCloseHandler(new ClickHandler() {
+			
+			public void onClick(ClickEvent event) {
+				dbt.getDialogBox().hide();
+			}
+		});
 		dbt.getDialogBox().addContent(hp);
 		dbt.getDialogBox().addContent(cb);
 		dbt.getDialogBox().show();

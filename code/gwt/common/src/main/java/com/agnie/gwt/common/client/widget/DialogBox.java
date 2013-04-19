@@ -4,6 +4,12 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * 
+ * Simple DialogBox with all PopupPanel features.
+ * <br>Note:Default close button is invisible,visible only if we call method 'addCloseHandler(ClickHandler handler)'
+ *
+ */
 public class DialogBox extends PopupPanel{
 	
 	public DecoratedPanel decPanel=new DecoratedPanel();
@@ -16,13 +22,8 @@ public class DialogBox extends PopupPanel{
 		this.decPanel.setHeader(header);
 		this.decPanel.addContent(content);
 		this.add(decPanel);
-	}
-	
-	public DialogBox(String header,Widget content,ClickHandler handler) {
-		this.decPanel.setHeader(header);
-		this.decPanel.addContent(content);
-		this.decPanel.closeClickHandler(handler);
-		this.add(decPanel);
+		this.setGlassEnabled(true);
+		this.setGlassStyleName(DecoratedPanel.getResources().css().whiteout());
 	}
 	
 	public void addDialogBoxStyleName(String styleName) {
@@ -66,8 +67,8 @@ public class DialogBox extends PopupPanel{
 	 * @param handler
 	 *            click handler for close button.
 	 */
-	public void closeClickHandler(ClickHandler handler) {
-		this.decPanel.close.setVisible(true);
-		this.decPanel.close.addClickHandler(handler);
+	public void addCloseHandler(ClickHandler handler) {
+		//this.decPanel.close.setVisible(true);
+		this.decPanel.addCloseHandler(handler);
 	}
 }

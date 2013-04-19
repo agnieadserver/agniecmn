@@ -122,7 +122,7 @@ public class DecoratedPanel extends Composite {
 	 * @param handler
 	 *            click handler for close button.
 	 */
-	public void closeClickHandler(ClickHandler handler) {
+	public void addCloseHandler(ClickHandler handler) {
 		this.close.setVisible(true);
 		this.close.addClickHandler(handler);
 	}

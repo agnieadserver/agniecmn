@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
+import com.kiouri.sliderbar.client.event.BarValueChangedEvent;
 import com.kiouri.sliderbar.client.event.BarValueChangedHandler;
 import com.kiouri.sliderbar.client.view.SliderBarHorizontal;
 
@@ -49,7 +50,22 @@ public class SlideButton extends SliderBarHorizontal {
 
 		this.setWidth(String.valueOf(width) + "px");
 		this.setMaxValue(maxValue);// For 2 steps value is 1
+		this.addBarValueChangedHandler(new BarValueChangedHandler() {
+			
+			@Override
+			public void onBarValueChanged(BarValueChangedEvent event) {
+				if (1 == event.getValue()) {
+					sbd.removeStyleName(SlideButtonDrag.getResources().css().positionLeft());
+					sbd.addStyleName(SlideButtonDrag.getResources().css().positionRight());
+					
+				} else {
+					sbd.removeStyleName(SlideButtonDrag.getResources().css().positionRight());
+					sbd.addStyleName(SlideButtonDrag.getResources().css().positionLeft());
+				}
+			}
+		});
 	}
+	
 	
 	@Override
 	/**

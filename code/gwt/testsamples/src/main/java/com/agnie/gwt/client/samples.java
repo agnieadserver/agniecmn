@@ -95,14 +95,14 @@ public class samples implements EntryPoint {
 		// testSlideBar();
 		// testSlideButtonScale();
 		// testSlideButtonDrag();
-		//testSlideButton();
+		testSlideButton();
 		//listBoxTestV();
-		dialogBoxTest();
+		//dialogBoxTest();
 		//decoratedPanelTest();
 		//newDandDropTest();
 	}
 	
-	private void newDandDropTest() {
+	private void newDragAndDropTest() {
 		// RootPanel.get().setPixelSize(600, 600);
 		 RootPanel.get().setStyleName("slide-button-scale");
 		    // create a DragController to manage drag-n-drop actions

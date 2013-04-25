@@ -44,13 +44,18 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.validation.client.impl.Validation;
 import com.kiouri.sliderbar.client.event.BarValueChangedEvent;
 import com.kiouri.sliderbar.client.event.BarValueChangedHandler;
@@ -95,30 +100,65 @@ public class samples implements EntryPoint {
 		// testSlideBar();
 		// testSlideButtonScale();
 		// testSlideButtonDrag();
-		testSlideButton();
-		//listBoxTestV();
-		//dialogBoxTest();
-		//decoratedPanelTest();
-		//newDandDropTest();
+		// testSlideButton();
+		// listBoxTestV();
+		// dialogBoxTest();
+		// decoratedPanelTest();
+		newDragAndDropTest();
 	}
-	
+
 	private void newDragAndDropTest() {
 		// RootPanel.get().setPixelSize(600, 600);
-		 RootPanel.get().setStyleName("slide-button-scale");
+		HTMLPanel hp=new HTMLPanel("");
+		hp.setHeight("200px");
+		hp.setWidth("300px");
+		 final AbsolutePanel scale=new AbsolutePanel();
+		 scale.addStyleName("slide-button-scale");
+		 hp.add(scale);
 		    // create a DragController to manage drag-n-drop actions
 		    // note: This creates an implicit DropController for the boundary panel
-		    PickupDragController dragController = new PickupDragController(RootPanel.get(), true);
+		    PickupDragController dragController = new PickupDragController(scale, true);
 
-		    // add a new image to the boundary panel and make it draggable
-		    Image img = new Image("http://code.google.com/webtoolkit/logo-185x175.png");
-		    HTMLPanel cnt=new HTMLPanel("");
-		    cnt.addStyleName("border");
-		   
-		    SlideButtonDrag sbDrag=new SlideButtonDrag();
-		    cnt.add(sbDrag);
-		    RootPanel.get().add(cnt, 40, 30);
+		    final SlideButtonDrag sbDrag=new SlideButtonDrag();
+		    scale.add(sbDrag, 0, 0);
 		    dragController.makeDraggable(sbDrag);
-
+		    sbDrag.addMouseUpHandler(new MouseUpHandler() {
+				
+				public void onMouseUp(MouseUpEvent event) {
+					int x=sbDrag.getAbsoluteLeft();
+					int y=sbDrag.getAbsoluteTop();
+					int scaleX=scale.getAbsoluteLeft();
+					int scaleY=scale.getAbsoluteTop();
+					int scaleHFWidth=scale.getOffsetWidth()/2;
+					int dragHFWidth=sbDrag.getOffsetWidth()/2;
+					int cal=scaleX+scaleHFWidth-dragHFWidth;
+					int leftPos=-2;
+					if(x<cal){
+						leftPos=-2;
+					}else{
+						leftPos=sbDrag.getOffsetWidth()-6;
+					}
+					sbDrag.getElement().setAttribute("style","position: relative;"+"left:"+leftPos+"px ;");
+					
+					GWT.log("x="+x+" y="+y+" cal="+cal+" mouseLeft="+event.getScreenX());
+					GWT.log("scale x="+scaleX+ " scale y="+scaleY);
+					GWT.log("scale half width"+scaleHFWidth+" dragHalfWidth="+dragHFWidth);
+				}
+			});
+		   /* Label label=new Label("label", false);
+		    label.addStyleName("slide-button-drag");
+		    scale.add(label, 0, 0);*/
+		    
+		   /* Widget hpDrag=new HTMLPanel("hpDrag");
+		    hpDrag.addStyleName("slide-button-drag");
+		    scale.add(hpDrag, 0, 0);*/
+		    
+		    /*AbsolutePanel abDrag=new AbsolutePanel();
+		    abDrag.addStyleName("slide-button-drag");
+		    scale.add(abDrag, 0, 0);*/
+		    
+		    dragController.makeDraggable(sbDrag);
+		    RootPanel.get().add(hp);
 	}
 
 	private void testSlideButton() {
@@ -129,27 +169,25 @@ public class samples implements EntryPoint {
 		sbh.addBarValueChangedHandler(new BarValueChangedHandler() {
 
 			public void onBarValueChanged(BarValueChangedEvent event) {
-				/*if (1 == event.getValue()) {
-					sbh.getDragWidget().setWidth("96px");
-				} else {
-					sbh.getDragWidget().setWidth("100px");
-				}*/
+				/*
+				 * if (1 == event.getValue()) { sbh.getDragWidget().setWidth("96px"); } else {
+				 * sbh.getDragWidget().setWidth("100px"); }
+				 */
 				Window.alert("Bar value changed==" + event.getValue());
 			}
 		});
 		sbh.addBarValueChangedHandler(new BarValueChangedHandler() {
 
 			public void onBarValueChanged(BarValueChangedEvent event) {
-				/*if (1 == event.getValue()) {
-					sbh.getDragWidget().setWidth("96px");
-				} else {
-					sbh.getDragWidget().setWidth("100px");
-				}*/
-				Window.alert("Bar value changedeeeee==" + event.getValue()+" ValueChangeHandlerRegsList size=="+sbh.getValueChangeHandlerRegsList().size());
+				/*
+				 * if (1 == event.getValue()) { sbh.getDragWidget().setWidth("96px"); } else {
+				 * sbh.getDragWidget().setWidth("100px"); }
+				 */
+				Window.alert("Bar value changedeeeee==" + event.getValue() + " ValueChangeHandlerRegsList size==" + sbh.getValueChangeHandlerRegsList().size());
 			}
 		});
 		// sbh.clearBarValueChangeHandlers();
-		
+
 		RootPanel.get().add(sbh);
 	}
 
@@ -525,7 +563,7 @@ public class samples implements EntryPoint {
 		CloseBtn cb = new CloseBtn();
 		final DialogBoxTest dbt = new DialogBoxTest();
 		dbt.getDialogBox().addCloseHandler(new ClickHandler() {
-			
+
 			public void onClick(ClickEvent event) {
 				dbt.getDialogBox().hide();
 			}

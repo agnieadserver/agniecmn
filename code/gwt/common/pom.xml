@@ -124,6 +124,8 @@
 						<cssFile>com/agnie/gwt/common/client/widget/LoaderCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/SlideButtonScaleCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/SlideButtonDragCss.css</cssFile>
+						<cssFile>com/agnie/gwt/common/client/widget/DandDDragCss.css</cssFile>
+						<cssFile>com/agnie/gwt/common/client/widget/DandDCss.css</cssFile>
 					</cssFiles>
 				</configuration>
 			</plugin>

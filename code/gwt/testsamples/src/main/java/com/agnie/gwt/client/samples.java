@@ -18,6 +18,8 @@ import com.agnie.gwt.common.client.widget.BreadCrumbPanel;
 import com.agnie.gwt.common.client.widget.CloseBtn;
 import com.agnie.gwt.common.client.widget.CustomListBox;
 import com.agnie.gwt.common.client.widget.CustomMenuPan;
+import com.agnie.gwt.common.client.widget.DandD;
+import com.agnie.gwt.common.client.widget.DandDDrag;
 import com.agnie.gwt.common.client.widget.DecoratedPanel;
 import com.agnie.gwt.common.client.widget.GreenButton;
 import com.agnie.gwt.common.client.widget.LabelPasswordBox;
@@ -109,56 +111,59 @@ public class samples implements EntryPoint {
 
 	private void newDragAndDropTest() {
 		// RootPanel.get().setPixelSize(600, 600);
-		HTMLPanel hp=new HTMLPanel("");
+		HTMLPanel hp = new HTMLPanel("");
 		hp.setHeight("200px");
 		hp.setWidth("300px");
-		 final AbsolutePanel scale=new AbsolutePanel();
-		 scale.addStyleName("slide-button-scale");
-		 hp.add(scale);
-		    // create a DragController to manage drag-n-drop actions
-		    // note: This creates an implicit DropController for the boundary panel
-		    PickupDragController dragController = new PickupDragController(scale, true);
+		final AbsolutePanel scale = new AbsolutePanel();
+		scale.addStyleName("slide-button-scale");
+		hp.add(scale);
+		// create a DragController to manage drag-n-drop actions
+		// note: This creates an implicit DropController for the boundary panel
+		PickupDragController dragController = new PickupDragController(scale, true);
 
-		    final SlideButtonDrag sbDrag=new SlideButtonDrag();
-		    scale.add(sbDrag, 0, 0);
-		    dragController.makeDraggable(sbDrag);
-		    sbDrag.addMouseUpHandler(new MouseUpHandler() {
-				
-				public void onMouseUp(MouseUpEvent event) {
-					int x=sbDrag.getAbsoluteLeft();
-					int y=sbDrag.getAbsoluteTop();
-					int scaleX=scale.getAbsoluteLeft();
-					int scaleY=scale.getAbsoluteTop();
-					int scaleHFWidth=scale.getOffsetWidth()/2;
-					int dragHFWidth=sbDrag.getOffsetWidth()/2;
-					int cal=scaleX+scaleHFWidth-dragHFWidth;
-					int leftPos=-2;
-					if(x<cal){
-						leftPos=-2;
-					}else{
-						leftPos=sbDrag.getOffsetWidth()-6;
-					}
-					sbDrag.getElement().setAttribute("style","position: relative;"+"left:"+leftPos+"px ;");
-					
-					GWT.log("x="+x+" y="+y+" cal="+cal+" mouseLeft="+event.getScreenX());
-					GWT.log("scale x="+scaleX+ " scale y="+scaleY);
-					GWT.log("scale half width"+scaleHFWidth+" dragHalfWidth="+dragHFWidth);
+		final DandDDrag sbDrag = new DandDDrag();
+		
+		scale.add(sbDrag, -2, -2);
+		sbDrag.addMouseUpHandler(new MouseUpHandler() {
+
+			public void onMouseUp(MouseUpEvent event) {
+				int x = sbDrag.getAbsoluteLeft();
+				int y = sbDrag.getAbsoluteTop();
+				int scaleX = scale.getAbsoluteLeft();
+				int scaleY = scale.getAbsoluteTop();
+				int scaleHFWidth = scale.getOffsetWidth() / 2;
+				int dragHFWidth = sbDrag.getOffsetWidth() / 2;
+				int cal = scaleX + scaleHFWidth - dragHFWidth;
+				int leftPos = -2;
+				if (x < cal) {
+					leftPos = -2;
+				} else {
+					leftPos = sbDrag.getOffsetWidth() - 6;
 				}
-			});
-		   /* Label label=new Label("label", false);
-		    label.addStyleName("slide-button-drag");
-		    scale.add(label, 0, 0);*/
-		    
-		   /* Widget hpDrag=new HTMLPanel("hpDrag");
-		    hpDrag.addStyleName("slide-button-drag");
-		    scale.add(hpDrag, 0, 0);*/
-		    
-		    /*AbsolutePanel abDrag=new AbsolutePanel();
-		    abDrag.addStyleName("slide-button-drag");
-		    scale.add(abDrag, 0, 0);*/
-		    
-		    dragController.makeDraggable(sbDrag);
-		    RootPanel.get().add(hp);
+				sbDrag.getElement().setAttribute("style", "position: relative;" + "left:" + leftPos + "px ;");
+
+				GWT.log("x=" + x + " y=" + y + " cal=" + cal + " mouseLeft=" + event.getScreenX());
+				GWT.log("scale x=" + scaleX + " scale y=" + scaleY);
+				GWT.log("scale half width" + scaleHFWidth + " dragHalfWidth=" + dragHFWidth);
+			}
+		});
+		/*
+		 * Label label=new Label("label", false); label.addStyleName("slide-button-drag"); scale.add(label, 0, 0);
+		 */
+
+		/*
+		 * Widget hpDrag=new HTMLPanel("hpDrag"); hpDrag.addStyleName("slide-button-drag"); scale.add(hpDrag, 0, 0);
+		 */
+
+		/*
+		 * AbsolutePanel abDrag=new AbsolutePanel(); abDrag.addStyleName("slide-button-drag"); scale.add(abDrag, 0, 0);
+		 */
+
+		dragController.makeDraggable(sbDrag);
+		DandD dandD=new DandD();
+		dandD.setScale(scale);
+		dandD.addDragWidget(sbDrag, 2, 2);
+		RootPanel.get().add(dandD);
 	}
 
 	private void testSlideButton() {

@@ -70,7 +70,10 @@ public class ACLContext implements JexlContext {
 	 */
 	public Object get(String perm) {
 		checkPerms.add(perm);
-		return acl.check(perm);
+		if (acl != null)
+			return acl.check(perm);
+		else
+			return false;
 	}
 
 	/*

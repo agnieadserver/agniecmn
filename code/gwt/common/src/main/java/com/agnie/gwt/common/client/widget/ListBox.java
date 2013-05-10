@@ -25,6 +25,16 @@ public class ListBox<T> extends com.google.gwt.user.client.ui.ListBox {
 	}
 
 	/**
+	 * Removes all items from the list box.
+	 */
+	public void clear() {
+		super.clear();
+		if ((list != null) && !(list.isEmpty())) {
+			this.list.clear();
+		}
+	}
+
+	/**
 	 * To set ListItem Label as it's Title(tooltip) for each ListItem.
 	 */
 	private void setTitle() {
@@ -50,8 +60,8 @@ public class ListBox<T> extends com.google.gwt.user.client.ui.ListBox {
 	}
 
 	public void setRowData(List<T> list) {
-		this.list = list;
 		clear();
+		this.list = list;
 		for (int index = 0; index < this.list.size(); index++) {
 			T t = this.list.get(index);
 			addItem(gt.getText(t));

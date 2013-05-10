@@ -202,7 +202,7 @@ public class AccessControlList implements Serializable {
 	 * @return
 	 */
 	public boolean check(String perm) {
-		return (owner ? true : root.check(perm));
+		return (owner ? true : (root != null ? root.check(perm) : false));
 	}
 
 	@Override

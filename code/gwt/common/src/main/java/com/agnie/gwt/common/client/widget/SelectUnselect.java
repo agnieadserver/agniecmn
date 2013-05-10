@@ -54,11 +54,20 @@ public class SelectUnselect<T> extends Composite {
 		mvlft.setText("<<");
 		mvrgt.setText(">>");
 	}
+
+	/**
+	 * To clear selected and available list.
+	 */
 	
+	public void clearSelUnselList() {
+		this.available.clear();
+		this.selected.clear();
+	}
+
 	public void setSelectedData(List<T> sel) {
 		selected.setRowData(sel);
 	}
-	
+
 	public void setAvailabelData(List<T> av) {
 		available.setRowData(av);
 	}

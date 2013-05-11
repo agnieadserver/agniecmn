@@ -4,6 +4,7 @@
 	<inherits name='com.google.gwt.user.User' />
 	<inherits name='com.agnie.gwt.common.AgnieCommon' />
 	<inherits name="com.agnie.gwt.common.FormFactor" />
+	<inherits name="com.google.gwt.inject.Inject" />
 	<!-- Specify the app entry point class. -->
 	<entry-point class='com.agnie.gwt.client.samples' />
 

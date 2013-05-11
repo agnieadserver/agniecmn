@@ -3,16 +3,13 @@ package com.agnie.gwt.client.presenter;
 import java.util.List;
 
 import com.agnie.gwt.client.Person;
-import com.agnie.gwt.client.ViewFactory;
 import com.agnie.gwt.client.ui.ListView;
 import com.agnie.gwt.client.ui.ListView.Presenter;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.inject.Singleton;
 
+@Singleton
 public class ListPresenter extends BasePresenter implements Presenter {
-
-	public ListPresenter(ViewFactory viewFactory) {
-		super(viewFactory);
-	}
 
 	@Override
 	public void go() {

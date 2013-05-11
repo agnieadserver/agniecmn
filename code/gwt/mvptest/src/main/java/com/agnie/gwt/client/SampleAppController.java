@@ -6,9 +6,13 @@ import com.agnie.gwt.common.client.mvp.Place;
 import com.agnie.gwt.common.client.mvp.Presenter;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.inject.Inject;
 
 public class SampleAppController extends AppController<PlaceToken> {
-	private ViewFactory	viewFactory	= SuperFactory.getInstance().viewFactory();
+	@Inject
+	private ViewFactory		viewFactory;
+	@Inject
+	private ListPresenter	listPresenter;
 
 	public SampleAppController() {
 		super(PlaceToken.class);
@@ -26,7 +30,7 @@ public class SampleAppController extends AppController<PlaceToken> {
 		if (place != null) {
 			switch (place.getPlace()) {
 			case LIST:
-				presenter = new ListPresenter(viewFactory);
+				presenter = listPresenter;
 				break;
 			case CREATE:
 				// presenter = new CreateNewAppPresenter(eventBus, viewFactory, clientFactory);

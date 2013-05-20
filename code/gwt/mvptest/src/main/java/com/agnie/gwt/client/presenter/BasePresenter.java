@@ -23,4 +23,9 @@ public class BasePresenter implements Presenter {
 
 	}
 
+	public boolean checkPermission(String permission) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

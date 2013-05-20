@@ -2,13 +2,16 @@ package com.agnie.gwt.client;
 
 import com.agnie.gwt.client.ui.CreateView;
 import com.agnie.gwt.client.ui.ListView;
-import com.agnie.gwt.client.ui.MobileListView;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 public class MobileViewFactory implements ViewFactory {
 	private static HTMLPanel	mainPanel;
-	private static ListView		listView	= new MobileListView();
+	@Inject
+	@Named("mobile")
+	private static ListView		listView;
 
 	public HTMLPanel getMainContentPanel() {
 		if (mainPanel == null) {

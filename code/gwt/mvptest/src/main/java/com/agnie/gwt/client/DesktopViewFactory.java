@@ -1,15 +1,18 @@
 package com.agnie.gwt.client;
 
 import com.agnie.gwt.client.ui.CreateView;
-import com.agnie.gwt.client.ui.DeskListView;
 import com.agnie.gwt.client.ui.ListView;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 public class DesktopViewFactory implements ViewFactory {
 
 	private static HTMLPanel	mainPanel;
-	private static ListView		listView	= new DeskListView();
+	@Inject
+	@Named("desktop")
+	private static ListView		listView;
 
 	public HTMLPanel getMainContentPanel() {
 		if (mainPanel == null) {

@@ -1,8 +1,13 @@
 package com.agnie.gwt.common.client.widget;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.allen_sauer.gwt.dnd.client.PickupDragController;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasAllMouseHandlers;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
@@ -12,6 +17,7 @@ import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -26,18 +32,33 @@ public class DandD extends Composite {
 	interface MyUiBinder extends UiBinder<Widget, DandD> {
 	}
 
-	private static MyUiBinder		uiBinder		= GWT.create(MyUiBinder.class);
-	private AbsolutePanel			scale			= new AbsolutePanel();
-	private PickupDragController	dragController;
-	protected HTMLPanel				container;
-	protected HandlerManager		handlerManager	= new HandlerManager(this);
-	protected DandDDrag				sbDrag			= new DandDDrag();
-	int								currentValue	= 0;
+	private static MyUiBinder			uiBinder			= GWT.create(MyUiBinder.class);
+	private AbsolutePanel				scale				= new AbsolutePanel();
+	private PickupDragController		dragController;
+	protected HTMLPanel					container;
+	protected HandlerManager			handlerManager		= new HandlerManager(this);
+	protected DandDDrag					sbDrag				= new DandDDrag();
+	int									currentValue		= 0;
+	private List<HandlerRegistration>	valueChangeHandlers	= new ArrayList<HandlerRegistration>();
 
 	public DandD() {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
 		initWidget(container);
 		scale.addStyleName(resource.css().slideButtonScale());
+		scale.sinkEvents(Event.ONCLICK);
+		scale.addHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				if (95 > event.getRelativeX(DandD.this.scale.getElement())) {
+					DandD.this.setDragPosition(Position.ZERO);
+				} else {
+					if (95 < event.getRelativeX(DandD.this.scale.getElement())) {
+						DandD.this.setDragPosition(Position.ONE);
+					}
+				}
+			}
+		}, ClickEvent.getType());
 		setScale(scale);
 		addDragWidget(sbDrag, 2, 2);
 	}
@@ -81,9 +102,11 @@ public class DandD extends Composite {
 	public static enum Position {
 		ZERO(0), ONE(1);
 		private int	key;
+
 		private Position(int key) {
 			this.key = key;
 		}
+
 		/**
 		 * @return the key
 		 */
@@ -97,11 +120,15 @@ public class DandD extends Composite {
 		Scheduler.get().scheduleDeferred(new Command() {
 			public void execute() {
 				if (0 == position.getKey()) {
+					currentValue = 0;
 					(DandD.this.sbDrag).getElement().setAttribute("style", "position: relative;" + "left:" + -2 + "px ;" + "top:" + -2 + "px ;");
+					handlerManager.fireEvent(new BarValueChangedEvent(currentValue));
 				}
 				if (1 == position.getKey()) {
 					int leftPos = (DandD.this.sbDrag).getOffsetWidth() - 6;
 					(DandD.this.sbDrag).getElement().setAttribute("style", "position: relative;" + "left:" + leftPos + "px ;" + "top:" + -2 + "px ;");
+					currentValue = 1;
+					handlerManager.fireEvent(new BarValueChangedEvent(currentValue));
 				}
 			}
 		});
@@ -140,7 +167,23 @@ public class DandD extends Composite {
 	}
 
 	public HandlerRegistration addBarValueChangedHandler(BarValueChangedHandler barValueChangedHandler) {
-		return handlerManager.addHandler(BarValueChangedEvent.TYPE, barValueChangedHandler);
+		HandlerRegistration hr = handlerManager.addHandler(BarValueChangedEvent.TYPE, barValueChangedHandler);
+		valueChangeHandlers.add(hr);
+		return hr;
+	}
+
+	/**
+	 * To clear BarValueChangeHandlers for slideButton.
+	 */
+	public void clearBarValueChangeHandlers() {
+		for (HandlerRegistration vch : valueChangeHandlers) {
+			vch.removeHandler();
+		}
+		valueChangeHandlers.clear();
+	}
+
+	public List<HandlerRegistration> getValueChangeHandlerRegsList() {
+		return this.valueChangeHandlers;
 	}
 
 }

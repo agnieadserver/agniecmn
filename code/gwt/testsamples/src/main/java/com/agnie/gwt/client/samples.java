@@ -19,10 +19,8 @@ import com.agnie.gwt.common.client.widget.CloseBtn;
 import com.agnie.gwt.common.client.widget.CustomListBox;
 import com.agnie.gwt.common.client.widget.CustomMenuPan;
 import com.agnie.gwt.common.client.widget.DandD;
-import com.agnie.gwt.common.client.widget.DandD.BarValueChangedEvent;
 import com.agnie.gwt.common.client.widget.DandD.BarValueChangedHandler;
 import com.agnie.gwt.common.client.widget.DandD.Position;
-import com.agnie.gwt.common.client.widget.DandDDrag;
 import com.agnie.gwt.common.client.widget.DecoratedPanel;
 import com.agnie.gwt.common.client.widget.GreenButton;
 import com.agnie.gwt.common.client.widget.LabelPasswordBox;
@@ -41,27 +39,19 @@ import com.agnie.gwt.common.client.widget.SlideButtonScale;
 import com.agnie.gwt.common.client.widget.SuggestionBox;
 import com.agnie.gwt.common.client.widget.TextBox;
 import com.agnie.gwt.common.client.widget.WizardBar;
-import com.allen_sauer.gwt.dnd.client.PickupDragController;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasAllMouseHandlers;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.dom.client.MouseUpEvent;
-import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.validation.client.impl.Validation;
 
 /**
@@ -109,7 +99,7 @@ public class samples implements EntryPoint {
 		// dialogBoxTest();
 		// decoratedPanelTest();
 		newDragAndDropTest();
-		//labelPasswordTextBoxTest();
+		// labelPasswordTextBoxTest();
 	}
 
 	private void newDragAndDropTest() {
@@ -117,76 +107,29 @@ public class samples implements EntryPoint {
 		HTMLPanel hp = new HTMLPanel("");
 		hp.setHeight("200px");
 		hp.setWidth("300px");
-	/*	final AbsolutePanel scale = new AbsolutePanel();
-		scale.addStyleName("slide-button-scale");
-		hp.add(scale);
-		// create a DragController to manage drag-n-drop actions
-		// note: This creates an implicit DropController for the boundary panel
-		PickupDragController dragController = new PickupDragController(scale, true);
-		final DandDDrag sbDrag = new DandDDrag();
-		scale.add(sbDrag, -2, -2);*/
-/*		sbDrag.addMouseUpHandler(new MouseUpHandler() {
-
-			public void onMouseUp(MouseUpEvent event) {
-				int x = sbDrag.getAbsoluteLeft();
-				int y = sbDrag.getAbsoluteTop();
-				int scaleX = scale.getAbsoluteLeft();
-				int scaleY = scale.getAbsoluteTop();
-				int scaleHFWidth = scale.getOffsetWidth() / 2;
-				int dragHFWidth = sbDrag.getOffsetWidth() / 2;
-				int cal = scaleX + scaleHFWidth - dragHFWidth;
-				int leftPos = -2;
-				if (x < cal) {
-					leftPos = -2;
-				} else {
-					leftPos = sbDrag.getOffsetWidth() - 6;
-				}
-				sbDrag.getElement().setAttribute("style", "position: relative;" + "left:" + leftPos + "px ;");
-
-				GWT.log("x=" + x + " y=" + y + " cal=" + cal + " mouseLeft=" + event.getScreenX());
-				GWT.log("scale x=" + scaleX + " scale y=" + scaleY);
-				GWT.log("scale half width" + scaleHFWidth + " dragHalfWidth=" + dragHFWidth);
-			}
-		});*/
-		/*
-		 * Label label=new Label("label", false); label.addStyleName("slide-button-drag"); scale.add(label, 0, 0);
-		 */
-
-		/*
-		 * Widget hpDrag=new HTMLPanel("hpDrag"); hpDrag.addStyleName("slide-button-drag"); scale.add(hpDrag, 0, 0);
-		 */
-
-		/*
-		 * AbsolutePanel abDrag=new AbsolutePanel(); abDrag.addStyleName("slide-button-drag"); scale.add(abDrag, 0, 0);
-		 */
-
-		//dragController.makeDraggable(sbDrag);
-		
-		/*dandD.setScale(scale);
-		dandD.addDragWidget(sbDrag, 2, 2);*/
-		final DandD dandD=new DandD();
+		final DandD dandD = new DandD();
 		dandD.setDragPosition(Position.ONE);
-		
+
 		dandD.addBarValueChangedHandler(new BarValueChangedHandler() {
-			
+
 			public void onBarValueChanged(com.agnie.gwt.common.client.widget.DandD.BarValueChangedEvent event) {
-				Window.alert("BarValueChanged="+event.getValue());
+				Window.alert("BarValueChanged=" + event.getValue() + " getDragPosition" + dandD.getDragPosition());
 			}
 
 		});
-		
-		Button b=new Button("Click");
+
+		Button b = new Button("Click");
 		b.addClickHandler(new ClickHandler() {
-			
+
 			public void onClick(ClickEvent event) {
 				dandD.setDragPosition(Position.ZERO);
 			}
 		});
-		
+
 		hp.add(dandD);
 		hp.add(b);
 		RootPanel.get().add(hp);
-		
+
 	}
 
 	private void testSlideButton() {
@@ -194,29 +137,27 @@ public class samples implements EntryPoint {
 		/*
 		 * sbh.setLeftTitle("LeftTitle"); sbh.setRightTitle("RightTitle");
 		 */
-		/*sbh.addBarValueChangedHandler(new BarValueChangedHandler() {
-
-			public void onBarValueChanged(BarValueChangedEvent event) {
-				
-				 * if (1 == event.getValue()) { sbh.getDragWidget().setWidth("96px"); } else {
-				 * sbh.getDragWidget().setWidth("100px"); }
-				 
-				Window.alert("Bar value changed==" + event.getValue());
-			}
-		});
-		sbh.addBarValueChangedHandler(new BarValueChangedHandler() {
-
-			public void onBarValueChanged(BarValueChangedEvent event) {
-				
-				 * if (1 == event.getValue()) { sbh.getDragWidget().setWidth("96px"); } else {
-				 * sbh.getDragWidget().setWidth("100px"); }
-				 
-				Window.alert("Bar value changedeeeee==" + event.getValue() + " ValueChangeHandlerRegsList size==" + sbh.getValueChangeHandlerRegsList().size());
-			}
-		});
-		// sbh.clearBarValueChangeHandlers();
-
-		RootPanel.get().add(sbh);*/
+		/*
+		 * sbh.addBarValueChangedHandler(new BarValueChangedHandler() {
+		 * 
+		 * public void onBarValueChanged(BarValueChangedEvent event) {
+		 * 
+		 * if (1 == event.getValue()) { sbh.getDragWidget().setWidth("96px"); } else {
+		 * sbh.getDragWidget().setWidth("100px"); }
+		 * 
+		 * Window.alert("Bar value changed==" + event.getValue()); } }); sbh.addBarValueChangedHandler(new
+		 * BarValueChangedHandler() {
+		 * 
+		 * public void onBarValueChanged(BarValueChangedEvent event) {
+		 * 
+		 * if (1 == event.getValue()) { sbh.getDragWidget().setWidth("96px"); } else {
+		 * sbh.getDragWidget().setWidth("100px"); }
+		 * 
+		 * Window.alert("Bar value changedeeeee==" + event.getValue() + " ValueChangeHandlerRegsList size==" +
+		 * sbh.getValueChangeHandlerRegsList().size()); } }); // sbh.clearBarValueChangeHandlers();
+		 * 
+		 * RootPanel.get().add(sbh);
+		 */
 	}
 
 	private void testSlideButtonDrag() {
@@ -244,12 +185,12 @@ public class samples implements EntryPoint {
 	private void testSlideBar() {
 		KDEHorizontalLeftBW sbh = new KDEHorizontalLeftBW(1, 100, 30);
 		sbh.addStyleName("slide-button");
-		/*sbh.addBarValueChangedHandler(new BarValueChangedHandler() {
-
-			public void onBarValueChanged(BarValueChangedEvent event) {
-				Window.alert("Bar value changed==" + event.getValue());
-			}
-		});*/
+		/*
+		 * sbh.addBarValueChangedHandler(new BarValueChangedHandler() {
+		 * 
+		 * public void onBarValueChanged(BarValueChangedEvent event) { Window.alert("Bar value changed==" +
+		 * event.getValue()); } });
+		 */
 		sbh.setValue(0);
 		RootPanel.get().add(sbh);
 	}

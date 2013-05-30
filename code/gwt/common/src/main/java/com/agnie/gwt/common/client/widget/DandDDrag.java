@@ -1,6 +1,7 @@
 package com.agnie.gwt.common.client.widget;
 
 import com.google.gwt.core.shared.GWT;
+import com.google.gwt.event.dom.client.HasAllMouseHandlers;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
@@ -8,8 +9,11 @@ import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Composite;
@@ -21,7 +25,7 @@ import com.google.gwt.user.client.ui.Widget;
  * DragElement for DandD widget.
  * 
  */
-public class DandDDrag extends Composite implements HasMouseMoveHandlers, HasMouseDownHandlers, HasMouseUpHandlers {
+public class DandDDrag extends Composite implements HasMouseMoveHandlers, HasMouseDownHandlers, HasMouseUpHandlers ,HasAllMouseHandlers{
 	private static DandDDragResources	resource	= DandDDragResources.INSTANCE;
 
 	static {
@@ -70,6 +74,24 @@ public class DandDDrag extends Composite implements HasMouseMoveHandlers, HasMou
 	@Override
 	public HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
 		return addDomHandler(handler, MouseUpEvent.getType());
+	}
+
+	@Override
+	public HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

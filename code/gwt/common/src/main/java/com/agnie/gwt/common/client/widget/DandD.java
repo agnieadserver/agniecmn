@@ -1,11 +1,17 @@
 package com.agnie.gwt.common.client.widget;
 
-import com.agnie.gwt.common.client.widget.CloseBtn.MyUiBinder;
 import com.allen_sauer.gwt.dnd.client.PickupDragController;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.event.dom.client.HasAllMouseHandlers;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.shared.EventHandler;
+import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -20,15 +26,20 @@ public class DandD extends Composite {
 	interface MyUiBinder extends UiBinder<Widget, DandD> {
 	}
 
-	private static MyUiBinder		uiBinder	= GWT.create(MyUiBinder.class);
-	private AbsolutePanel			scale;
+	private static MyUiBinder		uiBinder		= GWT.create(MyUiBinder.class);
+	private AbsolutePanel			scale			= new AbsolutePanel();
 	private PickupDragController	dragController;
 	protected HTMLPanel				container;
+	protected HandlerManager		handlerManager	= new HandlerManager(this);
+	protected DandDDrag				sbDrag			= new DandDDrag();
+	int								currentValue	= 0;
 
 	public DandD() {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
 		initWidget(container);
-
+		scale.addStyleName(resource.css().slideButtonScale());
+		setScale(scale);
+		addDragWidget(sbDrag, 2, 2);
 	}
 
 	public void setScale(AbsolutePanel scale) {
@@ -37,8 +48,99 @@ public class DandD extends Composite {
 		this.container.add(scale);
 	}
 
-	public void addDragWidget(final Widget  drag, int leftBorderOfDrag, int topBorderOfDrag) {
-		this.scale.add(drag, -leftBorderOfDrag, -topBorderOfDrag);
-		dragController.makeDraggable(drag);
+	public void addDragWidget(final HasAllMouseHandlers drag, int leftBorderOfDrag, int topBorderOfDrag) {
+		this.scale.add((Widget) drag, -leftBorderOfDrag, -topBorderOfDrag);
+		dragController.makeDraggable((Widget) drag);
+
+		drag.addMouseUpHandler(new MouseUpHandler() {
+			public void onMouseUp(MouseUpEvent event) {
+				int x = ((Widget) drag).getAbsoluteLeft();
+				int scaleX = scale.getAbsoluteLeft();
+				int scaleHFWidth = scale.getOffsetWidth() / 2;
+				int dragHFWidth = ((Widget) drag).getOffsetWidth() / 2;
+				int cal = scaleX + scaleHFWidth - dragHFWidth;
+				int leftPos = -2;
+
+				if (x < cal) {
+					leftPos = -2;
+					currentValue = 0;
+				} else {
+					leftPos = ((Widget) drag).getOffsetWidth() - 6;
+					currentValue = 1;
+				}
+				((Widget) drag).getElement().setAttribute("style", "position: relative;" + "left:" + leftPos + "px ;");
+				handlerManager.fireEvent(new BarValueChangedEvent(currentValue));
+			}
+		});
 	}
+
+	public int getDragPosition() {
+		return currentValue;
+	}
+
+	public static enum Position {
+		ZERO(0), ONE(1);
+		private int	key;
+		private Position(int key) {
+			this.key = key;
+		}
+		/**
+		 * @return the key
+		 */
+		public int getKey() {
+			return key;
+		}
+	}
+
+	// To set dragPosition manually
+	public void setDragPosition(final Position position) {
+		Scheduler.get().scheduleDeferred(new Command() {
+			public void execute() {
+				if (0 == position.getKey()) {
+					(DandD.this.sbDrag).getElement().setAttribute("style", "position: relative;" + "left:" + -2 + "px ;" + "top:" + -2 + "px ;");
+				}
+				if (1 == position.getKey()) {
+					int leftPos = (DandD.this.sbDrag).getOffsetWidth() - 6;
+					(DandD.this.sbDrag).getElement().setAttribute("style", "position: relative;" + "left:" + leftPos + "px ;" + "top:" + -2 + "px ;");
+				}
+			}
+		});
+	}
+
+	public static interface BarValueChangedHandler extends EventHandler {
+		void onBarValueChanged(BarValueChangedEvent event);
+	}
+
+	public static class BarValueChangedEvent extends GwtEvent<BarValueChangedHandler> {
+		public static Type<BarValueChangedHandler>	TYPE	= new Type<BarValueChangedHandler>();
+
+		int											value;
+
+		public BarValueChangedEvent(int position) {
+			this.value = position;
+		}
+
+		public int getValue() {
+			return value;
+		}
+
+		public void setValue(int position) {
+			this.value = position;
+		}
+
+		@Override
+		public Type<BarValueChangedHandler> getAssociatedType() {
+			return TYPE;
+		}
+
+		@Override
+		protected void dispatch(BarValueChangedHandler handler) {
+			handler.onBarValueChanged(this);
+		}
+	}
+
+	public HandlerRegistration addBarValueChangedHandler(BarValueChangedHandler barValueChangedHandler) {
+		return handlerManager.addHandler(BarValueChangedEvent.TYPE, barValueChangedHandler);
+	}
+
 }

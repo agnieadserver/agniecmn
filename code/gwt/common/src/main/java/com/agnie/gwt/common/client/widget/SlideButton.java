@@ -30,6 +30,7 @@ public class SlideButton extends SliderBarHorizontal {
 	private List<HandlerRegistration> valueChangeHandlers=new ArrayList<HandlerRegistration>();
 
 	public SlideButton() {
+		this.addStyleName("slide-btn");
 		/**
 		 * <br>
 		 * for SlideButton(of SIZE 200x30 ) SlideButtonScale css must be border-radius: 5px 5px 5px 5px; border: 2px

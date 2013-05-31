@@ -21,6 +21,7 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 public class DandD extends Composite {
@@ -41,10 +42,16 @@ public class DandD extends Composite {
 	int									currentValue		= 0;
 	private List<HandlerRegistration>	valueChangeHandlers	= new ArrayList<HandlerRegistration>();
 
+	private Label						leftLabel			= new Label();
+	private Label						rgtLabel			= new Label();
+
 	public DandD() {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
 		initWidget(container);
 		scale.addStyleName(resource.css().slideButtonScale());
+
+		setLeftLabel("Application", 8, 7);
+		setRighttLabel("Context", 120, 5);
 		scale.sinkEvents(Event.ONCLICK);
 		scale.addHandler(new ClickHandler() {
 
@@ -63,9 +70,28 @@ public class DandD extends Composite {
 		addDragWidget(sbDrag, 2, 2);
 	}
 
+	public void setLeftLabel(String label, int left, int top) {
+		this.leftLabel.setText(label);
+		scale.add(leftLabel, left, top);
+	}
+
+	public void setRighttLabel(String label, int left, int top) {
+		this.rgtLabel.setText(label);
+		scale.add(rgtLabel, left, top);
+	}
+
+	public void addLeftLabelStyle(String style) {
+		this.leftLabel.addStyleName(style);
+	}
+
+	public void addRightLabelStyle(String style) {
+		this.rgtLabel.addStyleName(style);
+	}
+
 	public void setScale(AbsolutePanel scale) {
 		this.scale = scale;
 		dragController = new PickupDragController(scale, true);
+		dragController.setConstrainWidgetToBoundaryPanel(true);
 		this.container.add(scale);
 	}
 

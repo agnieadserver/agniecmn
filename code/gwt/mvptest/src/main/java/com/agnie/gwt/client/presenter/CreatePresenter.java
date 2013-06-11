@@ -9,10 +9,11 @@ import com.google.inject.Singleton;
 public class CreatePresenter extends BasePresenter implements Presenter {
 
 	@Override
-	public void go() {
+	public boolean go() {
 		super.go();
 		HTMLPanel content = viewFactory.getMainContentPanel();
 		content.add(new Label("Create Page"));
+		return true;
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.agnie.gwt.client.ui;
 
 import com.agnie.gwt.client.Person;
+import com.agnie.gwt.client.presenter.ListPresenter;
 import com.agnie.gwt.client.ui.renderer.MobilePearsonCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -14,6 +15,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
+import com.google.inject.Inject;
 
 public class MobileListView extends Composite implements ListView {
 	interface MyUiBinder extends UiBinder<Widget, MobileListView> {
@@ -23,7 +25,8 @@ public class MobileListView extends Composite implements ListView {
 	SimplePager					pager;
 	@UiField
 	CellTable<Person>			table;
-	Presenter					presenter;
+	@Inject
+	ListPresenter				presenter;
 	ListDataProvider<Person>	dataProvider	= new ListDataProvider<Person>();
 	private static MyUiBinder	uiBinder		= GWT.create(MyUiBinder.class);
 
@@ -46,10 +49,6 @@ public class MobileListView extends Composite implements ListView {
 		pager.setDisplay(table);
 
 		dataProvider.addDataDisplay(table);
-	}
-
-	public void setPresenter(Presenter presenter) {
-		this.presenter = presenter;
 	}
 
 	public void init() {

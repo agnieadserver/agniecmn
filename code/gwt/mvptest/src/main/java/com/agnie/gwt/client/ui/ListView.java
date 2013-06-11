@@ -7,8 +7,6 @@ import com.google.gwt.user.client.ui.IsWidget;
 
 public interface ListView extends IsWidget {
 
-	public void setPresenter(Presenter presenter);
-
 	public void init();
 
 	public interface Presenter extends com.agnie.gwt.common.client.mvp.Presenter {

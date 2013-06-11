@@ -17,7 +17,6 @@ public class SampleAppController extends AppController<PlaceToken> {
 
 	@Inject
 	MVPInjector				injector;
-	@Inject
 	private ViewFactory		viewFactory;
 	@Inject
 	private ListPresenter	listPresenter;
@@ -64,6 +63,12 @@ public class SampleAppController extends AppController<PlaceToken> {
 	@Override
 	protected HTMLPanel getMainContentRootPanel() {
 		return viewFactory.getMainContentPanel();
+	}
+
+	public void setViewFactory(ViewFactory viewFactory) {
+		this.viewFactory = viewFactory;
+		listPresenter.setViewFactory(viewFactory);
+		createPresenter.setViewFactory(viewFactory);
 	}
 
 }

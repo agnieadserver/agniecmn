@@ -13,7 +13,6 @@ import com.google.inject.Singleton;
 
 @Singleton
 public class ListPresenter extends BasePresenter implements Presenter {
-
 	@Inject
 	ValueProvider	stringProvider;
 
@@ -22,14 +21,14 @@ public class ListPresenter extends BasePresenter implements Presenter {
 	}
 
 	@Override
-	public void go() {
+	public boolean go() {
 		super.go();
 		GWT.log("String value provider => " + stringProvider.get());
 		HTMLPanel content = viewFactory.getMainContentPanel();
 		ListView lview = viewFactory.getListView();
-		lview.setPresenter(this);
 		lview.init();
 		content.add(lview);
+		return true;
 	}
 
 	public void fillData(List<Person> list) {

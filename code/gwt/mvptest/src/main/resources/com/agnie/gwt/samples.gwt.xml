@@ -12,18 +12,18 @@
 	<source path='client' />
 	<source path='shared' />
 	<!-- Use ClientFactoryImplMobile for mobile form factor. -->
-	<replace-with class="com.agnie.gwt.client.DesktopViewFactory">
-		<when-type-is class="com.agnie.gwt.client.ViewFactory" />
+	<replace-with class="com.agnie.gwt.client.DesktopFactory">
+		<when-type-is class="com.agnie.gwt.client.PlatformFactory" />
 		<when-property-is name="formfactor" value="desktop" />
 	</replace-with>
 
-	<replace-with class="com.agnie.gwt.client.MobileViewFactory">
-		<when-type-is class="com.agnie.gwt.client.ViewFactory" />
+	<replace-with class="com.agnie.gwt.client.MobileFactory">
+		<when-type-is class="com.agnie.gwt.client.PlatformFactory" />
 		<when-property-is name="formfactor" value="mobile" />
 	</replace-with>
 
-	<replace-with class="com.agnie.gwt.client.TabletViewFactory">
-		<when-type-is class="com.agnie.gwt.client.ViewFactory" />
+	<replace-with class="com.agnie.gwt.client.TabletFactory">
+		<when-type-is class="com.agnie.gwt.client.PlatformFactory" />
 		<when-property-is name="formfactor" value="tablet" />
 	</replace-with>
 </module>

@@ -39,6 +39,9 @@ public abstract class AppController<PLACE extends Enum<PLACE>> implements ValueC
 				Presenter presenter = getPresenterForPlace(placeMgr.getTokenToPlace(placeType, token));
 				if (presenter != null) {
 					presenter.go();
+					// TODO: Need to remove this null parameter once changes are being made at all places to remove
+					// postRender call from individual presenters.
+					presenter.postRender(null);
 				}
 			}
 		} else {

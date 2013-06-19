@@ -94,6 +94,7 @@ public class MemCacheService implements CacheService {
 		}
 		if (value == null) {
 			client.delete(key);
+			return;
 		}
 		Class<?> objCls = value.getClass();
 		if (objCls.getCanonicalName() == null) {

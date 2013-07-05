@@ -1,7 +1,6 @@
 package com.agnie.gwt.client.presenter;
 
 import com.agnie.gwt.client.ViewFactory;
-import com.agnie.gwt.common.client.mvp.MainView;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 
@@ -16,7 +15,7 @@ public class BasePresenter implements Presenter {
 		return true;
 	}
 
-	public void postRender(MainView view) {
+	public void postRender() {
 		// TODO Auto-generated method stub
 
 	}

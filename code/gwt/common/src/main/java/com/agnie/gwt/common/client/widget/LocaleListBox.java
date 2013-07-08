@@ -10,9 +10,8 @@ import java.util.List;
 import com.agnie.common.gwt.serverclient.client.enums.Language;
 import com.agnie.common.gwt.serverclient.client.enums.QueryString;
 import com.agnie.common.gwt.serverclient.client.helper.URLGenerator;
-import com.agnie.common.gwt.serverclient.client.helper.URLInfo;
+import com.agnie.common.gwt.serverclient.client.helper.URLInfoImpl;
 import com.agnie.gwt.common.client.renderer.LanguageCell;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
@@ -65,7 +64,7 @@ public class LocaleListBox extends CustomListBox<Language> {
 						String selectLocale = getSelectedLocale().getCode();
 
 						if (!SELECT.equals(selectLocale)) {
-							Window.Location.assign(ug.getChangeLocaleURL((URLInfo) GWT.create(URLInfo.class), selectLocale));
+							Window.Location.assign(ug.getChangeLocaleURL(new URLInfoImpl(), selectLocale));
 						}
 					}
 				});

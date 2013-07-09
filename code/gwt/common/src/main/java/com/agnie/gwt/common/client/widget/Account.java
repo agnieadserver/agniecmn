@@ -107,7 +107,7 @@ public class Account extends Composite {
 		if (userAcc != null) {
 			this.userAcc = userAcc;
 			setAccName(userAcc.getFirstName() + " " + userAcc.getLastName());
-			if (!(userAcc.getUserImgUrl().isEmpty())) {
+			if (userAcc.getUserImgUrl() != null && !(userAcc.getUserImgUrl().isEmpty())) {
 				setUserImageUrl(userAcc.getUserImgUrl());
 			} else {
 				setUserImageResource(resource.person());

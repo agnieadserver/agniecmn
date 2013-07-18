@@ -85,7 +85,7 @@ public class samples implements EntryPoint {
 		// loaderTest();
 		// formFieldTest();
 		// labeledTextBoxPassBoxTest();
-		// accPanTest();
+		accPanTest();
 		// textBoxTest();
 		// customListBoxTest();
 		// localeListBoxTest();
@@ -98,7 +98,7 @@ public class samples implements EntryPoint {
 		// listBoxTestV();
 		// dialogBoxTest();
 		// decoratedPanelTest();
-		newDragAndDropTest();
+		// newDragAndDropTest();
 		// labelPasswordTextBoxTest();
 	}
 
@@ -424,6 +424,7 @@ public class samples implements EntryPoint {
 		UserAccount ua = new UserAccount();
 		ua.setFirstName("firstName");
 		ua.setLastName("lastName");
+		ua.setUserImgUrl("http://qph.is.quoracdn.net/main-thumb-5639207-200-887waxenRmnEekNl4q5k5yZyGQPLGcZb.jpeg");
 		acc.setUserAcc(ua);
 		acc.addChangePassClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {

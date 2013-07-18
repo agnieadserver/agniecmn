@@ -16,7 +16,7 @@ public interface AccountResources extends ClientBundle {
 	@Source("arrowDark.png")
 	ImageResource arrowDarkImg();
 
-	@Source("person50x50.png")
+	@Source("person.png")
 	ImageResource person();
 
 	@Source("acc-triangle-silver.png")

@@ -17,26 +17,30 @@
 			<g:HTMLPanel>
 				<div ui:field="accTriangle" class="{res.css.accTrianlge}"></div>
 				<div ui:field="accDropPanBody" class='{res.css.accDropPanBody}'>
-					<div class='{res.css.accUserImg}'>
-						<g:Image ui:field="accUserImg"></g:Image>
-					</div>
-					<div class='{res.css.accDet}'>
-						<g:HTMLPanel ui:field="changePass" addStyleNames='{res.css.accDetElem}'>
-							<span>
-								<ui:text from='{msg.changePass}'></ui:text>
-							</span>
-						</g:HTMLPanel>
-						<g:HTMLPanel ui:field="modify" addStyleNames='{res.css.accDetElem}'>
-							<span>
-								<ui:text from='{msg.modify}'></ui:text>
-							</span>
-						</g:HTMLPanel>
-						<g:HTMLPanel ui:field="logout" addStyleNames='{res.css.accDetElem}'>
-							<span>
-								<ui:text from='{msg.logout}'></ui:text>
-							</span>
-						</g:HTMLPanel>
-					</div>
+					<table>
+						<tr>
+							<td style="width: 100px; height: 100px;  padding: 5px 5px 0px;">
+								<g:Image ui:field="accUserImg"  styleName='{res.css.accUserImg}'></g:Image>
+							</td>
+							<td>
+								<g:HTMLPanel ui:field="changePass" addStyleNames='{res.css.accDetElem}'>
+									<span>
+										<ui:text from='{msg.changePass}'></ui:text>
+									</span>
+								</g:HTMLPanel>
+								<g:HTMLPanel ui:field="modify" addStyleNames='{res.css.accDetElem}'>
+									<span>
+										<ui:text from='{msg.modify}'></ui:text>
+									</span>
+								</g:HTMLPanel>
+								<g:HTMLPanel ui:field="logout" addStyleNames='{res.css.accDetElem}'>
+									<span>
+										<ui:text from='{msg.logout}'></ui:text>
+									</span>
+								</g:HTMLPanel>
+							</td>
+						</tr>
+					</table>
 				</div>
 			</g:HTMLPanel>
 		</g:FocusPanel>

@@ -8,9 +8,9 @@ import java.net.URLEncoder;
 import java.util.Set;
 
 import com.agnie.common.gwt.serverclient.client.helper.StringURL;
-import com.agnie.common.gwt.serverclient.client.helper.URLInfo;
+import com.agnie.common.gwt.serverclient.client.helper.URLInfoBaseImpl;
 
-public class TestURLInfoImpl implements URLInfo {
+public class TestURLInfoImpl extends URLInfoBaseImpl {
 
 	private URL			url;
 
@@ -65,6 +65,10 @@ public class TestURLInfoImpl implements URLInfo {
 
 	public String getHostBaseURL() {
 		return strUrl.getHostBaseURL();
+	}
+
+	public String getProtocol() {
+		return url.getProtocol();
 	}
 
 }

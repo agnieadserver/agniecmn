@@ -6,7 +6,7 @@ import com.agnie.common.gwt.serverclient.client.enums.QueryString;
 import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.Window.Location;
 
-public class URLInfoImpl implements URLInfo {
+public class URLInfoImpl extends URLInfoBaseImpl {
 
 	public String getParameter(String name) {
 		return Location.getParameter(name);
@@ -52,6 +52,10 @@ public class URLInfoImpl implements URLInfo {
 			location = location.substring(0, location.indexOf(QueryString.HASH.getKey()));
 		}
 		return location;
+	}
+
+	public String getProtocol() {
+		return Location.getProtocol();
 	}
 
 }

@@ -8,13 +8,17 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import com.agnie.common.gwt.serverclient.client.enums.QueryString;
-import com.agnie.common.gwt.serverclient.client.helper.URLInfo;
+import com.agnie.common.gwt.serverclient.client.helper.URLInfoBaseImpl;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
-public class ServerURLInfo implements URLInfo {
+@Singleton
+public class ServerURLInfo extends URLInfoBaseImpl {
 
 	private HttpServletRequest	request;
 	private String				proxyServer;
 
+	@Inject
 	public ServerURLInfo(HttpServletRequest request) {
 		this.request = request;
 		// Given header is sent by apache proxy server. by passing original host requested.
@@ -26,10 +30,7 @@ public class ServerURLInfo implements URLInfo {
 	}
 
 	public String getHostURL() {
-		String url = request.getRequestURL().toString();
-		if (proxyServer != null && !proxyServer.isEmpty()) {
-			url = url.replace(request.getServerName() + ":" + request.getServerPort(), proxyServer);
-		}
+		String url = getHostBaseURL();
 		return url + (request.getQueryString() != null ? QueryString.QUESTION_MARK.getKey() + request.getQueryString() : "");
 	}
 
@@ -76,6 +77,10 @@ public class ServerURLInfo implements URLInfo {
 			url = url.replace(request.getServerName() + ":" + request.getServerPort(), proxyServer);
 		}
 		return url;
+	}
+
+	public String getProtocol() {
+		return request.getProtocol();
 	}
 
 }

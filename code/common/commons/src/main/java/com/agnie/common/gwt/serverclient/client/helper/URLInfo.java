@@ -3,6 +3,8 @@ package com.agnie.common.gwt.serverclient.client.helper;
 import java.util.Set;
 
 public interface URLInfo {
+	public String	PROD_ROOT_CONTEXT	= "userapp";
+
 	/**
 	 * 
 	 * @param name
@@ -68,4 +70,25 @@ public interface URLInfo {
 	 * @return
 	 */
 	String getHostBaseURL();
+
+	/**
+	 * Request URL protocol
+	 * 
+	 * @return
+	 */
+	String getProtocol();
+
+	/**
+	 * Request urls base url.
+	 * 
+	 * @return
+	 */
+	String getRootHostURL();
+
+	/**
+	 * Base url with root context
+	 * 
+	 * @return
+	 */
+	String getRootContextURL();
 }

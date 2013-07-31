@@ -9,14 +9,19 @@ import java.util.Set;
 
 import com.agnie.common.gwt.serverclient.client.helper.StringURL;
 import com.agnie.common.gwt.serverclient.client.helper.URLInfoBaseImpl;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 public class TestURLInfoImpl extends URLInfoBaseImpl {
 
-	private URL			url;
+	public static final String	TEST_URL	= "test-url";
 
-	private StringURL	strUrl;
+	private URL					url;
 
-	public TestURLInfoImpl(String path) throws MalformedURLException {
+	private StringURL			strUrl;
+
+	@Inject
+	public TestURLInfoImpl(@Named(TEST_URL) String path) throws MalformedURLException {
 		url = new URL(path);
 		strUrl = new StringURL(path);
 	}

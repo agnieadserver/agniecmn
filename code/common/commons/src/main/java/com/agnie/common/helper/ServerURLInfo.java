@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.agnie.common.gwt.serverclient.client.enums.QueryString;
 import com.agnie.common.gwt.serverclient.client.helper.URLInfoBaseImpl;
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 
-@Singleton
 public class ServerURLInfo extends URLInfoBaseImpl {
 
 	private HttpServletRequest	request;

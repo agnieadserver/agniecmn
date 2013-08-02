@@ -46,6 +46,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.Window.Navigator;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -85,7 +86,7 @@ public class samples implements EntryPoint {
 		// loaderTest();
 		// formFieldTest();
 		// labeledTextBoxPassBoxTest();
-		accPanTest();
+		// accPanTest();
 		// textBoxTest();
 		// customListBoxTest();
 		// localeListBoxTest();
@@ -99,7 +100,7 @@ public class samples implements EntryPoint {
 		// dialogBoxTest();
 		// decoratedPanelTest();
 		// newDragAndDropTest();
-		// labelPasswordTextBoxTest();
+		labelPasswordTextBoxTest();
 	}
 
 	private void newDragAndDropTest() {

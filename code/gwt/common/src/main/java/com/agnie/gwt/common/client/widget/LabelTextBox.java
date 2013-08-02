@@ -47,7 +47,7 @@ public class LabelTextBox extends TextBox {
 			@Override
 			public void onBlur(BlurEvent event) {
 				String text = getValue();
-				if (text.trim().isEmpty()) {
+				if (text.isEmpty()) {
 					reset();
 				}
 			}
@@ -57,9 +57,6 @@ public class LabelTextBox extends TextBox {
 
 			@Override
 			public void onKeyPress(KeyPressEvent event) {
-				if (!dirtyFlag) {
-					onFirstKeyPress();
-				}
 				removeStyle();
 			}
 		});
@@ -71,13 +68,14 @@ public class LabelTextBox extends TextBox {
 	 */
 	@Override
 	public void onDetach() {
-		super.onDetach();//To avoid Uncaught exception<Should only call onAttach when the widget is detached from the browser's document>
+		super.onDetach();// To avoid Uncaught exception<Should only call onAttach when the widget is detached from the
+							// browser's document>
 		this.errorPan.hide();
 		this.reset();
 	}
 
-	public void onFirstKeyPress() {
-		super.onFirstKeyPress();
+	public void onFirstKeyPress(char character) {
+		super.onFirstKeyPress(character);
 		setText("");
 	}
 

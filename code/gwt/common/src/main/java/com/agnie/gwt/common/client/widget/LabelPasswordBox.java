@@ -1,10 +1,12 @@
 package com.agnie.gwt.common.client.widget;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.user.client.Window.Navigator;
 import com.google.gwt.user.client.ui.PopupPanel;
 
 /**
@@ -29,29 +31,38 @@ public class LabelPasswordBox extends LabelTextBox {
 
 		super.setLabel(label);
 
-		super.addKeyPressHandler(new KeyPressHandler() {
+		/*
+		 * NOTE: Below code to detect firefox browser and and make use of focus event to change type of input field to
+		 * password. Is a temporary fix, ideal way to handle the browser specific handling is to make use of deferred
+		 * binding. The issue is when we make use of key press handler to change the type first key is not getting
+		 * recognised on firefox because of some reason. And if we think of using focus handler for all browsers. Focus
+		 * handler fails to convert it to password box on chrome.
+		 */
+		String userAgent = Navigator.getUserAgent();
+		if (userAgent.contains("Firefox")) {
+			super.addFocusHandler(new FocusHandler() {
+				@Override
+				public void onFocus(FocusEvent arg0) {
+					changeTypeToPass();
+					removeStyle();
+				}
+			});
+		} else {
+			super.addKeyPressHandler(new KeyPressHandler() {
 
-			@Override
-			public void onKeyPress(KeyPressEvent event) {
-				changeTypeToPass();
-				removeStyle();
-			}
-		});
-		// super.addFocusHandler(new FocusHandler() {
-		//
-		// @Override
-		// public void onFocus(FocusEvent arg0) {
-		// changeTypeToPass();
-		// removeStyle();
-		// }
-		// });
+				@Override
+				public void onKeyPress(KeyPressEvent event) {
+					changeTypeToPass();
+					removeStyle();
+				}
+			});
+		}
 		super.addBlurHandler(new BlurHandler() {
 
 			@Override
 			public void onBlur(BlurEvent arg0) {
 				String value = getValue();
-				GWT.log("value==" + value);
-				if ("".equals(value)) {
+				if (value.isEmpty()) {
 					changeTypeToText();
 					addStyle();
 				} else {
@@ -64,24 +75,12 @@ public class LabelPasswordBox extends LabelTextBox {
 	}
 
 	/**
-	 * To hide errorPan when this widget getsRemoved from Parent.
-	 */
-	
-	@Override
-	public void onDetach(){
-		super.onDetach();//To avoid Uncaught exception<Should only call onAttach when the widget is detached from the browser's document>
-		this.errorPan.hide();
-		this.reset();
-	}
-
-	/**
 	 * To reset field with default label.
 	 */
 	public void reset() {
 		super.reset();
 		changeTypeToText();
 	}
-	
 
 	/**
 	 * to get ErrorMessage Panel

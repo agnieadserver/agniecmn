@@ -60,7 +60,7 @@ public class TextBox extends Composite {
 			@Override
 			public void onKeyPress(KeyPressEvent event) {
 				if (!dirtyFlag) {
-					onFirstKeyPress();
+					onFirstKeyPress(event.getCharCode());
 				}
 				dirtyFlag = true;
 			}
@@ -72,7 +72,7 @@ public class TextBox extends Composite {
 		};
 	}
 
-	public void onFirstKeyPress() {
+	public void onFirstKeyPress(char character) {
 		setErrorMessVisible(false);
 	}
 

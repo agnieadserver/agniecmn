@@ -18,7 +18,6 @@
 	</properties>
 	<modules>
 		<module>common</module>
-		<module>gwt-mvn-helper</module>
   </modules>
 	<dependencies>
 		<dependency>

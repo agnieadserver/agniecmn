@@ -76,7 +76,16 @@ public class LabelTextBox extends TextBox {
 
 	public void onFirstKeyPress(char character) {
 		super.onFirstKeyPress(character);
-		setText("");
+		super.setText("");
+	}
+
+	@Override
+	public void setText(String text) {
+		if (text != null && !text.isEmpty()) {
+			this.dirtyFlag = true;
+			super.setText(text);
+		}
+
 	}
 
 	/**
@@ -84,7 +93,7 @@ public class LabelTextBox extends TextBox {
 	 */
 	public void reset() {
 		super.reset();
-		setText(getLabel());
+		super.setText(getLabel());
 		addStyle();
 	}
 

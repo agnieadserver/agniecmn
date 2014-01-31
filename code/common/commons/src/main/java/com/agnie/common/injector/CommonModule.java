@@ -2,7 +2,6 @@ package com.agnie.common.injector;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Properties;
 
 import javax.inject.Named;
@@ -42,7 +41,7 @@ public class CommonModule extends AbstractModule {
 		try {
 			version.load(getClass().getResourceAsStream("version.properties"));
 			Names.bindProperties(binder(), version);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			logger.error("Error while reading version.properties file: ", e);
 		}
 
@@ -51,7 +50,7 @@ public class CommonModule extends AbstractModule {
 			System.out.println(agnieHome + "/global/config/global-config.properties");
 			globalConfig.load(new FileInputStream(new File(agnieHome + "/global/config/global-config.properties")));
 			Names.bindProperties(binder(), globalConfig);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			logger.error("Error while reading global-config.properties file: ", e);
 		}
 	}

@@ -1,4 +1,4 @@
-package com.agnie.common.testcmn;
+package com.agnie.common.tools;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;

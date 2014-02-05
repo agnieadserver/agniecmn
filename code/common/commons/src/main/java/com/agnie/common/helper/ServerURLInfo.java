@@ -13,6 +13,7 @@ import com.google.inject.Inject;
 
 public class ServerURLInfo extends URLInfoBaseImpl {
 
+	public static final String	AGNIE_BASE_DOMAIN	= "agnie.co.in";
 	private HttpServletRequest	request;
 	private String				proxyServer;
 

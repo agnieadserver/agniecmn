@@ -24,6 +24,20 @@ public class MemCachedTest {
 		System.out.println("expected =>" + user);
 		System.out.println("actual =>" + actual);
 		Assert.assertEquals(user, actual);
+
+		user = new UserBean();
+		user.setFname("fname");
+		user.setLname("lname");
+		ph = new Phone();
+		ph.setType(Type.HOME);
+		ph.setPhone(null);
+		user.setPhone(ph);
+		service.put("sample-other", user);
+
+		actual = (UserBean) service.get("sample-other");
+		System.out.println("expected =>" + user);
+		System.out.println("actual =>" + actual);
+		Assert.assertEquals(user, actual);
 	}
 }
 

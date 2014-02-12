@@ -16,15 +16,14 @@ import com.google.inject.Provides;
 import com.google.inject.name.Names;
 
 public class CommonModule extends AbstractModule {
-	private static Logger		logger					= Logger.getLogger(CommonModule.class);
-
-	public static final String	AGNIE_PROJECT			= "agnie-project";
-	public static final String	GMAIL_SENDER			= "gmail";
-	public static final String	AGNIE_HOME				= "agnie-home";
-	public static final String	AGNIE_HOME_ENV			= "AGNIE_HOME";
-	public static final String	VERSION					= "version";
-	public static final String	CLIENT_PROXY_TIMEOUT	= "client-proxy-timeout";
-	public static final String	agnieHome				= System.getenv(AGNIE_HOME_ENV);
+	private static Logger		logger						= Logger.getLogger(CommonModule.class);
+	public static final String	AGNIE_PROJECT				= "agnie-project";
+	public static final String	GMAIL_SENDER				= "gmail";
+	public static final String	AGNIE_HOME					= "agnie-home";
+	public static final String	AGNIE_HOME_ENV				= "AGNIE_HOME";
+	public static final String	VERSION						= "version";
+	public static final String	CLIENT_PROXY_TIMEOUT		= "client-proxy-timeout";
+	public static final String	agnieHome					= System.getenv(AGNIE_HOME_ENV);
 
 	@Provides
 	@Named(AGNIE_HOME)

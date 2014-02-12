@@ -24,21 +24,18 @@ public class URLGeneratorTest {
 
 		url = "http://localhost:8080/useradmin/login.jsp?locale=en";
 		ui = new TestURLInfoImpl(url);
-		ug = new URLGenerator();
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		Assert.assertEquals(expectedUrl, changedUrl);
 
 		url = "http://localhost:8080/useradmin/login.jsp?locale=en#sample=test";
 		expectedUrl = "http://localhost:8080/useradmin/login.jsp?locale=mr#sample=test";
 		ui = new TestURLInfoImpl(url);
-		ug = new URLGenerator();
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		Assert.assertEquals(expectedUrl, changedUrl);
 
 		url = "http://localhost:8080/useradmin/login.jsp#sample=test";
 		expectedUrl = "http://localhost:8080/useradmin/login.jsp?locale=mr#sample=test";
 		ui = new TestURLInfoImpl(url);
-		ug = new URLGenerator();
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		Assert.assertEquals(expectedUrl, changedUrl);
 	}
@@ -54,21 +51,18 @@ public class URLGeneratorTest {
 
 		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&locale=en";
 		ui = new TestURLInfoImpl(url);
-		ug = new URLGenerator();
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		Assert.assertEquals(expectedUrl, changedUrl);
 
 		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&locale=en#sample=test";
 		expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&locale=mr#sample=test";
 		ui = new TestURLInfoImpl(url);
-		ug = new URLGenerator();
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		Assert.assertEquals(expectedUrl, changedUrl);
 
 		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997#sample=test";
 		expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&locale=mr#sample=test";
 		ui = new TestURLInfoImpl(url);
-		ug = new URLGenerator();
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		Assert.assertEquals(expectedUrl, changedUrl);
 	}
@@ -86,7 +80,6 @@ public class URLGeneratorTest {
 
 		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&locale=en";
 		ui = new TestURLInfoImpl(url);
-		ug = new URLGenerator();
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		// System.out.println(changedUrl);
 		Assert.assertEquals(expectedUrl, changedUrl);
@@ -94,7 +87,6 @@ public class URLGeneratorTest {
 		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&locale=en#sample=test";
 		expectedUrl = "http://localhost:8080/useradmin/login.jsp?param1=value1&gwt.server=127.0.0.1:9997&locale=mr#sample=test";
 		ui = new TestURLInfoImpl(url);
-		ug = new URLGenerator();
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		// System.out.println(changedUrl);
 		Assert.assertEquals(expectedUrl, changedUrl);
@@ -102,7 +94,6 @@ public class URLGeneratorTest {
 		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1#sample=test";
 		expectedUrl = "http://localhost:8080/useradmin/login.jsp?param1=value1&gwt.server=127.0.0.1:9997&locale=mr#sample=test";
 		ui = new TestURLInfoImpl(url);
-		ug = new URLGenerator();
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		// System.out.println(changedUrl);
 		Assert.assertEquals(expectedUrl, changedUrl);
@@ -120,7 +111,6 @@ public class URLGeneratorTest {
 
 		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&param2=value2&locale=en";
 		ui = new TestURLInfoImpl(url);
-		ug = new URLGenerator();
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		// System.out.println(changedUrl);
 		Assert.assertEquals(expectedUrl, changedUrl);
@@ -128,7 +118,6 @@ public class URLGeneratorTest {
 		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&param2=value2&locale=en#sample=test";
 		expectedUrl = "http://localhost:8080/useradmin/login.jsp?param1=value1&param2=value2&gwt.server=127.0.0.1:9997&locale=mr#sample=test";
 		ui = new TestURLInfoImpl(url);
-		ug = new URLGenerator();
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		// System.out.println(changedUrl);
 		Assert.assertEquals(expectedUrl, changedUrl);
@@ -136,7 +125,6 @@ public class URLGeneratorTest {
 		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&param2=value2#sample=test";
 		expectedUrl = "http://localhost:8080/useradmin/login.jsp?param1=value1&param2=value2&gwt.server=127.0.0.1:9997&locale=mr#sample=test";
 		ui = new TestURLInfoImpl(url);
-		ug = new URLGenerator();
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		// System.out.println(changedUrl);
 		Assert.assertEquals(expectedUrl, changedUrl);
@@ -154,7 +142,6 @@ public class URLGeneratorTest {
 
 		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&param2=value2&param1=value11&locale=en";
 		ui = new TestURLInfoImpl(url);
-		ug = new URLGenerator();
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		// System.out.println(changedUrl);
 		Assert.assertEquals(expectedUrl, changedUrl);
@@ -162,7 +149,6 @@ public class URLGeneratorTest {
 		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&param2=value2&param1=value11&locale=en#sample=test";
 		expectedUrl = "http://localhost:8080/useradmin/login.jsp?param1=value1&param1=value11&param2=value2&gwt.server=127.0.0.1:9997&locale=mr#sample=test";
 		ui = new TestURLInfoImpl(url);
-		ug = new URLGenerator();
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		// System.out.println(changedUrl);
 		Assert.assertEquals(expectedUrl, changedUrl);
@@ -170,7 +156,6 @@ public class URLGeneratorTest {
 		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&param2=value2&param1=value11#sample=test";
 		expectedUrl = "http://localhost:8080/useradmin/login.jsp?param1=value1&param1=value11&param2=value2&gwt.server=127.0.0.1:9997&locale=mr#sample=test";
 		ui = new TestURLInfoImpl(url);
-		ug = new URLGenerator();
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		// System.out.println(changedUrl);
 		Assert.assertEquals(expectedUrl, changedUrl);

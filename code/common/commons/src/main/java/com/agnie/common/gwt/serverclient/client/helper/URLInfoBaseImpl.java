@@ -1,6 +1,8 @@
 package com.agnie.common.gwt.serverclient.client.helper;
 
 public abstract class URLInfoBaseImpl implements URLInfo {
+	public static final String	AGNIE_BASE_DOMAIN	= "agnie.net";
+
 	/**
 	 * Request urls base url.
 	 * 

@@ -13,6 +13,7 @@ import net.spy.memcached.MemcachedClient;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -26,6 +27,7 @@ import com.google.inject.name.Named;
 public class MemCacheService implements CacheService {
 	private static Map<String, Class<?>>	classMapping			= new HashMap<String, Class<?>>();
 	private MemcachedClient					client;
+	private ObjectMapper					mapper;
 	public static final int					DEFAULT_EXPIRATION_TIME	= 3600;
 	public static final int					MAX_KEY_SIZE			= 250;
 	// timeout in seconds.
@@ -39,7 +41,8 @@ public class MemCacheService implements CacheService {
 	 */
 	@Inject
 	public MemCacheService(@Named("CacheServers") String hostPortInp) {
-
+		mapper = new ObjectMapper();
+		mapper.setSerializationInclusion(Inclusion.NON_NULL);
 		String[] hostPorts = hostPortInp.split(",");
 		List<InetSocketAddress> addrList = new ArrayList<InetSocketAddress>();
 
@@ -114,7 +117,6 @@ public class MemCacheService implements CacheService {
 	 * @return Byte array containing JSON.
 	 */
 	public String serialize(Object value) {
-		ObjectMapper mapper = new ObjectMapper();
 		StringWriter sw = new StringWriter();
 
 		try {
@@ -150,7 +152,7 @@ public class MemCacheService implements CacheService {
 		}
 		CachedValue cached = deserialize(value, CachedValue.class);
 		if (cached != null) {
-			Object val = deserialize(cached.getV(), classMapping.get(cached.getC()));
+			Object val = deserialize(cached.getV(), getClass(cached.getC()));
 			return val;
 		}
 		return null;
@@ -165,7 +167,6 @@ public class MemCacheService implements CacheService {
 	 */
 	public <T> T deserialize(String data, Class<T> cls) {
 
-		ObjectMapper mapper = new ObjectMapper();
 		try {
 			return mapper.readValue(data, cls);
 		} catch (JsonGenerationException e) {
@@ -175,6 +176,25 @@ public class MemCacheService implements CacheService {
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Failed to deserialize: " + data, e);
 		}
+	}
+
+	/**
+	 * Retrieve Class instance from class name.
+	 * 
+	 * @param classname
+	 * @return
+	 */
+	private Class<?> getClass(String classname) {
+		Class<?> cls = classMapping.get(classname);
+		if (cls == null) {
+			try {
+				cls = Class.forName(classname);
+				classMapping.put(classname, cls);
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException("Error in mem cache service: Class not Found '" + classname + "'");
+			}
+		}
+		return cls;
 	}
 
 	private static class CachedValue {

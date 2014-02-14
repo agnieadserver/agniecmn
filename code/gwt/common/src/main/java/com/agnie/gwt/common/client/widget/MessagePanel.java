@@ -14,12 +14,14 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Singleton;
 
 /**
  * a common widget to display messages like info, error and warning.
  * 
  * 
  */
+@Singleton
 public class MessagePanel extends Composite {
 	private static MessagePanelResources	resource	= MessagePanelResources.INSTANCE;
 

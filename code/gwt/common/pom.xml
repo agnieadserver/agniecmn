@@ -126,6 +126,7 @@
 						<cssFile>com/agnie/gwt/common/client/widget/SlideButtonDragCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/DandDDragCss.css</cssFile>
 						<cssFile>com/agnie/gwt/common/client/widget/DandDCss.css</cssFile>
+						<cssFile>com/agnie/gwt/common/client/widget/FormPanelCss.css</cssFile>
 					</cssFiles>
 				</configuration>
 			</plugin>

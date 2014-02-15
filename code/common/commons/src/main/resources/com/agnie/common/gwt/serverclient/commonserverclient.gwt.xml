@@ -6,4 +6,5 @@
 	<inherits name="com.google.gwt.http.HTTP" />
 	<inherits name="com.google.gwt.inject.Inject" />
 	<source path="client" />
+	<public path="public" />
 </module>

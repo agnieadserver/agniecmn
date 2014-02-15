@@ -1,0 +1,25 @@
+package com.agnie.common.helper;
+
+import com.agnie.common.gwt.serverclient.client.helper.URLConfiguration;
+import com.agnie.common.gwt.serverclient.client.helper.URLGenerator;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.google.inject.name.Named;
+
+/**
+ * @author Pandurang Patil 12-Feb-2014
+ * 
+ */
+@Singleton
+public class ServerURLConfiguration implements URLConfiguration {
+
+	@Inject
+	@Named(URLGenerator.USER_ADMIN_ROOT_ENDPOINT)
+	private String	uaBaseURL;
+
+	@Override
+	public String get3ABaseURL() {
+		return uaBaseURL;
+	}
+
+}

@@ -20,6 +20,8 @@ public class TestURLInfoImpl extends URLInfoBaseImpl {
 
 	private StringURL			strUrl;
 
+	private String				referrer;
+
 	@Inject
 	public TestURLInfoImpl(@Named(TEST_URL) String path) throws MalformedURLException {
 		url = new URL(path);
@@ -74,6 +76,15 @@ public class TestURLInfoImpl extends URLInfoBaseImpl {
 
 	public String getProtocol() {
 		return url.getProtocol();
+	}
+
+	@Override
+	public String getReferrer() {
+		return referrer;
+	}
+
+	public void setReferrer(String referrer) {
+		this.referrer = referrer;
 	}
 
 }

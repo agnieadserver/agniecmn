@@ -91,4 +91,11 @@ public interface URLInfo {
 	 * @return
 	 */
 	String getRootContextURL();
+
+	/**
+	 * Get referrer url from header.
+	 * 
+	 * @return
+	 */
+	String getReferrer();
 }

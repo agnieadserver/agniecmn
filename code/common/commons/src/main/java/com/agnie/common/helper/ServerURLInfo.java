@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.agnie.common.gwt.serverclient.client.enums.QueryString;
 import com.agnie.common.gwt.serverclient.client.helper.URLInfoBaseImpl;
+import com.google.common.net.HttpHeaders;
 import com.google.inject.Inject;
 
 public class ServerURLInfo extends URLInfoBaseImpl {
@@ -79,6 +80,11 @@ public class ServerURLInfo extends URLInfoBaseImpl {
 
 	public String getProtocol() {
 		return request.getProtocol();
+	}
+
+	@Override
+	public String getReferrer() {
+		return request.getHeader(HttpHeaders.REFERER);
 	}
 
 }

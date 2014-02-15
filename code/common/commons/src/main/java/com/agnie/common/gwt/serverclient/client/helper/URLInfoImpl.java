@@ -3,39 +3,48 @@ package com.agnie.common.gwt.serverclient.client.helper;
 import java.util.Set;
 
 import com.agnie.common.gwt.serverclient.client.enums.QueryString;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.Window.Location;
 
 public class URLInfoImpl extends URLInfoBaseImpl {
 
+	@Override
 	public String getParameter(String name) {
 		return Location.getParameter(name);
 	}
 
+	@Override
 	public String getHostURL() {
 		return Location.getHref();
 	}
 
+	@Override
 	public Set<String> getParameterKeySet() {
 		return (Location.getParameterMap() != null ? Location.getParameterMap().keySet() : null);
 	}
 
+	@Override
 	public String[] getAllValues(String name) {
 		return (Location.getParameterMap() != null ? (Location.getParameterMap().get(name) != null ? Location.getParameterMap().get(name).toArray(new String[0]) : null) : null);
 	}
 
+	@Override
 	public String getHost() {
 		return Location.getHost();
 	}
 
+	@Override
 	public String getUTF8EncodedURL(String url) {
 		return URL.encodeQueryString(url);
 	}
 
+	@Override
 	public String decodeUTF8URL(String encodedUrl) {
 		return URL.decodeQueryString(encodedUrl);
 	}
 
+	@Override
 	public String getQueryString() {
 		String queryString = Location.getQueryString();
 		if (queryString != null && !(queryString.isEmpty())) {
@@ -44,6 +53,7 @@ public class URLInfoImpl extends URLInfoBaseImpl {
 		return null;
 	}
 
+	@Override
 	public String getHostBaseURL() {
 		String location = Location.getHref();
 		if (location.contains(QueryString.QUESTION_MARK.getKey())) {
@@ -54,8 +64,14 @@ public class URLInfoImpl extends URLInfoBaseImpl {
 		return location;
 	}
 
+	@Override
 	public String getProtocol() {
 		return Location.getProtocol();
+	}
+
+	@Override
+	public String getReferrer() {
+		return Document.get().getReferrer();
 	}
 
 }

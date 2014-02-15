@@ -1,6 +1,12 @@
 package com.agnie.gwt.common.client.widget;
 
+import javax.inject.Named;
+
 import com.agnie.common.gwt.serverclient.client.dto.UserAccount;
+import com.agnie.common.gwt.serverclient.client.enums.QueryString;
+import com.agnie.common.gwt.serverclient.client.helper.URLGenerator;
+import com.agnie.common.gwt.serverclient.client.helper.URLInfo;
+import com.agnie.common.gwt.serverclient.client.injector.CommonServerClientModule;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.SpanElement;
@@ -12,16 +18,20 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 /**
  * Account widget.To show users account detail.
  * 
  */
+@Singleton
 public class Account extends Composite {
 	private static AccountResources	resource	= AccountResources.INSTANCE;
 
@@ -53,17 +63,27 @@ public class Account extends Composite {
 	@UiField
 	HTMLPanel					logout;
 
+	@Inject
+	URLGenerator				urlGenerator;
+	@Inject
+	@Named(CommonServerClientModule.CURRENT_APP_DOMAIN)
+	String						appDomain;
+	@Inject
+	private URLInfo				urlinfo;
+
 	protected HTMLPanel			container;
 	protected boolean			visibleDropPan	= false;
+	private boolean				init			= false;
 
+	@Inject
 	public Account() {
 		this(resource.css().accPan());
 	}
 
-	CancelClickHandler	cancleClikInstance	= new CancelClickHandler();
+	HideClickHandler	hidePanelHandler	= new HideClickHandler();
 	UserAccount			userAcc;
 
-	public Account(String styleClassName) {
+	private Account(String styleClassName) {
 		container = (HTMLPanel) uiBinder.createAndBindUi(this);
 		container.addStyleName(styleClassName);
 		initWidget(container);
@@ -103,6 +123,31 @@ public class Account extends Composite {
 		accUserImg.setUrl(imageUrl);
 	}
 
+	private void init() {
+		changePass.sinkEvents(Event.ONCLICK);
+		changePass.addHandler(hidePanelHandler, ClickEvent.getType());
+		changePass.addHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				String changePassUrl = urlGenerator.getChangePassUrl(urlinfo, appDomain, urlinfo.getParameter(QueryString.GWT_DEV_MODE.getKey()));
+				Window.Location.assign(changePassUrl);
+			}
+		}, ClickEvent.getType());
+
+		modify.sinkEvents(Event.ONCLICK);
+		modify.addHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				String updateProfileUrl = urlGenerator.getUpdateProfUrl(urlinfo, appDomain, urlinfo.getParameter(QueryString.GWT_DEV_MODE.getKey()));
+				Window.Location.assign(updateProfileUrl);
+			}
+		}, ClickEvent.getType());
+		modify.addHandler(hidePanelHandler, ClickEvent.getType());
+		init = true;
+	}
+
 	public void setUserAcc(UserAccount userAcc) {
 		if (userAcc != null) {
 			this.userAcc = userAcc;
@@ -112,6 +157,9 @@ public class Account extends Composite {
 				accUserImg.addStyleName(resource.css().accUserImg());
 			} else {
 				setUserImageResource(resource.person());
+			}
+			if (!init) {
+				init();
 			}
 		}
 	}
@@ -128,21 +176,17 @@ public class Account extends Composite {
 	}
 
 	public void addChangePassClickHandler(ClickHandler handler) {
-		changePass.sinkEvents(Event.ONCLICK);
 		changePass.addHandler(handler, ClickEvent.getType());
-		changePass.addHandler(cancleClikInstance, ClickEvent.getType());
 	}
 
 	public void addModifyClickHandler(ClickHandler handler) {
-		modify.sinkEvents(Event.ONCLICK);
 		modify.addHandler(handler, ClickEvent.getType());
-		modify.addHandler(cancleClikInstance, ClickEvent.getType());
 	}
 
 	public void addLogoutClickHandler(ClickHandler handler) {
 		logout.sinkEvents(Event.ONCLICK);
 		logout.addHandler(handler, ClickEvent.getType());
-		logout.addHandler(cancleClikInstance, ClickEvent.getType());
+		logout.addHandler(hidePanelHandler, ClickEvent.getType());
 	}
 
 	public void setHeight(String height) {
@@ -157,7 +201,7 @@ public class Account extends Composite {
 		return resource;
 	}
 
-	private class CancelClickHandler implements ClickHandler {
+	private class HideClickHandler implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {

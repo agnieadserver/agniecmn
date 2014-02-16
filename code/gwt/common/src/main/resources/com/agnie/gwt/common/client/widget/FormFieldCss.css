@@ -34,7 +34,7 @@ span.required {
 	float: left;
 }
 
-.form-field-label, input, button, select {
+.form-field-label, input, button, select, textarea  {
     font-family: "Avant Garde", "Century Gothic", "Avant Garde Gothic", "URW Gothic L", helvetica, sans-serif;
     font-size: 15px;
     font-weight: normal;

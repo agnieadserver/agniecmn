@@ -203,12 +203,6 @@ public class URLGeneratorTest {
 		// System.out.println(changedUrl);
 		Assert.assertEquals(expectedUrl, changedUrl);
 
-		url = "http://localhost:8080/billing.html";
-		TestURLInfoImpl urlInfo = new TestURLInfoImpl(url);
-		urlInfo.setReferrer("http://localhost:8080/housingsociety.html");
-		expectedUrl = "http://localhost:8080/login.jsp?gwt.codesvr=127.0.0.1:9997&Referer=" + urlInfo.getUTF8EncodedURL(urlInfo.getReferrer()) + "&source=" + urlInfo.getUTF8EncodedURL(url);
-		changedUrl = usur.getLoginURL(urlInfo, null, "127.0.0.1:9997");
-		Assert.assertEquals(expectedUrl, changedUrl);
 	}
 
 	@Test
@@ -236,13 +230,13 @@ public class URLGeneratorTest {
 				+ URLEncoder.encode("http://localhost:8080/billing.html", "UTF-8") + "&" + QueryString.HISTORY_HASH.getKey() + "=test";
 		ui = new TestURLInfoImpl(url);
 		changedUrl = urlGen.getSourceUrl(ui);
-		Assert.assertEquals("http://localhost:8080/billing.html?source=" + URLEncoder.encode(referrer, "UTF-8") +"#test", changedUrl);
-		
+		Assert.assertEquals("http://localhost:8080/billing.html?source=" + URLEncoder.encode(referrer, "UTF-8") + "#test", changedUrl);
+
 		url = "http://localhost:8080/login.jsp?gwt.codesvr=127.0.0.1:9997&Referer=" + URLEncoder.encode(referrer, "UTF-8") + "&source="
 				+ URLEncoder.encode("http://localhost:8080/billing.html?gwt.codesvr=127.0.0.1:9997", "UTF-8") + "&" + QueryString.HISTORY_HASH.getKey() + "=test";
 		ui = new TestURLInfoImpl(url);
 		changedUrl = urlGen.getSourceUrl(ui);
-		Assert.assertEquals("http://localhost:8080/billing.html?gwt.codesvr=127.0.0.1:9997&source=" + URLEncoder.encode(referrer, "UTF-8") +"#test", changedUrl);
+		Assert.assertEquals("http://localhost:8080/billing.html?gwt.codesvr=127.0.0.1:9997&source=" + URLEncoder.encode(referrer, "UTF-8") + "#test", changedUrl);
 
 	}
 

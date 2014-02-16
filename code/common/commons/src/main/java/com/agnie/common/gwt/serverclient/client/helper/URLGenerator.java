@@ -76,16 +76,6 @@ public class URLGenerator {
 			}
 			url.append(QueryString.LOCALE.getKey() + "=" + param);
 		}
-		String referrer = params.getReferrer();
-		if (referrer != null && !referrer.isEmpty()) {
-			if (!qpexists) {
-				url.append(QueryString.QUESTION_MARK.getKey());
-				qpexists = true;
-			} else {
-				url.append(QueryString.AMPERSAND.getKey());
-			}
-			url.append(QueryString.REFERER.getKey() + "=" + params.getUTF8EncodedURL(referrer));
-		}
 		if (!qpexists) {
 			url.append(QueryString.QUESTION_MARK.getKey());
 			qpexists = true;

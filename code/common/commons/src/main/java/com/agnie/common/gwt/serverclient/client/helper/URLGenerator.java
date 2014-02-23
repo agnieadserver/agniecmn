@@ -9,7 +9,7 @@ import com.google.inject.Singleton;
 public class URLGenerator {
 
 	public static final String	USER_ADMIN_ROOT_ENDPOINT	= "3a.root.endpoint";
-
+	public static final String	BILLING_APP_ENDPOINT		= "billing.root.endpoint";
 	/*
 	 * TODO Initialize through maven build variables.
 	 */

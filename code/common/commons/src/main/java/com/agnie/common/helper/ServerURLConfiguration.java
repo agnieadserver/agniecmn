@@ -17,9 +17,18 @@ public class ServerURLConfiguration implements URLConfiguration {
 	@Named(URLGenerator.USER_ADMIN_ROOT_ENDPOINT)
 	private String	uaBaseURL;
 
+	@Inject
+	@Named(URLGenerator.BILLING_APP_ENDPOINT)
+	private String	billingBaseURL;
+
 	@Override
 	public String get3ABaseURL() {
 		return uaBaseURL;
+	}
+
+	@Override
+	public String getBillingAppUrl() {
+		return billingBaseURL;
 	}
 
 }

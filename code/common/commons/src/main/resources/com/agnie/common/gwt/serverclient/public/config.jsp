@@ -9,6 +9,7 @@
 	URLConfiguration urc = (URLConfiguration) inj.getInstance(URLConfiguration.class);
 	out.println("var constants = new Object();");
 	out.println("constants['" + URLGenerator.USER_ADMIN_ROOT_ENDPOINT + "'] = '" + urc.get3ABaseURL() +"'" );
+	out.println("constants['" + URLGenerator.BILLING_APP_ENDPOINT + "'] = '" + urc.getBillingAppUrl() +"'" );
 %>
 
 </script>

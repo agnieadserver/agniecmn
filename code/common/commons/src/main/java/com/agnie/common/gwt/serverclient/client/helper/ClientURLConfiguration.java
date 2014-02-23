@@ -1,6 +1,5 @@
 package com.agnie.common.gwt.serverclient.client.helper;
 
-
 /**
  * @author Pandurang Patil 12-Feb-2014
  * 
@@ -10,6 +9,11 @@ public class ClientURLConfiguration implements URLConfiguration {
 	@Override
 	public String get3ABaseURL() {
 		return getConstValue(URLGenerator.USER_ADMIN_ROOT_ENDPOINT);
+	}
+
+	@Override
+	public String getBillingAppUrl() {
+		return getConstValue(URLGenerator.BILLING_APP_ENDPOINT);
 	}
 
 	/**

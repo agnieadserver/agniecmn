@@ -7,4 +7,6 @@ package com.agnie.common.gwt.serverclient.client.helper;
 public interface URLConfiguration {
 
 	String get3ABaseURL();
+
+	String getBillingAppUrl();
 }

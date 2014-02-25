@@ -16,6 +16,7 @@ public class URLGenerator {
 	// public final String LOGIN_REQUEST = "3a4users/login.jsp" production value would have one more level of structure,
 	// values need to be initialized through maven parameteres
 	public static final String	USERADMIN					= "3a." + URLInfoBaseImpl.AGNIE_BASE_DOMAIN;
+	public static final String	BILLING						= "billing." + URLInfoBaseImpl.AGNIE_BASE_DOMAIN;
 	public static final String	HASH_CHANGE_PASS			= "#CHANGE_PASS";
 	public static final String	HASH_UPDATE_PROFILE			= "#UPDATE_PROFILE";
 	public static final String	LANDING_PAGE				= "landing.jsp";

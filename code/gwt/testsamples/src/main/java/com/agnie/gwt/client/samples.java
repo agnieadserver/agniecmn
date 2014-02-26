@@ -11,6 +11,7 @@ import com.agnie.gwt.client.renderer.CustomListCell;
 import com.agnie.gwt.client.renderer.PearsonCell;
 import com.agnie.gwt.client.renderer.Person;
 import com.agnie.gwt.client.ui.HomeContentView;
+import com.agnie.gwt.client.ui.RecaptchaView;
 import com.agnie.gwt.common.client.base.BasePageResourceLoader;
 import com.agnie.gwt.common.client.renderer.TitleString;
 import com.agnie.gwt.common.client.widget.Account;
@@ -46,7 +47,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.Window.Navigator;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -100,7 +100,13 @@ public class samples implements EntryPoint {
 		// dialogBoxTest();
 		// decoratedPanelTest();
 		// newDragAndDropTest();
-		labelPasswordTextBoxTest();
+		// labelPasswordTextBoxTest();
+		loadRecaptchaView();
+	}
+
+	private void loadRecaptchaView() {
+		RootPanel.get().add(new RecaptchaView());
+
 	}
 
 	private void newDragAndDropTest() {

@@ -5,8 +5,8 @@
 	<inherits name='com.agnie.gwt.common.AgnieCommon' />
 	<inherits name="org.hibernate.validator.HibernateValidator" />
 	<inherits name="com.kiouri.sliderbar.SliderBarMVP" />
-	 <inherits name='com.allen_sauer.gwt.dnd.gwt-dnd'/>
-
+	<inherits name='com.allen_sauer.gwt.dnd.gwt-dnd' />
+	<inherits name="com.sfeir.captcha.ReCaptcha" />
 	<!-- Specify the app entry point class. -->
 	<entry-point class='com.agnie.gwt.client.samples' />
 

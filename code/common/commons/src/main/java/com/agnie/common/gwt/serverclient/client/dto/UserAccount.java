@@ -11,14 +11,11 @@ import com.agnie.common.util.client.tablefile.TableBean;
 @MultiColumnType
 public class UserAccount implements Serializable, TableBean {
 
-	/**
-	 * 
-	 */
 	private static final long	serialVersionUID	= 1L;
 	private String				id;
 	private String				title;
-	private String				firstName;
-	private String				lastName;
+	private String				firstName			= "";
+	private String				lastName			= "";
 	private String				userName;
 	private String				userImgUrl			= "";
 	private Language			language			= Language.ENGLISH;

@@ -1,0 +1,11 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:captcha="urn:import:com.sfeir.captcha.client.ui">
+	<g:HTMLPanel>
+		<div>
+			<captcha:Captcha ui:field="captcha" />
+		</div>
+		<div>
+			<g:Button ui:field="validate">Validate</g:Button>
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder>

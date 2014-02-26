@@ -151,7 +151,11 @@ public class Account extends Composite {
 	public void setUserAcc(UserAccount userAcc) {
 		if (userAcc != null) {
 			this.userAcc = userAcc;
-			setAccName(userAcc.getFirstName() + " " + userAcc.getLastName());
+			String title = userAcc.getFirstName() + " " + userAcc.getLastName();
+			if (title.trim().isEmpty()) {
+				title = userAcc.getUserName();
+			}
+			setAccName(title);
 			if (userAcc.getUserImgUrl() != null && !(userAcc.getUserImgUrl().isEmpty())) {
 				setUserImageUrl(userAcc.getUserImgUrl());
 				accUserImg.addStyleName(resource.css().accUserImg());

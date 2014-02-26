@@ -4,10 +4,16 @@
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
-
-  <!-- Default page to serve -->
-  <welcome-file-list>
-    <welcome-file>samples.html</welcome-file>
-  </welcome-file-list>
-
+	<servlet>
+		<servlet-name>captchaService</servlet-name>
+		<servlet-class>com.agnie.gwt.server.service.RecaptchaServiceImpl</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>captchaService</servlet-name>
+		<url-pattern>/samples/captchaService</url-pattern>
+	</servlet-mapping>
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>samples.html</welcome-file>
+	</welcome-file-list>
 </web-app>

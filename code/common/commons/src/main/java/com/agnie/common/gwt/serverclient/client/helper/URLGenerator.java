@@ -10,6 +10,9 @@ public class URLGenerator {
 
 	public static final String	USER_ADMIN_ROOT_ENDPOINT	= "3a.root.endpoint";
 	public static final String	BILLING_APP_ENDPOINT		= "billing.root.endpoint";
+	public static final String	RECAPTCHA_PUBLIC_KEY		= "recaptch.public.key";
+	public static final String	RECAPTCHA_PRIVATE_KEY		= "recaptch.private.key";
+
 	/*
 	 * TODO Initialize through maven build variables.
 	 */

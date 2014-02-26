@@ -16,10 +16,12 @@ public class ServerURLConfiguration implements URLConfiguration {
 	@Inject
 	@Named(URLGenerator.USER_ADMIN_ROOT_ENDPOINT)
 	private String	uaBaseURL;
-
 	@Inject
 	@Named(URLGenerator.BILLING_APP_ENDPOINT)
 	private String	billingBaseURL;
+	@Inject
+	@Named(URLGenerator.RECAPTCHA_PUBLIC_KEY)
+	private String	recapPublicKey;
 
 	@Override
 	public String get3ABaseURL() {
@@ -29,6 +31,11 @@ public class ServerURLConfiguration implements URLConfiguration {
 	@Override
 	public String getBillingAppUrl() {
 		return billingBaseURL;
+	}
+
+	@Override
+	public String recaptchaPublicKey() {
+		return recapPublicKey;
 	}
 
 }

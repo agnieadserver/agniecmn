@@ -9,4 +9,6 @@ public interface URLConfiguration {
 	String get3ABaseURL();
 
 	String getBillingAppUrl();
+
+	String recaptchaPublicKey();
 }

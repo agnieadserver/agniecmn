@@ -5,6 +5,16 @@ package com.agnie.common.gwt.serverclient.client.helper;
  * 
  */
 public class ClientURLConfiguration implements URLConfiguration {
+	/**
+	 * It is required to include config.jsp inside main / landing jsp page of your application. Which will make sure
+	 * required javascript values are injected in main page.
+	 * 
+	 * @param key
+	 * @return
+	 */
+	private native String getConstValue(String key)/*-{
+													return $wnd.constants[key];
+													}-*/;
 
 	@Override
 	public String get3ABaseURL() {
@@ -16,15 +26,9 @@ public class ClientURLConfiguration implements URLConfiguration {
 		return getConstValue(URLGenerator.BILLING_APP_ENDPOINT);
 	}
 
-	/**
-	 * It is required to include config.jsp inside main / landing jsp page of your application. Which will make sure
-	 * required javascript values are injected in main page.
-	 * 
-	 * @param key
-	 * @return
-	 */
-	private native String getConstValue(String key)/*-{
-													return $wnd.constants[key];
-													}-*/;
+	@Override
+	public String recaptchaPublicKey() {
+		return getConstValue(URLGenerator.RECAPTCHA_PUBLIC_KEY);
+	}
 
 }

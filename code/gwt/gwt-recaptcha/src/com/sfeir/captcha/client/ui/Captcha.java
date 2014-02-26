@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 François LAROCHE
+ * Copyright (c) 2011 Franï¿½ois LAROCHE
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
  * to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
@@ -28,7 +28,7 @@ import com.sfeir.captcha.shared.CaptchaResult;
  * Simple Widget displaying a captcha.<br />
  * This widget will create a div element and inject the captcha within.
  * 
- * @author François LAROCHE
+ * @author Franï¿½ois LAROCHE
  */
 public class Captcha extends Composite {
 
@@ -36,17 +36,17 @@ public class Captcha extends Composite {
 	 * List of properties that aren't string literals in the configuration. <br />
 	 * If you need more properties left unescaped, add it to the list.
 	 */
-	private static final List<String> UNESCAPED_PROPERTIES;
-	
+	private static final List<String>			UNESCAPED_PROPERTIES;
+
 	/**
 	 * default configuration for ReCaptcha, uses the the 'white'
 	 */
-	private static final Map<String, String> DEFAULT_CONFIGURATION;
-	
+	private static final Map<String, String>	DEFAULT_CONFIGURATION;
+
 	static {
 		Map<String, String> defaultConf = new HashMap<String, String>();
 		defaultConf.put("theme", "white");
-		defaultConf.put("callback", "Recaptcha.focus_response_field");
+		// defaultConf.put("callback", "Recaptcha.focus_response_field");
 		DEFAULT_CONFIGURATION = Collections.unmodifiableMap(defaultConf);
 
 		List<String> properties = new ArrayList<String>();
@@ -60,39 +60,42 @@ public class Captcha extends Composite {
 	 * id used to identify in a unic way the div in which the captcha is injected.<br />
 	 * Event if it is very unlikely, it is possible to have several captchas on the same page
 	 */
-	private final String divId;
-	
+	private final String						divId;
+
 	/**
 	 * the public key for ReCaptcha
 	 */
-	private final String key;
-	
+	private final String						key;
+
 	/**
 	 * Configuration of the captcha, see the official site for more information
 	 */
-	private final Map<String, String> configuration;
+	private final Map<String, String>			configuration;
 
 	/**
 	 * Constructor of the widget, using the default configuration for the captcha
 	 * 
-	 * @param key the public key associated with the deployment
+	 * @param key
+	 *            the public key associated with the deployment
 	 */
-	public Captcha (String key) {
+	public Captcha(String key) {
 		this(key, cloneDefaultConfiguration());
 	}
 
 	/**
 	 * Constructor of the widget
 	 * 
-	 * @param key the public key associated with the deployment
-	 * @param configuration the captcha configuration
+	 * @param key
+	 *            the public key associated with the deployment
+	 * @param configuration
+	 *            the captcha configuration
 	 */
 	public Captcha(String key, Map<String, String> configuration) {
 		this.divId = "captcha-" + System.currentTimeMillis();
 		this.key = key;
 		this.configuration = configuration;
 		// force the callback method.
-		this.configuration.put("callback", DEFAULT_CONFIGURATION.get("callback"));
+		// this.configuration.put("callback", DEFAULT_CONFIGURATION.get("callback"));
 
 		HTML content = new HTML("<div id='" + divId + "'></div>");
 		initWidget(content);
@@ -103,7 +106,7 @@ public class Captcha extends Composite {
 		super.onLoad();
 		injectCaptcha(this.key, this.divId, transformMapToJsAssociativeArray(this.configuration));
 	}
-	
+
 	/**
 	 * Validates and reloads Captcha. <br />
 	 * If you need to change your captcha, you call this method.
@@ -119,27 +122,30 @@ public class Captcha extends Composite {
 	/**
 	 * Inject captcha into its div
 	 * 
-	 * @param key the public key
-	 * @param divId the id of the div in which to inject the captcha
+	 * @param key
+	 *            the public key
+	 * @param divId
+	 *            the id of the div in which to inject the captcha
 	 */
 	private static native void injectCaptcha(String key, String divId, String configuration) /*-{
-		var myDiv = $doc.getElementById(divId);
-		Recaptcha = $wnd.Recaptcha;
-		eval('var conf = ' + configuration);
-		Recaptcha.create(key, myDiv, conf);
-	}-*/;
+																								var myDiv = $doc.getElementById(divId);
+																								Recaptcha = $wnd.Recaptcha;
+																								eval('var conf = ' + configuration);
+																								Recaptcha.create(key, myDiv, conf);
+																								}-*/;
 
 	/**
 	 * returns the challenge of the captcha. <br >
 	 * A challenge corresponds to the text that needs to be guessed by the client. <br />
-	 * The returned String is an encrypted version of the challenge, it is impossible to have a bot guess it automatically
+	 * The returned String is an encrypted version of the challenge, it is impossible to have a bot guess it
+	 * automatically
 	 * 
 	 * @return the challenge of the captcha
 	 */
 	private static native String getCaptchaChallenge() /*-{ 
-		Recaptcha = $wnd.Recaptcha;
-		return Recaptcha.get_challenge();
-	}-*/;
+														Recaptcha = $wnd.Recaptcha;
+														return Recaptcha.get_challenge();
+														}-*/;
 
 	/**
 	 * returns the response of the captcha.<br />
@@ -148,28 +154,28 @@ public class Captcha extends Composite {
 	 * @return the response to the captcha entered by the client
 	 */
 	private static native String getCaptchaResponse() /*-{ 
-		Recaptcha = $wnd.Recaptcha;
-		return Recaptcha.get_response();
-	}-*/;
+														Recaptcha = $wnd.Recaptcha;
+														return Recaptcha.get_response();
+														}-*/;
 
 	/**
-	 * Transforms a java Map to a String that will be evaluated to an associative array in Js
-	 * This is ugly, but so far I don't know a better way.
+	 * Transforms a java Map to a String that will be evaluated to an associative array in Js This is ugly, but so far I
+	 * don't know a better way.
 	 * 
-	 * @param map the map to transform
+	 * @param map
+	 *            the map to transform
 	 * @return the map as a String
 	 */
 	private static String transformMapToJsAssociativeArray(Map<String, String> map) {
 		String all = "{";
 		String separator;
-		for(String key : map.keySet()) {
-			if(UNESCAPED_PROPERTIES.contains(key)) {
+		for (String key : map.keySet()) {
+			if (UNESCAPED_PROPERTIES.contains(key)) {
 				separator = "";
-			}
-			else {
+			} else {
 				separator = "'";
 			}
-			if(!"{".equals(all)) {
+			if (!"{".equals(all)) {
 				all += ", ";
 			}
 			all += key + ": " + separator + map.get(key) + separator;
@@ -185,7 +191,7 @@ public class Captcha extends Composite {
 	 */
 	private static Map<String, String> cloneDefaultConfiguration() {
 		Map<String, String> configuration = new HashMap<String, String>();
-		for(String key : DEFAULT_CONFIGURATION.keySet()) {
+		for (String key : DEFAULT_CONFIGURATION.keySet()) {
 			configuration.put(key, DEFAULT_CONFIGURATION.get(key));
 		}
 		return configuration;

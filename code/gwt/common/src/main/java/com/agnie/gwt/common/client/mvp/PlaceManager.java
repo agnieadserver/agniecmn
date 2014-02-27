@@ -25,13 +25,17 @@ public class PlaceManager<PLACE extends Enum<PLACE>> {
 
 	public Place<PLACE> getTokenToPlace(Class<PLACE> placeType, String token) {
 		Place<PLACE> place = null;
-		if (token != null && token.contains(":")) {
-			String[] frTokens = token.split(":");
+		try {
+			if (token != null && token.contains(":")) {
+				String[] frTokens = token.split(":");
 
-			place = new Place<PLACE>(Enum.valueOf(placeType, frTokens[0]));
-			place.setParameters(frTokens[1]);
-		} else {
-			place = new Place<PLACE>(Enum.valueOf(placeType, token));
+				place = new Place<PLACE>(Enum.valueOf(placeType, frTokens[0]));
+				place.setParameters(frTokens[1]);
+			} else {
+				place = new Place<PLACE>(Enum.valueOf(placeType, token));
+			}
+		} catch (Exception ex) {
+			place = new Place<PLACE>(appController.getDefaultPlace());
 		}
 		return place;
 	}

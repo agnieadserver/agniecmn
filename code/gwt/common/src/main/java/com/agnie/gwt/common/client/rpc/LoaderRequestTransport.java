@@ -1,8 +1,19 @@
 package com.agnie.gwt.common.client.rpc;
 
+import com.agnie.common.gwt.serverclient.client.enums.QueryString;
+import com.agnie.common.gwt.serverclient.client.helper.URLGenerator;
+import com.agnie.common.gwt.serverclient.client.helper.URLInfo;
+import com.agnie.common.gwt.serverclient.client.injector.CommonServerClientModule;
 import com.agnie.gwt.common.client.widget.Loader;
 import com.agnie.gwt.common.client.widget.LoaderResources;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.http.client.Request;
+import com.google.gwt.http.client.RequestCallback;
+import com.google.gwt.http.client.Response;
+import com.google.gwt.user.client.Window;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.google.inject.name.Named;
 import com.google.web.bindery.requestfactory.gwt.client.DefaultRequestTransport;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
@@ -11,7 +22,17 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
  * response.
  * 
  */
+@Singleton
 public class LoaderRequestTransport extends DefaultRequestTransport {
+
+	@Inject
+	@Named(CommonServerClientModule.CURRENT_APP_DOMAIN)
+	String			appDomain;
+	@Inject
+	URLGenerator	urlGenerator;
+	@Inject
+	URLInfo			urlInfo;
+
 	private Loader	loader;
 
 	public LoaderRequestTransport(Loader loader) {
@@ -43,5 +64,28 @@ public class LoaderRequestTransport extends DefaultRequestTransport {
 		};
 		loader.show();
 		super.send(payload, proxy);
+	}
+
+	protected RequestCallback createRequestCallback(final TransportReceiver receiver) {
+		final RequestCallback callback = super.createRequestCallback(receiver);
+		RequestCallback newCallback = new RequestCallback() {
+
+			@Override
+			public void onResponseReceived(Request request, Response response) {
+				if (Response.SC_UNAUTHORIZED == response.getStatusCode()) {
+					GWT.log("User session timed out or user logged out");
+					Window.Location.assign(urlGenerator.getClientSideLoginURL(urlInfo, appDomain, urlInfo.getParameter(QueryString.GWT_DEV_MODE.getKey())));
+				} else {
+					callback.onResponseReceived(request, response);
+				}
+			}
+
+			@Override
+			public void onError(Request request, Throwable exception) {
+				callback.onError(request, exception);
+
+			}
+		};
+		return newCallback;
 	}
 }

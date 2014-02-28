@@ -1,11 +1,13 @@
 package com.agnie.gwt.common.client.widget;
 
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window.Navigator;
 import com.google.gwt.user.client.ui.PopupPanel;
 
@@ -17,8 +19,9 @@ import com.google.gwt.user.client.ui.PopupPanel;
  * other than if end user enter invalid or null it switches to text field
  */
 public class LabelPasswordBox extends LabelTextBox {
-	private static LabelTextBoxResources	resource	= LabelTextBoxResources.INSTANCE;
+	private static LabelTextBoxResources	resource		= LabelTextBoxResources.INSTANCE;
 
+	boolean									passwordmode	= false;
 	static {
 		resource.css().ensureInjected();
 	}
@@ -32,7 +35,7 @@ public class LabelPasswordBox extends LabelTextBox {
 		super.setLabel(label);
 
 		/*
-		 * NOTE: Below code to detect firefox browser and and make use of focus event to change type of input field to
+		 * NOTE: Below code to detect firefox browser and make use of focus event to change type of input field to
 		 * password. Is a temporary fix, ideal way to handle the browser specific handling is to make use of deferred
 		 * binding. The issue is when we make use of key press handler to change the type first key is not getting
 		 * recognised on firefox because of some reason. And if we think of using focus handler for all browsers. Focus
@@ -52,8 +55,15 @@ public class LabelPasswordBox extends LabelTextBox {
 
 				@Override
 				public void onKeyPress(KeyPressEvent event) {
-					changeTypeToPass();
-					removeStyle();
+					if (!passwordmode) {
+						Scheduler.get().scheduleDeferred(new Command() {
+							public void execute() {
+								changeTypeToPass();
+								removeStyle();
+							}
+						});
+						passwordmode = true;
+					}
 				}
 			});
 		}
@@ -65,6 +75,7 @@ public class LabelPasswordBox extends LabelTextBox {
 				if (value.isEmpty()) {
 					changeTypeToText();
 					addStyle();
+					passwordmode = false;
 				} else {
 					changeTypeToPass();
 					removeStyle();

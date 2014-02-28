@@ -100,8 +100,8 @@ public class samples implements EntryPoint {
 		// dialogBoxTest();
 		// decoratedPanelTest();
 		// newDragAndDropTest();
-		// labelPasswordTextBoxTest();
-		loadRecaptchaView();
+		labelPasswordTextBoxTest();
+		// loadRecaptchaView();
 	}
 
 	private void loadRecaptchaView() {

@@ -5,11 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.agnie.common.gwt.serverclient.client.enums.Language;
-import com.agnie.common.util.client.converter.MultiColumnType;
-import com.agnie.common.util.client.tablefile.TableBean;
 
-@MultiColumnType
-public class UserAccount implements Serializable, TableBean {
+public class UserAccount implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 	private String				id;

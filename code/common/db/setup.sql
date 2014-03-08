@@ -1,0 +1,1 @@
+GRANT ALL PRIVILEGES ON test.* TO 'test'@'localhost' IDENTIFIED BY 'test' WITH GRANT OPTION;

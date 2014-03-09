@@ -15,12 +15,14 @@ public class ServerURLInfo extends URLInfoBaseImpl {
 
 	private HttpServletRequest	request;
 	private String				proxyServer;
+	private String				proxyRequestProtocol;
 
 	@Inject
 	public ServerURLInfo(HttpServletRequest request) {
 		this.request = request;
 		// Given header is sent by apache proxy server. by passing original host requested.
 		proxyServer = request.getHeader("X-Forwarded-Host");
+		proxyRequestProtocol = request.getHeader("X-Forwarded-Scheme");
 	}
 
 	public String getParameter(String name) {
@@ -78,7 +80,10 @@ public class ServerURLInfo extends URLInfoBaseImpl {
 	}
 
 	public String getProtocol() {
-		return request.getProtocol();
+		if (proxyRequestProtocol != null && !proxyRequestProtocol.isEmpty())
+			return proxyRequestProtocol;
+		else
+			return request.getProtocol();
 	}
 
 	@Override

@@ -76,6 +76,9 @@ public class ServerURLInfo extends URLInfoBaseImpl {
 		if (proxyServer != null && !proxyServer.isEmpty()) {
 			url = url.replace(request.getServerName() + ":" + request.getServerPort(), proxyServer);
 		}
+		if (proxyRequestProtocol != null && !proxyRequestProtocol.isEmpty()) {
+			url = url.replace(request.getScheme() + "://", proxyRequestProtocol + "://");
+		}
 		return url;
 	}
 
@@ -83,12 +86,11 @@ public class ServerURLInfo extends URLInfoBaseImpl {
 		if (proxyRequestProtocol != null && !proxyRequestProtocol.isEmpty())
 			return proxyRequestProtocol;
 		else
-			return request.getProtocol();
+			return request.getScheme();
 	}
 
 	@Override
 	public String getReferrer() {
 		return request.getHeader("Referer");
 	}
-
 }

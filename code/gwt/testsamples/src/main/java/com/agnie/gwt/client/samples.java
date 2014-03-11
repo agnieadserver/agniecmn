@@ -11,6 +11,7 @@ import com.agnie.gwt.client.renderer.CustomListCell;
 import com.agnie.gwt.client.renderer.PearsonCell;
 import com.agnie.gwt.client.renderer.Person;
 import com.agnie.gwt.client.ui.HomeContentView;
+import com.agnie.gwt.client.ui.NewTabAnchorTest;
 import com.agnie.gwt.client.ui.RecaptchaView;
 import com.agnie.gwt.common.client.base.BasePageResourceLoader;
 import com.agnie.gwt.common.client.renderer.TitleString;
@@ -100,8 +101,13 @@ public class samples implements EntryPoint {
 		// dialogBoxTest();
 		// decoratedPanelTest();
 		// newDragAndDropTest();
-		labelPasswordTextBoxTest();
+		// labelPasswordTextBoxTest();
 		// loadRecaptchaView();
+		newTabAnchor();
+	}
+
+	public void newTabAnchor() {
+		RootPanel.get().add(new NewTabAnchorTest());
 	}
 
 	private void loadRecaptchaView() {

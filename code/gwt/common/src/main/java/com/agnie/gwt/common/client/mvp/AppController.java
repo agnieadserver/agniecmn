@@ -50,13 +50,15 @@ public abstract class AppController<PLACE extends Enum<PLACE>> implements ValueC
 
 	protected boolean checkIfWeCanProceed() {
 		HTMLPanel contentPanel = getMainContentRootPanel();
-		for (int index = 0; index < contentPanel.getWidgetCount(); index++) {
-			Widget widget = contentPanel.getWidget(index);
-			if (widget instanceof MainView) {
-				MainView priviousDisplay = (MainView) widget;
-				boolean resp = priviousDisplay.shouldWeProceed();
-				if (!resp)
-					return false;
+		if (contentPanel != null) {
+			for (int index = 0; index < contentPanel.getWidgetCount(); index++) {
+				Widget widget = contentPanel.getWidget(index);
+				if (widget instanceof MainView) {
+					MainView priviousDisplay = (MainView) widget;
+					boolean resp = priviousDisplay.shouldWeProceed();
+					if (!resp)
+						return false;
+				}
 			}
 		}
 		return true;

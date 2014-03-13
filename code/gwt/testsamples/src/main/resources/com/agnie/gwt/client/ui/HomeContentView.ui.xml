@@ -1,34 +1,28 @@
-<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:agcw='urn:import:com.agnie.gwt.common.client.widget'>
-
-
-	<g:HTMLPanel>
-		<agcw:FormFieldContainer required="true"
-			label="First Name">
-			<agcw:inputfieldcontainer>
-				<g:HTMLPanel>
-					<g:TextBox></g:TextBox>
-					<g:Button>Test</g:Button>
-				</g:HTMLPanel>
-			</agcw:inputfieldcontainer>
-		</agcw:FormFieldContainer>
-		<agcw:FormFieldContainer required="false"
-			label="Middle Name">
-			<agcw:inputfieldcontainer>
-				<g:TextBox></g:TextBox>
-			</agcw:inputfieldcontainer>
-		</agcw:FormFieldContainer>
-		<agcw:FormFieldContainer required="true"
-			label="Last Name"  ui:field="errorTest"  >
-			<agcw:inputfieldcontainer>
-				<g:TextBox></g:TextBox>
-			</agcw:inputfieldcontainer>
-		</agcw:FormFieldContainer>
-		<agcw:FormFieldContainer required="true"
-			label="CustomListBox"   >
-			<agcw:inputfieldcontainer>
-				<g:HTMLPanel ui:field="custListPan"></g:HTMLPanel>
-			</agcw:inputfieldcontainer>
-		</agcw:FormFieldContainer>
-	</g:HTMLPanel>
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:agcw='urn:import:com.agnie.gwt.common.client.widget'>
+    <g:HTMLPanel>
+        <agcw:FormFieldContainer required="true" label="First Name" desc="First Name of user how has some sense to enter what is need to enter">
+            <agcw:inputfieldcontainer>
+                <g:HTMLPanel>
+                    <g:TextBox></g:TextBox>
+                    <g:Button>Test</g:Button>
+                </g:HTMLPanel>
+            </agcw:inputfieldcontainer>
+        </agcw:FormFieldContainer>
+        <agcw:FormFieldContainer required="false" label="Middle Name">
+            <agcw:inputfieldcontainer>
+                <g:TextBox></g:TextBox>
+            </agcw:inputfieldcontainer>
+        </agcw:FormFieldContainer>
+        <agcw:FormFieldContainer required="true" label="Last Name" desc="First Name of user how has some sense to enter what is need to enter"
+            ui:field="errorTest">
+            <agcw:inputfieldcontainer>
+                <g:TextBox></g:TextBox>
+            </agcw:inputfieldcontainer>
+        </agcw:FormFieldContainer>
+        <agcw:FormFieldContainer required="true" label="CustomListBox">
+            <agcw:inputfieldcontainer>
+                <g:HTMLPanel ui:field="custListPan"></g:HTMLPanel>
+            </agcw:inputfieldcontainer>
+        </agcw:FormFieldContainer>
+    </g:HTMLPanel>
 </ui:UiBinder>

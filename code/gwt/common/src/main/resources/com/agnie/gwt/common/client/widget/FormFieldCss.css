@@ -47,6 +47,12 @@ span.required {
    border-radius: 5px 5px 5px 5px !important;
 }
 
+.form-field-desc{
+	font-size: 12px;
+	font-style: italic;
+	color: gray;
+}
+
 .form-field-error-text {
 	clear: both;
     background-color: transparent;
@@ -61,4 +67,4 @@ span.required {
     list-style-type: none;
 }
 
-@external form-field-container, form-field-label, form-field-error, required, form-field-error-text, form-field-input, input-field-container;
+@external form-field-container, form-field-label, form-field-error, required, form-field-error-text, form-field-input, input-field-container, form-field-desc;

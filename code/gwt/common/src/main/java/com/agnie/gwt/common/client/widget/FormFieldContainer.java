@@ -44,10 +44,12 @@ public class FormFieldContainer extends Composite {
 	protected SpanElement		required;
 	@UiField
 	protected SpanElement		error;
+	@UiField
+	protected SpanElement		desc;
 	protected HTMLPanel			container;
 	@UiField
 	protected SimplePanel		inputContainer;
-	
+
 	@UiField
 	DivElement					labelDiv;
 
@@ -82,6 +84,12 @@ public class FormFieldContainer extends Composite {
 		}
 	}
 
+	public void setDesc(String desc) {
+		if (desc != null && !("".equals(desc))) {
+			this.desc.setInnerText(desc);
+		}
+	}
+
 	@UiChild
 	public void addInputFieldContainer(Widget inputFieldContainer) {
 		if (inputFieldContainer != null) {
@@ -97,11 +105,10 @@ public class FormFieldContainer extends Composite {
 		}
 	}
 
-
-	public void setError(String errorMessage,boolean autoHide) {
+	public void setError(String errorMessage, boolean autoHide) {
 		if (autoHide) {
 			timer.schedule(TIMEOUT);
-		} 
+		}
 		inputContainer.getElement().getFirstChildElement().addClassName(resource.css().formFieldError());
 		this.error.setInnerText(errorMessage);
 	}

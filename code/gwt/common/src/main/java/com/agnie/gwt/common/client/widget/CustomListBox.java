@@ -110,6 +110,12 @@ public class CustomListBox<TYPE extends Title> extends Composite {
 		changeHandler.add(handler);
 	}
 
+	public void clearHandler() {
+		if (changeHandler != null && changeHandler.size() > 0) {
+			changeHandler.clear();
+		}
+	}
+
 	public void initCellList(AbstractCell<TYPE> cell) {
 
 		cellList = new CellList<TYPE>(cell);

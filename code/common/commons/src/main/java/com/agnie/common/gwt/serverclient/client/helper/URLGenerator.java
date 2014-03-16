@@ -51,7 +51,27 @@ public class URLGenerator {
 	 *            devMode parameter to set gwt.codesvr value.
 	 * @return login URL to redirect the request to
 	 */
+
 	public String getLoginURL(URLInfo params, String domain, String devMode) {
+		return getLoginURL(params, domain, devMode, false);
+	}
+
+	/**
+	 * To get login URL from the existing page request. This method can be used in any of the agnie project which will
+	 * use 3a4users as a source of authentication and authorization. Provided it will be hosted under sub domain of
+	 * agnie.co.in This will generate Login url by copying following query string parameters from existing url 1.locale.
+	 * 
+	 * @param params
+	 *            Existing URL details.
+	 * @param domain
+	 *            web domain of the agnie application.
+	 * @param devMode
+	 *            devMode parameter to set gwt.codesvr value.
+	 * @param noSource
+	 *            flag to indicate not to add source query parameter in url
+	 * @return login URL to redirect the request to
+	 */
+	public String getLoginURL(URLInfo params, String domain, String devMode, boolean noSource) {
 		StringBuffer url = new StringBuffer();
 		String baseUrl = getUserAdminBaseURL(params, domain, devMode);
 		url.append(baseUrl + "/" + LOGIN_REQUEST);
@@ -80,15 +100,16 @@ public class URLGenerator {
 			}
 			url.append(QueryString.LOCALE.getKey() + "=" + param);
 		}
-		if (!qpexists) {
-			url.append(QueryString.QUESTION_MARK.getKey());
-			qpexists = true;
-		} else {
-			url.append(QueryString.AMPERSAND.getKey());
+		if (!noSource) {
+			if (!qpexists) {
+				url.append(QueryString.QUESTION_MARK.getKey());
+				qpexists = true;
+			} else {
+				url.append(QueryString.AMPERSAND.getKey());
+			}
+			url.append(QueryString.SOURCE.getKey() + "="
+					+ params.getUTF8EncodedURL(params.getHostBaseURL() + (params.getQueryString() != null ? QueryString.QUESTION_MARK.getKey() + params.getQueryString() : "")));
 		}
-		url.append(QueryString.SOURCE.getKey() + "="
-				+ params.getUTF8EncodedURL(params.getHostBaseURL() + (params.getQueryString() != null ? QueryString.QUESTION_MARK.getKey() + params.getQueryString() : "")));
-
 		return url.toString();
 	}
 

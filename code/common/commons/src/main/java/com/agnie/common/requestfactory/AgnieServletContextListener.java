@@ -3,6 +3,7 @@ package com.agnie.common.requestfactory;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 
+import com.agnie.common.shutdown.ShutdownProcessor;
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
 
@@ -24,6 +25,9 @@ public abstract class AgnieServletContextListener extends GuiceServletContextLis
 	@Override
 	public void contextDestroyed(ServletContextEvent servletContextEvent) {
 		ServletContext sc = servletContextEvent.getServletContext();
+		Injector injector = (Injector) sc.getAttribute(Injector.class.getName());
+		ShutdownProcessor shutdownProc = injector.getInstance(ShutdownProcessor.class);
+		shutdownProc.shutdown();
 		sc.removeAttribute(Injector.class.getName());
 		super.contextDestroyed(servletContextEvent);
 	}

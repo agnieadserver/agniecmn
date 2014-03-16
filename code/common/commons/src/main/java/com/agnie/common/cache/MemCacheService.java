@@ -15,6 +15,8 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
+import com.agnie.common.shutdown.ShutdownHook;
+import com.agnie.common.shutdown.ShutdownProcessor;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
@@ -24,7 +26,7 @@ import com.google.inject.name.Named;
  * 
  */
 @Singleton
-public class MemCacheService implements CacheService {
+public class MemCacheService implements CacheService, ShutdownHook {
 	private static Map<String, Class<?>>	classMapping			= new HashMap<String, Class<?>>();
 	private MemcachedClient					client;
 	private ObjectMapper					mapper;
@@ -40,7 +42,8 @@ public class MemCacheService implements CacheService {
 	 *            Memcache servers specified as "host1:port1, host2:port2, ..."
 	 */
 	@Inject
-	public MemCacheService(@Named("CacheServers") String hostPortInp) {
+	public MemCacheService(@Named("CacheServers") String hostPortInp, ShutdownProcessor shutdownProcessor) {
+		shutdownProcessor.register(this);
 		mapper = new ObjectMapper();
 		mapper.setSerializationInclusion(Inclusion.NON_NULL);
 		String[] hostPorts = hostPortInp.split(",");
@@ -234,5 +237,10 @@ public class MemCacheService implements CacheService {
 		public String toString() {
 			return "CachedValue [c=" + c + ", v=" + v + "]";
 		}
+	}
+
+	@Override
+	public void shutdown() {
+		client.shutdown();
 	}
 }

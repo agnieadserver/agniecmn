@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.mail.Address;
 import javax.mail.Message;
@@ -18,11 +21,13 @@ import javax.mail.internet.MimeMessage;
 import org.apache.log4j.Logger;
 
 import com.agnie.common.exception.UnexpectedException;
+import com.agnie.common.shutdown.ShutdownHook;
+import com.agnie.common.shutdown.ShutdownProcessor;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-public class GmailSender implements MailSender {
+public class GmailSender implements MailSender, ShutdownHook {
 	public static final String		GMAIL_MAIL_CONFIG	= "gmail.properties";
 	private static Logger			logger				= Logger.getLogger(GmailSender.class);
 	// maintains different email account meta data cached.
@@ -30,10 +35,12 @@ public class GmailSender implements MailSender {
 	// SMTP JavaMail properties for Gmail.
 	private Properties				mailProps;
 	private Map<String, Session>	mailSessions		= new HashMap<String, Session>();
+	ExecutorService					pool;
 
 	@Inject
-	public GmailSender(EmailAccounts accounts) {
-
+	public GmailSender(EmailAccounts accounts, ShutdownProcessor shutdownProcessor) {
+		shutdownProcessor.register(this);
+		pool = Executors.newSingleThreadExecutor();
 		this.emailAccounts = accounts;
 	}
 
@@ -96,16 +103,39 @@ public class GmailSender implements MailSender {
 		return mailSessions.get(key);
 	}
 
-	public void sendMail(String senderKey, Recipient recipient, String subject, String message) throws FileNotFoundException, IOException, MessagingException {
+	public void sendMailAsync(Email email) {
+		Callable<Void> task = new Callable<Void>() {
+			private Email	mail;
 
-		EmailAccount acc = emailAccounts.getEmailAccount(senderKey);
-		Session session = getSession(senderKey);
+			Callable<Void> setEmail(Email email) {
+				this.mail = email;
+				return this;
+			}
+
+			@Override
+			public Void call() {
+				try {
+					sendMail(mail);
+				} catch (Exception e) {
+					logger.error("msg => " + mail + " not sent", e);
+				}
+				return null;
+			}
+		}.setEmail(email);
+		pool.submit(task);
+	}
+
+	public void sendMail(Email email) throws FileNotFoundException, IOException, MessagingException {
+
+		EmailAccount acc = emailAccounts.getEmailAccount(email.getSenderKey());
+		Session session = getSession(email.getSenderKey());
 		if (session != null && acc != null) {
 			InternetAddress iad = new InternetAddress(acc.getFrom());
 			iad.setPersonal(acc.getFromName());
 			MimeMessage msg = new MimeMessage(session);
 			msg.setFrom(iad);
-			msg.setSubject(subject);
+			msg.setSubject(email.getSubject());
+			Recipient recipient = email.getRecipient();
 			msg.setRecipients(Message.RecipientType.TO, recipient.get(Message.RecipientType.TO));
 			Address[] ccAddress = recipient.get(Message.RecipientType.CC);
 			if (ccAddress != null) {
@@ -115,12 +145,18 @@ public class GmailSender implements MailSender {
 			if (bccAddress != null) {
 				msg.setRecipients(Message.RecipientType.BCC, bccAddress);
 			}
-			msg.setText(message, "utf-8", "html");
+			msg.setText(email.getMessage(), "utf-8", "html");
 			Transport.send(msg);
 		} else {
 			logger.error("Message not sent as either session of account information is not intialised or email account is not configured");
 			throw new UnexpectedException("Message not sent as either session of account information is not intialised or email account is not configured");
 		}
+	}
+
+	@Override
+	public void shutdown() {
+		logger.info("Async email thread is going down");
+		pool.shutdown();
 	}
 
 }

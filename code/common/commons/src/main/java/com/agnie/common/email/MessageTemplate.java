@@ -1,5 +1,7 @@
 package com.agnie.common.email;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Map;
 
@@ -10,9 +12,20 @@ public class MessageTemplate {
 
 	// template file name
 	private String	template;
+	// Location of configuration path
+	private String	configPath;
 
 	// contents of the template file
 	private String	messageTemplate;
+
+	/**
+	 * @param template
+	 * @param configPath
+	 */
+	public MessageTemplate(String template, String configPath) {
+		this.template = template;
+		this.configPath = configPath;
+	}
 
 	public MessageTemplate(String template) {
 
@@ -27,7 +40,11 @@ public class MessageTemplate {
 	private synchronized void init() throws IOException {
 
 		if (messageTemplate == null) {
-			messageTemplate = IOUtils.toString(getClass().getResource("/" + template));
+			if (configPath == null || configPath.isEmpty()) {
+				messageTemplate = IOUtils.toString(getClass().getResource("/" + template));
+			} else {
+				messageTemplate = IOUtils.toString(new FileInputStream(new File(configPath + "/" + template)));
+			}
 		}
 	}
 

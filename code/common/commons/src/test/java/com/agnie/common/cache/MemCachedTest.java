@@ -6,11 +6,13 @@ import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.junit.Test;
 
+import com.agnie.common.shutdown.ShutdownProcessor;
+
 public class MemCachedTest {
 
 	@Test
 	public void firstTest() {
-		CacheService service = new MemCacheService("127.0.0.1:11211");
+		CacheService service = new MemCacheService("127.0.0.1:11211", new ShutdownProcessor());
 		UserBean user = new UserBean();
 		user.setFname("fname");
 		user.setLname("lname");

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011 Fran�ois LAROCHE
+ * Copyright (c) 2011 Franois LAROCHE
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
  * to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
@@ -20,18 +20,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Widget;
 import com.sfeir.captcha.shared.CaptchaResult;
 
 /**
  * Simple Widget displaying a captcha.<br />
  * This widget will create a div element and inject the captcha within.
  * 
- * @author Fran�ois LAROCHE
+ * @author Franois LAROCHE
  */
 public class Captcha extends Composite {
+	interface MyUiBinder extends UiBinder<Widget, Captcha> {
+	}
 
+	private static MyUiBinder					uiBinder	= GWT.create(MyUiBinder.class);
+
+	HTMLPanel									container;
 	/**
 	 * List of properties that aren't string literals in the configuration. <br />
 	 * If you need more properties left unescaped, add it to the list.
@@ -43,10 +53,18 @@ public class Captcha extends Composite {
 	 */
 	private static final Map<String, String>	DEFAULT_CONFIGURATION;
 
+	private List<LoadHandler>					handlers	= new ArrayList<Captcha.LoadHandler>();
+
+	private Image								loader;
+
+	public static interface LoadHandler {
+		void onLoad();
+	}
+
 	static {
 		Map<String, String> defaultConf = new HashMap<String, String>();
 		defaultConf.put("theme", "white");
-		// defaultConf.put("callback", "Recaptcha.focus_response_field");
+		defaultConf.put("callback", "Recaptcha.agnieLoaded");
 		DEFAULT_CONFIGURATION = Collections.unmodifiableMap(defaultConf);
 
 		List<String> properties = new ArrayList<String>();
@@ -60,17 +78,17 @@ public class Captcha extends Composite {
 	 * id used to identify in a unic way the div in which the captcha is injected.<br />
 	 * Event if it is very unlikely, it is possible to have several captchas on the same page
 	 */
-	private final String						divId;
+	private final String				divId;
 
 	/**
 	 * the public key for ReCaptcha
 	 */
-	private final String						key;
+	private final String				key;
 
 	/**
 	 * Configuration of the captcha, see the official site for more information
 	 */
-	private final Map<String, String>			configuration;
+	private final Map<String, String>	configuration;
 
 	/**
 	 * Constructor of the widget, using the default configuration for the captcha
@@ -91,14 +109,18 @@ public class Captcha extends Composite {
 	 *            the captcha configuration
 	 */
 	public Captcha(String key, Map<String, String> configuration) {
+		nativeloaded(this);
 		this.divId = "captcha-" + System.currentTimeMillis();
 		this.key = key;
 		this.configuration = configuration;
 		// force the callback method.
 		// this.configuration.put("callback", DEFAULT_CONFIGURATION.get("callback"));
-
+		loader = new Image(LoaderResources.INSTANCE.loader());
 		HTML content = new HTML("<div id='" + divId + "'></div>");
-		initWidget(content);
+		container = (HTMLPanel) uiBinder.createAndBindUi(this);
+		container.add(content);
+		container.add(loader);
+		initWidget(container);
 	}
 
 	@Override
@@ -114,9 +136,38 @@ public class Captcha extends Composite {
 	 * @return the result of the captcha, containong all information for its validation
 	 */
 	public CaptchaResult validateCaptcha() {
-		CaptchaResult result = new CaptchaResult(this.key, getCaptchaChallenge(), getCaptchaResponse());
+		CaptchaResult result = getCaptchaResult();
 		injectCaptcha(this.key, this.divId, transformMapToJsAssociativeArray(this.configuration));
 		return result;
+	}
+
+	public void addLoadHandler(LoadHandler handler) {
+		handlers.add(handler);
+	}
+
+	public void loaded() {
+		// Window.alert("Captcha loaded....");
+		for (LoadHandler handler : handlers) {
+			handler.onLoad();
+		}
+		container.remove(loader);
+	}
+
+	public static native void nativeloaded(Captcha captcha) /*-{
+		Recaptcha = $wnd.Recaptcha;
+		Recaptcha.agnieLoaded = function() {
+			//			alert('at least js is getting called');
+			captcha.@com.sfeir.captcha.client.ui.Captcha::loaded()();
+		};
+
+	}-*/;
+
+	public CaptchaResult getCaptchaResult() {
+		return new CaptchaResult(this.key, getCaptchaChallenge(), getCaptchaResponse());
+	}
+
+	public void loadNewCaptcha() {
+		injectCaptcha(this.key, this.divId, transformMapToJsAssociativeArray(this.configuration));
 	}
 
 	/**
@@ -128,11 +179,11 @@ public class Captcha extends Composite {
 	 *            the id of the div in which to inject the captcha
 	 */
 	private static native void injectCaptcha(String key, String divId, String configuration) /*-{
-																								var myDiv = $doc.getElementById(divId);
-																								Recaptcha = $wnd.Recaptcha;
-																								eval('var conf = ' + configuration);
-																								Recaptcha.create(key, myDiv, conf);
-																								}-*/;
+		var myDiv = $doc.getElementById(divId);
+		Recaptcha = $wnd.Recaptcha;
+		eval('var conf = ' + configuration);
+		Recaptcha.create(key, myDiv, conf);
+	}-*/;
 
 	/**
 	 * returns the challenge of the captcha. <br >
@@ -142,10 +193,10 @@ public class Captcha extends Composite {
 	 * 
 	 * @return the challenge of the captcha
 	 */
-	private static native String getCaptchaChallenge() /*-{ 
-														Recaptcha = $wnd.Recaptcha;
-														return Recaptcha.get_challenge();
-														}-*/;
+	private static native String getCaptchaChallenge() /*-{
+		Recaptcha = $wnd.Recaptcha;
+		return Recaptcha.get_challenge();
+	}-*/;
 
 	/**
 	 * returns the response of the captcha.<br />
@@ -153,10 +204,10 @@ public class Captcha extends Composite {
 	 * 
 	 * @return the response to the captcha entered by the client
 	 */
-	private static native String getCaptchaResponse() /*-{ 
-														Recaptcha = $wnd.Recaptcha;
-														return Recaptcha.get_response();
-														}-*/;
+	private static native String getCaptchaResponse() /*-{
+		Recaptcha = $wnd.Recaptcha;
+		return Recaptcha.get_response();
+	}-*/;
 
 	/**
 	 * Transforms a java Map to a String that will be evaluated to an associative array in Js This is ugly, but so far I

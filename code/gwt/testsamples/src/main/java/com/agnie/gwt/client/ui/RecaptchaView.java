@@ -29,6 +29,13 @@ public class RecaptchaView extends Composite {
 
 	public RecaptchaView() {
 		initWidget(uiBinder.createAndBindUi(this));
+		captcha.addLoadHandler(new Captcha.LoadHandler() {
+
+			@Override
+			public void onLoad() {
+//				Window.alert("Ok this is loaded...");
+			}
+		});
 	}
 
 	@UiHandler("validate")

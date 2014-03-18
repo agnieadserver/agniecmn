@@ -85,7 +85,7 @@ public class samples implements EntryPoint {
 
 		// messagePanelTest();
 		// loaderTest();
-		formFieldTest();
+		// formFieldTest();
 		// labeledTextBoxPassBoxTest();
 		// accPanTest();
 		// textBoxTest();
@@ -102,7 +102,7 @@ public class samples implements EntryPoint {
 		// decoratedPanelTest();
 		// newDragAndDropTest();
 		// labelPasswordTextBoxTest();
-		// loadRecaptchaView();
+		loadRecaptchaView();
 		// newTabAnchor();
 	}
 

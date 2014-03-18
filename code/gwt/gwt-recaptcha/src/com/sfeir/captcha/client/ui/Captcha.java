@@ -129,6 +129,10 @@ public class Captcha extends Composite {
 		injectCaptcha(this.key, this.divId, transformMapToJsAssociativeArray(this.configuration));
 	}
 
+	public void showLoader() {
+		container.add(loader);
+	}
+
 	/**
 	 * Validates and reloads Captcha. <br />
 	 * If you need to change your captcha, you call this method.

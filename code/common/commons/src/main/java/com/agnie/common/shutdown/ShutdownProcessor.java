@@ -15,6 +15,7 @@ import com.google.inject.Singleton;
  */
 @Singleton
 public class ShutdownProcessor {
+	// TODO: Make use of Event bus mechanism to avoid sequential intimation to individual hook.
 
 	List<ShutdownHook>	hooks	= new ArrayList<ShutdownHook>();
 
@@ -22,7 +23,7 @@ public class ShutdownProcessor {
 	 * To register new shutdown hook which will be called when system (application either from inside web container or
 	 * from act as independent application) is getting shutdown.
 	 * 
-	 * Note: You need to take care shutdown of your utility should not take time. Other wise that may impact on shutdown
+	 * Note: You need to make sure your hook don't take much time. Other wise that may impact on shutdown
 	 * for other hooks in queue.
 	 * 
 	 * @param hook
@@ -36,9 +37,9 @@ public class ShutdownProcessor {
 	 * Servlet context listeners destroy method in case of web app. In case of independent app / tool you knwow the code
 	 * better you should invoke it when you know your app is existing gracefully.
 	 */
-	public void shutdown() {
+	public void shutdown(boolean sync) {
 		for (ShutdownHook hook : hooks) {
-			hook.shutdown();
+			hook.shutdown(sync);
 		}
 	}
 

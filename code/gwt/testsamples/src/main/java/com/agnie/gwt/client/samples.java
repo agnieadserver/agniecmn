@@ -10,6 +10,7 @@ import com.agnie.common.gwt.serverclient.client.dto.UserAccount;
 import com.agnie.gwt.client.renderer.CustomListCell;
 import com.agnie.gwt.client.renderer.PearsonCell;
 import com.agnie.gwt.client.renderer.Person;
+import com.agnie.gwt.client.ui.GWTCode;
 import com.agnie.gwt.client.ui.HomeContentView;
 import com.agnie.gwt.client.ui.NewTabAnchorTest;
 import com.agnie.gwt.client.ui.RecaptchaView;
@@ -102,8 +103,10 @@ public class samples implements EntryPoint {
 		// decoratedPanelTest();
 		// newDragAndDropTest();
 		// labelPasswordTextBoxTest();
-		loadRecaptchaView();
+		// loadRecaptchaView();
 		// newTabAnchor();
+		GWTCode code = new GWTCode();
+		GWTCode.exportMethod(code);
 	}
 
 	public void newTabAnchor() {

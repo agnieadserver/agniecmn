@@ -240,7 +240,7 @@ public class MemCacheService implements CacheService, ShutdownHook {
 	}
 
 	@Override
-	public void shutdown() {
+	public void shutdown(boolean sync) {
 		client.shutdown();
 	}
 }

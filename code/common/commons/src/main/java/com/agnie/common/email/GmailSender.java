@@ -154,7 +154,7 @@ public class GmailSender implements MailSender, ShutdownHook {
 	}
 
 	@Override
-	public void shutdown() {
+	public void shutdown(boolean sync) {
 		logger.info("Async email thread is going down");
 		pool.shutdown();
 	}

@@ -5,5 +5,9 @@ package com.agnie.common.shutdown;
  * 
  */
 public interface ShutdownHook {
-	void shutdown();
+	/**
+	 * 
+	 * @param sync represents call should be returned only after shutdown is done.
+	 */
+	void shutdown(boolean sync);
 }

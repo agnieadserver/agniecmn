@@ -27,7 +27,7 @@ public abstract class AgnieServletContextListener extends GuiceServletContextLis
 		ServletContext sc = servletContextEvent.getServletContext();
 		Injector injector = (Injector) sc.getAttribute(Injector.class.getName());
 		ShutdownProcessor shutdownProc = injector.getInstance(ShutdownProcessor.class);
-		shutdownProc.shutdown();
+		shutdownProc.shutdown(false);
 		sc.removeAttribute(Injector.class.getName());
 		super.contextDestroyed(servletContextEvent);
 	}

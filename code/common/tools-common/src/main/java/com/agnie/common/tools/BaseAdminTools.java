@@ -23,12 +23,16 @@ public abstract class BaseAdminTools {
 	protected Commander	commander;
 
 	@Inject
-	public BaseAdminTools(Commander commander, Map<String, CommandProcessor> cmdMapping) {
+	public BaseAdminTools(Commander commander) {
 		this.commander = commander;
+	}
+	
+	public void setCommands(Map<String, CommandProcessor> cmdMapping){
 		Set<String> keys = cmdMapping.keySet();
 		for (String key : keys) {
 			commander.addCommand(key, cmdMapping.get(key));
 		}
+		
 	}
 
 	public void processArguments(String[] args) throws Exception {

@@ -17,7 +17,7 @@ public class MainArgs {
 	@Parameter(names = "--help", help = true)
 	private boolean	help;
 
-	@Parameter(names = { "-v", "--version" }, description = "Version of Machine Agent Client.")
+	@Parameter(names = { "-v", "--version" }, description = "Version of utility")
 	private boolean	version;
 
 	/**

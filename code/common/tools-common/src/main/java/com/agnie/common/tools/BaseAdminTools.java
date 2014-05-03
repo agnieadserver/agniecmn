@@ -9,26 +9,26 @@
  ******************************************************************************/
 package com.agnie.common.tools;
 
+import java.util.Map;
+import java.util.Set;
+
+import com.google.inject.Inject;
+
 /**
  * 
  * @author Pandurang Patil 04-Feb-2014
  * 
  */
 public abstract class BaseAdminTools {
-	protected Commander	commander	= new Commander(new MainArgs());
+	protected Commander	commander;
 
-	public BaseAdminTools() {
-		registerCommands();
-	}
-
-	/*
-	 * Individual tools module implementors will registers required commands that will be supported by that tools
-	 * utility.
-	 */
-	public abstract void registerCommands();
-
-	protected void addCommand(String command, CommandProcessor processor) {
-		commander.addCommand(command, processor);
+	@Inject
+	public BaseAdminTools(Commander commander, Map<String, CommandProcessor> cmdMapping) {
+		this.commander = commander;
+		Set<String> keys = cmdMapping.keySet();
+		for (String key : keys) {
+			commander.addCommand(key, cmdMapping.get(key));
+		}
 	}
 
 	public void processArguments(String[] args) throws Exception {

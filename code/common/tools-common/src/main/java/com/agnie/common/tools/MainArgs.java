@@ -10,10 +10,15 @@
 package com.agnie.common.tools;
 
 import com.beust.jcommander.Parameter;
+import com.google.inject.Singleton;
 
+@Singleton
 public class MainArgs {
 	@Parameter(names = "--help", help = true)
 	private boolean	help;
+
+	@Parameter(names = { "-v", "--version" }, description = "Version of Machine Agent Client.")
+	private boolean	version;
 
 	/**
 	 * @return the help
@@ -28,6 +33,21 @@ public class MainArgs {
 	 */
 	public void setHelp(boolean help) {
 		this.help = help;
+	}
+
+	/**
+	 * @return the version
+	 */
+	public boolean isVersion() {
+		return version;
+	}
+
+	/**
+	 * @param version
+	 *            the version to set
+	 */
+	public void setVersion(boolean version) {
+		this.version = version;
 	}
 
 }

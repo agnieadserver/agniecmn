@@ -15,15 +15,23 @@ import java.util.Map;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.MissingCommandException;
 import com.beust.jcommander.ParameterException;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.google.inject.name.Named;
 
-public class Commander {
+@Singleton
+public class Commander extends JCommander {
 
 	private Map<String, CommandProcessor>	cmdProcessors	= new HashMap<String, CommandProcessor>();
 
 	private JCommander						commander;
 
 	private MainArgs						mainArgs;
+	@Inject
+	@Named("version")
+	private String							version;
 
+	@Inject
 	public Commander(MainArgs mainArgs) {
 		this.mainArgs = mainArgs;
 		commander = new JCommander(mainArgs);
@@ -42,6 +50,9 @@ public class Commander {
 			commander.parse(args);
 			if (mainArgs.isHelp()) {
 				commander.usage();
+				return;
+			} else if (mainArgs.isVersion()) {
+				System.out.println("Version  - '" + version + "'");
 				return;
 			}
 			command = commander.getParsedCommand();

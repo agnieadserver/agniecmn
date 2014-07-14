@@ -55,17 +55,24 @@ public class RegularExpTest {
 		Assert.assertTrue(matcher.matches());
 		matcher = pattern.matcher("https://test.com");
 		Assert.assertTrue(matcher.matches());
-		matcher = pattern.matcher("https://test.com:");
-		Assert.assertTrue(matcher.matches());
 		matcher = pattern.matcher("https://test.com:/");
 		Assert.assertTrue(matcher.matches());
 		matcher = pattern.matcher("https://test.com:890");
 		Assert.assertTrue(matcher.matches());
 		matcher = pattern.matcher("https://test.com:890/");
 		Assert.assertTrue(matcher.matches());
+		matcher = pattern.matcher("https://192.168.9.1:890/");
+		Assert.assertTrue(matcher.matches());
+		matcher = pattern.matcher("http://localhost");
+		Assert.assertTrue(matcher.matches());
+		matcher = pattern.matcher("http://localhost/");
+		Assert.assertTrue(matcher.matches());
 		matcher = pattern.matcher("https://test");
-		Assert.assertFalse(matcher.matches());
+		Assert.assertTrue(matcher.matches());
 		matcher = pattern.matcher("https://test/");
+		Assert.assertTrue(matcher.matches());
+
+		matcher = pattern.matcher("https://test.com:");
 		Assert.assertFalse(matcher.matches());
 		matcher = pattern.matcher("ttps://test.com/");
 		Assert.assertFalse(matcher.matches());

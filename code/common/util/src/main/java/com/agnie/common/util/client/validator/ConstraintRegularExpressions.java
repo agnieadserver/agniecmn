@@ -19,7 +19,7 @@ public class ConstraintRegularExpressions {
 	// This regular expression will do check for validity of url
 	// https://test.com:890/ till last slash after wards it
 	// doesn't do validity on query parameters and all other sutff.
-	public static final String VALID_URL_EXP = "^http[s]?[:][\\/][\\/][A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})[:]?[\\d]*[\\/]?(.?)";
+	public static final String VALID_URL_EXP = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
 	public static boolean validateWhiteSpace(String str) {
 		RegExp pattern = RegExp

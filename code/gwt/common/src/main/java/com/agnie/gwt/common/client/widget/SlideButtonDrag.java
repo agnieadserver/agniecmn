@@ -9,7 +9,7 @@
  ******************************************************************************/
 package com.agnie.gwt.common.client.widget;
 
-import com.google.gwt.core.shared.GWT;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
@@ -30,7 +30,7 @@ import com.google.gwt.user.client.ui.Widget;
  * DragElement for SlideButton widget.
  *
  */
-public class SlideButtonDrag extends Composite implements HasMouseMoveHandlers,HasMouseDownHandlers,HasMouseUpHandlers{
+public class SlideButtonDrag extends Composite implements HasMouseMoveHandlers, HasMouseDownHandlers, HasMouseUpHandlers {
 	private static SlideButtonDragResources	resource	= SlideButtonDragResources.INSTANCE;
 
 	static {
@@ -60,15 +60,15 @@ public class SlideButtonDrag extends Composite implements HasMouseMoveHandlers,H
 	public static SlideButtonDragResources getResources() {
 		return resource;
 	}
-	
+
 	@Override
-	public Widget asWidget(){
+	public Widget asWidget() {
 		return this.asWidget();
 	}
 
 	@Override
 	public HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
-		return addDomHandler(handler,MouseMoveEvent.getType());
+		return addDomHandler(handler, MouseMoveEvent.getType());
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class SlideButtonDrag extends Composite implements HasMouseMoveHandlers,H
 
 	@Override
 	public HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
-		return addDomHandler(handler,MouseUpEvent.getType());
+		return addDomHandler(handler, MouseUpEvent.getType());
 	}
 
 }

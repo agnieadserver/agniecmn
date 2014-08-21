@@ -42,7 +42,7 @@ public class RecaptchaView extends Composite {
 
 			@Override
 			public void onLoad() {
-//				Window.alert("Ok this is loaded...");
+				// Window.alert("Ok this is loaded...");
 			}
 		});
 	}

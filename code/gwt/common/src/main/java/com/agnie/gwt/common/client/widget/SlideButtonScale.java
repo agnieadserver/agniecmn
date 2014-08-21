@@ -10,7 +10,7 @@
 package com.agnie.gwt.common.client.widget;
 
 import com.agnie.gwt.common.client.I18;
-import com.google.gwt.core.shared.GWT;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.MouseDownEvent;

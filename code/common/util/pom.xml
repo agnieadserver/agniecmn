@@ -8,9 +8,7 @@
 		<groupId>com.agnie.common</groupId>
 		<version>1.0</version>
 	</parent>
-	<groupId>com.agnie.common</groupId>
 	<artifactId>util</artifactId>
-	<version>1.0</version>
 	<name>util</name>
 	<url>http://maven.apache.org</url>
 	<properties>

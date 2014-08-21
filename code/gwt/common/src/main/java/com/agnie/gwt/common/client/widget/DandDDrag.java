@@ -9,7 +9,7 @@
  ******************************************************************************/
 package com.agnie.gwt.common.client.widget;
 
-import com.google.gwt.core.shared.GWT;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasAllMouseHandlers;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
@@ -34,7 +34,7 @@ import com.google.gwt.user.client.ui.Widget;
  * DragElement for DandD widget.
  * 
  */
-public class DandDDrag extends Composite implements HasMouseMoveHandlers, HasMouseDownHandlers, HasMouseUpHandlers ,HasAllMouseHandlers{
+public class DandDDrag extends Composite implements HasMouseMoveHandlers, HasMouseDownHandlers, HasMouseUpHandlers, HasAllMouseHandlers {
 	private static DandDDragResources	resource	= DandDDragResources.INSTANCE;
 
 	static {

@@ -26,7 +26,7 @@ public class SimpleCompany extends BaseTableBean {
 	 * @return the id
 	 */
 	public int getId() {
-		return id != null ? id.getValue() : null;
+		return id != null ? id.getValue() : 0;
 	}
 
 	/**

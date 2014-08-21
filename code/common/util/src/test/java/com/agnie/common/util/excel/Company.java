@@ -21,15 +21,15 @@ import com.agnie.common.util.validator.NotNull;
 @MultiColumnType
 public class Company extends BaseTableBean {
 
-	private TableType<Integer>		id;
-	private TableType<String>		companyName;
-	private List<Employee>	emploies	= new ArrayList<Employee>();
+	private TableType<Integer>	id;
+	private TableType<String>	companyName;
+	private List<Employee>		emploies	= new ArrayList<Employee>();
 
 	/**
 	 * @return the id
 	 */
 	public int getId() {
-		return id != null ? id.getValue() : null;
+		return id != null ? id.getValue() : 0;
 	}
 
 	/**

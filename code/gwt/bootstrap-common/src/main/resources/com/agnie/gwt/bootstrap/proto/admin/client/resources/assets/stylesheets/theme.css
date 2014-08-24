@@ -91,7 +91,7 @@ a:active {
 	display: table-cell;
 	position: relative;
 	vertical-align: top;
-	width: 300px;
+	width: 240px;
 	z-index: 1010;
 }
 
@@ -185,12 +185,12 @@ a:active {
 
 	/* Layout Fixed - Content Body */
 	html.fixed .content-body {
-		margin-left: 300px;
+		margin-left: 240px;
 	}
 
 	/* Layout Fixed - Page header */
 	html.fixed .page-header {
-		left: 300px;
+		left: 240px;
 		margin: 0;
 		position: fixed;
 		right: 0;
@@ -1275,7 +1275,7 @@ BOOTSTRAP EXTEND
 
 .header .logo {
 	float: left;
-	margin: 10px 0 0 15px;
+	margin: 0px 15px 0 15px;
 }
 
 .header .logo img {
@@ -2017,21 +2017,22 @@ ul.nav-main li .nav-children li.nav-active > a {
 	float: right;
 }
 
-.page-header .breadcrumbs {
+.page-header .breadcrumb {
 	display: inline-block;
 	font-size: 0;
 	line-height: 50px;
 	margin: 0;
 	padding: 0;
+	background-color: transparent;
 }
 
-.page-header .breadcrumbs li {
+.page-header .breadcrumb li {
 	color: #c3c3c3;
 	display: inline-block;
 	font-weight: 300;
 }
 
-.page-header .breadcrumbs li:after {
+.page-header .breadcrumb li:after {
 	content: '/';
 	display: inline-block;
 	font-size: 14px;
@@ -2040,21 +2041,21 @@ ul.nav-main li .nav-children li.nav-active > a {
 	vertical-align: middle;
 }
 
-.page-header .breadcrumbs li:last-child:after {
+.page-header .breadcrumb li:last-child:after {
 	display: none;
 }
 
-.page-header .breadcrumbs .fa-home {
+.page-header .breadcrumb .fa-home {
 	font-size: 20px;
 	font-size: 2rem;
 }
 
-.page-header .breadcrumbs i {
+.page-header .breadcrumb i {
 	vertical-align: middle;
 }
 
-.page-header .breadcrumbs a,
-.page-header .breadcrumbs span {
+.page-header .breadcrumb a,
+.page-header .breadcrumb span {
 	color: #c3c3c3;
 	display: inline-block;
 	font-size: 14px;
@@ -2097,7 +2098,7 @@ html.sidebar-right-opened .page-header .sidebar-right-toggle i:before {
 		padding-right: 80px;
 	}
 
-	.page-header .breadcrumbs {
+	.page-header .breadcrumb {
 		display: none;
 	}
 

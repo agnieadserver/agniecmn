@@ -20,13 +20,13 @@ import com.google.gwt.resources.client.TextResource;
 public interface ProtoAdminClientBundle extends ClientBundle {
 	static final ProtoAdminClientBundle	INSTANCE	= GWT.create(ProtoAdminClientBundle.class);
 
-	@Source("assets/javascript/theme.custom.js")
+	@Source("assets/javascripts/theme.custom.js")
 	TextResource customTheme();
 
-	@Source("assets/javascript/theme.init.js")
+	@Source("assets/javascripts/theme.init.js")
 	TextResource themeInit();
 
-	@Source("assets/javascript/theme.js")
+	@Source("assets/javascripts/theme.js")
 	TextResource theme();
 
 	@Source("assets/vendor/nanoscroller/nanoscroller.js")

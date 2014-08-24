@@ -7,7 +7,7 @@
 
 	<source path='client' />
 	<source path='shared' />
-	<!-- <public path='proto' /> -->
+	<public path='proto' />
 	<public path='client/resources'>
 		<include name="**/*.css" />
 		<include name="**/*.js" />
@@ -15,7 +15,10 @@
 	<stylesheet src="assets/stylesheets/theme.css" />
 
 	<!-- Skin CSS -->
-	<stylesheet src="assets/stylesheets/skins/default.css" />
+	<stylesheet src="assets/stylesheets/adsirver-theme.css" />
+
+	<!-- Skin CSS -->
+	<stylesheet src="assets/stylesheets/skins/adsirver.css" />
 
 	<!-- Theme Custom CSS -->
 	<stylesheet src="assets/stylesheets/theme-custom.css" />

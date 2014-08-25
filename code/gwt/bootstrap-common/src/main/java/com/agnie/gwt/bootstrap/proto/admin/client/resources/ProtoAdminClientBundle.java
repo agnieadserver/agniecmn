@@ -32,4 +32,7 @@ public interface ProtoAdminClientBundle extends ClientBundle {
 	@Source("assets/vendor/nanoscroller/nanoscroller.js")
 	TextResource nanoscroller();
 
+	@Source("assets/vendor/bootstrap-wizard/jquery.bootstrap.wizard.js")
+	TextResource wizard();
+
 }

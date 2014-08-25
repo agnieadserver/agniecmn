@@ -27,6 +27,7 @@ public class ProtoAdmin implements EntryPoint {
 		Scheduler.get().scheduleDeferred(new Command() {
 			public void execute() {
 				ScriptInjector.fromString(ProtoAdminClientBundle.INSTANCE.nanoscroller().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
+				ScriptInjector.fromString(ProtoAdminClientBundle.INSTANCE.wizard().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
 				ScriptInjector.fromString(ProtoAdminClientBundle.INSTANCE.theme().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
 				ScriptInjector.fromString(ProtoAdminClientBundle.INSTANCE.customTheme().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
 				ScriptInjector.fromString(ProtoAdminClientBundle.INSTANCE.themeInit().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();

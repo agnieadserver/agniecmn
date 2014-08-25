@@ -9,33 +9,18 @@
  ******************************************************************************/
 package com.agnie.gwt.bootstrap.proto.admin.client.ui;
 
-import org.gwtbootstrap3.client.ui.base.HasActive;
-import org.gwtbootstrap3.client.ui.base.helper.StyleHelper;
-
-import com.google.gwt.user.client.ui.UIObject;
+import org.gwtbootstrap3.client.ui.gwt.FlowPanel;
 
 /**
- * @author Pandurang Patil 23-Aug-2014
+ * @author Pandurang Patil 25-Aug-2014
  *
  */
-public class NavActiveMixin<T extends UIObject & HasActive> implements HasActive {
-	UIObject	uiObject;
-
-	public NavActiveMixin(final T uiObject) {
-		this.uiObject = uiObject;
+public class ProgressWizard extends FlowPanel {
+	public ProgressWizard() {
+		setStyleName(ProtoConstants.WIZARD_PROGRESS);
 	}
 
-	@Override
-	public void setActive(final boolean active) {
-		if (active) {
-			uiObject.addStyleName(ProtoConstants.NAV_ACTIVE);
-		} else {
-			uiObject.removeStyleName(ProtoConstants.NAV_ACTIVE);
-		}
-	}
-
-	@Override
-	public boolean isActive() {
-		return StyleHelper.containsStyle(uiObject.getStyleName(), ProtoConstants.NAV_ACTIVE);
+	public void setLarge(boolean flag) {
+		addStyleName(ProtoConstants.WIZARD_PROGRESS_LG);
 	}
 }

@@ -70,6 +70,14 @@ public class SamplePage extends Composite {
 				navbar.add(item);
 			}
 		});
+		tab1.showTab(false);
+		tab1.setDataToggle(null);
+		tab1.addClickHandler(new ClickHandler() {
 
+			@Override
+			public void onClick(ClickEvent event) {
+				tab1.showTab(false);
+			}
+		});
 	}
 }

@@ -9,7 +9,7 @@
 			<header class="header navbar-adsirver">
 				<div class="logo-container">
 					<a href="/" class="logo">
-						<img src="samples/assets/images/AdSirver-Logo.png" height="55"
+						<img src="samples/assets/images/AdSirver-Logo.png" height="35"
 							alt="AdSirver" />
 					</a>
 					<div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened"
@@ -292,96 +292,6 @@
 									</p:NavListDropDown>
 								</p:NavVerticalBarNav>
 							</p:NavVerticalBar>
-							<nav id="menu" class="nav-main" role="navigation">
-								<ul class="nav nav-main">
-									<li class="nav-active">
-										<a href="index.html">
-											<i class="fa fa-home" aria-hidden="true"></i>
-											<span>Dashboard</span>
-										</a>
-									</li>
-									<li>
-										<a href="mailbox-folder.html">
-											<span class="pull-right label label-primary">182</span>
-											<i class="fa fa-envelope" aria-hidden="true"></i>
-											<span>Mailbox</span>
-										</a>
-									</li>
-									<li class="nav-parent">
-										<a>
-											<i class="fa fa-copy" aria-hidden="true"></i>
-											<span>Pages</span>
-										</a>
-										<ul class="nav nav-children">
-											<li>
-												<a href="pages-signup.html">
-													Sign Up
-												</a>
-											</li>
-											<li>
-												<a href="pages-signin.html">
-													Sign In
-												</a>
-											</li>
-											<li>
-												<a href="pages-recover-password.html">
-													Recover Password
-												</a>
-											</li>
-											<li>
-												<a href="pages-lock-screen.html">
-													Locked Screen
-												</a>
-											</li>
-											<li>
-												<a href="pages-user-profile.html">
-													User Profile
-												</a>
-											</li>
-											<li>
-												<a href="pages-session-timeout.html">
-													Session Timeout
-												</a>
-											</li>
-											<li>
-												<a href="pages-calendar.html">
-													Calendar
-												</a>
-											</li>
-											<li>
-												<a href="pages-timeline.html">
-													Timeline
-												</a>
-											</li>
-											<li>
-												<a href="pages-media-gallery.html">
-													Media Gallery
-												</a>
-											</li>
-											<li>
-												<a href="pages-invoice.html">
-													Invoice
-												</a>
-											</li>
-											<li>
-												<a href="pages-blank.html">
-													Blank Page
-												</a>
-											</li>
-											<li>
-												<a href="pages-404.html">
-													404
-												</a>
-											</li>
-											<li>
-												<a href="pages-500.html">
-													500
-												</a>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</nav>
 						</div>
 					</div>
 				</aside>
@@ -400,8 +310,6 @@
 						</div>
 					</header>
 					<b:Container fluid="true">
-						<b:Row>
-						</b:Row>
 						<b:Row>
 							<b:Column size="MD_6" offset="MD_3">
 								<b:Form>
@@ -440,18 +348,152 @@
 							</b:Column>
 						</b:Row>
 						<b:Row>
-							<b:Modal title="Cupcake ipsum" closable="true" fade="true"
-								dataBackdrop="STATIC" dataKeyboard="true" b:id="myModal">
-								<b:ModalBody>
-									<g:HTML>Modal body...</g:HTML>
-								</b:ModalBody>
-								<b:ModalFooter>
-									<b:Button type="PRIMARY">Do something</b:Button>
-									<b:Button type="DANGER" dataDismiss="MODAL">Close</b:Button>
-								</b:ModalFooter>
-							</b:Modal>
-							<b:Button dataTarget="#myModal" dataToggle="MODAL" type="PRIMARY"
-								size="LARGE">Click to show modal</b:Button>
+							<b:Column size="MD_6">
+								<g:HTMLPanel addStyleNames="panel form-wizard" id="w3">
+									<header class="panel-heading">
+										<div class="panel-actions">
+											<a href="#" class="fa fa-caret-down"></a>
+											<a href="#" class="fa fa-times"></a>
+										</div>
+
+										<h2 class="panel-title">Form Wizard</h2>
+									</header>
+									<div class="panel-body">
+										<div class="wizard-tabs">
+											<ul class="wizard-steps">
+												<li class="active">
+													<a href="#w1-account" data-toggle="tab" class="text-center">
+														<span class="badge hidden-xs">1</span>
+														Account
+													</a>
+												</li>
+												<li>
+													<a href="#w1-profile" data-toggle="tab" class="text-center">
+														<span class="badge hidden-xs">2</span>
+														Profile
+													</a>
+												</li>
+												<li>
+													<a href="#w1-confirm" data-toggle="tab" class="text-center">
+														<span class="badge hidden-xs">3</span>
+														Confirm
+													</a>
+												</li>
+											</ul>
+										</div>
+										<div class="wizard-normal-tabs">
+											<ul class="nav nav-tabs nav-justify wizard-steps">
+												<li class="active">
+													<a href="#w2-account" data-toggle="tab" class="text-center">
+														<span class="badge hidden-xs">1</span>
+														Account
+													</a>
+												</li>
+												<li>
+													<a href="#w2-profile" data-toggle="tab" class="text-center">
+														<span class="badge hidden-xs">2</span>
+														Profile
+													</a>
+												</li>
+												<li>
+													<a href="#w2-confirm" data-toggle="tab" class="text-center">
+														<span class="badge hidden-xs">3</span>
+														Confirm
+													</a>
+												</li>
+											</ul>
+										</div>
+										<div class="wizard-progress">
+											<div class="steps-progress">
+												<div class="progress-indicator" style="width: 0%;"></div>
+											</div>
+											<ul class="wizard-steps">
+												<li class="active">
+													<a href="#w3-account" data-toggle="tab">
+														<span>1</span>
+														Account Info
+													</a>
+												</li>
+												<li>
+													<a href="#w3-profile" data-toggle="tab">
+														<span>2</span>
+														Profile Info
+													</a>
+												</li>
+												<li>
+													<a href="#w3-billing" data-toggle="tab">
+														<span>3</span>
+														Billing Info
+													</a>
+												</li>
+												<li>
+													<a href="#w3-confirm" data-toggle="tab">
+														<span>4</span>
+														Confirmation
+													</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="panel-footer">
+										<ul class="pager">
+											<li class="previous disabled">
+												<a>
+													<i class="fa fa-angle-left"></i>
+													Previous
+												</a>
+											</li>
+											<li class="finish hidden pull-right">
+												<a>Finish</a>
+											</li>
+											<li class="next">
+												<a>
+													Next
+													<i class="fa fa-angle-right"></i>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</g:HTMLPanel>
+							</b:Column>
+
+						</b:Row>
+						<b:Row>
+							<p:NormalTabWizard>
+								<p:NavWizardSteps>
+									<p:WizardTabListItem number="1" dataTarget="#tab1"
+										active="true" text="Register" />
+									<p:WizardTabListItem number="2" dataTarget="#tab2"
+										text="Process " />
+									<p:WizardTabListItem number="3" dataTarget="#tab3"
+										text="Done" />
+								</p:NavWizardSteps>
+							</p:NormalTabWizard>
+						</b:Row>
+						<b:Row>
+							<p:TabWizard>
+								<p:WizardSteps>
+									<p:WizardTabListItem number="1" dataToggle="TAB"
+										dataTarget="#tab1" active="true" text="Register" />
+									<p:WizardTabListItem number="2" dataToggle="TAB"
+										dataTarget="#tab2" text="Process " />
+									<p:WizardTabListItem number="3" dataToggle="TAB"
+										dataTarget="#tab3" text="Done" />
+								</p:WizardSteps>
+							</p:TabWizard>
+							<p:ProgressWizard large="true">
+								<p:ProgressIndicator></p:ProgressIndicator>
+								<p:WizardSteps>
+									<p:WizardTabListItem number="1" dataToggle="TAB"
+										dataTarget="#tab1" active="true" progress="true" text="Register" />
+									<p:WizardTabListItem number="2" progress="true"
+										dataToggle="TAB" dataTarget="#tab2" text="Process " />
+									<p:WizardTabListItem number="3" progress="true"
+										dataToggle="TAB" dataTarget="#tab3" text="Done" />
+									<p:WizardTabListItem number="4" progress="true"
+										dataToggle="TAB" dataTarget="#tab4" text="Done" />
+								</p:WizardSteps>
+							</p:ProgressWizard>
 						</b:Row>
 						<b:Row>
 							<b:Column size="MD_2" offset="MD_2">
@@ -466,22 +508,12 @@
 						<b:Row>
 							<b:Column size="MD_6" offset="MD_3">
 								<b:NavTabs>
-									<b:TabListItem active="true" dataTarget="#tab1"
-										text="Tab-1" ui:field="tab1" />
-									<b:TabListItem dataTarget="#tab2" text="Tab-2" />
+									<b:TabListItem dataTarget="#tab1" text="Tab-1"
+										ui:field="tab1" />
+									<b:TabListItem active="true" dataTarget="#tab2"
+										text="Tab-2" />
 									<b:TabListItem dataTarget="#tab3" text="Tab-3" />
 								</b:NavTabs>
-								<b:TabContent b:id="tabcontent">
-									<b:TabPane b:active="true" b:id="tab1">
-										<g:Label>This is Tab1</g:Label>
-									</b:TabPane>
-									<b:TabPane b:id="tab2">
-										<g:Label>Ohh ..... This is Tab2</g:Label>
-									</b:TabPane>
-									<b:TabPane b:id="tab3">
-										<g:Label>Damit this one is tab3</g:Label>
-									</b:TabPane>
-								</b:TabContent>
 							</b:Column>
 						</b:Row>
 					</b:Container>

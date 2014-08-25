@@ -12,6 +12,7 @@ package com.agnie.gwt.bootstrap.proto.admin.client.ui;
 import org.gwtbootstrap3.client.ui.base.AbstractAnchorListItem;
 import org.gwtbootstrap3.client.ui.base.AbstractListItem;
 
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.mixin.NavActiveMixin;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.SpanElement;
 

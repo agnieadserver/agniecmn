@@ -12,6 +12,7 @@ package com.agnie.gwt.client;
 import org.gwtbootstrap3.client.ui.Button;
 
 import com.agnie.gwt.bootstrap.proto.admin.client.SamplePage;
+import com.agnie.gwt.client.ui.CellTableSample;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -24,7 +25,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 public class samples implements EntryPoint {
 	SamplePage	page	= new SamplePage();
 
-	public void onModuleLoad() {
+	public void samplePageTest() {
 		Button addME = new Button("Add Me");
 		addME.addClickHandler(new ClickHandler() {
 
@@ -35,9 +36,18 @@ public class samples implements EntryPoint {
 				RootPanel.get().add(page);
 			}
 		});
-		//		RootPanel.get().add(addME);
+		// RootPanel.get().add(addME);
 		RootPanel.get().add(page);
 		GWT.log("Samples entry point is called  1...... ");
 		GWT.log("Samples entry point is called  2...... ");
+	}
+
+	public void cellTableTest() {
+		RootPanel.get().add(new CellTableSample());
+	}
+
+	public void onModuleLoad() {
+
+		cellTableTest();
 	}
 }

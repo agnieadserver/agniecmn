@@ -324,7 +324,10 @@
 									<div class="panel-body">
 										<g:HTMLPanel ui:field="panelBody">
 										</g:HTMLPanel>
-										<b:Pagination paginationSize="SMALL" ui:field="pager">
+									</div>
+									<div class="panel-footer">
+										<p:SimplePagination paginationSize="SMALL"
+											ui:field="pager" limit="5">
 											<b:AnchorListItem enabled="false"
 												icon="ANGLE_DOUBLE_LEFT" />
 											<b:AnchorListItem active="true" enabled="true"
@@ -333,28 +336,8 @@
 											<b:AnchorListItem enabled="true" text="3" />
 											<b:AnchorListItem enabled="true"
 												icon="ANGLE_DOUBLE_RIGHT" />
-										</b:Pagination>
+										</p:SimplePagination>
 									</div>
-									<div class="panel-footer">
-										<ul class="pager">
-											<li class="previous disabled">
-												<a>
-													<i class="fa fa-angle-left"></i>
-													Previous
-												</a>
-											</li>
-											<li class="finish hidden pull-right">
-												<a>Finish</a>
-											</li>
-											<li class="next">
-												<a>
-													Next
-													<i class="fa fa-angle-right"></i>
-												</a>
-											</li>
-										</ul>
-									</div>
-
 								</g:HTMLPanel>
 							</b:Column>
 						</b:Row>

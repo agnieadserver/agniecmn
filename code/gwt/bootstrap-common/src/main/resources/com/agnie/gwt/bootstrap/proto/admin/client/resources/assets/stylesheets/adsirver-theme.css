@@ -117,3 +117,37 @@
 	{
 	color: #ccc;
 }
+
+.ag-big-button {
+	border-radius: 10px;
+	padding: 15px;
+}
+
+.ag-big-button h1, .ag-big-button h2, .ag-big-button h3, .ag-big-button h4,
+	.ag-big-button h5, .ag-big-button h6, .ag-big-button h7 {
+	margin-top: 0px;
+}
+
+.ag-big-button span.desc {
+	color: #777;
+}
+
+.ag-big-button.blue {
+	border: #9BD8EA solid 2px;
+	color: #171717;
+}
+
+.ag-big-button.blue:hover, .ag-big-button.blue.active {
+	border: #9BD8EA solid 2px;
+	color: white;
+	background-color: #9BD8EA;
+	box-shadow: none;
+}
+
+.ag-big-button.blue.active {
+	background: -webkit-linear-gradient(top, #4387fd, #4683ea);
+}
+
+.ag-big-button.blue.active span.desc {
+	color: #171717;
+}

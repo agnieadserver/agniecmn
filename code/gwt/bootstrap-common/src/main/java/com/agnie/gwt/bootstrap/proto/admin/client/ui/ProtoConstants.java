@@ -39,4 +39,8 @@ public class ProtoConstants {
 	public static final String	WZ_STEPS_PROGRESS		= "steps-progress";
 	public static final String	WZ_PROGRESS_INDICATOR	= "progress-indicator";
 
+	public static final String	AG_BIG_BUTTON			= "ag-big-button";
+	public static final String	BLUE					= "blue";
+	public static final String	DESC					= "desc";
+
 }

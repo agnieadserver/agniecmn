@@ -13,6 +13,7 @@ import org.gwtbootstrap3.client.ui.Button;
 
 import com.agnie.gwt.bootstrap.proto.admin.client.SamplePage;
 import com.agnie.gwt.client.ui.CellTableSample;
+import com.agnie.gwt.client.ui.ToggleSample;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -46,8 +47,13 @@ public class samples implements EntryPoint {
 		RootPanel.get().add(new CellTableSample());
 	}
 
+	public void toggleSample() {
+		RootPanel.get().add(new ToggleSample());
+	}
+
 	public void onModuleLoad() {
 
-		cellTableTest();
+		// cellTableTest();
+		toggleSample();
 	}
 }

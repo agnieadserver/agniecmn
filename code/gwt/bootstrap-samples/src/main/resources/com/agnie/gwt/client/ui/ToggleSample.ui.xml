@@ -319,25 +319,27 @@
 											<a href="#" class="fa fa-times"></a>
 										</div>
 
-										<h2 class="panel-title">Form Wizard</h2>
+										<h2 class="panel-title">Toggle Button Test</h2>
 									</header>
 									<div class="panel-body">
-										<g:HTMLPanel ui:field="panelBody">
-										</g:HTMLPanel>
+										<span> You can use all Bootstrap plugins purely through
+											the
+											markup API without writing a single line of JavaScript.
+											This
+											is Bootstrap ' s first-class API and should be your
+											first
+											consideration when using a plugin. That said , in some
+											situations it may be desirable to turn this functionality
+											off. Therefore , we also provide the ability to disable the
+											data attribute API by unbinding all events on the document
+											namespaced with data-api. This looks like this:</span>
+										<p:BigToggleButton dataToggle="BUTTON">
+											<h3> ADVERTISER</h3>
+											<span class="desc">Looking to start your own network. Request
+												Invite</span>
+										</p:BigToggleButton>
 									</div>
 									<div class="panel-footer">
-										<p:PageRangeInfo ui:field="pageInfo" />
-										<p:SimplePagination paginationSize="SMALL"
-											ui:field="pager" limit="5">
-											<b:AnchorListItem enabled="false"
-												icon="ANGLE_DOUBLE_LEFT" />
-											<b:AnchorListItem active="true" enabled="true"
-												text="1" />
-											<b:AnchorListItem enabled="true" text="2" />
-											<b:AnchorListItem enabled="true" text="3" />
-											<b:AnchorListItem enabled="true"
-												icon="ANGLE_DOUBLE_RIGHT" />
-										</p:SimplePagination>
 									</div>
 								</g:HTMLPanel>
 							</b:Column>

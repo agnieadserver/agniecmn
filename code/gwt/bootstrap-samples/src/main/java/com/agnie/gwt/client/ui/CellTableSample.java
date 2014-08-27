@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.gwtbootstrap3.client.ui.gwt.CellTable;
 
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.PageRangeInfo;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.SimplePagination;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -27,6 +28,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.RangeChangeEvent;
 
 /**
  * @author Pandurang Patil 26-Aug-2014
@@ -44,6 +46,9 @@ public class CellTableSample extends Composite {
 
 	@UiField
 	SimplePagination	pager;
+
+	@UiField
+	PageRangeInfo		pageInfo;
 
 	SimplePager			simplePager;
 
@@ -171,13 +176,14 @@ public class CellTableSample extends Composite {
 		panelBody.add(table);
 		pager.setPager(simplePager);
 		pager.rebuild(true);
+		pageInfo.setPager(simplePager);
 
-		// table.addRangeChangeHandler(new RangeChangeEvent.Handler() {
-		// @Override
-		// public void onRangeChange(RangeChangeEvent event) {
-		// pager.rebuild(simplePager);
-		// }
-		// });
+		table.addRangeChangeHandler(new RangeChangeEvent.Handler() {
+			@Override
+			public void onRangeChange(RangeChangeEvent event) {
+				pageInfo.refresh();
+			}
+		});
 	}
 
 }

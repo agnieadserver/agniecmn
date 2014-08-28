@@ -51,8 +51,8 @@ public class BigToggleButton extends HTMLPanel implements HasDataToggle {
 	}
 
 	private void init() {
-		setStyleName(ProtoConstants.AG_BIG_BUTTON);
-		addStyleName(ProtoConstants.BLUE);
+		setStyleName(ProtoStyles.AG_BIG_BUTTON);
+		addStyleName(ProtoStyles.BLUE);
 		addStyleName(Styles.BTN);
 		addStyleName(Styles.BTN_BLOCK);
 	}

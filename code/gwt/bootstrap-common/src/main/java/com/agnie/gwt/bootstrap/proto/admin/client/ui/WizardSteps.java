@@ -18,6 +18,6 @@ import org.gwtbootstrap3.client.ui.html.UnorderedList;
 public class WizardSteps extends UnorderedList {
 
 	public WizardSteps() {
-		setStyleName(ProtoConstants.WIZARD_STEPS);
+		setStyleName(ProtoStyles.WIZARD_STEPS);
 	}
 }

@@ -13,7 +13,7 @@ import org.gwtbootstrap3.client.ui.base.ComplexWidget;
 import org.gwtbootstrap3.client.ui.constants.Styles;
 import org.gwtbootstrap3.client.ui.html.Text;
 
-import com.agnie.gwt.bootstrap.proto.admin.client.ui.ProtoConstants;
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.ProtoStyles;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.SpanElement;
@@ -33,7 +33,7 @@ public class NumberTextMixin<T extends ComplexWidget & HasText> implements HasTe
 	public NumberTextMixin(final T widget) {
 		this.widget = widget;
 		number.addClassName(Styles.BADGE);
-		number.addClassName(ProtoConstants.HIDDEN_XS);
+		number.addClassName(ProtoStyles.HIDDEN_XS);
 
 	}
 

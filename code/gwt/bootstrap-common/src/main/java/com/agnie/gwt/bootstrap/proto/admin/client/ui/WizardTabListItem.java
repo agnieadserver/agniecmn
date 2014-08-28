@@ -37,7 +37,7 @@ public class WizardTabListItem extends AbstractListItem implements HasDataTarget
 	protected WizardTabListItem() {
 		anchor = new WizardAnchor();
 		add(anchor, (Element) getElement());
-		anchor.addStyleName(ProtoConstants.TEXT_CENTER);
+		anchor.addStyleName(ProtoStyles.TEXT_CENTER);
 		setText("");
 	}
 

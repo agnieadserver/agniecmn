@@ -17,6 +17,6 @@ import org.gwtbootstrap3.client.ui.gwt.FlowPanel;
  */
 public class NormalTabWizard extends FlowPanel {
 	public NormalTabWizard() {
-		setStyleName(ProtoConstants.WIZARD_NORMAL_TABS);
+		setStyleName(ProtoStyles.WIZARD_NORMAL_TABS);
 	}
 }

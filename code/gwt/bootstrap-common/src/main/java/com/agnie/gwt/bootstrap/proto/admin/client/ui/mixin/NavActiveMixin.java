@@ -12,7 +12,7 @@ package com.agnie.gwt.bootstrap.proto.admin.client.ui.mixin;
 import org.gwtbootstrap3.client.ui.base.HasActive;
 import org.gwtbootstrap3.client.ui.base.helper.StyleHelper;
 
-import com.agnie.gwt.bootstrap.proto.admin.client.ui.ProtoConstants;
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.ProtoStyles;
 import com.google.gwt.user.client.ui.UIObject;
 
 /**
@@ -29,14 +29,14 @@ public class NavActiveMixin<T extends UIObject & HasActive> implements HasActive
 	@Override
 	public void setActive(final boolean active) {
 		if (active) {
-			uiObject.addStyleName(ProtoConstants.NAV_ACTIVE);
+			uiObject.addStyleName(ProtoStyles.NAV_ACTIVE);
 		} else {
-			uiObject.removeStyleName(ProtoConstants.NAV_ACTIVE);
+			uiObject.removeStyleName(ProtoStyles.NAV_ACTIVE);
 		}
 	}
 
 	@Override
 	public boolean isActive() {
-		return StyleHelper.containsStyle(uiObject.getStyleName(), ProtoConstants.NAV_ACTIVE);
+		return StyleHelper.containsStyle(uiObject.getStyleName(), ProtoStyles.NAV_ACTIVE);
 	}
 }

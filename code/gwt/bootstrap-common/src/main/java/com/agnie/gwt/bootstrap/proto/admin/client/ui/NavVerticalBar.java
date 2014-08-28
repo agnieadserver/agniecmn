@@ -23,8 +23,8 @@ public class NavVerticalBar extends ComplexWidget {
 
 	public NavVerticalBar() {
 		setElement(Document.get().createElement(ElementTags.NAV));
-		setId(ProtoConstants.NAV_MENU_ID);
-		setStyleName(ProtoConstants.NAV_MAIN);
-		getElement().setAttribute(Attributes.ROLE, ProtoConstants.NAVIGATION);
+		setId(ProtoStyles.NAV_MENU_ID);
+		setStyleName(ProtoStyles.NAV_MAIN);
+		getElement().setAttribute(Attributes.ROLE, ProtoStyles.NAVIGATION);
 	}
 }

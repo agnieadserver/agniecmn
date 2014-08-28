@@ -22,7 +22,7 @@ public class ProgressIndicator extends FlowPanel {
 	protected final DivElement	progressIndicator	= Document.get().createDivElement();
 
 	public ProgressIndicator() {
-		setStyleName(ProtoConstants.WZ_STEPS_PROGRESS);
+		setStyleName(ProtoStyles.WZ_STEPS_PROGRESS);
 		progressIndicator.setAttribute("style", "width: 0%;");
 		getElement().appendChild(progressIndicator);
 	}

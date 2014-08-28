@@ -17,10 +17,10 @@ import org.gwtbootstrap3.client.ui.gwt.FlowPanel;
  */
 public class ProgressWizard extends FlowPanel {
 	public ProgressWizard() {
-		setStyleName(ProtoConstants.WIZARD_PROGRESS);
+		setStyleName(ProtoStyles.WIZARD_PROGRESS);
 	}
 
 	public void setLarge(boolean flag) {
-		addStyleName(ProtoConstants.WIZARD_PROGRESS_LG);
+		addStyleName(ProtoStyles.WIZARD_PROGRESS_LG);
 	}
 }

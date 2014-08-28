@@ -338,11 +338,75 @@
 											<span class="desc">Looking to start your own network. Request
 												Invite</span>
 										</p:BigToggleButton>
+										<h1
+											style="font-family: Righteous; font-weight: bold; font-size: 52px;">
+											<span style="color: #ff4f00;">Ad</span>
+											<span style="color: #434343; margin-left: -15px;">Sirver</span>
+										</h1>
+
 									</div>
 									<div class="panel-footer">
 									</div>
 								</g:HTMLPanel>
 							</b:Column>
+						</b:Row>
+						<b:Row>
+							<g:HTMLPanel>
+								<div class="switch switch-lg switch-primary">
+									<div class="ios-switch off">
+										<div class="on-background background-fill"></div>
+										<div class="state-background background-fill"></div>
+										<div class="handle"></div>
+									</div>
+									<input type="checkbox" name="switch"
+										data-plugin-ios-switch="" checked="checked" style="display: none;" />
+								</div>
+								<div class="switch switch-lg switch-success">
+									<div class="ios-switch on">
+										<div class="on-background background-fill"></div>
+										<div class="state-background background-fill"></div>
+										<div class="handle"></div>
+									</div>
+								</div>
+								<div class="switch switch-lg switch-warning">
+									<div class="ios-switch on">
+										<div class="on-background background-fill"></div>
+										<div class="state-background background-fill"></div>
+										<div class="handle"></div>
+									</div>
+									<input type="checkbox" name="switch"
+										data-plugin-ios-switch="" checked="checked" style="display: none;" />
+								</div>
+								<div class="switch switch-lg switch-danger">
+									<div class="ios-switch on">
+										<div class="on-background background-fill"></div>
+										<div class="state-background background-fill"></div>
+										<div class="handle"></div>
+									</div>
+									<input type="checkbox" name="switch"
+										data-plugin-ios-switch="" checked="checked" style="display: none;" />
+								</div>
+								<div class="switch switch-lg switch-info">
+									<div class="ios-switch on">
+										<div class="on-background background-fill"></div>
+										<div class="state-background background-fill"></div>
+										<div class="handle"></div>
+									</div>
+									<input type="checkbox" name="switch"
+										data-plugin-ios-switch="" checked="checked" style="display: none;" />
+								</div>
+								<div class="switch switch-lg switch-dark">
+									<div class="ios-switch on">
+										<div class="on-background background-fill"></div>
+										<div class="state-background background-fill"></div>
+										<div class="handle"></div>
+									</div>
+									<input type="checkbox" name="switch"
+										data-plugin-ios-switch="" checked="checked" style="display: none;" />
+								</div>
+								<p:ToggleSwitch size="LARGE" type="SUCCESS"
+									active="true"></p:ToggleSwitch>
+							</g:HTMLPanel>
 						</b:Row>
 						<b:Row>
 							<b:Button text="Block level button" block="true" type="SUCCESS"

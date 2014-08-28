@@ -20,7 +20,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class NavListDropDown extends AbstractListItem {
 	public NavListDropDown() {
-		setStyleName(ProtoConstants.NAV_PARENT);
+		setStyleName(ProtoStyles.NAV_PARENT);
 	}
 
 	@Override

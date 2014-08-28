@@ -19,6 +19,6 @@ import org.gwtbootstrap3.client.ui.html.UnorderedList;
 public class NavDropDownMenu extends UnorderedList {
 	public NavDropDownMenu() {
 		setStyleName(Styles.NAV);
-		addStyleName(ProtoConstants.NAV_CHILDREN);
+		addStyleName(ProtoStyles.NAV_CHILDREN);
 	}
 }

@@ -18,7 +18,7 @@ import org.gwtbootstrap3.client.ui.NavTabs;
 public class NavWizardSteps extends NavTabs {
 
 	public NavWizardSteps() {
-		addStyleName(ProtoConstants.NAV_JUSTIFY);
-		addStyleName(ProtoConstants.WIZARD_STEPS);
+		addStyleName(ProtoStyles.NAV_JUSTIFY);
+		addStyleName(ProtoStyles.WIZARD_STEPS);
 	}
 }

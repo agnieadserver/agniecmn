@@ -19,6 +19,6 @@ import org.gwtbootstrap3.client.ui.html.UnorderedList;
 public class NavVerticalBarNav extends UnorderedList {
 	public NavVerticalBarNav() {
 		setStyleName(Styles.NAV);
-		addStyleName(ProtoConstants.NAV_MAIN);
+		addStyleName(ProtoStyles.NAV_MAIN);
 	}
 }

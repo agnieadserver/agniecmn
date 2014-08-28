@@ -13,7 +13,11 @@ package com.agnie.gwt.bootstrap.proto.admin.client.ui;
  * @author Pandurang Patil 23-Aug-2014
  *
  */
-public class ProtoConstants {
+public class ProtoStyles {
+	public static final String	AG_BIG_BUTTON			= "ag-big-button";
+
+	public static final String	BLUE					= "blue";
+	public static final String	DESC					= "desc";
 
 	public static final String	HIDDEN_XS				= "hidden-xs";
 	public static final String	HIDDEN_SM				= "hidden-sm";
@@ -28,6 +32,9 @@ public class ProtoConstants {
 	public static final String	NAV_MENU_ID				= "menu";
 	public static final String	NAV_JUSTIFY				= "nav-justify";
 
+	public static final String	ON						= "on";
+	public static final String	OFF						= "off";
+
 	public static final String	TEXT_CENTER				= "text-center";
 
 	public static final String	WIZARD_NORMAL_TABS		= "wizard-normal-tabs";
@@ -38,9 +45,5 @@ public class ProtoConstants {
 
 	public static final String	WZ_STEPS_PROGRESS		= "steps-progress";
 	public static final String	WZ_PROGRESS_INDICATOR	= "progress-indicator";
-
-	public static final String	AG_BIG_BUTTON			= "ag-big-button";
-	public static final String	BLUE					= "blue";
-	public static final String	DESC					= "desc";
 
 }

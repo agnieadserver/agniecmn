@@ -406,6 +406,16 @@
 								</div>
 								<p:ToggleSwitch size="LARGE" type="SUCCESS"
 									active="true"></p:ToggleSwitch>
+
+								<p:CustomCheckBox label="Custom Check Box"
+									type="SUCCESS"></p:CustomCheckBox>
+
+								<p:CustomCheckBox label="Custom Check Box"
+									type="DANGER"></p:CustomCheckBox>
+
+								<p:CustomRadio label="Radio one" type="INFO" name="sampleone" />
+								<p:CustomRadio label="Radio two" type="SUCCESS"
+									name="sampleone" />
 							</g:HTMLPanel>
 						</b:Row>
 						<b:Row>

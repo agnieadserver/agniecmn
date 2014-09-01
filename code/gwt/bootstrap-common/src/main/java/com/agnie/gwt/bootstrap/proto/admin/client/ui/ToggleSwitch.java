@@ -64,6 +64,7 @@ public class ToggleSwitch extends Composite implements HasActive {
 
 	@Override
 	public void setActive(boolean active) {
+		status = active;
 		onoffmixin.setActive(active);
 	}
 

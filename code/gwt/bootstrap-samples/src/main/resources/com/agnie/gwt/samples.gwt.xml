@@ -4,6 +4,8 @@
 	<inherits name='com.google.gwt.user.User' />
 	<!-- <inherits name='com.agnie.gwt.child.child'/> -->
 	<inherits name='com.agnie.gwt.bootstrap.proto.admin.ProtoAdmin' />
+	<inherits name="org.gwtbootstrap3.extras.datetimepicker.DateTimePicker" />
+	<inherits name="org.gwtbootstrap3.extras.slider.Slider" />
 	<!-- Specify the app entry point class. -->
 	<entry-point class='com.agnie.gwt.client.samples' />
 

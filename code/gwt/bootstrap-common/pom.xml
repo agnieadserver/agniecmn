@@ -5,9 +5,9 @@
 	<!-- POM file generated with GWT webAppCreator -->
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-        <artifactId>gwt</artifactId>
-        <groupId>com.agnie.gwt</groupId>
-        <version>2.0</version>
+		<artifactId>gwt</artifactId>
+		<groupId>com.agnie.gwt</groupId>
+		<version>2.0</version>
 	</parent>
 	<artifactId>bootstrap-common</artifactId>
 	<packaging>jar</packaging>
@@ -28,6 +28,11 @@
 		<dependency>
 			<groupId>org.gwtbootstrap3</groupId>
 			<artifactId>gwtbootstrap3</artifactId>
+			<version>0.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.gwtbootstrap3</groupId>
+			<artifactId>gwtbootstrap3-extras</artifactId>
 			<version>0.8</version>
 		</dependency>
 	</dependencies>

@@ -53,6 +53,12 @@
 			<groupId>com.agnie.gwt</groupId>
 			<version>2.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.agnie.gwt</groupId>
+			<artifactId>codemirror</artifactId>
+			<version>1.0</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<!-- Generate compiled stuff in the folder used for developing mode -->
@@ -112,5 +118,11 @@
 			</plugin>
 		</plugins>
 	</build>
+	<repositories>
+		<repository>
+			<id>Agnie repo</id>
+			<url>https://github.com/Agnie-Software/mvn-repo/raw/master/releases</url>
+		</repository>
+	</repositories>
 
 </project>

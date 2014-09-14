@@ -7,7 +7,7 @@
  *  law. Dissemination of this information or reproduction of this material is strictly forbidden unless prior written
  *  permission is obtained from Agnie Technologies.
  ******************************************************************************/
-package com.agnie.gwt.bootstrap.proto.admin.client;
+package com.agnie.gwt.client.ui;
 
 import org.gwtbootstrap3.client.ui.Button;
 import org.gwtbootstrap3.client.ui.TabListItem;

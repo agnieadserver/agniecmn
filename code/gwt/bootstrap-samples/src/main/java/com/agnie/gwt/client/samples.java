@@ -11,8 +11,9 @@ package com.agnie.gwt.client;
 
 import org.gwtbootstrap3.client.ui.Button;
 
-import com.agnie.gwt.bootstrap.proto.admin.client.SamplePage;
 import com.agnie.gwt.client.ui.CellTableSample;
+import com.agnie.gwt.client.ui.CodeEditorSample;
+import com.agnie.gwt.client.ui.SamplePage;
 import com.agnie.gwt.client.ui.ToggleSample;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
@@ -51,9 +52,14 @@ public class samples implements EntryPoint {
 		RootPanel.get().add(new ToggleSample());
 	}
 
-	public void onModuleLoad() {
+	public void codeEditorSample() {
+		RootPanel.get().add(new CodeEditorSample());
+	}
 
+	public void onModuleLoad() {
+		samplePageTest();
 		// cellTableTest();
-		toggleSample();
+		// toggleSample();
+		// codeEditorSample();
 	}
 }

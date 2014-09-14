@@ -38,8 +38,15 @@
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>${project.build.sourceDirectory}</directory>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 		<plugins>
-
 			<!-- GWT Maven Plugin -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -60,7 +67,7 @@
 				<configuration>
 					<runTarget>adsirver.html</runTarget>
 					<hostedWebapp>${webappDirectory}</hostedWebapp>
-					<i18nMessagesBundle>com.agnie.adsirver.adserver.admanager.client.Messages</i18nMessagesBundle>
+					<i18nMessagesBundle>com.agnie.gwt.bootstrap.proto.admin.client.Messages</i18nMessagesBundle>
 				</configuration>
 			</plugin>
 		</plugins>

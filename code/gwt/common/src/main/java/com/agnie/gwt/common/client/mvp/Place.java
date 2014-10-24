@@ -17,11 +17,12 @@ import java.util.Map;
 
 public class Place<PLACE extends Enum<PLACE>> {
 
-	private Map<String, String>	parameters	= new HashMap<String, String>();
+	private Map<String, String> parameters = new HashMap<String, String>();
 
-	private PLACE				place;
+	private PLACE place;
 
 	public Place(PLACE place) {
+		
 		this.place = place;
 	}
 
@@ -42,7 +43,9 @@ public class Place<PLACE extends Enum<PLACE>> {
 		if (token != null) {
 			for (String singToken : token.split("&")) {
 				if (!singToken.isEmpty()) {
-					parameters.put(singToken.substring(0, singToken.indexOf('=')), singToken.substring(singToken.indexOf('=') + 1, singToken.length()));
+					parameters.put(singToken.substring(0,
+							singToken.indexOf('=')), singToken.substring(
+							singToken.indexOf('=') + 1, singToken.length()));
 				}
 			}
 		}

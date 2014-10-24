@@ -25,3 +25,4 @@ public class MVPModule extends AbstractGinModule {
 
 	}
 }
+	

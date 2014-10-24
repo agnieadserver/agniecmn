@@ -23,6 +23,8 @@ public abstract class AppController<PLACE extends Enum<PLACE>> implements ValueC
 	private PlaceManager<PLACE>	placeMgr;
 
 	public AppController(Class<PLACE> placeType) {
+		
+		GWT.log(placeType.getName().toString() + "<--" + placeType);
 		this.placeType = placeType;
 		History.addValueChangeHandler(this);
 		placeMgr = new PlaceManager<PLACE>(this, placeType);

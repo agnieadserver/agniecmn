@@ -4,18 +4,27 @@
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
+	<!-- <servlet> <servlet-name>greetServlet</servlet-name> <servlet-class>com.sample.celltable.server.GreetingServiceImpl</servlet-class> 
+		</servlet> <servlet-mapping> <servlet-name>greetServlet</servlet-name> <url-pattern>/celltable/greet</url-pattern> 
+		</servlet-mapping> Default page to serve <welcome-file-list> <welcome-file>samples.html</welcome-file> 
+		</welcome-file-list> -->
+
+
 	<servlet>
 		<servlet-name>greetServlet</servlet-name>
-		<servlet-class>com.sample.celltable.server.GreetingServiceImpl</servlet-class>
+		<servlet-class>com.demoInjector.agnie.server.GreetingServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>greetServlet</servlet-name>
-		<url-pattern>/celltable/greet</url-pattern>
+		<url-pattern>/DemoInject/greet</url-pattern>
 	</servlet-mapping>
+
 	<!-- Default page to serve -->
 	<welcome-file-list>
-		<welcome-file>samples.html</welcome-file>
+		<welcome-file>DemoInject.html</welcome-file>
 	</welcome-file-list>
+
+
 
 </web-app>

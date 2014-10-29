@@ -48,4 +48,16 @@
 			</properties>
 		</profile>
 	</profiles>
+	<distributionManagement>
+		<repository>
+	        <id>agnie-local-repo</id>
+	        <name>agnie-local-repo-releases</name>
+	        <url>http://192.168.2.102:8081/artifactory/libs-release-local</url>
+	    </repository>
+	    <snapshotRepository>
+	        <id>agnie-local-repo</id>
+	        <name>agnie-local-repo-snapshots</name>
+	        <url>http://192.168.2.102:8081/artifactory/libs-snapshot-local</url>
+	    </snapshotRepository>
+	</distributionManagement>
 </project>

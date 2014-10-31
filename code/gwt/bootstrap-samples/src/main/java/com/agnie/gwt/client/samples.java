@@ -10,6 +10,7 @@ package com.agnie.gwt.client;
 
 import org.gwtbootstrap3.client.ui.Button;
 
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.SearchBox;
 import com.agnie.gwt.client.ui.CellTableSample;
 import com.agnie.gwt.client.ui.CodeEditorSample;
 import com.agnie.gwt.client.ui.SamplePage;
@@ -59,6 +60,12 @@ public class samples implements EntryPoint {
 		// samplePageTest();
 		// cellTableTest();
 		// toggleSample();
-		codeEditorSample();
+		// codeEditorSample();
+		searchWidgettest();
+	}
+
+	private void searchWidgettest() {
+		RootPanel.get().add(new SearchBox());
+
 	}
 }

@@ -2,15 +2,17 @@ package com.sample.celltable.client.presenter;
 
 import java.util.List;
 
+import com.agnie.gwt.common.client.mvp.Place;
 import com.google.gwt.core.shared.GWT;
-import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.Range;
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.sample.celltable.client.injector.SampleInjector;
 import com.sample.celltable.client.ui.ListPage;
 import com.sample.celltable.shared.USerDataBase.User;
 
@@ -19,17 +21,8 @@ public class ListPresenter extends RootPresenter {
 
 	AsyncDataProvider<User>	dataProvider	= null;
 
-	@Override
-	public void render() {
-		super.render();
-
-		loadDataInCellTable();
-		ListPage lPage = viewFactory.getListPage();
-		lPage.setListPresenter(this);
-		RootPanel.get("container").clear();
-		RootPanel.get("container").add(lPage);
-
-	}
+	@Inject
+	SampleInjector			injector;
 
 	private void loadDataInCellTable() {
 
@@ -64,13 +57,23 @@ public class ListPresenter extends RootPresenter {
 
 	}
 
-	public void loadDataOnClickEvent() {
+	public void showForm() {
 
+		GWT.log("Set Create Screen");
+
+		Place<PlaceToken> place = new Place<PlaceToken>(PlaceToken.CREATE);
+		injector.getAppController().getPlaceManager().changePlace(place);
 	}
 
-	public void showForm() {
-		History.newItem("form");
+	@Override
+	public boolean go() {
+		loadDataInCellTable();
+		ListPage lPage = viewFactory.getListPage();
+		lPage.setListPresenter(this);
+		RootPanel.get("container").clear();
+		RootPanel.get("container").add(lPage);
 
+		return true;
 	}
 
 }

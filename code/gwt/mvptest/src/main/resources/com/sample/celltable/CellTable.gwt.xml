@@ -8,6 +8,7 @@
 	<inherits name='com.google.gwt.user.User' />
 	<inherits name="org.gwtbootstrap3.GwtBootstrap3" />
 	<inherits name="com.google.gwt.inject.Inject" />
+	<inherits name='com.agnie.gwt.common.AgnieCommon' />
 	<entry-point class='com.sample.celltable.client.CellTableEntryPoint' />
 
 	<!-- Specify the paths for translatable code -->

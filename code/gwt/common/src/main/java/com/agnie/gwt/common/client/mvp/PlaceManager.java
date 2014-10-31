@@ -26,7 +26,6 @@ public class PlaceManager<PLACE extends Enum<PLACE>> {
 		String token = History.getToken();
 		Place<PLACE> oldPlace;
 		if (token == null || token.isEmpty()) {
-			
 			oldPlace = new Place<PLACE>(appController.getDefaultPlace());
 		}
 		oldPlace = getTokenToPlace(placeType, token);
@@ -37,11 +36,9 @@ public class PlaceManager<PLACE extends Enum<PLACE>> {
 	public Place<PLACE> getTokenToPlace(Class<PLACE> placeType, String token) {
 		Place<PLACE> place = null;
 		GWT.log("@@@@@@@@@@@@->" + appController.getDefaultPlace());
-
 		try {
 			if (token != null && token.contains(":")) {
 				String[] frTokens = token.split(":");
-
 				place = new Place<PLACE>(Enum.valueOf(placeType, frTokens[0]));
 				place.setParameters(frTokens[1]);
 			} else {

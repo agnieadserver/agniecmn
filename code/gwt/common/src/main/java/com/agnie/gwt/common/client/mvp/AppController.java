@@ -22,7 +22,7 @@ public abstract class AppController<PLACE extends Enum<PLACE>> implements ValueC
 	private PlaceManager<PLACE>	placeMgr;
 
 	public AppController(Class<PLACE> placeType) {
-		
+
 		GWT.log(placeType.getName().toString() + "<--" + placeType);
 		this.placeType = placeType;
 		History.addValueChangeHandler(this);
@@ -53,6 +53,8 @@ public abstract class AppController<PLACE extends Enum<PLACE>> implements ValueC
 				}
 			}
 		} else {
+
+			GWT.log("reached in Appcontroler class");
 			// Just roll back the history token to the one from which page change action is initiated.
 			History.newItem(lastPlace.toString(), false);
 		}
@@ -75,6 +77,7 @@ public abstract class AppController<PLACE extends Enum<PLACE>> implements ValueC
 	}
 
 	public void setLastPlace(Place<PLACE> place) {
+
 		this.lastPlace = place;
 	}
 

@@ -1,0 +1,14 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:b='urn:import:org.gwtbootstrap3.client.ui'>
+	<ui:style>
+	</ui:style>
+	<g:HTMLPanel addStyleNames="input-group input-search">
+		<b:TextBox addStyleNames="form-control" ui:field="input">
+		</b:TextBox>
+		<span class="input-group-btn">
+			<b:Button icon="SEARCH" ui:field="button">
+			</b:Button>
+		</span>
+	</g:HTMLPanel>
+</ui:UiBinder> 

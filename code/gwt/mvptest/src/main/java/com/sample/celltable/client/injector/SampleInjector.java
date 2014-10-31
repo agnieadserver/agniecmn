@@ -10,7 +10,7 @@ package com.sample.celltable.client.injector;
 
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
-import com.sample.celltable.client.AppController;
+import com.sample.celltable.client.CellTableAppController;
 import com.sample.celltable.client.factory.ClientFactory;
 import com.sample.celltable.client.factory.ViewFactory;
 
@@ -25,6 +25,6 @@ public interface SampleInjector extends Ginjector {
 
 	ViewFactory getViewFactory();
 
-	AppController getAppController();
+	CellTableAppController getAppController();
 
 }

@@ -6,17 +6,10 @@
 	<parent>
 		<artifactId>parent</artifactId>
 		<groupId>com.agnie.common</groupId>
-		<version>1.0</version>
+		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>util</artifactId>
 	<name>util</name>
-	<url>http://maven.apache.org</url>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<gwtVersion>2.5.0</gwtVersion>
-		<gwtpluginVersion>2.5.0</gwtpluginVersion>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
@@ -103,11 +96,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>reflections-repo</id>
-			<name>Reflections Maven2 Repository</name>
-			<url>http://reflections.googlecode.com/svn/repo</url>
-		</pluginRepository>
-	</pluginRepositories>
 </project>

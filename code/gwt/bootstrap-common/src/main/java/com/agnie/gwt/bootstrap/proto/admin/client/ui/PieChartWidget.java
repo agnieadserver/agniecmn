@@ -24,8 +24,8 @@ import com.googlecode.gwt.charts.client.corechart.PieChartOptions;
  */
 public class PieChartWidget extends PieChart {
 
-	private DataTable	dataTable;
-	PieChartOptions		options	= PieChartOptions.create();
+	private DataTable		dataTable;
+	private PieChartOptions	options	= PieChartOptions.create();
 
 	public PieChartWidget() {
 		super();
@@ -39,21 +39,22 @@ public class PieChartWidget extends PieChart {
 	}
 
 	public void draw(ChartValue listChartValue) {
-		List<ChartEntity> list = listChartValue.getListValue();
 		if (listChartValue.getListColumn() != null)
 			addColumn(listChartValue.getListColumn());
-		if (listChartValue.getListValue() != null)
+
+		if (listChartValue.getListValue() != null) {
 			dataTable.addRows(listChartValue.getListValue().size());
-		for (int i = 0; i < list.size(); i++) {
-			ChartEntity entity = list.get(i);
-			dataTable.setValue(i, 0, entity.getKey());
-			dataTable.setValue(i, 1, entity.getValue());
+			for (int i = 0; i < listChartValue.getListValue().size(); i++) {
+				ChartEntity entity = listChartValue.getListValue().get(i);
+				dataTable.setValue(i, 0, entity.getKey());
+				dataTable.setValue(i, 1, entity.getValue());
+			}
+			options.setBackgroundColor("#f0f0f0");
+			options.setFontName("Tahoma");
+			options.setIs3D(false);
+			options.setSliceVisibilityThreshold(0.0);
+			super.draw(dataTable, options);
 		}
-		options.setBackgroundColor("#f0f0f0");
-		options.setFontName("Tahoma");
-		options.setIs3D(false);
-		options.setSliceVisibilityThreshold(0.0);
-		super.draw(dataTable, options);
 	}
 
 	private void addColumn(List<ChartColumn> list) {

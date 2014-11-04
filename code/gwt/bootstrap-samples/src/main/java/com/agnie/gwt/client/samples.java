@@ -16,7 +16,7 @@ import org.gwtbootstrap3.client.ui.Button;
 import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartColumn;
 import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartEntity;
 import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartValue;
-import com.agnie.gwt.bootstrap.proto.admin.client.ui.GeoChartWidget;
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.PieChartWidget;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.SearchBox;
 import com.agnie.gwt.client.ui.CellTableSample;
 import com.agnie.gwt.client.ui.CodeEditorSample;
@@ -89,18 +89,15 @@ public class samples implements EntryPoint {
 
 			@Override
 			public void run() {
-				GeoChartWidget chart = new GeoChartWidget();
+				PieChartWidget chart = new PieChartWidget();
 				List<ChartEntity> listValues = new ArrayList<ChartEntity>();
-				// listValues.add(new ChartEntity("India", 226));
-				// listValues.add(new ChartEntity("China", 26));
-				// listValues.add(new ChartEntity("Pakistan", 5));
-				// listValues.add(new ChartEntity("Rusia", 5));
+				listValues.add(new ChartEntity("India", 226));
+				listValues.add(new ChartEntity("China", 26));
+				listValues.add(new ChartEntity("Pakistan", 5));
+				listValues.add(new ChartEntity("Rusia", 5));
 				List<ChartColumn> listColumn = new ArrayList<ChartColumn>();
-
 				listColumn.add(new ChartColumn(ColumnType.STRING, "Browsers"));
-
 				listColumn.add(new ChartColumn(ColumnType.NUMBER, "Browsers"));
-
 				ChartValue value = new ChartValue(listColumn, listValues);
 				chart.draw(value);
 				RootPanel.get().add(chart);
@@ -161,6 +158,5 @@ public class samples implements EntryPoint {
 
 	private void searchWidgettest() {
 		RootPanel.get().add(new SearchBox());
-
 	}
 }

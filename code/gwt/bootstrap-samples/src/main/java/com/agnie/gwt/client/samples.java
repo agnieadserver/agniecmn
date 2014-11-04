@@ -12,13 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.gwtbootstrap3.client.ui.Button;
-import org.gwtbootstrap3.client.ui.constants.IconType;
 
 import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartColumn;
 import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartEntity;
 import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartValue;
-import com.agnie.gwt.bootstrap.proto.admin.client.ui.CountWidget;
-import com.agnie.gwt.bootstrap.proto.admin.client.ui.PieChartWidget;
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.GeoChartWidget;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.SearchBox;
 import com.agnie.gwt.client.ui.CellTableSample;
 import com.agnie.gwt.client.ui.CodeEditorSample;
@@ -78,14 +76,10 @@ public class samples implements EntryPoint {
 		// codeEditorSample();
 		// searchWidgettest();
 		// checkChartPanel();
-		CountWidget countWidget = new CountWidget();
-		RootPanel.get().add(countWidget);
-		countWidget.setTitle("Active Publishers");
-		countWidget.setAnchorTitle("View it", "#");
-		countWidget.setCount(30000.0);
-		
-		countWidget.seticon(IconType);
-		// checkChartFromWidget();
+
+		// RootPanel.get().add(countWidget);
+
+		checkChartFromWidget();
 	}
 
 	public void checkChartFromWidget() {
@@ -95,19 +89,17 @@ public class samples implements EntryPoint {
 
 			@Override
 			public void run() {
-				PieChartWidget chart = new PieChartWidget();
+				GeoChartWidget chart = new GeoChartWidget();
 				List<ChartEntity> listValues = new ArrayList<ChartEntity>();
-				listValues.add(new ChartEntity("Mozila", 23));
-				listValues.add(new ChartEntity("chrome", 23));
-				listValues.add(new ChartEntity("IE", 5));
-
+				// listValues.add(new ChartEntity("India", 226));
+				// listValues.add(new ChartEntity("China", 26));
+				// listValues.add(new ChartEntity("Pakistan", 5));
+				// listValues.add(new ChartEntity("Rusia", 5));
 				List<ChartColumn> listColumn = new ArrayList<ChartColumn>();
 
 				listColumn.add(new ChartColumn(ColumnType.STRING, "Browsers"));
 
 				listColumn.add(new ChartColumn(ColumnType.NUMBER, "Browsers"));
-				
-				
 
 				ChartValue value = new ChartValue(listColumn, listValues);
 				chart.draw(value);

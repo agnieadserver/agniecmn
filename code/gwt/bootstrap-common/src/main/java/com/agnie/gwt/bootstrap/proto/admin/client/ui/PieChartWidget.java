@@ -13,7 +13,6 @@ import java.util.List;
 import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartColumn;
 import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartEntity;
 import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartValue;
-import com.googlecode.gwt.charts.client.ColumnType;
 import com.googlecode.gwt.charts.client.DataSource;
 import com.googlecode.gwt.charts.client.DataTable;
 import com.googlecode.gwt.charts.client.corechart.PieChart;
@@ -41,14 +40,15 @@ public class PieChartWidget extends PieChart {
 
 	public void draw(ChartValue listChartValue) {
 		List<ChartEntity> list = listChartValue.getListValue();
-		addColumn(listChartValue.getListColumn());
-		dataTable.addRows(listChartValue.getListValue().size());
+		if (listChartValue.getListColumn() != null)
+			addColumn(listChartValue.getListColumn());
+		if (listChartValue.getListValue() != null)
+			dataTable.addRows(listChartValue.getListValue().size());
 		for (int i = 0; i < list.size(); i++) {
 			ChartEntity entity = list.get(i);
 			dataTable.setValue(i, 0, entity.getKey());
 			dataTable.setValue(i, 1, entity.getValue());
 		}
-		options = PieChartOptions.create();
 		options.setBackgroundColor("#f0f0f0");
 		options.setFontName("Tahoma");
 		options.setIs3D(false);

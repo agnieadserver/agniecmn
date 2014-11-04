@@ -8,8 +8,17 @@
  ******************************************************************************/
 package com.agnie.gwt.client;
 
-import org.gwtbootstrap3.client.ui.Button;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.gwtbootstrap3.client.ui.Button;
+import org.gwtbootstrap3.client.ui.constants.IconType;
+
+import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartColumn;
+import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartEntity;
+import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartValue;
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.CountWidget;
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.PieChartWidget;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.SearchBox;
 import com.agnie.gwt.client.ui.CellTableSample;
 import com.agnie.gwt.client.ui.CodeEditorSample;
@@ -20,6 +29,12 @@ import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.googlecode.gwt.charts.client.ChartLoader;
+import com.googlecode.gwt.charts.client.ChartPackage;
+import com.googlecode.gwt.charts.client.ColumnType;
+import com.googlecode.gwt.charts.client.DataTable;
+import com.googlecode.gwt.charts.client.corechart.PieChart;
+import com.googlecode.gwt.charts.client.corechart.PieChartOptions;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -61,7 +76,95 @@ public class samples implements EntryPoint {
 		// cellTableTest();
 		// toggleSample();
 		// codeEditorSample();
-		searchWidgettest();
+		// searchWidgettest();
+		// checkChartPanel();
+		CountWidget countWidget = new CountWidget();
+		RootPanel.get().add(countWidget);
+		countWidget.setTitle("Active Publishers");
+		countWidget.setAnchorTitle("View it", "#");
+		countWidget.setCount(30000.0);
+		
+		countWidget.seticon(IconType);
+		// checkChartFromWidget();
+	}
+
+	public void checkChartFromWidget() {
+
+		ChartLoader chartLoader = new ChartLoader(ChartPackage.CORECHART);
+		chartLoader.loadApi(new Runnable() {
+
+			@Override
+			public void run() {
+				PieChartWidget chart = new PieChartWidget();
+				List<ChartEntity> listValues = new ArrayList<ChartEntity>();
+				listValues.add(new ChartEntity("Mozila", 23));
+				listValues.add(new ChartEntity("chrome", 23));
+				listValues.add(new ChartEntity("IE", 5));
+
+				List<ChartColumn> listColumn = new ArrayList<ChartColumn>();
+
+				listColumn.add(new ChartColumn(ColumnType.STRING, "Browsers"));
+
+				listColumn.add(new ChartColumn(ColumnType.NUMBER, "Browsers"));
+				
+				
+
+				ChartValue value = new ChartValue(listColumn, listValues);
+				chart.draw(value);
+				RootPanel.get().add(chart);
+			}
+		});
+
+	}
+
+	private void checkChartPanel() {
+		ChartLoader chartLoader = new ChartLoader(ChartPackage.CORECHART);
+		chartLoader.loadApi(new Runnable() {
+
+			@Override
+			public void run() {
+				// Create and attach the chart
+				final PieChart chart = new PieChart();
+				// Prepare the data
+				DataTable dataTable = DataTable.create();
+				dataTable.addColumn(ColumnType.STRING, "Task");
+				// dataTable.addColumn(ColumnType.NUMBER, "Hours per Day");
+				dataTable.addRows(5);
+				dataTable.setValue(0, 0, "Work");
+				dataTable.setValue(0, 1, 11);
+				dataTable.setValue(1, 0, "Sleep");
+				dataTable.setValue(1, 1, 7);
+				dataTable.setValue(2, 0, "Watch TV");
+				dataTable.setValue(2, 1, 1);
+				dataTable.setValue(3, 0, "Eat");
+				dataTable.setValue(3, 1, 1);
+				dataTable.setValue(4, 0, "Commute");
+				dataTable.setValue(4, 1, 1);
+				// Set options
+				PieChartOptions options = PieChartOptions.create();
+				options.setBackgroundColor("#f0f0f0");
+				// options.setColors(colors);
+				options.setFontName("Tahoma");
+				options.setIs3D(true);
+				// options.setPieResidueSliceColor("#FFFFFF");
+				// options.setPieResidueSliceLabel("Others");
+				options.setSliceVisibilityThreshold(0.0);
+				options.setTitle("So, how was your day?");
+				// Draw the chart
+				chart.draw(dataTable);
+				RootPanel.get().add(chart);
+
+				// chart.addReadyHandler(new ReadyHandler() {
+				//
+				// @Override
+				// public void onReady(ReadyEvent event) {
+				// chart.setSelection(Selection.create(1, null));
+				// }
+				// });
+
+			}
+		});
+
 	}
 
 	private void searchWidgettest() {

@@ -2,6 +2,7 @@
 <module rename-to='ProtoAdmin'>
 
 	<inherits name="org.gwtbootstrap3.GwtBootstrap3" />
+	<inherits name="com.googlecode.gwt.charts.Charts" />
 
 	<entry-point class="com.agnie.gwt.bootstrap.proto.admin.client.ProtoAdmin" />
 

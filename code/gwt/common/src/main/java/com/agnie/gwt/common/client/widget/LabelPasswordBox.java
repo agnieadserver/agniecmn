@@ -104,7 +104,7 @@ public class LabelPasswordBox extends LabelTextBox {
 	/**
 	 * to get ErrorMessage Panel
 	 * 
-	 * @return
+	 * @return popup panel
 	 */
 	public PopupPanel getErrorPan() {
 		return this.errorPan;

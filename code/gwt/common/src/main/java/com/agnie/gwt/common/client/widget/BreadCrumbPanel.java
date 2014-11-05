@@ -80,6 +80,9 @@ public class BreadCrumbPanel extends Composite {
 
 	/**
 	 * Creates an empty Bread Crumb panel.
+	 * 
+	 * @param styleClassName
+	 *            style class name
 	 */
 	public BreadCrumbPanel(String styleClassName) {
 		container = new HTMLPanel("");

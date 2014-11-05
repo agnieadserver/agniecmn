@@ -85,6 +85,7 @@ public class MessagePanel extends Composite {
 	 * @param milisecond
 	 *            delay to hide the MessagePanel
 	 * @param autoHide
+	 *            flag to indicate auto hide message panel
 	 */
 
 	public void show(int milisecond, boolean autoHide) {
@@ -120,9 +121,6 @@ public class MessagePanel extends Composite {
 			this.key = key;
 		}
 
-		/**
-		 * @return the key
-		 */
 		public String getKey() {
 			return key;
 		}
@@ -131,8 +129,8 @@ public class MessagePanel extends Composite {
 	/**
 	 * sets Message in Message Panel.
 	 * 
-	 * @param String
-	 *            message.
+	 * @param message
+	 *            message to set.
 	 */
 	public void setMessage(String message) {
 		this.message.setText(message);
@@ -142,22 +140,17 @@ public class MessagePanel extends Composite {
 	 * sets Message in MessagePanel
 	 * 
 	 * @param html
+	 *            safe html
 	 */
 
 	public void setMessage(SafeHtml html) {
 		this.message.setHTML(html);
 	}
 
-	/**
-	 * sets height of Message Panel.
-	 */
 	public void setHeight(String height) {
 		container.setHeight(height);
 	}
 
-	/**
-	 * sets width of Message Panel.
-	 */
 	public void setWidth(String width) {
 		container.setWidth(width);
 	}
@@ -165,7 +158,7 @@ public class MessagePanel extends Composite {
 	/**
 	 * sets type of message like ERROR,WARNING,INFO. It overrides existing style
 	 * 
-	 * @param enum
+	 * @param mt
 	 *            MessageType
 	 */
 	public void setType(MessageType mt) {

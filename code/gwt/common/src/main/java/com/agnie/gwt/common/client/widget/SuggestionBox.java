@@ -94,6 +94,7 @@ public class SuggestionBox extends Composite {
 	 * Sets data to suggestion list
 	 * 
 	 * @param list
+	 *            list of suggestions
 	 * 
 	 */
 	public void setData(List<String> list) {

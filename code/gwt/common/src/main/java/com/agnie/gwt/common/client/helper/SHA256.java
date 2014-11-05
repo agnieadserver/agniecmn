@@ -10,8 +10,8 @@ package com.agnie.gwt.common.client.helper;
 
 /**
  * To encrypt the given string with SHA256 Base 64 encryption. To make use of this class one need to include util.js in
- * corresponding module's entry point web file (i. e. .html or .jsp etc). Location to include will be the <base path of
- * the entry point module>/js/util.js
+ * corresponding module's entry point web file (i. e. .html or .jsp etc). Location to include will be the (base path of
+ * the entry point module)/js/util.js
  * 
  */
 public class SHA256 {

@@ -74,6 +74,9 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 
 	/**
 	 * Creates an empty Wizard bar.
+	 * 
+	 * @param styleClassName
+	 *            enclosing style class name
 	 */
 	public WizardBar(String styleClassName) {
 		panel = new HTMLPanel("");
@@ -99,7 +102,9 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 
 	/**
 	 * Adds a new Step in wizard with specified text.
-	 * 
+	 *
+	 * @param label
+	 *            label for the step
 	 * @param text
 	 *            the new Step's text
 	 */
@@ -124,8 +129,8 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 	/**
 	 * Adds a new Step in wizard with specified widget.
 	 * 
-	 * @param text
-	 *            the new Step's text
+	 * @param step
+	 *            step to be added
 	 */
 	public void addStep(Widget step) {
 		int currentCount = getStepCount();
@@ -148,7 +153,7 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 	/**
 	 * Gets the index of Step that is currently selected.
 	 * 
-	 * @return the selected Step
+	 * @return selected Step index
 	 */
 	public int getSelectedStep() {
 		if (selected == null) {
@@ -164,7 +169,7 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 	 * implemented this method would end up breaking.
 	 * 
 	 * @param index
-	 *            the step's index
+	 *            step's index
 	 * @return the step wrapper
 	 */
 	public final Step getStep(int index) {
@@ -178,7 +183,7 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 	/**
 	 * Gets the number of Steps present.
 	 * 
-	 * @return the Step count
+	 * @return Step count
 	 */
 	public int getStepCount() {
 		return panel.getWidgetCount();
@@ -188,7 +193,7 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 	 * Check if a Step is enabled or disabled. If disabled, the user cannot select the Step.
 	 * 
 	 * @param index
-	 *            the index of the Step
+	 *            index of the Step
 	 * @return true if the Step is enabled, false if disabled
 	 */
 	public boolean isStepEnabled(int index) {
@@ -201,7 +206,7 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 	 * Removes the Step at the specified index.
 	 * 
 	 * @param index
-	 *            the index of the Step to be removed
+	 *            index of the Step to be removed
 	 */
 	public void removeStep(int index) {
 		checkStepIndex(index);
@@ -239,6 +244,8 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 	 * 
 	 * Select the given step but it will not fire the selection event
 	 * 
+	 * @param index
+	 *            step index to be selected.
 	 * @return <code>true</code> if successful, <code>false</code> if the change is denied by the
 	 *         {@link BeforeSelectionHandler}.
 	 */
@@ -268,7 +275,7 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 	 * 
 	 * Go to back Step
 	 * 
-	 * @param fireEvent
+	 * @param fireEvents
 	 *            Indicator to fire the selection event or not
 	 * 
 	 * @return <code>true</code> if successful, <code>false</code> if the change is denied by the
@@ -358,7 +365,7 @@ public class WizardBar extends Composite implements HasBeforeSelectionHandlers<I
 	 * Enable or disable a Step. When disabled, users cannot select the Step.
 	 * 
 	 * @param index
-	 *            the index of the Step to enable or disable
+	 *            index of the Step to enable or disable
 	 * @param enabled
 	 *            true to enable, false to disable
 	 */

@@ -68,42 +68,42 @@ public interface URLInfo {
 	/**
 	 * retrieve complete Query String from the URL
 	 * 
-	 * @return
+	 * @return complete query String
 	 */
 	String getQueryString();
 
 	/**
 	 * Complete URL excluding Query Parameters.
 	 * 
-	 * @return
+	 * @return base URL excluding params
 	 */
 	String getHostBaseURL();
 
 	/**
 	 * Request URL protocol
 	 * 
-	 * @return
+	 * @return request protocol HTTP / HTTPS
 	 */
 	String getProtocol();
 
 	/**
 	 * Request urls base url.
 	 * 
-	 * @return
+	 * @return base url with out path
 	 */
 	String getRootHostURL();
 
 	/**
 	 * Base url with root context
 	 * 
-	 * @return
+	 * @return base URL with root conext
 	 */
 	String getRootContextURL();
 
 	/**
 	 * Get referrer url from header.
 	 * 
-	 * @return
+	 * @return referrer URL
 	 */
 	String getReferrer();
 }

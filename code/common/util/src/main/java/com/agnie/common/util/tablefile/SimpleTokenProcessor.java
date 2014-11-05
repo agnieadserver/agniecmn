@@ -33,6 +33,7 @@ import com.agnie.common.util.validator.Validator;
  * It will help AbstractTableFileIterator to convert list of tokens into corresponding bean object.
  * 
  * @param <B>
+ *            Bean class
  */
 public class SimpleTokenProcessor<B> {
 	private static final Log	logger	= LogFactory.getLog(SimpleTokenProcessor.class);
@@ -48,6 +49,7 @@ public class SimpleTokenProcessor<B> {
 	 * getConverter() static method.
 	 * 
 	 * @param cls
+	 *            entity class type
 	 */
 	protected SimpleTokenProcessor(Class<B> cls) {
 		this(cls, false);
@@ -59,7 +61,9 @@ public class SimpleTokenProcessor<B> {
 	 * getConverter() static method.
 	 * 
 	 * @param cls
+	 *            entity class type
 	 * @param throwErrors
+	 *            errors
 	 */
 	protected SimpleTokenProcessor(Class<B> cls, boolean throwErrors) {
 		this.cls = cls;
@@ -124,8 +128,10 @@ public class SimpleTokenProcessor<B> {
 	 * validation is successful.
 	 * 
 	 * @param validators
+	 *            validators
 	 * @param token
-	 * @return
+	 *            token
+	 * @return list
 	 */
 	private List<String> validate(List<Validator> validators, String token) {
 		List<String> failedConstraints = new ArrayList<String>();
@@ -143,12 +149,6 @@ public class SimpleTokenProcessor<B> {
 	/**
 	 * This will populate individual properties of the bean with the given token by converting it into required types.
 	 * 
-	 * @param method
-	 * @param token
-	 * @param bean
-	 * @throws IllegalArgumentException
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
 	 */
 	@SuppressWarnings("rawtypes")
 	private void populateBeanWithToken(Method method, String token, TableBean bean) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, ConversionException {

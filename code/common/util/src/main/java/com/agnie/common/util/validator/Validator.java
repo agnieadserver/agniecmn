@@ -20,9 +20,6 @@ public abstract class Validator {
 
 	protected Annotation	constraint;
 
-	/**
-	 * @param constraint
-	 */
 	public Validator(Annotation constraint) {
 		this.constraint = constraint;
 	}
@@ -42,7 +39,7 @@ public abstract class Validator {
 	 * 
 	 * @param value
 	 *            if valid return true other wise false
-	 * @return
+	 * @return result
 	 */
 	public abstract boolean validate(String value);
 }

@@ -18,19 +18,23 @@ public interface MailSender {
 	/**
 	 * Send the mail with passed on parameters from account identified by sender key.
 	 * 
+	 * @param email
+	 *            email address to which email has to be sent
 	 * @throws FileNotFoundException
+	 *             exception
 	 * @throws IOException
+	 *             exception
 	 * @throws MessagingException
+	 *             exception
 	 */
 	void sendMail(Email email) throws FileNotFoundException, IOException, MessagingException;
 
 	/**
 	 * Send the mail with passed on parameters from account identified by sender key.
 	 * 
+	 * @param email
+	 *            email address to which email has to be sent.
 	 * 
-	 * @throws FileNotFoundException
-	 * @throws IOException
-	 * @throws MessagingException
 	 */
 	void sendMailAsync(Email email);
 }

@@ -48,6 +48,8 @@ public class MemCacheService implements CacheService, ShutdownHook {
 	 * 
 	 * @param hostPortInp
 	 *            Memcache servers specified as "host1:port1, host2:port2, ..."
+	 * @param shutdownProcessor
+	 *            shutdown hook
 	 */
 	@Inject
 	public MemCacheService(@Named("CacheServers") String hostPortInp, ShutdownProcessor shutdownProcessor) {
@@ -153,6 +155,8 @@ public class MemCacheService implements CacheService, ShutdownHook {
 	 * 
 	 * @param key
 	 *            The key being used to fetch.
+	 * @param timeout
+	 *            for future use
 	 * @return The corresponding value if cache entry exists, else null.
 	 */
 	public Object get(String key, int timeout) {
@@ -174,7 +178,10 @@ public class MemCacheService implements CacheService, ShutdownHook {
 	 * 
 	 * @param data
 	 *            json byte string
+	 * @param cls
+	 *            class
 	 * @return Java objects.
+	 * 
 	 */
 	public <T> T deserialize(String data, Class<T> cls) {
 

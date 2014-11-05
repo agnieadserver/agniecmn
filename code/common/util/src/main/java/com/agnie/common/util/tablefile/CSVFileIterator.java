@@ -71,6 +71,7 @@ public class CSVFileIterator<T> extends AbstractTableFileIterator<T> {
 	 * mapped to header
 	 * 
 	 * @throws IOException
+	 *             exception
 	 */
 	protected Map<String, String> readTokens() throws IOException {
 		Map<String, String> colMapedTokens = null;

@@ -18,6 +18,7 @@ public abstract class Tokenizer {
 
 	/**
 	 * @param tokenSeparator
+	 *            token separator
 	 */
 	public Tokenizer(String tokenSeparator) {
 		super();

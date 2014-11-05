@@ -57,6 +57,7 @@ public class TypeInfo {
 	 * By default it treats the given class to be of multicoloumn type class
 	 * 
 	 * @param cls
+	 *            Bean class
 	 */
 	public TypeInfo(Class<?> cls) {
 		this(cls, false, null, null, null, null, false);
@@ -321,7 +322,7 @@ public class TypeInfo {
 	/**
 	 * This would return a Iterator to iterate over all multicolumn Types
 	 * 
-	 * @return
+	 * @return child iterator
 	 */
 	public List<TypeInfo> getChilds() {
 		return childs;
@@ -331,7 +332,8 @@ public class TypeInfo {
 	 * Retrieve TypeInfo instance for given column header be it direct or inner child.
 	 * 
 	 * @param header
-	 * @return
+	 *            column header
+	 * @return TypeInfo instance
 	 */
 	public TypeInfo getTypeInfo(String header) {
 		TypeInfo info = null;

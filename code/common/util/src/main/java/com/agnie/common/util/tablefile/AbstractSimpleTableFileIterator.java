@@ -46,10 +46,12 @@ public abstract class AbstractSimpleTableFileIterator<T> implements Iterator<T> 
 	private SimpleTokenProcessor<T>	processor;
 
 	/**
-	 * Sub class of this class must call init() method a the end of the constructor to initialise the Iterator.
+	 * Sub class of this class must call init() method at the end of the constructor to initialise the Iterator.
 	 * 
 	 * @param cls
+	 *            entity class type
 	 * @throws IOException
+	 *             exception
 	 */
 	public AbstractSimpleTableFileIterator(Class<T> cls) throws IOException {
 		this(cls, false);
@@ -59,10 +61,12 @@ public abstract class AbstractSimpleTableFileIterator<T> implements Iterator<T> 
 	 * Sub class of this class must call init() method a the end of the constructor to initialise the Iterator.
 	 * 
 	 * @param cls
+	 *            entity class type
 	 * @param throwValidationErrors
 	 *            boolean flag which will indicate iterator. If it has to throw exception immediately or it has to
 	 *            collect those errors and provide it after record is retrieved.
 	 * @throws IOException
+	 *             exception
 	 */
 	@SuppressWarnings("unchecked")
 	public AbstractSimpleTableFileIterator(Class<T> cls, boolean throwValidationErrors) throws IOException {
@@ -123,11 +127,15 @@ public abstract class AbstractSimpleTableFileIterator<T> implements Iterator<T> 
 	 * throw RuntimeException ConstraintViolationException with csv header name, row count and list of violating
 	 * validators
 	 * 
-	 * @return
+	 * @return return next bean.
 	 * @throws InstantiationException
+	 *             exception
 	 * @throws IllegalAccessException
+	 *             exception
 	 * @throws IllegalArgumentException
+	 *             exception
 	 * @throws InvocationTargetException
+	 *             exception
 	 */
 	private T getBean() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		if ((nextTokens != null && nextTokens.size() > 0)) {
@@ -146,7 +154,9 @@ public abstract class AbstractSimpleTableFileIterator<T> implements Iterator<T> 
 	 * Abstract method to read one line of file and separate every column value as a token and populate it in to
 	 * nextTokens list. Which will be used by subsequent methods
 	 * 
+	 * @return map of key value.
 	 * @throws IOException
+	 *             exception
 	 */
 	protected abstract Map<String, String> readTokens() throws IOException;
 

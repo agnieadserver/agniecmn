@@ -27,8 +27,11 @@ public interface TableBean {
 	 * using these error message accordingly.
 	 * 
 	 * @param property
+	 *            Key
 	 * @param value
+	 *            value
 	 * @param errors
+	 *            any errors
 	 */
 	public void insertError(String property, String value, List<String> errors);
 }

@@ -4,7 +4,7 @@
 	<groupId>com.agnie.common</groupId>
 	<artifactId>parent</artifactId>
 	<packaging>pom</packaging>
-	<version>1.1</version>
+	<version>1.2-SNAPSHOT</version>
 	<name>parent module for Common library</name>
 	<url>http://agnie.net/</url>
 
@@ -18,7 +18,7 @@
 
 	<scm>
 		<developerConnection>scm:git:git@bitbucket.org:pandurangpatil/agniecmn.git</developerConnection>
-		<tag>parent-1.1</tag>
+		<tag>HEAD</tag>
 	</scm>
 	<contributors>
 		<contributor>

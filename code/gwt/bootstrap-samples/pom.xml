@@ -13,6 +13,8 @@
 	<properties>
 		<!-- Convenience property to set the GWT version -->
 		<gwtVersion>2.6.1</gwtVersion>
+		<agnie.common.version>1.1</agnie.common.version>
+		<agnie.gwt.common.version>1.0</agnie.gwt.common.version>
 		<!-- GWT needs at least java 1.5 -->
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,7 +25,7 @@
 		<dependency>
 			<groupId>com.agnie.gwt</groupId>
 			<artifactId>agnie-gwt-common</artifactId>
-			<version>2.0</version>
+			<version>${agnie.gwt.common.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
@@ -46,18 +48,17 @@
 		<dependency>
 			<groupId>com.google.gwt.inject</groupId>
 			<artifactId>gin</artifactId>
-			<version>2.0.0</version>
+			<version>2.1.2</version>
 		</dependency>
 		<dependency>
 			<artifactId>bootstrap-common</artifactId>
 			<groupId>com.agnie.gwt</groupId>
-			<version>2.0</version>
+			<version>1.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.agnie.gwt</groupId>
 			<artifactId>codemirror</artifactId>
 			<version>1.0</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.gwt-charts</groupId>

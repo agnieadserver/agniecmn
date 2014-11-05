@@ -11,6 +11,7 @@
 	<inherits name="com.agnie.gwt.codemirror.mode.htmlmixed" />
 	<inherits name="com.agnie.gwt.codemirror.theme.monokai" />
 	<inherits name="com.agnie.gwt.codemirror.keymap.vim" />
+	<inherits name="com.googlecode.gwt.charts.Charts" />
 	<!-- Specify the app entry point class. -->
 	<entry-point class='com.agnie.gwt.client.samples' />
 

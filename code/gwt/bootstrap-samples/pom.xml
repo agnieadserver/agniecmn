@@ -59,6 +59,11 @@
 			<version>1.0</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.googlecode.gwt-charts</groupId>
+			<artifactId>gwt-charts</artifactId>
+			<version>0.9.10</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<!-- Generate compiled stuff in the folder used for developing mode -->

@@ -53,18 +53,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<!-- More Project Information -->
-	<!-- name>...</name> <description>...</description> <url>...</url> <inceptionYear>2011</inceptionYear> 
-		<licenses> ... </licenses -->
-	<organization>
-		<name>SFEIR</name>
-		<url>http://www.sfeir.com</url>
-	</organization>
-	<developers>
-		<developer>
-			<name>François LAROCHE</name>
-			<organization>SFEIR</organization>
-			<organizationUrl>www.sfeir.com</organizationUrl>
-		</developer>
-	</developers>
 </project>

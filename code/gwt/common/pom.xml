@@ -24,7 +24,7 @@
         <dependency>
             <groupId>com.agnie.common</groupId>
             <artifactId>commons</artifactId>
-            <version>1.0</version>
+            <version>${agnie.common.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.gwt</groupId>

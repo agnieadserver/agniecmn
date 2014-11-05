@@ -14,6 +14,7 @@
 		<!-- Convenience property to set the GWT version -->
 		<gwtVersion>2.6.1</gwtVersion>
 		<gwtpluginVersion>2.6.1</gwtpluginVersion>
+		<agnie.common.version>1.1</agnie.common.version>
 		<!-- GWT needs at least java 1.5 -->
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
@@ -53,7 +54,7 @@
 		<dependency>
 			<groupId>com.agnie.common</groupId>
 			<artifactId>commons</artifactId>
-			<version>1.0</version>
+			<version>${agnie.common.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.agnie.gwt</groupId>
@@ -154,5 +155,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

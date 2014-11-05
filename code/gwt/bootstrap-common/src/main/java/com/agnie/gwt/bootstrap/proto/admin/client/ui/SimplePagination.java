@@ -61,6 +61,7 @@ public class SimplePagination extends Pagination {
 	 * It is expected to set pager once for a instance.
 	 * 
 	 * @param pager
+	 *            pager object
 	 */
 	public void setPager(SimplePager pager) {
 		this.pager = pager;
@@ -112,10 +113,6 @@ public class SimplePagination extends Pagination {
 		private int				pageNumber;
 		private AnchorListItem	page;
 
-		/**
-		 * @param pageNumber
-		 * @param page
-		 */
 		public PageClickHandler(int pageNumber, AnchorListItem page) {
 			this.pageNumber = pageNumber;
 			this.page = page;
@@ -141,15 +138,12 @@ public class SimplePagination extends Pagination {
 	}
 
 	/**
-	 * This will help to rebuild the Pagination based on the data inside the SimplePager passed in.
-	 * <p/>
-	 * Make sure to all this after adding/remove data from any of the grid to ensure that this stays current with the
-	 * SimplePager.
-	 * <p/>
-	 * ex. dataProvider.getList().addAll(newData); pagination.rebuild(mySimplePager);
+	 * This will help to rebuild the Pagination based on the data inside the SimplePager passed in. Make sure to all
+	 * this after adding/remove data from any of the grid to ensure that this stays current with the SimplePager. ex.
+	 * dataProvider.getList().addAll(newData); pagination.rebuild(mySimplePager);
 	 *
-	 * @param pager
-	 *            the SimplePager of the CellTable/DataGrid
+	 * @param nextFlag
+	 *            next flag
 	 */
 	public void rebuild(boolean nextFlag) {
 		clear();

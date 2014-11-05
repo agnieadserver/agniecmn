@@ -24,26 +24,16 @@ import com.google.gwt.safehtml.shared.SafeHtml;
 public class BigToggleButton extends HTMLPanel implements HasDataToggle {
 	protected DataToggleMixin<BigToggleButton>	dataToggle	= new DataToggleMixin<BigToggleButton>(this);
 
-	/**
-	 * @param safeHtml
-	 */
 	public BigToggleButton(SafeHtml safeHtml) {
 		super(safeHtml);
 		init();
 	}
 
-	/**
-	 * @param tag
-	 * @param html
-	 */
 	public BigToggleButton(String tag, String html) {
 		super(tag, html);
 		init();
 	}
 
-	/**
-	 * @param html
-	 */
 	public BigToggleButton(String html) {
 		super(html);
 		init();

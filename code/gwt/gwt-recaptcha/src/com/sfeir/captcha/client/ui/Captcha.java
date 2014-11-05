@@ -30,8 +30,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.sfeir.captcha.shared.CaptchaResult;
 
 /**
- * Simple Widget displaying a captcha.<br />
- * This widget will create a div element and inject the captcha within.
+ * Simple Widget displaying a captcha. This widget will create a div element and inject the captcha within.
  * 
  * @author Franois LAROCHE
  */
@@ -134,8 +133,7 @@ public class Captcha extends Composite {
 	}
 
 	/**
-	 * Validates and reloads Captcha. <br />
-	 * If you need to change your captcha, you call this method.
+	 * Validates and reloads Captcha. If you need to change your captcha, you call this method.
 	 * 
 	 * @return the result of the captcha, containong all information for its validation
 	 */
@@ -158,13 +156,13 @@ public class Captcha extends Composite {
 	}
 
 	public static native void nativeloaded(Captcha captcha) /*-{
-		Recaptcha = $wnd.Recaptcha;
-		Recaptcha.agnieLoaded = function() {
-			//			alert('at least js is getting called');
-			captcha.@com.sfeir.captcha.client.ui.Captcha::loaded()();
-		};
+															Recaptcha = $wnd.Recaptcha;
+															Recaptcha.agnieLoaded = function() {
+															//			alert('at least js is getting called');
+															captcha.@com.sfeir.captcha.client.ui.Captcha::loaded()();
+															};
 
-	}-*/;
+															}-*/;
 
 	public CaptchaResult getCaptchaResult() {
 		return new CaptchaResult(this.key, getCaptchaChallenge(), getCaptchaResponse());
@@ -183,11 +181,11 @@ public class Captcha extends Composite {
 	 *            the id of the div in which to inject the captcha
 	 */
 	private static native void injectCaptcha(String key, String divId, String configuration) /*-{
-		var myDiv = $doc.getElementById(divId);
-		Recaptcha = $wnd.Recaptcha;
-		eval('var conf = ' + configuration);
-		Recaptcha.create(key, myDiv, conf);
-	}-*/;
+																								var myDiv = $doc.getElementById(divId);
+																								Recaptcha = $wnd.Recaptcha;
+																								eval('var conf = ' + configuration);
+																								Recaptcha.create(key, myDiv, conf);
+																								}-*/;
 
 	/**
 	 * returns the challenge of the captcha. <br >
@@ -198,9 +196,9 @@ public class Captcha extends Composite {
 	 * @return the challenge of the captcha
 	 */
 	private static native String getCaptchaChallenge() /*-{
-		Recaptcha = $wnd.Recaptcha;
-		return Recaptcha.get_challenge();
-	}-*/;
+														Recaptcha = $wnd.Recaptcha;
+														return Recaptcha.get_challenge();
+														}-*/;
 
 	/**
 	 * returns the response of the captcha.<br />
@@ -209,9 +207,9 @@ public class Captcha extends Composite {
 	 * @return the response to the captcha entered by the client
 	 */
 	private static native String getCaptchaResponse() /*-{
-		Recaptcha = $wnd.Recaptcha;
-		return Recaptcha.get_response();
-	}-*/;
+														Recaptcha = $wnd.Recaptcha;
+														return Recaptcha.get_response();
+														}-*/;
 
 	/**
 	 * Transforms a java Map to a String that will be evaluated to an associative array in Js This is ugly, but so far I

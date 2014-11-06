@@ -51,8 +51,8 @@
 			<version>2.1.2</version>
 		</dependency>
 		<dependency>
-			<artifactId>bootstrap-common</artifactId>
 			<groupId>com.agnie.gwt</groupId>
+			<artifactId>bootstrap-common</artifactId>
 			<version>1.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>

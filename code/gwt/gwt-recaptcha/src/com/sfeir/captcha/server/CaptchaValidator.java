@@ -19,8 +19,8 @@ import net.tanesha.recaptcha.ReCaptchaResponse;
 import com.sfeir.captcha.shared.CaptchaResult;
 
 /**
- * Class used to validate the captcha server side.<br />
- * You are not obliged to use it, you can use the ReCaptchaImpl class provided in recaptcha4j.
+ * Class used to validate the captcha server side. You are not obliged to use it, you can use the ReCaptchaImpl class
+ * provided in recaptcha4j.
  * 
  * 
  * @author Franois LAROCHE
@@ -30,17 +30,18 @@ public class CaptchaValidator {
 	/**
 	 * Private key for recaptcha
 	 */
-	private String privateKey;
+	private String			privateKey;
 
 	/**
 	 * Object used to validate the captcha, making the remote call
 	 */
-	private ReCaptchaImpl reCaptcha;
-	
+	private ReCaptchaImpl	reCaptcha;
+
 	/**
 	 * Constructs a new <code>CaptchaValidator</code> using the given private key
 	 * 
-	 * @param privateKey the private key, as defined in recaptcha
+	 * @param privateKey
+	 *            the private key, as defined in recaptcha
 	 */
 	public CaptchaValidator(String privateKey) {
 		this.privateKey = privateKey;
@@ -49,13 +50,15 @@ public class CaptchaValidator {
 	}
 
 	/**
-	 * Validates a captcha result obtained through a {@link com.sfeir.captcha.client.ui.Captcha} 
+	 * Validates a captcha result obtained through a {@link com.sfeir.captcha.client.ui.Captcha}
 	 * 
-	 * @param result the result of the captcha, obtained by the client
-	 * @param remoteAddr the IP address of the client
+	 * @param result
+	 *            the result of the captcha, obtained by the client
+	 * @param remoteAddr
+	 *            the IP address of the client
 	 * @return whether or not the text entered by the client is valid
 	 */
-	public boolean validateCaptcha(CaptchaResult result, String remoteAddr){
+	public boolean validateCaptcha(CaptchaResult result, String remoteAddr) {
 		ReCaptchaResponse reCaptchaResponse = reCaptcha.checkAnswer(remoteAddr, result.getChallenge(), result.getResponse());
 		return reCaptchaResponse.isValid();
 	}

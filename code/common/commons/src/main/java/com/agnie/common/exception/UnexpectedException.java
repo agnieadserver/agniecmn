@@ -15,24 +15,14 @@ public class UnexpectedException extends RuntimeException {
 	public UnexpectedException() {
 	}
 
-	/**
-	 * @param message
-	 */
 	public UnexpectedException(String message) {
 		super(message);
 	}
 
-	/**
-	 * @param cause
-	 */
 	public UnexpectedException(Throwable cause) {
 		super(cause);
 	}
 
-	/**
-	 * @param message
-	 * @param cause
-	 */
 	public UnexpectedException(String message, Throwable cause) {
 		super(message, cause);
 	}

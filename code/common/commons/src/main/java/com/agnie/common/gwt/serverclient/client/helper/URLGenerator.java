@@ -130,7 +130,7 @@ public class URLGenerator {
 	 *            agnie application domain
 	 * @param devMode
 	 *            GWT dev mode parameter.
-	 * @return
+	 * @return final generated url
 	 */
 	public String getChangePassUrl(URLInfo params, String domain, String devMode) {
 		return getLandingBaseUrl(params, domain, devMode) + HASH_CHANGE_PASS;
@@ -145,7 +145,7 @@ public class URLGenerator {
 	 *            agnie application domain
 	 * @param devMode
 	 *            GWT dev mode parameter.
-	 * @return
+	 * @return final generated url
 	 */
 	public String getUpdateProfUrl(URLInfo params, String domain, String devMode) {
 		return getLandingBaseUrl(params, domain, devMode) + HASH_UPDATE_PROFILE;
@@ -160,7 +160,7 @@ public class URLGenerator {
 	 *            agnie application domain
 	 * @param devMode
 	 *            GWT dev mode parameter.
-	 * @return
+	 * @return final generated url
 	 */
 	public String getLandingBaseUrl(URLInfo params, String domain, String devMode) {
 		String baseUrl = getLandingPageUrl(params, domain, devMode);
@@ -199,7 +199,7 @@ public class URLGenerator {
 	 *            agnie application domain
 	 * @param devMode
 	 *            GWT dev mode parameter.
-	 * @return
+	 * @return final generated url
 	 */
 	public String getLandingPageUrl(URLInfo params, String domain, String devMode) {
 		StringBuffer url = new StringBuffer();
@@ -257,8 +257,10 @@ public class URLGenerator {
 	 * Internal method to add parameter.
 	 * 
 	 * @param url
+	 *            url to which parameters will be appended
 	 * @param params
-	 * @return
+	 *            url information
+	 * @return true if parameter exist
 	 */
 	protected boolean fillParams(StringBuffer url, URLInfo params) {
 		String param = params.getParameter(QueryString.GWT_DEV_MODE.getKey());
@@ -280,8 +282,10 @@ public class URLGenerator {
 	 * the sides.
 	 * 
 	 * @param params
+	 *            url information
 	 * @param newLocale
-	 * @return
+	 *            new locate to add
+	 * @return updated url
 	 */
 	public String getChangeLocaleURL(URLInfo params, String newLocale) {
 		// sample URL "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997#sample=test"
@@ -349,7 +353,8 @@ public class URLGenerator {
 	 * To navigate user to back to the page from where he has come to either change password or update profile page.
 	 * 
 	 * @param params
-	 * @return
+	 *            url information
+	 * @return source url
 	 */
 	public String getSourceUrl(URLInfo params) {
 		String param = params.getParameter(QueryString.SOURCE.getKey());

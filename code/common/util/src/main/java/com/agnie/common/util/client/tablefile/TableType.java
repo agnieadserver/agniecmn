@@ -14,6 +14,7 @@ import java.util.List;
  * Generic wrapper on any data type which can also hold error and actual token string.
  * 
  * @param <T>
+ *            Value Type
  */
 
 public class TableType<T> {
@@ -29,6 +30,7 @@ public class TableType<T> {
 
 	/**
 	 * @param value
+	 *            actual value
 	 */
 	public TableType(T value) {
 		super();

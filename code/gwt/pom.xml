@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.agnie.gwt</groupId>
 	<artifactId>gwt</artifactId>
 	<packaging>pom</packaging>
-	<version>2.0</version>
+	<version>1.1-SNAPSHOT</version>
 	<name>GWT Libraries</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -15,8 +14,39 @@
 		<!-- GWT needs at least java 1.5 -->
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
+		<agnie.common.version>1.1</agnie.common.version>
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
 	</properties>
+
+	<scm>
+		<developerConnection>scm:git:git@bitbucket.org:pandurangpatil/agniecmn.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+	<contributors>
+		<contributor>
+			<name>Pandurang Patil</name>
+			<email>pandurang@agnie.net</email>
+			<url>http://www.pandurangpatil.com</url>
+			<organization>Agnie Media Software</organization>
+			<organizationUrl>http://agnie.net/</organizationUrl>
+			<roles>
+				<role>Architect</role>
+			</roles>
+			<timezone>India</timezone>
+		</contributor>
+		<contributor>
+			<name>Raj Gaurav Dubey</name>
+			<email>rajgaurav@agnie.net</email>
+			<url>https://www.linkedin.com/profile/view?id=86447759</url>
+			<organization>Agnie Media Software</organization>
+			<organizationUrl>http://agnie.net/</organizationUrl>
+			<roles>
+				<role>Software Developer</role>
+			</roles>
+			<timezone>India</timezone>
+		</contributor>
+	</contributors>
+
 	<modules>
 		<module>common</module>
 		<module>gwt-recaptcha</module>
@@ -35,29 +65,69 @@
 			<version>2.6</version>
 		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5.1</version>
+			</plugin>
+		</plugins>
+	</build>
 	<profiles>
 		<profile>
-			<id>dev</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<login.page>lactoasgsncwlfstowfabczx.jsp</login.page>
-				<home.page>useradmin.html</home.page>
-				<admin.home.url>http://127.0.0.1:8888/</admin.home.url>
-			</properties>
+			<id>src</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>2.1.2</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>javadoc</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.7</version>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 	</profiles>
 	<distributionManagement>
 		<repository>
-	        <id>agnie-local-repo</id>
-	        <name>agnie-local-repo-releases</name>
-	        <url>http://192.168.2.102:8081/artifactory/libs-release-local</url>
-	    </repository>
-	    <snapshotRepository>
-	        <id>agnie-local-repo</id>
-	        <name>agnie-local-repo-snapshots</name>
-	        <url>http://192.168.2.102:8081/artifactory/libs-snapshot-local</url>
-	    </snapshotRepository>
+			<id>agnie-local-repo</id>
+			<name>agnie-local-repo-releases</name>
+			<url>http://192.168.2.102:8081/artifactory/libs-release-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>agnie-local-repo</id>
+			<name>agnie-local-repo-snapshots</name>
+			<url>http://192.168.2.102:8081/artifactory/libs-snapshot-local</url>
+		</snapshotRepository>
 	</distributionManagement>
 </project>

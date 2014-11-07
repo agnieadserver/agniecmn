@@ -71,8 +71,6 @@ public class ValidatorFactory {
 	/**
 	 * get validator mapped to given annotation
 	 * 
-	 * @param an
-	 * @return
 	 */
 	private Validator getValidator(Annotation an) {
 		try {
@@ -106,7 +104,8 @@ public class ValidatorFactory {
 	 * get validators for constraints applied on given methods.
 	 * 
 	 * @param method
-	 * @return
+	 *            method
+	 * @return validators connected to given method.
 	 */
 	public List<Validator> getMethodValidator(Method method) {
 
@@ -125,7 +124,8 @@ public class ValidatorFactory {
 	 * get validators for constraints applied on given field.
 	 * 
 	 * @param field
-	 * @return
+	 *            field
+	 * @return validators connected to given method.
 	 */
 	public List<Validator> getFieldValidator(Field field) {
 

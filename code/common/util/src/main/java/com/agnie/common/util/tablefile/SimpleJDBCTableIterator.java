@@ -41,10 +41,15 @@ public class SimpleJDBCTableIterator<T> extends AbstractSimpleTableFileIterator<
 	 * done.
 	 * 
 	 * @param cls
+	 *            bean class type
 	 * @param connection
+	 *            db connection
 	 * @param sql
+	 *            sql
 	 * @throws IOException
+	 *             exception
 	 * @throws SQLException
+	 *             exception
 	 */
 	public SimpleJDBCTableIterator(Class<T> cls, Connection connection, String sql) throws IOException, SQLException {
 		super(cls);

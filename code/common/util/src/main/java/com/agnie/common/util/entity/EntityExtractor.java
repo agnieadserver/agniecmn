@@ -25,10 +25,6 @@ public class EntityExtractor<E> {
 	private Class<E>			entityCls;
 	private Connection			connection;
 
-	/**
-	 * @param entityCls
-	 * @param connection
-	 */
 	public EntityExtractor(Class<E> entityCls, Connection connection) {
 		super();
 		this.entityCls = entityCls;

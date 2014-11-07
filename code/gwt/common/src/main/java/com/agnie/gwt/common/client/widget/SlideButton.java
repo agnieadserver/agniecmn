@@ -19,23 +19,26 @@ import com.kiouri.sliderbar.client.view.SliderBarHorizontal;
 
 /**
  * 
- *<p> SlideButton Widget is an simple On-Off switch(Toggles between two states) with BarValueChangedHandler <br>
- * Fixed Size Width:200px Height:30px,changing size might cause errors.
- *  <br>
+ * <p>
+ * SlideButton Widget is an simple On-Off switch(Toggles between two states) with BarValueChangedHandler <br>
+ * Fixed Size Width:200px Height:30px,changing size might cause errors. <br>
  * dependency:- <br>
- * groupId:-gwt-slider-bar artifactId:-gwt-slider-bar version:-1.0</p>
- * <p>IMP:We have to adjust SlideButton drag element width for state0 as it is but for state1 it must be (width-4)
- * we have to adjust in stateChangeHandler {for event.state1 =slideButton.getDragWidget().getElement().setScrollLeft(96); and <br>
- * event.state0=slideButton.getDragWidget().getElement().setScrollLeft(100);</p>
+ * groupId:-gwt-slider-bar artifactId:-gwt-slider-bar version:-1.0
+ * </p>
+ * <p>
+ * IMP:We have to adjust SlideButton drag element width for state0 as it is but for state1 it must be (width-4) we have
+ * to adjust in stateChangeHandler {for event.state1 =slideButton.getDragWidget().getElement().setScrollLeft(96); and <br>
+ * event.state0=slideButton.getDragWidget().getElement().setScrollLeft(100);
+ * </p>
  */
 public class SlideButton extends SliderBarHorizontal {
 
-	int						maxValue	= 1;
-	int						width		= 200;
-	int						height		= 30;
-	SlideButtonScale		sbs			= new SlideButtonScale();
-	final SlideButtonDrag	sbd			= new SlideButtonDrag();
-	private List<HandlerRegistration> valueChangeHandlers=new ArrayList<HandlerRegistration>();
+	int									maxValue			= 1;
+	int									width				= 200;
+	int									height				= 30;
+	SlideButtonScale					sbs					= new SlideButtonScale();
+	final SlideButtonDrag				sbd					= new SlideButtonDrag();
+	private List<HandlerRegistration>	valueChangeHandlers	= new ArrayList<HandlerRegistration>();
 
 	public SlideButton() {
 		this.addStyleName("slide-btn");
@@ -60,13 +63,13 @@ public class SlideButton extends SliderBarHorizontal {
 		this.setWidth(String.valueOf(width) + "px");
 		this.setMaxValue(maxValue);// For 2 steps value is 1
 		this.addBarValueChangedHandler(new BarValueChangedHandler() {
-			
+
 			@Override
 			public void onBarValueChanged(BarValueChangedEvent event) {
 				if (1 == event.getValue()) {
 					sbd.removeStyleName(SlideButtonDrag.getResources().css().positionLeft());
 					sbd.addStyleName(SlideButtonDrag.getResources().css().positionRight());
-					
+
 				} else {
 					sbd.removeStyleName(SlideButtonDrag.getResources().css().positionRight());
 					sbd.addStyleName(SlideButtonDrag.getResources().css().positionLeft());
@@ -74,32 +77,30 @@ public class SlideButton extends SliderBarHorizontal {
 			}
 		});
 	}
-	
-	
+
 	@Override
 	/**
 	 * Adds BarValueChangedHandler (for handling changes of knob position)
-	 * @param barValueChangedHandler
+	 * @param barValueChangedHandler value change handler
 	 * @return HandlerRegistration used to remove this handler
 	 */
-	public HandlerRegistration addBarValueChangedHandler(
-			BarValueChangedHandler barValueChangedHandler){
-		HandlerRegistration hr=super.addBarValueChangedHandler(barValueChangedHandler);
+	public HandlerRegistration addBarValueChangedHandler(BarValueChangedHandler barValueChangedHandler) {
+		HandlerRegistration hr = super.addBarValueChangedHandler(barValueChangedHandler);
 		valueChangeHandlers.add(hr);
 		return hr;
 	}
-	
+
 	/**
 	 * To clear BarValueChangeHandlers for slideButton.
 	 */
-	public void clearBarValueChangeHandlers(){
+	public void clearBarValueChangeHandlers() {
 		for (HandlerRegistration vch : valueChangeHandlers) {
 			vch.removeHandler();
 		}
 		valueChangeHandlers.clear();
 	}
-	
-	public List<HandlerRegistration> getValueChangeHandlerRegsList(){
+
+	public List<HandlerRegistration> getValueChangeHandlerRegsList() {
 		return this.valueChangeHandlers;
 	}
 
@@ -108,6 +109,7 @@ public class SlideButton extends SliderBarHorizontal {
 	 * need to change in css(margin-left)
 	 * 
 	 * @param title
+	 *            label to be set.
 	 */
 
 	public void setLeftTitle(String title) {
@@ -119,6 +121,7 @@ public class SlideButton extends SliderBarHorizontal {
 	 * need to change in css(margin-left)
 	 * 
 	 * @param title
+	 *            label to be set
 	 */
 	public void setRightTitle(String title) {
 		this.sbs.setRightTitle(title);

@@ -5,7 +5,7 @@
     <parent>
         <artifactId>gwt</artifactId>
         <groupId>com.agnie.gwt</groupId>
-        <version>2.0</version>
+        <version>1.1-SNAPSHOT</version>
     </parent>
     <artifactId>agnie-gwt-common</artifactId>
     <packaging>jar</packaging>
@@ -24,7 +24,7 @@
         <dependency>
             <groupId>com.agnie.common</groupId>
             <artifactId>commons</artifactId>
-            <version>1.0</version>
+            <version>${agnie.common.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.gwt</groupId>

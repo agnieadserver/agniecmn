@@ -35,6 +35,7 @@ public class Recipient {
 	 * @param recipients
 	 *            comma separated list of email ids
 	 * @throws AddressException
+	 *             exception
 	 */
 
 	public void put(RecipientType type, String recipients) throws AddressException {
@@ -54,7 +55,7 @@ public class Recipient {
 	 * 
 	 * @param type
 	 *            TO,CC, BCC
-	 * @return
+	 * @return list of address
 	 */
 	public Address[] get(RecipientType type) {
 

@@ -24,9 +24,6 @@ public class AccessControlList implements Serializable {
 	private static final String	ROOT_NODE			= "perm";
 	private static final String	SEPERATOR			= "_";
 
-	/**
-     * 
-     */
 	private static final long	serialVersionUID	= 1L;
 
 	/*
@@ -89,7 +86,9 @@ public class AccessControlList implements Serializable {
 		 * To generate permission tree structure.
 		 * 
 		 * @param pm
+		 *            permission
 		 * @throws InvalidPermission
+		 *             exception
 		 */
 		void add(String pm) throws InvalidPermission {
 			if (pm != null && !("".equals(pm.trim()))) {
@@ -122,7 +121,8 @@ public class AccessControlList implements Serializable {
 		 * Check for given permission by iterating it through tree structure
 		 * 
 		 * @param pm
-		 * @return
+		 *            permission
+		 * @return result of check
 		 */
 		boolean check(String pm) {
 			boolean resp = false;
@@ -176,7 +176,7 @@ public class AccessControlList implements Serializable {
 	}
 
 	/**
-	 * @return the owner
+	 * @return true if owner
 	 */
 	boolean isOwner() {
 		return owner;
@@ -186,7 +186,9 @@ public class AccessControlList implements Serializable {
 	 * Add new permission into tree structure
 	 * 
 	 * @param pm
+	 *            permission to be added
 	 * @throws InvalidPermission
+	 *             exception
 	 */
 	public void addPermission(String pm) throws InvalidPermission {
 		if (pm != null && !("".equals(pm.trim())) && pm.startsWith(ROOT_NODE + SEPERATOR)) {
@@ -207,7 +209,8 @@ public class AccessControlList implements Serializable {
 	 * Check if user has given permission
 	 * 
 	 * @param perm
-	 * @return
+	 *            permission to check
+	 * @return true if permission matches
 	 */
 	public boolean check(String perm) {
 		return (owner ? true : (root != null ? root.check(perm) : false));

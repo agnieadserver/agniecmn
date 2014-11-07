@@ -28,7 +28,9 @@ public class MessageTemplate {
 
 	/**
 	 * @param template
+	 *            template
 	 * @param configPath
+	 *            config location
 	 */
 	public MessageTemplate(String template, String configPath) {
 		this.template = template;
@@ -44,6 +46,7 @@ public class MessageTemplate {
 	 * read the contents of the template on its first use.
 	 * 
 	 * @throws IOException
+	 *             exception
 	 */
 	private synchronized void init() throws IOException {
 
@@ -60,7 +63,8 @@ public class MessageTemplate {
 	 * Generate the message from template by replacing variable values inside template.
 	 * 
 	 * @param valuesMap
-	 * @return
+	 *            input variables
+	 * @return final message with input variables substituted.
 	 * @throws IOException
 	 */
 	public String getMessage(Map<String, String> valuesMap) throws IOException {

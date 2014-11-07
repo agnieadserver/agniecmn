@@ -50,6 +50,8 @@ public class SearchBox extends Composite {
 
 	/**
 	 * get text from searchBox
+	 * 
+	 * @return text value
 	 */
 	public String getText() {
 

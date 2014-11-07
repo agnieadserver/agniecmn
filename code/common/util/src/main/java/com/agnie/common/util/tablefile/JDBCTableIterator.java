@@ -41,10 +41,15 @@ public class JDBCTableIterator<T> extends AbstractTableFileIterator<T> {
 	 * done.
 	 * 
 	 * @param cls
+	 *            bean class type
 	 * @param connection
+	 *            db connection
 	 * @param sql
+	 *            sql
 	 * @throws IOException
+	 *             exception
 	 * @throws SQLException
+	 *             exception
 	 */
 	public JDBCTableIterator(Class<T> cls, Connection connection, String sql) throws IOException, SQLException {
 		super(cls);

@@ -31,10 +31,11 @@ public class ShutdownProcessor {
 	 * To register new shutdown hook which will be called when system (application either from inside web container or
 	 * from act as independent application) is getting shutdown.
 	 * 
-	 * Note: You need to make sure your hook don't take much time. Other wise that may impact on shutdown
-	 * for other hooks in queue.
+	 * Note: You need to make sure your hook don't take much time. Other wise that may impact on shutdown for other
+	 * hooks in queue.
 	 * 
 	 * @param hook
+	 *            shutdown hook to register
 	 */
 	public void register(ShutdownHook hook) {
 		hooks.add(hook);
@@ -44,6 +45,9 @@ public class ShutdownProcessor {
 	 * To initiate shutdown with shutdown hooks registered with processor. Ideally this has to be called from inside
 	 * Servlet context listeners destroy method in case of web app. In case of independent app / tool you knwow the code
 	 * better you should invoke it when you know your app is existing gracefully.
+	 * 
+	 * @param sync
+	 *            flag indicating sync or async execution of shutdown hooks.
 	 */
 	public void shutdown(boolean sync) {
 		for (ShutdownHook hook : hooks) {

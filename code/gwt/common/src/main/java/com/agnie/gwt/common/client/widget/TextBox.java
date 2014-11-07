@@ -96,6 +96,7 @@ public class TextBox extends Composite {
 	 * sets whether this widget is enabled or not
 	 * 
 	 * @param enabled
+	 *            enable disable flag
 	 */
 	public void setEnabled(boolean enabled) {
 		textBox.setEnabled(enabled);
@@ -105,6 +106,7 @@ public class TextBox extends Composite {
 	 * sets error-message to visible or not
 	 * 
 	 * @param visible
+	 *            visible flag
 	 */
 	public void setErrorMessVisible(boolean visible) {
 		if (visible) {
@@ -120,8 +122,9 @@ public class TextBox extends Composite {
 	 * To set error message.
 	 * 
 	 * @param message
+	 *            error message
 	 * @param autoHide
-	 *            To autohide the error message.
+	 *            autohide error message flag.
 	 */
 	public void setErrorMessage(String message, boolean autoHide) {
 		setErrorMessage(message, autoHide, TIMEOUT);
@@ -131,8 +134,11 @@ public class TextBox extends Composite {
 	 * To set error message.
 	 * 
 	 * @param message
+	 *            error message
 	 * @param autoHide
-	 *            To autohide the error message in given timeout.
+	 *            autohide error message flag.
+	 * @param timeout
+	 *            time delay to auto hide error message panel
 	 */
 	public void setErrorMessage(String message, boolean autoHide, int timeout) {
 		this.leftErrorPan.message.setText(message);
@@ -171,6 +177,7 @@ public class TextBox extends Composite {
 	 * sets error panel width
 	 * 
 	 * @param width
+	 *            width of error panel
 	 */
 	public void setErrorPanWidth(int width) {
 		int messSpanwidth = 0;
@@ -184,6 +191,7 @@ public class TextBox extends Composite {
 	 * sets errorPan height
 	 * 
 	 * @param height
+	 *            height of error panel
 	 */
 	public void setErrorPanHeight(int height) {
 		errorPan.setHeight(height + "px");
@@ -193,6 +201,7 @@ public class TextBox extends Composite {
 	 * sets text in textbox
 	 * 
 	 * @param text
+	 *            text value
 	 */
 	public void setText(String text) {
 		this.textBox.setText(text);
@@ -276,6 +285,9 @@ public class TextBox extends Composite {
 
 	/**
 	 * set text box visible or not
+	 * 
+	 * @param visible
+	 *            visible flag
 	 */
 	public void setVisible(boolean visible) {
 		this.container.setVisible(visible);
@@ -283,6 +295,9 @@ public class TextBox extends Composite {
 
 	/**
 	 * set TextBox width
+	 * 
+	 * @param width
+	 *            width of text box
 	 */
 	public void setWidth(String width) {
 		this.textBox.setWidth(width);

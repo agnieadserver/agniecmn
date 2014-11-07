@@ -36,10 +36,8 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * This is generic tab panel which is bare structure. It will take the shape as per css applied.
  * 
- * <p>
  * <div class="tabBox"> <div class="tabs"> <div class="inactive"> <a class="gwt-Anchor" href="javascript:;">Home</a>
  * </div> <div class="active"> <a class="gwt-Anchor" href="javascript:;">User Manager</a> </div> </div> </div>
- * </p>
  * 
  * You can create different set of styles to have different look and feel for your tab. e.g. you can create vertical tab
  * panel by creating such kind of css.
@@ -113,6 +111,9 @@ public class TabBar extends Composite implements HasBeforeSelectionHandlers<Inte
 
 	/**
 	 * Creates an empty tab bar.
+	 * 
+	 * @param styleClassName
+	 *            enclosing style name
 	 */
 	public TabBar(String styleClassName) {
 		container = new SimplePanel();
@@ -143,7 +144,7 @@ public class TabBar extends Composite implements HasBeforeSelectionHandlers<Inte
 	 * Adds a new tab with the specified text.
 	 * 
 	 * @param text
-	 *            the new tab's text
+	 *            new tab's text
 	 */
 	public void addTab(String text) {
 		Anchor item;
@@ -158,7 +159,7 @@ public class TabBar extends Composite implements HasBeforeSelectionHandlers<Inte
 	/**
 	 * Gets the tab that is currently selected.
 	 * 
-	 * @return the selected tab
+	 * @return selected tab index
 	 */
 	public int getSelectedTab() {
 		if (selectedTab == null) {
@@ -188,7 +189,7 @@ public class TabBar extends Composite implements HasBeforeSelectionHandlers<Inte
 	/**
 	 * Gets the number of tabs present.
 	 * 
-	 * @return the tab count
+	 * @return tab count
 	 */
 	public int getTabCount() {
 		return panel.getWidgetCount();

@@ -14,7 +14,7 @@ public abstract class URLInfoBaseImpl implements URLInfo {
 	/**
 	 * Request urls base url.
 	 * 
-	 * @return
+	 * @return base URL without path
 	 */
 	public String getRootHostURL() {
 		String url = (getProtocol().contains("HTTPS") || getProtocol().contains("https") ? "https" : "http");
@@ -25,7 +25,7 @@ public abstract class URLInfoBaseImpl implements URLInfo {
 	/**
 	 * Base url with root context
 	 * 
-	 * @return
+	 * @return base URL with root context
 	 */
 	public String getRootContextURL() {
 		String completeUrl = getHostBaseURL();

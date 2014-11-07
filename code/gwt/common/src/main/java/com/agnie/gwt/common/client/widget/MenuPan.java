@@ -46,6 +46,7 @@ public class MenuPan extends PopupPanel {
 	 * To set menuPan width.
 	 * 
 	 * @param width
+	 *            width of menu panel
 	 */
 
 	public void setMenuPanWidth(String width) {
@@ -55,7 +56,8 @@ public class MenuPan extends PopupPanel {
 	/**
 	 * To set menuPan height.
 	 * 
-	 * @param width
+	 * @param height
+	 *            height of menu panel
 	 */
 
 	public void setMenuPanHeight(String height) {
@@ -66,7 +68,8 @@ public class MenuPan extends PopupPanel {
 	 * To Get menuItem(Label).
 	 * 
 	 * @param itemIndex
-	 * @return
+	 *            index of item
+	 * @return label of item at given index
 	 */
 	public Label getMenuItem(int itemIndex) {
 		return menuItemList.get(itemIndex);
@@ -86,6 +89,7 @@ public class MenuPan extends PopupPanel {
 	 * To add MenuItem (Label)
 	 * 
 	 * @param item
+	 *            item to be added
 	 */
 	public void addMenuItem(Label item) {
 		item.addStyleName(resource.css().menuItem());
@@ -97,6 +101,7 @@ public class MenuPan extends PopupPanel {
 	 * To remove menuItem(Label).
 	 * 
 	 * @param item
+	 *            item to be removed.
 	 */
 	public void removeMenuItem(int item) {
 		this.menuItemList.remove(item);
@@ -107,6 +112,7 @@ public class MenuPan extends PopupPanel {
 	 * To Inactive menuItem.
 	 * 
 	 * @param item
+	 *            item to be disabled.
 	 */
 	public void disableMenuItem(int item) {
 		this.getMenuItem(item).addStyleName(resource.css().menuItemDisabled());
@@ -116,6 +122,7 @@ public class MenuPan extends PopupPanel {
 	 * To active menuItem.
 	 * 
 	 * @param item
+	 *            item to be enabled.
 	 */
 	public void enableMenuItem(int item) {
 		this.getMenuItem(item).removeStyleName(resource.css().menuItemDisabled());

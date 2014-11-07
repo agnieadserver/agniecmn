@@ -73,8 +73,9 @@ public class SingleColumnConverterFactory {
 	/**
 	 * get Converter for given class
 	 * 
-	 * @param class
-	 * @return
+	 * @param cls
+	 *            Given class
+	 * @return converter
 	 */
 	public AbstractSingleColumnConverter getConverter(Class<?> cls) {
 		if (cls.isEnum()) {

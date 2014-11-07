@@ -23,14 +23,12 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Its common widget which will encapsulate all the components related to one form filed
- * <p>
  * <ul>
  * <li>Label of a field</li>
  * <li>Can mark required field</li>
  * <li>Container for input field</li>
  * <li>Place to show validation error message</li>
  * </ul>
- * </p>
  * 
  */
 public class FormFieldContainer extends Composite {

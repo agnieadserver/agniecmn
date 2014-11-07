@@ -17,9 +17,6 @@ import com.google.gwt.user.client.ui.PopupPanel;
 /**
  * LabelTextBox is an extension of GWT TextBox to show label as text field default value(in little bit light color).
  * 
- * @param String
- *            Label
- * 
  */
 public class LabelTextBox extends TextBox {
 	private static LabelTextBoxResources	resource	= LabelTextBoxResources.INSTANCE;
@@ -108,7 +105,7 @@ public class LabelTextBox extends TextBox {
 	/**
 	 * to get textbox
 	 * 
-	 * @return
+	 * @return Text box
 	 */
 
 	public TextBox getTextBox() {
@@ -118,7 +115,7 @@ public class LabelTextBox extends TextBox {
 	/**
 	 * to get ErrorMessage Panel
 	 * 
-	 * @return
+	 * @return error panel
 	 */
 	public PopupPanel getErrorPan() {
 		return this.errorPan;
@@ -136,6 +133,7 @@ public class LabelTextBox extends TextBox {
 	 * Sets default Label to text field,if end-user focus on text box this label disappears.
 	 * 
 	 * @param label
+	 *            field label
 	 */
 	public void setLabel(String label) {
 		if (label != null && !("".equals(label))) {

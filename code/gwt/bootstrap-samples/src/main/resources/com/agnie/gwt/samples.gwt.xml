@@ -13,6 +13,8 @@
 	<inherits name="com.agnie.gwt.codemirror.theme.monokai" />
 	<inherits name="com.agnie.gwt.codemirror.keymap.vim" />
 	<inherits name="com.googlecode.gwt.charts.Charts" />
+	<inherits name="com.agnie.gwt.bootstrap.extras.Extras" />
+
 	<!-- <inherits name="com.agnie.gwt.bootstrap.flatui.FlatUI" /> -->
 	<!-- Specify the app entry point class. -->
 	<entry-point class='com.agnie.gwt.client.samples' />

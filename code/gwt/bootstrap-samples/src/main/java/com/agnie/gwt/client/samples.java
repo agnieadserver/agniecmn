@@ -81,11 +81,10 @@ public class samples implements EntryPoint {
 		// RootPanel.get().add(countWidget);
 
 		// checkChartFromWidget();
-		// sampleListBox();
+		sampleListBox();
 	}
 
 	public void sampleListBox() {
-		// uncomment flatui gwt module from samples.gwt.xml
 		RootPanel.get().add(new ListBoxSample());
 	}
 

@@ -40,6 +40,11 @@
 			<artifactId>gwt-charts</artifactId>
 			<version>0.9.10</version>
 		</dependency>
+		<dependency>
+			<groupId>com.agnie.common</groupId>
+			<artifactId>commons</artifactId>
+			<version>${agnie.common.version}</version>
+		</dependency>
 	</dependencies>
 
 

@@ -8,13 +8,20 @@
  ******************************************************************************/
 package com.agnie.gwt.client.ui;
 
-import org.gwtbootstrap3.extras.select.client.ui.Select;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.gwtbootstrap3.extras.select.client.ui.Option;
+
+import com.agnie.common.gwt.serverclient.client.renderer.Title;
+import com.agnie.gwt.bootstrap.extras.client.widgets.Select;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
@@ -30,11 +37,40 @@ public class ListBoxSample extends Composite {
 	interface SamplePageUiBinder extends UiBinder<Widget, ListBoxSample> {
 	}
 
+	private class Person implements Title {
+		private String	fname;
+		private String	lname;
+
+		public Person(String fname, String lname) {
+			this.fname = fname;
+			this.lname = lname;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see com.agnie.common.gwt.serverclient.client.renderer.Title#getTitle()
+		 */
+		@Override
+		public String getTitle() {
+			return fname + " - " + lname;
+		}
+	}
+
+	List<Person>	list	= new ArrayList<ListBoxSample.Person>();
+
 	@UiField
-	Select	listbox;
+	Select<Person>	listbox;
 
 	public ListBoxSample() {
 		initWidget(uiBinder.createAndBindUi(this));
+		list.add(new Person("Pandurang", "Patil"));
+		list.add(new Person("Sandy", "Mukho"));
+		list.add(new Person("Raj", "Dubey"));
+		list.add(new Person("Saurabh", "Sameer"));
+		listbox.setList(list);
+		listbox.addItem(new Person("Ramu", "Kaka"));
+		listbox.setSelected(list.get(3));
 		listbox.addChangeHandler(new ChangeHandler() {
 
 			@Override
@@ -43,9 +79,17 @@ public class ListBoxSample extends Composite {
 				for (String selected : listbox.getAllSelectedValues()) {
 					test.append("- " + selected);
 				}
-				// Window.alert("Changed...." + test);
-
+				Window.alert("Changed...." + listbox.getSelectedItem().getTitle());
 			}
 		});
+	}
+
+	@UiHandler("add")
+	public void addHandler(ClickEvent event) {
+		Option option = new Option();
+		option.setText("new option");
+		option.setId("90");
+		listbox.add(option);
+		listbox.refresh();
 	}
 }

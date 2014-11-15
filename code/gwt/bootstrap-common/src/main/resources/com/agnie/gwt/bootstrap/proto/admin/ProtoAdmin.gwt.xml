@@ -3,12 +3,11 @@
 
 	<inherits name="org.gwtbootstrap3.GwtBootstrap3" />
 	<inherits name="com.googlecode.gwt.charts.Charts" />
-
+	<inherits name="org.gwtbootstrap3.extras.select.Select" />
 	<entry-point class="com.agnie.gwt.bootstrap.proto.admin.client.ProtoAdmin" />
 
 	<source path='client' />
 	<source path='shared' />
-	<public path='proto' />
 	<public path='client/resources'>
 		<include name="**/*.css" />
 		<include name="**/*.js" />

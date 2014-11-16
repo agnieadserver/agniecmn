@@ -67,4 +67,8 @@ public class CustomCheckBox extends Composite {
 		lastType = type;
 	}
 
+	public void setEnabled(boolean enable) {
+		this.setEnabled(enable);
+	}
+
 }

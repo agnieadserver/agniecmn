@@ -72,14 +72,14 @@ public class samples implements EntryPoint {
 	public void onModuleLoad() {
 		// samplePageTest();
 		// cellTableTest();
-		// toggleSample();
+		 toggleSample();
 		// codeEditorSample();
 		// searchWidgettest();
 		// checkChartPanel();
 
 		// RootPanel.get().add(countWidget);
 
-		checkChartFromWidget();
+//		checkChartFromWidget();
 	}
 
 	public void checkChartFromWidget() {

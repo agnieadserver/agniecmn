@@ -6,32 +6,29 @@
  * may be covered by Indian and Foreign Patents, patents in process, and are protected by trade secret or copyright law. Dissemination of this information 
  * or reproduction of this material is strictly forbidden unless prior written permission is obtained from AGNIE MEDIA SOFTWARE PRIVATE LIMITED.
  ******************************************************************************/
-package com.agnie.gwt.bootstrap.proto.admin.client.resources;
+package com.agnie.common.test.providers;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.resources.client.ClientBundle;
-import com.google.gwt.resources.client.TextResource;
+import com.google.inject.Provider;
 
 /**
- * @author Pandurang Patil 23-Aug-2014
- *
+ * 
+ * This provider has been specifically been created to facilitate setting required Long value for testing purpose. This
+ * class shouldn't be used in main code. Usage is limited to single threaded environment. If its being used in multi
+ * threaded environment then behaviour is not guaranteed.
+ * 
+ * @author Pandurang Patil 10-Feb-2014
+ * 
  */
-public interface ProtoAdminClientBundle extends ClientBundle {
-	static final ProtoAdminClientBundle	INSTANCE	= GWT.create(ProtoAdminClientBundle.class);
+public class LongProvider implements Provider<Long> {
 
-	@Source("assets/javascripts/theme.custom.js")
-	TextResource customTheme();
+	private LongManager	mgr;
 
-	@Source("assets/javascripts/theme.init.js")
-	TextResource themeInit();
+	public LongProvider(LongManager mgr) {
+		this.mgr = mgr;
+	}
 
-	@Source("assets/javascripts/theme.js")
-	TextResource theme();
-
-	@Source("assets/vendor/nanoscroller/nanoscroller.js")
-	TextResource nanoscroller();
-
-	@Source("assets/vendor/bootstrapwizard/jquery.bootstrap.wizard.js")
-	TextResource wizard();
+	public Long get() {
+		return mgr.getValue();
+	}
 
 }

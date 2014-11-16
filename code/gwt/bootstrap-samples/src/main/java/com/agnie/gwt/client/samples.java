@@ -20,6 +20,7 @@ import com.agnie.gwt.bootstrap.proto.admin.client.ui.PieChartWidget;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.SearchBox;
 import com.agnie.gwt.client.ui.CellTableSample;
 import com.agnie.gwt.client.ui.CodeEditorSample;
+import com.agnie.gwt.client.ui.ListBoxSample;
 import com.agnie.gwt.client.ui.SamplePage;
 import com.agnie.gwt.client.ui.ToggleSample;
 import com.google.gwt.core.client.EntryPoint;
@@ -72,14 +73,19 @@ public class samples implements EntryPoint {
 	public void onModuleLoad() {
 		// samplePageTest();
 		// cellTableTest();
-		 toggleSample();
+		toggleSample();
 		// codeEditorSample();
 		// searchWidgettest();
 		// checkChartPanel();
 
 		// RootPanel.get().add(countWidget);
 
-//		checkChartFromWidget();
+		// checkChartFromWidget();
+		sampleListBox();
+	}
+
+	public void sampleListBox() {
+		RootPanel.get().add(new ListBoxSample());
 	}
 
 	public void checkChartFromWidget() {

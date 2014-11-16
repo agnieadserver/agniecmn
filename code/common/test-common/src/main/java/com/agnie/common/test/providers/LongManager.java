@@ -6,32 +6,29 @@
  * may be covered by Indian and Foreign Patents, patents in process, and are protected by trade secret or copyright law. Dissemination of this information 
  * or reproduction of this material is strictly forbidden unless prior written permission is obtained from AGNIE MEDIA SOFTWARE PRIVATE LIMITED.
  ******************************************************************************/
-package com.agnie.gwt.bootstrap.proto.admin.client.resources;
-
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.resources.client.ClientBundle;
-import com.google.gwt.resources.client.TextResource;
+package com.agnie.common.test.providers;
 
 /**
- * @author Pandurang Patil 23-Aug-2014
- *
+ * @author Pandurang Patil 10-Feb-2014
+ * 
  */
-public interface ProtoAdminClientBundle extends ClientBundle {
-	static final ProtoAdminClientBundle	INSTANCE	= GWT.create(ProtoAdminClientBundle.class);
+public class LongManager {
 
-	@Source("assets/javascripts/theme.custom.js")
-	TextResource customTheme();
+	private Long	value;
 
-	@Source("assets/javascripts/theme.init.js")
-	TextResource themeInit();
+	/**
+	 * @return the value
+	 */
+	public Long getValue() {
+		return value;
+	}
 
-	@Source("assets/javascripts/theme.js")
-	TextResource theme();
-
-	@Source("assets/vendor/nanoscroller/nanoscroller.js")
-	TextResource nanoscroller();
-
-	@Source("assets/vendor/bootstrapwizard/jquery.bootstrap.wizard.js")
-	TextResource wizard();
+	/**
+	 * @param value
+	 *            the value to set
+	 */
+	public void setValue(Long value) {
+		this.value = value;
+	}
 
 }

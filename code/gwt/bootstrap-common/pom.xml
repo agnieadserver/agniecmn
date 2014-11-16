@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<!-- POM file generated with GWT webAppCreator -->
 	<modelVersion>4.0.0</modelVersion>
@@ -27,17 +28,22 @@
 		<dependency>
 			<groupId>org.gwtbootstrap3</groupId>
 			<artifactId>gwtbootstrap3</artifactId>
-			<version>0.8</version>
+			<version>${gwt.bootstrap.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.gwtbootstrap3</groupId>
 			<artifactId>gwtbootstrap3-extras</artifactId>
-			<version>0.8</version>
+			<version>${gwt.bootstrap.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.gwt-charts</groupId>
 			<artifactId>gwt-charts</artifactId>
 			<version>0.9.10</version>
+		</dependency>
+		<dependency>
+			<groupId>com.agnie.common</groupId>
+			<artifactId>commons</artifactId>
+			<version>${agnie.common.version}</version>
 		</dependency>
 	</dependencies>
 

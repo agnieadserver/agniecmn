@@ -6,7 +6,7 @@
  * may be covered by Indian and Foreign Patents, patents in process, and are protected by trade secret or copyright law. Dissemination of this information 
  * or reproduction of this material is strictly forbidden unless prior written permission is obtained from AGNIE MEDIA SOFTWARE PRIVATE LIMITED.
  ******************************************************************************/
-package com.agnie.gwt.bootstrap.proto.admin.client.resources;
+package com.agnie.gwt.bootstrap.flatui.client.assets;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
@@ -16,22 +16,9 @@ import com.google.gwt.resources.client.TextResource;
  * @author Pandurang Patil 23-Aug-2014
  *
  */
-public interface ProtoAdminClientBundle extends ClientBundle {
-	static final ProtoAdminClientBundle	INSTANCE	= GWT.create(ProtoAdminClientBundle.class);
+public interface FlatUIClientBundle extends ClientBundle {
+	static final FlatUIClientBundle	INSTANCE	= GWT.create(FlatUIClientBundle.class);
 
-	@Source("assets/javascripts/theme.custom.js")
-	TextResource customTheme();
-
-	@Source("assets/javascripts/theme.init.js")
-	TextResource themeInit();
-
-	@Source("assets/javascripts/theme.js")
-	TextResource theme();
-
-	@Source("assets/vendor/nanoscroller/nanoscroller.js")
-	TextResource nanoscroller();
-
-	@Source("assets/vendor/bootstrapwizard/jquery.bootstrap.wizard.js")
-	TextResource wizard();
-
+	@Source("js/flat-ui.min.js")
+	TextResource flatui();
 }

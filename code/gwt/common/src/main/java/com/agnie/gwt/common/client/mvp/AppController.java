@@ -48,8 +48,7 @@ public abstract class AppController<PLACE extends Enum<PLACE>> implements ValueC
 			if (token != null) {
 				Presenter presenter = getPresenterForPlace(placeMgr.getTokenToPlace(placeType, token));
 				if (presenter != null) {
-					presenter.go();
-					presenter.postRender();
+					processRequest(presenter);
 				}
 			}
 		} else {
@@ -58,6 +57,11 @@ public abstract class AppController<PLACE extends Enum<PLACE>> implements ValueC
 			// Just roll back the history token to the one from which page change action is initiated.
 			History.newItem(lastPlace.toString(), false);
 		}
+	}
+
+	public void processRequest(Presenter presenter) {
+		presenter.go();
+		presenter.postRender();
 	}
 
 	protected boolean checkIfWeCanProceed() {

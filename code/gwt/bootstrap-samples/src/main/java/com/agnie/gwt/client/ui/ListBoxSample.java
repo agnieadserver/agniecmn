@@ -13,8 +13,8 @@ import java.util.List;
 
 import org.gwtbootstrap3.extras.select.client.ui.Option;
 
-import com.agnie.common.gwt.serverclient.client.renderer.Title;
 import com.agnie.gwt.bootstrap.extras.client.widgets.Select;
+import com.agnie.gwt.bootstrap.proto.admin.client.entity.ListItem;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -37,13 +37,16 @@ public class ListBoxSample extends Composite {
 	interface SamplePageUiBinder extends UiBinder<Widget, ListBoxSample> {
 	}
 
-	private class Person implements Title {
+	private class Person implements ListItem {
 		private String	fname;
 		private String	lname;
+		private Long	id;
 
-		public Person(String fname, String lname) {
+		public Person(String fname, String lname, Long id) {
+			super();
 			this.fname = fname;
 			this.lname = lname;
+			this.id = id;
 		}
 
 		/*
@@ -55,6 +58,11 @@ public class ListBoxSample extends Composite {
 		public String getTitle() {
 			return fname + " - " + lname;
 		}
+
+		@Override
+		public long getId() {
+			return id;
+		}
 	}
 
 	List<Person>	list	= new ArrayList<ListBoxSample.Person>();
@@ -64,13 +72,14 @@ public class ListBoxSample extends Composite {
 
 	public ListBoxSample() {
 		initWidget(uiBinder.createAndBindUi(this));
-		list.add(new Person("Pandurang", "Patil"));
-		list.add(new Person("Sandy", "Mukho"));
-		list.add(new Person("Raj", "Dubey"));
-		list.add(new Person("Saurabh", "Sameer"));
+		list.add(new Person("Pandurang", "Patil", 10L));
+		list.add(new Person("Sandy", "Mukho", 13L));
+		list.add(new Person("Raj", "Dubey", 16L));
+		list.add(new Person("Saurabh", "Sameer", 20L));
 		listbox.setList(list);
-		listbox.addItem(new Person("Ramu", "Kaka"));
+		listbox.addItem(new Person("Ramu", "Kaka", 78L));
 		listbox.setSelected(list.get(3));
+		listbox.setSelectedItemById(10L);
 		listbox.addChangeHandler(new ChangeHandler() {
 
 			@Override

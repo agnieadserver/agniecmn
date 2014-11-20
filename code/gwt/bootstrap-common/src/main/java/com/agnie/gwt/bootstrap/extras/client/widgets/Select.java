@@ -15,14 +15,14 @@ import java.util.ListIterator;
 
 import org.gwtbootstrap3.extras.select.client.ui.Option;
 
-import com.agnie.common.gwt.serverclient.client.renderer.Title;
+import com.agnie.gwt.bootstrap.proto.admin.client.entity.ListItem;
 import com.google.gwt.core.client.GWT;
 
 /**
  * @author Pandurang Patil 15-Nov-2014
  *
  */
-public class Select<ENTITY extends Title> extends org.gwtbootstrap3.extras.select.client.ui.Select {
+public class Select<ENTITY extends ListItem> extends org.gwtbootstrap3.extras.select.client.ui.Select {
 
 	private List	list;
 
@@ -95,6 +95,18 @@ public class Select<ENTITY extends Title> extends org.gwtbootstrap3.extras.selec
 	}
 
 	/**
+	 * set selected item from its id.
+	 * 
+	 * @param id
+	 *            id of item to be selected.
+	 */
+	public void setSelectedItemById(long id) {
+		java.util.List<Long> ids = new ArrayList<Long>();
+		ids.add(id);
+		setSelectedByItemIds(ids);
+	}
+
+	/**
 	 * get all selected items.
 	 * 
 	 * @return List of selected items.
@@ -108,6 +120,19 @@ public class Select<ENTITY extends Title> extends org.gwtbootstrap3.extras.selec
 			}
 		}
 		return allSelected;
+	}
+
+	/**
+	 * Set selected items from their item ids
+	 * 
+	 * @param ids
+	 *            list of ids to be selected.
+	 */
+	public void setSelectedByItemIds(java.util.List<Long> ids) {
+		java.util.List<Option> selectedItems = this.list.getOptionsFromIds(ids);
+		if (selectedItems != null && selectedItems.size() > 0) {
+			setValues(selectedItems.toArray(new Option[0]));
+		}
 	}
 
 	/**
@@ -151,6 +176,19 @@ public class Select<ENTITY extends Title> extends org.gwtbootstrap3.extras.selec
 			Option option = new Option();
 			option.setText(entity.getTitle());
 			return option;
+		}
+
+		java.util.List<Option> getOptionsFromIds(java.util.List<Long> ids) {
+			java.util.List<Option> options = new ArrayList<Option>();
+			if (ids != null) {
+				for (int index = 0; index < delegator.size(); index++) {
+					ENTITY en = delegator.get(index);
+					if (ids.contains(en.getId())) {
+						options.add(getOption(en));
+					}
+				}
+			}
+			return options;
 		}
 
 		Option getOption(ENTITY entity) {

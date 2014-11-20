@@ -13,8 +13,8 @@ import java.util.List;
 
 import org.gwtbootstrap3.extras.select.client.ui.Option;
 
+import com.agnie.common.gwt.serverclient.client.renderer.ListItem;
 import com.agnie.gwt.bootstrap.extras.client.widgets.Select;
-import com.agnie.gwt.bootstrap.proto.admin.client.entity.ListItem;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;

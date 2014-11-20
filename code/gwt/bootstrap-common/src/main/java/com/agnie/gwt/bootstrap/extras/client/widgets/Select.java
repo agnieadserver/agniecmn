@@ -15,7 +15,7 @@ import java.util.ListIterator;
 
 import org.gwtbootstrap3.extras.select.client.ui.Option;
 
-import com.agnie.gwt.bootstrap.proto.admin.client.entity.ListItem;
+import com.agnie.common.gwt.serverclient.client.renderer.ListItem;
 import com.google.gwt.core.client.GWT;
 
 /**

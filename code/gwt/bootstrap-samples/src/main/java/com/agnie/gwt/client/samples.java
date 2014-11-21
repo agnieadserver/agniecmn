@@ -73,7 +73,7 @@ public class samples implements EntryPoint {
 	public void onModuleLoad() {
 		// samplePageTest();
 		// cellTableTest();
-		toggleSample();
+		// toggleSample();
 		// codeEditorSample();
 		// searchWidgettest();
 		// checkChartPanel();

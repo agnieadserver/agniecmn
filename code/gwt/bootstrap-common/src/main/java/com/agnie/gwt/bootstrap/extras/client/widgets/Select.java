@@ -107,6 +107,18 @@ public class Select<ENTITY extends ListItem> extends org.gwtbootstrap3.extras.se
 	}
 
 	/**
+	 * set selected item from its String id.
+	 * 
+	 * @param id
+	 *            String id of item to be selected.
+	 */
+	public void setSelectedItemByStringId(String id) {
+		java.util.List<String> ids = new ArrayList<String>();
+		ids.add(id);
+		setSelectedByItemStringIds(ids);
+	}
+
+	/**
 	 * get all selected items.
 	 * 
 	 * @return List of selected items.
@@ -120,6 +132,19 @@ public class Select<ENTITY extends ListItem> extends org.gwtbootstrap3.extras.se
 			}
 		}
 		return allSelected;
+	}
+
+	/**
+	 * Set selected items from their item String ids
+	 * 
+	 * @param ids
+	 *            list of ids to be selected.
+	 */
+	public void setSelectedByItemStringIds(java.util.List<String> ids) {
+		java.util.List<Option> selectedItems = this.list.getOptionsFromStringIds(ids);
+		if (selectedItems != null && selectedItems.size() > 0) {
+			setValues(selectedItems.toArray(new Option[0]));
+		}
 	}
 
 	/**
@@ -184,6 +209,19 @@ public class Select<ENTITY extends ListItem> extends org.gwtbootstrap3.extras.se
 				for (int index = 0; index < delegator.size(); index++) {
 					ENTITY en = delegator.get(index);
 					if (ids.contains(en.getId())) {
+						options.add(getOption(en));
+					}
+				}
+			}
+			return options;
+		}
+
+		java.util.List<Option> getOptionsFromStringIds(java.util.List<String> ids) {
+			java.util.List<Option> options = new ArrayList<Option>();
+			if (ids != null) {
+				for (int index = 0; index < delegator.size(); index++) {
+					ENTITY en = delegator.get(index);
+					if (ids.contains(en.getStringId())) {
 						options.add(getOption(en));
 					}
 				}

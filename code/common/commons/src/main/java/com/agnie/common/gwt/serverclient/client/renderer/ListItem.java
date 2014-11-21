@@ -8,7 +8,6 @@
  ******************************************************************************/
 package com.agnie.common.gwt.serverclient.client.renderer;
 
-
 /**
  * @author rajgaurav
  *
@@ -16,4 +15,6 @@ package com.agnie.common.gwt.serverclient.client.renderer;
 public interface ListItem extends Title {
 
 	long getId();
+
+	String getStringId();
 }

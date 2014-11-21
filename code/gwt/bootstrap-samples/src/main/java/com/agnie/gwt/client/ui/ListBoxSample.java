@@ -63,6 +63,11 @@ public class ListBoxSample extends Composite {
 		public long getId() {
 			return id;
 		}
+
+		@Override
+		public String getStringId() {
+			return id + "";
+		}
 	}
 
 	List<Person>	list	= new ArrayList<ListBoxSample.Person>();
@@ -79,7 +84,8 @@ public class ListBoxSample extends Composite {
 		listbox.setList(list);
 		listbox.addItem(new Person("Ramu", "Kaka", 78L));
 		listbox.setSelected(list.get(3));
-		listbox.setSelectedItemById(10L);
+		// listbox.setSelectedItemById(10L);
+		listbox.setSelectedItemByStringId("10");
 		listbox.addChangeHandler(new ChangeHandler() {
 
 			@Override

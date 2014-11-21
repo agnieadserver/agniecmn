@@ -32,6 +32,7 @@ public class BasicSingleColumnConverter extends AbstractSingleColumnConverter {
 	public Object convert(String token, Class<?> cls) throws ConversionException {
 		if (token != null && !("".equals(token))) {
 			try {
+				token = token.trim();
 				if (int.class.equals(cls) || Integer.class.equals(cls)) {
 					StringTokenizer st = new StringTokenizer(token, ".");
 					token = st.nextToken();
@@ -58,7 +59,7 @@ public class BasicSingleColumnConverter extends AbstractSingleColumnConverter {
 					return Byte.parseByte(token);
 				} else {
 					logger.error("There is no convertor avaialble for class '" + cls.getCanonicalName() + "'.");
-					throw new DevException("Programming issue : There is no convertor avaialble for class '" + cls.getCanonicalName() + "'.","converter.not.provided");
+					throw new DevException("Programming issue : There is no convertor avaialble for class '" + cls.getCanonicalName() + "'.", "converter.not.provided");
 				}
 			} catch (NumberFormatException ex) {
 				logger.error(ex);

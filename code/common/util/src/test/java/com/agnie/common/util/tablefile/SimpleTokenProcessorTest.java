@@ -19,6 +19,7 @@ import com.agnie.common.util.client.tablefile.InvalidBeanType;
 
 public class SimpleTokenProcessorTest {
 
+	@SuppressWarnings({ "unchecked", "unused" })
 	@Test
 	public void invalidBeanTest() {
 
@@ -34,6 +35,7 @@ public class SimpleTokenProcessorTest {
 	}
 
 	@Test
+	@SuppressWarnings({ "unchecked" })
 	public void simpleTokenProcessorTest() {
 		try {
 			SimpleTokenProcessor<SimpleBean> processor = SimpleTokenProcessorFactory.getConverter(SimpleBean.class, false);

@@ -17,12 +17,9 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.agnie.common.util.client.converter.MultiColumnType;
-import com.agnie.common.util.converter.UseTokenizer;
-import com.agnie.common.util.validator.NotNull;
-
 public class TokenProcessorTest {
 
+	@SuppressWarnings({ "unchecked" })
 	@Test
 	public void simpleTest() {
 
@@ -41,6 +38,7 @@ public class TokenProcessorTest {
 	}
 
 	@Test
+	@SuppressWarnings({ "unchecked" })
 	public void constraintTest() {
 		TokenProcessor<SampleBean> processor = TokenProcessorFactory.getConverter(SampleBean.class, false);
 		Map<String, String> row = new HashMap<String, String>();
@@ -58,6 +56,7 @@ public class TokenProcessorTest {
 	}
 
 	@Test
+	@SuppressWarnings({ "unchecked" })
 	public void invalidInputTest() {
 		TokenProcessor<SampleBean> processor = TokenProcessorFactory.getConverter(SampleBean.class, false);
 		Map<String, String> row = new HashMap<String, String>();
@@ -76,6 +75,7 @@ public class TokenProcessorTest {
 	}
 
 	@Test
+	@SuppressWarnings({ "unchecked" })
 	public void singleColCollectionTypeTest() {
 		TokenProcessor<SampleBean> processor = TokenProcessorFactory.getConverter(SampleBean.class, false);
 		Map<String, String> row = new HashMap<String, String>();
@@ -95,4 +95,3 @@ public class TokenProcessorTest {
 		Assert.assertEquals(expected, actual);
 	}
 }
-

@@ -121,6 +121,7 @@ public class EntityExtractorTest {
 		try {
 			EntityExtractor<SimpleCompany> entExt = new EntityExtractor<SimpleCompany>(SimpleCompany.class, JDBCUtil.getConnection());
 
+			@SuppressWarnings("unused")
 			SimpleCompany actual = entExt.getEntity("SELECT * FROM SIMPLE_ITERATOR_TEST WHERE company='Volvo'");
 			Assert.assertTrue(false);
 		} catch (MultipleRecordsExcpetion e) {

@@ -41,20 +41,36 @@ public class CSVFileIterator<T> extends AbstractTableFileIterator<T> {
 	private ArrayList<String>	indexMappedHeaders	= new ArrayList<String>();
 
 	public CSVFileIterator(InputStream stream, Class<T> cls) throws IOException {
-		this(stream, cls, false);
+		this(stream, cls, new CSVConfig(), false);
 	}
 
-	public CSVFileIterator(InputStream stream, Class<T> cls, boolean throwValidationErrors) throws IOException {
-		this(new InputStreamReader(stream), cls, throwValidationErrors);
+	public CSVFileIterator(InputStream stream, Class<T> cls, CSVConfig config, boolean throwValidationErrors) throws IOException {
+		this(new InputStreamReader(stream), cls, config, throwValidationErrors);
 	}
 
 	public CSVFileIterator(Reader reader, Class<T> cls) throws IOException {
-		this(reader, cls, false);
+		this(reader, cls, new CSVConfig());
 	}
 
-	public CSVFileIterator(Reader reader, Class<T> cls, boolean throwValidationErrors) throws IOException {
+	public CSVFileIterator(Reader reader, Class<T> cls, CSVConfig config) throws IOException {
+		this(reader, cls, config, false);
+	}
+
+	/***
+	 * Build CSV File Iterator
+	 * 
+	 * @param reader
+	 *            File Reader
+	 * @param cls
+	 *            Class instance of bean class.
+	 * @param throwValidationErrors
+	 *            flag to indicate if Exception should be thrown in case of validation errors. Or continue processing
+	 *            the records till the end even with the validation errors.
+	 * @throws IOException
+	 */
+	public CSVFileIterator(Reader reader, Class<T> cls, CSVConfig config, boolean throwValidationErrors) throws IOException {
 		super(cls, throwValidationErrors);
-		this.reader = new CSVReader(reader, au.com.bytecode.opencsv.CSVParser.DEFAULT_SEPARATOR, au.com.bytecode.opencsv.CSVParser.DEFAULT_QUOTE_CHARACTER, true);
+		this.reader = new CSVReader(reader, config.getSeparator(), config.getQuoteChar(), config.getEscape(), config.getSkipLine(), config.getStrictQuote(), config.getIgnoreLeadingWhiteSpaces());
 
 		if (reader != null) {
 			String[] tokens = this.reader.readNext();

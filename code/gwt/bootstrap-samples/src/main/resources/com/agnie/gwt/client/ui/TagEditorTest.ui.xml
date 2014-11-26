@@ -1,0 +1,14 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:at="urn:import:com.agnie.gwt.bootstrap.proto.admin.client.ui.tag">
+	<g:HTMLPanel>
+		<p>
+			<at:TagEditor ui:field="tageditor">
+			</at:TagEditor>
+		</p>
+		<g:TextBox ui:field="input"></g:TextBox>
+		<g:Button text="Add" ui:field="add"></g:Button>
+		<g:Button text="Error" ui:field="error"></g:Button>
+		<g:Button text="Fix Error" ui:field="fixerror"></g:Button>
+	</g:HTMLPanel>
+</ui:UiBinder> 

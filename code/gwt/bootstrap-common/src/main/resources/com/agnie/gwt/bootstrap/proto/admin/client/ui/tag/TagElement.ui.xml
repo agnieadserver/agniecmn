@@ -1,0 +1,25 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:pa="urn:import:com.agnie.gwt.bootstrap.proto.admin.client.ui"
+	xmlns:b='urn:import:org.gwtbootstrap3.client.ui'>
+	<ui:with field='res'
+		type='com.agnie.gwt.bootstrap.proto.admin.client.ui.tag.TagResources' />
+	<ui:style>
+	.hide {
+		position: absolute;
+		top: -1000px;
+		width: 1px !important;
+	}
+	</ui:style>
+	<pa:LiHTMLPanel addStyleNames="{res.css.tageditListelement}">
+		<g:TextBox styleName="{style.hide}" ui:field="focusinput"></g:TextBox>
+		<span dir="ltr" class="{res.css.tageditListelementDisplay} {res.css.good}"
+			ui:field="display">
+			<g:Anchor ui:field="label">
+			</g:Anchor>
+			<b:Anchor icon="TIMES" addStyleNames="{res.css.tageditListDelete}"
+				ui:field="remove">
+			</b:Anchor>
+		</span>
+	</pa:LiHTMLPanel>
+</ui:UiBinder> 

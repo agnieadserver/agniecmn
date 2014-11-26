@@ -72,13 +72,21 @@
 							<!-- <goal>generateAsync</goal> -->
 						</goals>
 					</execution>
+					<execution>
+						<id>css-generation</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>css</goal>
+						</goals>
+					</execution>
 				</executions>
-				<!-- Plugin configuration. There are many available options, see gwt-maven-plugin 
-					documentation at codehaus.org -->
 				<configuration>
 					<runTarget>adsirver.html</runTarget>
 					<hostedWebapp>${webappDirectory}</hostedWebapp>
 					<i18nMessagesBundle>com.agnie.gwt.bootstrap.proto.admin.client.Messages</i18nMessagesBundle>
+					<cssFiles>
+						<cssFile>com/agnie/gwt/bootstrap/proto/admin/client/ui/tag/TagEditorCss.css</cssFile>
+					</cssFiles>
 				</configuration>
 			</plugin>
 		</plugins>

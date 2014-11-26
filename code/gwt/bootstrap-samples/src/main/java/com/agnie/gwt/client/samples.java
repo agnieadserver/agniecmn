@@ -22,6 +22,7 @@ import com.agnie.gwt.client.ui.CellTableSample;
 import com.agnie.gwt.client.ui.CodeEditorSample;
 import com.agnie.gwt.client.ui.ListBoxSample;
 import com.agnie.gwt.client.ui.SamplePage;
+import com.agnie.gwt.client.ui.TagEditorTest;
 import com.agnie.gwt.client.ui.ToggleSample;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
@@ -81,7 +82,13 @@ public class samples implements EntryPoint {
 		// RootPanel.get().add(countWidget);
 
 		// checkChartFromWidget();
-		sampleListBox();
+		// sampleListBox();
+		tagEditor();
+	}
+
+	public void tagEditor() {
+		TagEditorTest tet = new TagEditorTest();
+		RootPanel.get().add(tet);
 	}
 
 	public void sampleListBox() {

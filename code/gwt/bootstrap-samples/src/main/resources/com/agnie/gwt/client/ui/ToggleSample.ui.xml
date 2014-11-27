@@ -421,14 +421,12 @@
 								<p:ToggleSwitch size="LARGE" type="SUCCESS"
 									active="true"></p:ToggleSwitch>
 
-								<p:CustomCheckBox label="Custom Check Box"
-									type="SUCCESS"></p:CustomCheckBox>
+								<p:CheckBox text="Custom Check Box" type="SUCCESS"></p:CheckBox>
 
-								<p:CustomCheckBox label="Custom Check Box"
-									type="DANGER"></p:CustomCheckBox>
+								<p:CheckBox text="Custom Check Box" type="DANGER"></p:CheckBox>
 
-								<p:CustomRadio label="Radio one" type="INFO" name="sampleone" />
-								<p:CustomRadio label="Radio two" type="SUCCESS"
+								<p:RadioButton text="Radio one" type="INFO" name="sampleone" />
+								<p:RadioButton text="Radio two" type="SUCCESS"
 									name="sampleone" />
 
 								DateTime :
@@ -452,10 +450,10 @@
 									<g:HTML>
 										<!-- Begin MailChimp Signup Form -->
 										<div id="mc_embed_signup">
-											<form 
+											<form
 												action="//agnie.us8.list-manage.com/subscribe/post?u=90ab482f13a5ca05bff010e8c&amp;id=1af02cee5b"
 												method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form"
-												class="validate" target="_blank" >
+												class="validate" target="_blank">
 												<h2>Subscribe to our mailing list</h2>
 												<div class="indicates-required">
 													<span class="asterisk">*</span>
@@ -467,35 +465,35 @@
 														<span class="asterisk">*</span>
 													</label>
 													<input type="email" value="" name="EMAIL" class="required email"
-														id="mce-EMAIL"/>
+														id="mce-EMAIL" />
 												</div>
 												<div class="mc-field-group">
 													<label for="mce-FNAME">First Name </label>
 													<input type="text" value="" name="FNAME" class=""
-														id="mce-FNAME"/>
+														id="mce-FNAME" />
 												</div>
 												<div class="mc-field-group">
 													<label for="mce-LNAME">Last Name </label>
 													<input type="text" value="" name="LNAME" class=""
-														id="mce-LNAME"/>
+														id="mce-LNAME" />
 												</div>
 												<div class="mc-field-group input-group">
 													<strong>Customer </strong>
 													<ul>
 														<li>
 															<input type="checkbox" value="1" name="group[12913][1]"
-																id="mce-group[12913]-12913-0"/>
-																<label for="mce-group[12913]-12913-0">Publisher Ad Server</label>
+																id="mce-group[12913]-12913-0" />
+															<label for="mce-group[12913]-12913-0">Publisher Ad Server</label>
 														</li>
 														<li>
 															<input type="checkbox" value="2" name="group[12913][2]"
-																id="mce-group[12913]-12913-1"/>
-																<label for="mce-group[12913]-12913-1">Ad Network</label>
+																id="mce-group[12913]-12913-1" />
+															<label for="mce-group[12913]-12913-1">Ad Network</label>
 														</li>
 														<li>
 															<input type="checkbox" value="4" name="group[12913][4]"
-																id="mce-group[12913]-12913-2"/>
-																<label for="mce-group[12913]-12913-2">Newsletter</label>
+																id="mce-group[12913]-12913-2" />
+															<label for="mce-group[12913]-12913-2">Newsletter</label>
 														</li>
 													</ul>
 												</div>
@@ -506,11 +504,11 @@
 													remove this or risk form bot signups -->
 												<div style="position: absolute; left: -5000px;">
 													<input type="text" name="b_90ab482f13a5ca05bff010e8c_1af02cee5b"
-														tabindex="-1" value=""/>
+														tabindex="-1" value="" />
 												</div>
 												<div class="clear">
 													<input type="submit" value="Subscribe" name="subscribe"
-														id="mc-embedded-subscribe" class="button"/>
+														id="mc-embedded-subscribe" class="button" />
 												</div>
 											</form>
 										</div>

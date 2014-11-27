@@ -16,7 +16,10 @@ import org.gwtbootstrap3.client.ui.Button;
 import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartColumn;
 import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartEntity;
 import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartValue;
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckBox;
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.CustomCheckBoxType;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.PieChartWidget;
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.RadioButton;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.SearchBox;
 import com.agnie.gwt.client.ui.CellTableSample;
 import com.agnie.gwt.client.ui.CodeEditorSample;
@@ -28,6 +31,9 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.googlecode.gwt.charts.client.ChartLoader;
 import com.googlecode.gwt.charts.client.ChartPackage;
@@ -74,7 +80,7 @@ public class samples implements EntryPoint {
 	public void onModuleLoad() {
 		// samplePageTest();
 		// cellTableTest();
-		// toggleSample();
+		toggleSample();
 		// codeEditorSample();
 		// searchWidgettest();
 		// checkChartPanel();
@@ -83,7 +89,35 @@ public class samples implements EntryPoint {
 
 		// checkChartFromWidget();
 		// sampleListBox();
-		tagEditor();
+		// tagEditor();
+		// customCheckBox();
+	}
+
+	public void customCheckBox() {
+		CheckBox cb = new CheckBox();
+		cb.setType(CustomCheckBoxType.PRIMARY);
+		RootPanel.get().add(cb);
+
+		cb.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+
+			@Override
+			public void onValueChange(ValueChangeEvent<Boolean> event) {
+				Window.alert("This works man");
+			}
+		});
+
+		RadioButton rb1 = new RadioButton("group", "First");
+		RootPanel.get().add(rb1);
+		RadioButton rb2 = new RadioButton("group", "Second");
+		RootPanel.get().add(rb2);
+
+		rb1.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+
+			@Override
+			public void onValueChange(ValueChangeEvent<Boolean> event) {
+				Window.alert("This also works");
+			}
+		});
 	}
 
 	public void tagEditor() {

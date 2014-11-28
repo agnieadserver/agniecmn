@@ -17,7 +17,7 @@ import com.google.gwt.safehtml.shared.SafeHtml;
  *
  */
 public class CheckBox extends com.google.gwt.user.client.ui.CheckBox {
-	private CustomCheckBoxType	lastType;
+	private CheckBoxType	lastType;
 
 	/**
 	 * Creates a check box with no label.
@@ -123,7 +123,7 @@ public class CheckBox extends com.google.gwt.user.client.ui.CheckBox {
 		}
 	}
 
-	public void setType(final CustomCheckBoxType type) {
+	public void setType(final CheckBoxType type) {
 		if (lastType != null) {
 			removeStyleName(lastType.getType());
 		}

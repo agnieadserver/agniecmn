@@ -12,13 +12,13 @@ package com.agnie.gwt.bootstrap.proto.admin.client.ui;
  * @author Pandurang Patil 28-Aug-2014
  *
  */
-public enum CustomRadioType {
+public enum CheckBoxType {
 
-	PRIMARY("radio-primary"), SUCCESS("radio-success"), WARNING("radio-warning"), DANGER("radio-danger"), INFO("radio-info"), DEFAULT("radio-default");
+	PRIMARY("checkbox-primary"), SUCCESS("checkbox-success"), WARNING("checkbox-warning"), DANGER("checkbox-danger"), INFO("checkbox-info"), DEFAULT("checkbox-default");
 
 	private final String	type;
 
-	private CustomRadioType(final String type) {
+	private CheckBoxType(final String type) {
 		this.type = type;
 	}
 

@@ -8,21 +8,55 @@
  ******************************************************************************/
 package com.agnie.gwt.bootstrap.proto.admin.client.ui;
 
+import org.gwtbootstrap3.client.ui.constants.IconFlip;
+import org.gwtbootstrap3.client.ui.constants.IconRotate;
+import org.gwtbootstrap3.client.ui.constants.IconSize;
+import org.gwtbootstrap3.client.ui.constants.IconType;
+
 /**
- * @author Pandurang Patil 28-Aug-2014
+ * @author Pandurang Patil 28-Nov-2014
  *
  */
-public enum CustomCheckBoxType {
+public class IconConfig {
 
-	PRIMARY("checkbox-primary"), SUCCESS("checkbox-success"), WARNING("checkbox-warning"), DANGER("checkbox-danger"), INFO("checkbox-info"), DEFAULT("checkbox-default");
+	private IconType	type;
+	private IconSize	size;
+	private IconFlip	flip;
+	private IconRotate	rotate;
 
-	private final String	type;
-
-	private CustomCheckBoxType(final String type) {
+	public IconConfig(IconType type, IconSize size, IconFlip flip, IconRotate rotate) {
 		this.type = type;
+		this.size = size;
+		this.flip = flip;
+		this.rotate = rotate;
 	}
 
-	public String getType() {
+	/**
+	 * @return the type
+	 */
+	public IconType getType() {
 		return type;
 	}
+
+	/**
+	 * @return the size
+	 */
+	public IconSize getSize() {
+		return size;
+	}
+
+	/**
+	 * @return the flip
+	 */
+	public IconFlip getFlip() {
+		return flip;
+	}
+
+	/**
+	 * @return the rotate
+	 */
+	public IconRotate getRotate() {
+		return rotate;
+	}
+
 }

@@ -18,7 +18,7 @@ import com.google.gwt.uibinder.client.UiConstructor;
  *
  */
 public class RadioButton extends com.google.gwt.user.client.ui.RadioButton {
-	CustomRadioType	lastType;
+	RadioType	lastType;
 
 	/**
 	 * Creates a new radio associated with a particular group name. All radio buttons associated with the same group
@@ -158,7 +158,7 @@ public class RadioButton extends com.google.gwt.user.client.ui.RadioButton {
 		}
 	}
 
-	public void setType(final CustomRadioType type) {
+	public void setType(final RadioType type) {
 		if (lastType != null) {
 			removeStyleName(lastType.getType());
 		}

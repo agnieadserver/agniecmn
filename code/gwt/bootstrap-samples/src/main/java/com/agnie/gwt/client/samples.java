@@ -17,7 +17,7 @@ import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartColumn;
 import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartEntity;
 import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartValue;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckBox;
-import com.agnie.gwt.bootstrap.proto.admin.client.ui.CustomCheckBoxType;
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckBoxType;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.PieChartWidget;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.RadioButton;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.SearchBox;
@@ -95,7 +95,7 @@ public class samples implements EntryPoint {
 
 	public void customCheckBox() {
 		CheckBox cb = new CheckBox();
-		cb.setType(CustomCheckBoxType.PRIMARY);
+		cb.setType(CheckBoxType.PRIMARY);
 		RootPanel.get().add(cb);
 
 		cb.addValueChangeHandler(new ValueChangeHandler<Boolean>() {

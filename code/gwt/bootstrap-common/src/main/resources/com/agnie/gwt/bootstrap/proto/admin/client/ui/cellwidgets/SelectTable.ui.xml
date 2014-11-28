@@ -15,9 +15,17 @@
 	.cell-table {
 		margin-bottom: 0px !important;
 	}
+	
+	.heading {
+		padding-bottom: 0px;
+	}
+	
+	.footer {
+		padding-top: 0px;
+	}
 	</ui:style>
 	<g:HTMLPanel addStyleNames="panel">
-		<header class="panel-heading">
+		<header class="panel-heading {style.heading}">
 			<p:SearchBox ui:field="search" placeHolder="search">
 			</p:SearchBox>
 			<g:Anchor ui:field="clear" addStyleNames="{style.clear-selction}">Clear Selection</g:Anchor>
@@ -26,7 +34,7 @@
 			<b.t:CellTable ui:field="table" addStyleNames="{style.cell-table}">
 			</b.t:CellTable>
 		</div>
-		<div class="panel-footer">
+		<div class="panel-footer {style.footer}">
 			<p:PageRangeInfo ui:field="pageInfo" />
 			<p:SimplePagination paginationSize="SMALL"
 				ui:field="pager" limit="3" addStyleNames="{style.pagination}">

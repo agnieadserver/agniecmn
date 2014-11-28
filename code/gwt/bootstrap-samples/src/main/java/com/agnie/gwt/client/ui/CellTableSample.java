@@ -11,20 +11,27 @@ package com.agnie.gwt.client.ui;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 import org.gwtbootstrap3.client.ui.gwt.CellTable;
 
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.PageRangeInfo;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.SimplePagination;
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.cellwidgets.ScrollPagerPanel;
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.cellwidgets.SelectList;
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.cellwidgets.SelectTable;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.RangeChangeEvent;
@@ -41,7 +48,11 @@ public class CellTableSample extends Composite {
 	}
 
 	@UiField
-	HTMLPanel			panelBody;
+	ScrollPagerPanel	panelBody;
+	@UiField(provided = true)
+	SelectTable<User>	select;
+	@UiField(provided = true)
+	SelectList<User>	selectList;
 
 	@UiField
 	SimplePagination	pager;
@@ -105,6 +116,25 @@ public class CellTableSample extends Composite {
 																"94 Road Street"), new Contact("Zander last one", "94 Road Street"));
 
 	public CellTableSample() {
+
+		ListDataProvider<User> listDataProvider = new ListDataProvider<User>();
+		List<User> data = listDataProvider.getList();
+		Random ran = new Random();
+		for (int i = 0; i < 200; i++) {
+			data.add(new User(i, "Item " + i, ran.nextInt()));
+		}
+		Column<User, User> column = new Column<User, User>(new UserCell()) {
+			@Override
+			public User getValue(User object) {
+				return object;
+			}
+		};
+		select = new SelectTable<User>(6, column);
+		select.setDataProvider(listDataProvider);
+
+		selectList = new SelectList<User>(column.getCell());
+		selectList.setDataProvider(listDataProvider);
+
 		initWidget(uiBinder.createAndBindUi(this));
 		// Create a CellTable.
 		CellTable<Contact> table = new CellTable<Contact>();
@@ -168,11 +198,13 @@ public class CellTableSample extends Composite {
 
 		// We know that the data is sorted alphabetically by default.
 		table.getColumnSortList().push(nameColumn);
-		simplePager.setPageSize(3);
-		table.setCondensed(true);
+		simplePager.setPageSize(5);
+		table.setPageSize(5);
+		panelBody.setIncrementSize(5);
+		// table.setCondensed(true);
 		table.setStriped(true);
 		table.setHover(true);
-		panelBody.add(table);
+		panelBody.setDisplay(table);
 		pager.setPager(simplePager);
 		pager.rebuild(true);
 		pageInfo.setPager(simplePager);
@@ -181,6 +213,13 @@ public class CellTableSample extends Composite {
 			@Override
 			public void onRangeChange(RangeChangeEvent event) {
 				pageInfo.refresh();
+			}
+		});
+		select.addSearchClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				Window.alert("Search event captured");
 			}
 		});
 	}

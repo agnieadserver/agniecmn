@@ -8,6 +8,12 @@
  ******************************************************************************/
 package com.agnie.gwt.bootstrap.proto.admin.client.ui;
 
+import com.google.gwt.cell.client.ValueUpdater;
+import com.google.gwt.dom.client.BrowserEvents;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.InputElement;
+import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
@@ -53,6 +59,41 @@ public class CheckboxCell extends com.google.gwt.cell.client.CheckboxCell {
 		this.type = type;
 		INPUT_CHECKED = SafeHtmlUtils.fromSafeConstant("<span class=\"checkbox-custom " + type.getType() + "\"><input type=\"checkbox\" tabindex=\"-1\" checked/><label></label></span>");
 		INPUT_UNCHECKED = SafeHtmlUtils.fromSafeConstant("<span class=\"checkbox-custom " + type.getType() + "\"><input type=\"checkbox\" tabindex=\"-1\"/><label></label></span>");
+	}
+
+	@Override
+	public void onBrowserEvent(Context context, Element parent, Boolean value, NativeEvent event, ValueUpdater<Boolean> valueUpdater) {
+		String type = event.getType();
+
+		boolean enterPressed = BrowserEvents.KEYDOWN.equals(type) && event.getKeyCode() == KeyCodes.KEY_ENTER;
+		if (BrowserEvents.CHANGE.equals(type) || enterPressed) {
+			InputElement input = parent.getFirstChild().getFirstChild().cast();
+			Boolean isChecked = input.isChecked();
+
+			/*
+			 * Toggle the value if the enter key was pressed and the cell handles selection or doesn't depend on
+			 * selection. If the cell depends on selection but doesn't handle selection, then ignore the enter key and
+			 * let the SelectionEventManager determine which keys will trigger a change.
+			 */
+			if (enterPressed && (handlesSelection() || !dependsOnSelection())) {
+				isChecked = !isChecked;
+				input.setChecked(isChecked);
+			}
+
+			/*
+			 * Save the new value. However, if the cell depends on the selection, then do not save the value because we
+			 * can get into an inconsistent state.
+			 */
+			if (value != isChecked && !dependsOnSelection()) {
+				setViewData(context.getKey(), isChecked);
+			} else {
+				clearViewData(context.getKey());
+			}
+
+			if (valueUpdater != null) {
+				valueUpdater.update(isChecked);
+			}
+		}
 	}
 
 	@Override

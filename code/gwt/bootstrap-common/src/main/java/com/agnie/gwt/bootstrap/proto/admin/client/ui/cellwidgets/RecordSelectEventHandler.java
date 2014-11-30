@@ -8,12 +8,14 @@
  ******************************************************************************/
 package com.agnie.gwt.bootstrap.proto.admin.client.ui.cellwidgets;
 
+import com.google.gwt.event.shared.EventHandler;
+
 /**
- * @author Pandurang Patil 28-Nov-2014
+ * 
+ * @author Pandurang Patil 26-Nov-2014
  *
  */
-public interface SelectEntity {
-	Object getId();
+public interface RecordSelectEventHandler<ENTITY extends SelectEntity> extends EventHandler {
 
-	String getDescription();
+	void onSelection(RecordSelectEvent<ENTITY> event);
 }

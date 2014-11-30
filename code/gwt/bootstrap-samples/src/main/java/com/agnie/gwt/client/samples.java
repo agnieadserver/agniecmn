@@ -25,6 +25,7 @@ import com.agnie.gwt.client.ui.CellTableSample;
 import com.agnie.gwt.client.ui.CodeEditorSample;
 import com.agnie.gwt.client.ui.ListBoxSample;
 import com.agnie.gwt.client.ui.SamplePage;
+import com.agnie.gwt.client.ui.SelectUnselectSample;
 import com.agnie.gwt.client.ui.TagEditorTest;
 import com.agnie.gwt.client.ui.ToggleSample;
 import com.google.gwt.core.client.EntryPoint;
@@ -79,7 +80,7 @@ public class samples implements EntryPoint {
 
 	public void onModuleLoad() {
 		// samplePageTest();
-		cellTableTest();
+		// cellTableTest();
 		// toggleSample();
 		// codeEditorSample();
 		// searchWidgettest();
@@ -91,6 +92,11 @@ public class samples implements EntryPoint {
 		// sampleListBox();
 		// tagEditor();
 		// customCheckBox();
+		selectUnselectSample();
+	}
+
+	public void selectUnselectSample() {
+		RootPanel.get().add(new SelectUnselectSample());
 	}
 
 	public void customCheckBox() {

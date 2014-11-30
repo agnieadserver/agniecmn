@@ -10,6 +10,8 @@ package com.agnie.gwt.bootstrap.proto.admin.client.ui;
 
 import org.gwtbootstrap3.client.ui.base.ComplexWidget;
 
+import com.agnie.gwt.bootstrap.proto.admin.client.Messages;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.cellview.client.SimplePager;
 
@@ -20,6 +22,7 @@ import com.google.gwt.user.cellview.client.SimplePager;
 public class PageRangeInfo extends ComplexWidget {
 
 	protected SimplePager	pager;
+	Messages				messages	= GWT.create(Messages.class);
 
 	public PageRangeInfo() {
 		setElement(Document.get().createDivElement());
@@ -34,6 +37,6 @@ public class PageRangeInfo extends ComplexWidget {
 		int pageStart = pager.getPageStart();
 		int pageEnd = pageStart + pager.getPageSize();
 
-		getElement().setInnerText("Showing " + ++pageStart + " to " + pageEnd);
+		getElement().setInnerText(messages.label_page_range_info((++pageStart) + "", pageEnd + ""));
 	}
 }

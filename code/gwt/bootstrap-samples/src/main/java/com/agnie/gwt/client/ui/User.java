@@ -19,16 +19,19 @@ public class User implements SelectEntity {
 	Integer	id;
 	String	name;
 	Integer	age;
+	String	description;
 
 	/**
 	 * @param id
 	 * @param name
 	 * @param age
+	 * @param description
 	 */
-	public User(Integer id, String name, Integer age) {
+	public User(Integer id, String name, Integer age, String description) {
 		this.id = id;
 		this.name = name;
 		this.age = age;
+		this.description = description;
 	}
 
 	@Override
@@ -83,6 +86,17 @@ public class User implements SelectEntity {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.agnie.gwt.bootstrap.proto.admin.client.ui.cellwidgets.SelectEntity#getDescription()
+	 */
+	@Override
+	public String getDescription() {
+		// TODO Auto-generated method stub
+		return description;
 	}
 
 }

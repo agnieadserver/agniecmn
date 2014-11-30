@@ -15,6 +15,7 @@ import java.util.Random;
 
 import org.gwtbootstrap3.client.ui.gwt.CellTable;
 
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckBoxType;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.PageRangeInfo;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.SimplePagination;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.cellwidgets.ScrollPagerPanel;
@@ -121,7 +122,7 @@ public class CellTableSample extends Composite {
 		List<User> data = listDataProvider.getList();
 		Random ran = new Random();
 		for (int i = 0; i < 200; i++) {
-			data.add(new User(i, "Item " + i, ran.nextInt()));
+			data.add(new User(i, "Item " + i, ran.nextInt(), "Item '" + i + "' description"));
 		}
 		Column<User, User> column = new Column<User, User>(new UserCell()) {
 			@Override
@@ -129,7 +130,7 @@ public class CellTableSample extends Composite {
 				return object;
 			}
 		};
-		select = new SelectTable<User>(6, column);
+		select = new SelectTable<User>(6, true, CheckBoxType.SUCCESS, column);
 		select.setDataProvider(listDataProvider);
 
 		selectList = new SelectList<User>(column.getCell());

@@ -168,7 +168,6 @@ public class SelectTable<ENTITY extends SelectEntity> extends Composite {
 	 */
 	public void setDataProvider(AbstractDataProvider<ENTITY> dataProvider) {
 		dataProvider.addDataDisplay(table);
-		pager.rebuild(true);
 	}
 
 	@UiHandler("clear")
@@ -313,7 +312,5 @@ public class SelectTable<ENTITY extends SelectEntity> extends Composite {
 		panel.add(label);
 		panel.setCellHorizontalAlignment(label, HasHorizontalAlignment.ALIGN_CENTER);
 		table.setEmptyTableWidget(label);
-
 	}
-
 }

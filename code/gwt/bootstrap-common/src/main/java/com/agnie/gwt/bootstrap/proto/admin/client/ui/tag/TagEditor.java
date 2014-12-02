@@ -83,7 +83,7 @@ public class TagEditor extends UlHTMLPanel {
 		allList.add(insertionIndex++, inputElement);
 		super.insert(element, getElement(), insertionIndex, true);
 		allList.add(insertionIndex, element);
-		list.add(element);
+		list.add((insertionIndex == 0 ? insertionIndex : insertionIndex / 2), element);
 		element.setFocus();
 	}
 

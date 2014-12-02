@@ -30,6 +30,9 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.AbstractDataProvider;
 import com.google.gwt.view.client.ListDataProvider;
+import com.google.web.bindery.event.shared.EventBus;
+import com.google.web.bindery.event.shared.HandlerRegistration;
+import com.google.web.bindery.event.shared.SimpleEventBus;
 
 /**
  * @author Pandurang Patil 30-Nov-2014
@@ -63,6 +66,7 @@ public class SelectUnselect<ENTITY extends SelectEntity> extends Composite {
 	@UiField
 	SelectUnselectStyle			style;
 	ListDataProvider<ENTITY>	selectedListDP;
+	EventBus					eventBus	= new SimpleEventBus();
 
 	public SelectUnselect(final Integer pageSize, Column<ENTITY, ENTITY> dispColumn) {
 		available = new SelectTable<ENTITY>(pageSize, true, CheckBoxType.PRIMARY, dispColumn);
@@ -83,6 +87,7 @@ public class SelectUnselect<ENTITY extends SelectEntity> extends Composite {
 				if (!selectedDesc.getClassName().contains(style.descSelected())) {
 					selectedDesc.addClassName(style.descSelected());
 				}
+				eventBus.fireEvent(new ChangeEvent(SelectUnselect.this));
 			}
 		});
 		selected.addRecordSelectHandler(new RecordSelectEventHandler<ENTITY>() {
@@ -103,12 +108,14 @@ public class SelectUnselect<ENTITY extends SelectEntity> extends Composite {
 					selectedList.remove(entity);
 					available.setSelected(entity, false);
 				}
+				eventBus.fireEvent(new ChangeEvent(SelectUnselect.this));
 			}
 		});
 		selected.addRemoveClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				clearSelectedDescription();
+				eventBus.fireEvent(new ChangeEvent(SelectUnselect.this));
 			}
 		});
 		selected.addClearClickHandler(new ClickHandler() {
@@ -117,7 +124,14 @@ public class SelectUnselect<ENTITY extends SelectEntity> extends Composite {
 				clearSelectedDescription();
 			}
 		});
+		available.addSearchClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				available.refreshCompleteTable();
+			}
+		});
 		selected.setEmptyMessage(messages.msg_nothing_selected());
+		available.setEmptyMessage(messages.msg_nothing_found());
 		clearSelectedDescription();
 	}
 
@@ -132,6 +146,15 @@ public class SelectUnselect<ENTITY extends SelectEntity> extends Composite {
 		available.clearSelection();
 		selected.clearSelection();
 		clearSelectedDescription();
+		eventBus.fireEvent(new ChangeEvent(this));
+	}
+
+	public void rebuildAvailablePagination() {
+		available.rebuildPagination();
+	}
+
+	public String getSearchString() {
+		return available.getSearchText();
 	}
 
 	void clearSelectedDescription() {
@@ -141,5 +164,13 @@ public class SelectUnselect<ENTITY extends SelectEntity> extends Composite {
 
 	public void setAvailableDataProvider(AbstractDataProvider<ENTITY> dataprovider) {
 		available.setDataProvider(dataprovider);
+	}
+
+	public HandlerRegistration addChangeHandler(ChangeEventHandler handler) {
+		return eventBus.addHandler(ChangeEvent.TYPE, handler);
+	}
+
+	public List<ENTITY> getSelectedItems() {
+		return selectedListDP.getList();
 	}
 }

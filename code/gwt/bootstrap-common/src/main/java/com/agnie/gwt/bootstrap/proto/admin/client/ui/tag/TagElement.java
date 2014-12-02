@@ -85,6 +85,10 @@ public class TagElement extends Composite implements FocusElement {
 		return label.getText();
 	}
 
+	public void setLabel(String label) {
+		this.label.setText(label);
+	}
+
 	/**
 	 * Label selection click handler.
 	 * 

@@ -16,7 +16,6 @@ import org.gwtbootstrap3.client.ui.Button;
 import com.agnie.gwt.bootstrap.proto.admin.client.Messages;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckBoxType;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -25,7 +24,6 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.Column;
-import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.AbstractDataProvider;
@@ -82,7 +80,6 @@ public class SelectUnselect<ENTITY extends SelectEntity> extends Composite {
 				} else if (!event.getUserAction()) {
 					selectedList.remove(event.getEntity());
 				}
-				selected.rebuildPagination();
 				selectedDesc.setInnerText(event.getEntity().getDescription());
 				if (!selectedDesc.getClassName().contains(style.descSelected())) {
 					selectedDesc.addClassName(style.descSelected());
@@ -138,19 +135,10 @@ public class SelectUnselect<ENTITY extends SelectEntity> extends Composite {
 	@UiHandler("resetAll")
 	public void resetAllHandler(ClickEvent event) {
 		selectedListDP.getList().clear();
-		Scheduler.get().scheduleDeferred(new Command() {
-			public void execute() {
-				selected.rebuildPagination();
-			}
-		});
 		available.clearSelection();
 		selected.clearSelection();
 		clearSelectedDescription();
 		eventBus.fireEvent(new ChangeEvent(this));
-	}
-
-	public void rebuildAvailablePagination() {
-		available.rebuildPagination();
 	}
 
 	public String getSearchString() {

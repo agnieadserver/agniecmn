@@ -16,9 +16,7 @@ import org.gwtbootstrap3.client.ui.gwt.CellTable;
 
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckBoxType;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckboxCell;
-import com.agnie.gwt.bootstrap.proto.admin.client.ui.PageRangeInfo;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.SearchBox;
-import com.agnie.gwt.bootstrap.proto.admin.client.ui.SimplePagination;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
@@ -45,7 +43,6 @@ import com.google.gwt.view.client.DefaultSelectionEventManager;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.ProvidesKey;
 import com.google.gwt.view.client.Range;
-import com.google.gwt.view.client.RangeChangeEvent;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.SimpleEventBus;
 
@@ -83,20 +80,17 @@ public class SelectTable<ENTITY extends SelectEntity> extends Composite {
 	int								pageSize		= 0;
 	MultiSelectionModel<ENTITY>		selectionModel	= null;
 	@UiField
-	SimplePagination				pager;
-	@UiField
 	Anchor							clear;
 	@UiField
 	Anchor							remove;
-	@UiField
-	PageRangeInfo					pageInfo;
 	@UiField
 	SearchBox						search;
 	@UiField
 	SelectTableStyle				style;
 	@UiField
 	Element							header;
-	SimplePager						simplePager;
+	@UiField(provided = true)
+	SimplePager						pager;
 	private EventBus				eventBus		= new SimpleEventBus();
 
 	public SelectTable(Integer pageSize, Column<ENTITY, ENTITY> dispColumn) {
@@ -109,6 +103,8 @@ public class SelectTable<ENTITY extends SelectEntity> extends Composite {
 		this.pageSize = pageSize;
 		table.setWidth("100%", false);
 		table.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
+		SimplePager.Resources pagerResources = GWT.create(SimplePager.Resources.class);
+		pager = new SimplePager(TextLocation.CENTER, pagerResources, true, 0, true);
 		initWidget(uiBinder.createAndBindUi(this));
 		selectionModel = new MultiSelectionModel<ENTITY>(SELECTION_ENTITY_KEY_PROVIDER);
 
@@ -133,10 +129,8 @@ public class SelectTable<ENTITY extends SelectEntity> extends Composite {
 		if (checkBoxSelection) {
 			table.setColumnWidth(dispColumn, 90, Unit.PCT);
 		}
-		SimplePager.Resources pagerResources = GWT.create(SimplePager.Resources.class);
-		simplePager = new SimplePager(TextLocation.CENTER, pagerResources, true, 0, true);
-		simplePager.setDisplay(table);
-		simplePager.setPageSize(pageSize);
+		pager.setDisplay(table);
+		pager.setPageSize(pageSize);
 		table.setCondensed(true);
 		table.setStriped(true);
 		table.setHover(true);
@@ -146,19 +140,10 @@ public class SelectTable<ENTITY extends SelectEntity> extends Composite {
 		} else {
 			table.setSelectionModel(selectionModel);
 		}
-		pager.setPager(simplePager);
-		pager.rebuild(true);
-		pageInfo.setPager(simplePager);
-		table.addRangeChangeHandler(new RangeChangeEvent.Handler() {
-			@Override
-			public void onRangeChange(RangeChangeEvent event) {
-				pageInfo.refresh();
-			}
-		});
 	}
 
 	SimplePager getPager() {
-		return simplePager;
+		return pager;
 	}
 
 	/**
@@ -178,13 +163,6 @@ public class SelectTable<ENTITY extends SelectEntity> extends Composite {
 	@UiHandler("remove")
 	public void removeHandler(ClickEvent click) {
 
-	}
-
-	/**
-	 * this will help user to refresh the pagination.
-	 */
-	public void rebuildPagination() {
-		pager.rebuild(true);
 	}
 
 	/**

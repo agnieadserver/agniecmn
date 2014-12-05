@@ -34,4 +34,6 @@ public interface ProtoAdminClientBundle extends ClientBundle {
 	@Source("assets/vendor/bootstrapwizard/jquery.bootstrap.wizard.js")
 	TextResource wizard();
 
+	@Source("assets/vendor/modernizr/modernizr.js")
+	TextResource modernizr();
 }

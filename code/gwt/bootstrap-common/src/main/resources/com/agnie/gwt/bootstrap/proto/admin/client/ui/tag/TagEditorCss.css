@@ -4,10 +4,11 @@
 .tagedit-list {
 	background-color: white;
 	padding: 5px;
-	border: 1px solid #c6c6c6;
+	border: 2px solid gray;
 	overflow: auto;
 	min-height: 25px;
 	list-style-type: none;
+	border-radius: 4px;
 }
 
 .tagedit-list li.tagedit-listelement {

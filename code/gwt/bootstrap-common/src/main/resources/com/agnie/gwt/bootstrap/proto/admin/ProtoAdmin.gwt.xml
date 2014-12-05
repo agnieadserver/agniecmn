@@ -22,7 +22,4 @@
 	<!-- Theme Custom CSS -->
 	<stylesheet src="assets/stylesheets/theme-custom.css" />
 
-	<!-- Head Libs -->
-	<script src="assets/vendor/modernizr/modernizr.js" />
-
 </module>

@@ -51,12 +51,7 @@ public class TagEditor extends UlHTMLPanel {
 	public TagEditor(String html) {
 		super(html);
 		setStyleName(resource.css().tageditList());
-		InputTagElement ite = new InputTagElement();
-		ite.setEventBus(privateEventBus);
-		ite.setEditor(this);
-		ite.setWidth("70px");
-		super.add(ite);
-		allList.add(ite);
+		addInitialFocusElement();
 	}
 
 	/**
@@ -200,6 +195,26 @@ public class TagEditor extends UlHTMLPanel {
 	@Override
 	@Deprecated
 	public void add(Widget widget, Element elem) {
+	}
+
+	private void addInitialFocusElement() {
+		InputTagElement ite = new InputTagElement();
+		ite.setEventBus(privateEventBus);
+		ite.setEditor(this);
+		ite.setWidth("70px");
+		super.add(ite);
+		allList.add(ite);
+	}
+
+	@Override
+	public void clear() {
+		super.clear();
+		focusIndex = -1;
+		tagElementCounter = 0;
+		list.clear();
+		allList.clear();
+		lastFocusElement = null;
+		addInitialFocusElement();
 	}
 
 	static KeyPressHandler	restrictKeyPressHandler	= new KeyPressHandler() {

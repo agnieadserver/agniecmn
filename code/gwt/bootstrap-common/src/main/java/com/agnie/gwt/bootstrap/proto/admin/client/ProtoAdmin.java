@@ -23,6 +23,7 @@ public class ProtoAdmin implements EntryPoint {
 	public void onModuleLoad() {
 		// NOTE: we have to defer the loading of following script to make sure bootstrap scripts are fully loaded first
 		// and then these scripts are loaded. Other wise you will see few events are not fired.
+		ScriptInjector.fromString(ProtoAdminClientBundle.INSTANCE.modernizr().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
 		Scheduler.get().scheduleDeferred(new Command() {
 			public void execute() {
 				ScriptInjector.fromString(ProtoAdminClientBundle.INSTANCE.nanoscroller().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();

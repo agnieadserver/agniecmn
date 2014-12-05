@@ -43,12 +43,14 @@
 					text="{msg.label_remove_selected}"></g:Anchor>
 			</div>
 		</header>
-		<div class="panel-body">
-			<b.t:CellTable ui:field="table" addStyleNames="{style.cell-table}">
-			</b.t:CellTable>
-		</div>
-		<div class="panel-footer {style.footer}">
-			<gc:SimplePager ui:field="pager"></gc:SimplePager>
-		</div>
+		<form>
+			<div class="panel-body">
+				<b.t:CellTable ui:field="table" addStyleNames="{style.cell-table}">
+				</b.t:CellTable>
+			</div>
+			<footer class="panel-footer {style.footer}">
+				<gc:SimplePager ui:field="pager"></gc:SimplePager>
+			</footer>
+		</form>
 	</g:HTMLPanel>
 </ui:UiBinder> 

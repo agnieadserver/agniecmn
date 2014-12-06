@@ -21,6 +21,7 @@
 
 .navbar-adsirver .navbar-nav>li>a {
 	line-height: 24px;
+	font-size: 15px;
 }
 
 .navbar-adsirver .navbar-nav>li:hover {
@@ -31,17 +32,12 @@
 	{
 	color: #171717;
 	background-color: #eee;
-	border-radius: 4px;
 }
 
 .navbar-adsirver .navbar-nav>.active>a, .navbar-adsirver .navbar-nav>.active>a:hover,
 	.navbar-adsirver .navbar-nav>.active>a:focus {
-	color: #171717;
-	font-weight: bold;
-	box-shadow: 0 0 8px black inset;
-	border-radius: 4px;
-	background-color: #eee;
-	cursor: default;
+	color: white;
+	background-color: rgb(23, 23, 23);
 }
 
 .navbar-adsirver .navbar-nav>.disabled>a, .navbar-adsirver .navbar-nav>.disabled>a:hover,

@@ -14,8 +14,9 @@ import java.util.Properties;
 
 import javax.inject.Named;
 
-import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.agnie.common.email.GmailSender;
 import com.agnie.common.email.MailSender;
@@ -24,7 +25,7 @@ import com.google.inject.Provides;
 import com.google.inject.name.Names;
 
 public class CommonModule extends AbstractModule {
-	private static Logger		logger					= Logger.getLogger(CommonModule.class);
+	private static Logger		logger					= LoggerFactory.getLogger(CommonModule.class);
 	public static final String	AGNIE_PROJECT			= "agnie-project";
 	public static final String	GMAIL_SENDER			= "gmail";
 	public static final String	AGNIE_HOME				= "agnie-home";

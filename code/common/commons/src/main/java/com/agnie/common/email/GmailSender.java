@@ -26,7 +26,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.agnie.common.exception.UnexpectedException;
 import com.agnie.common.shutdown.ShutdownHook;
@@ -37,7 +38,7 @@ import com.google.inject.Singleton;
 @Singleton
 public class GmailSender implements MailSender, ShutdownHook {
 	public static final String		GMAIL_MAIL_CONFIG	= "gmail.properties";
-	private static Logger			logger				= Logger.getLogger(GmailSender.class);
+	private static Logger			logger				= LoggerFactory.getLogger(GmailSender.class);
 	// maintains different email account meta data cached.
 	private EmailAccounts			emailAccounts;
 	// SMTP JavaMail properties for Gmail.

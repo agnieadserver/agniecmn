@@ -8,17 +8,18 @@
  ******************************************************************************/
 package com.agnie.common.requestfactory;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.web.bindery.requestfactory.server.ExceptionHandler;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class AgnieRFExceptionHandler implements ExceptionHandler {
-	private static org.apache.log4j.Logger	logger	= Logger.getLogger(AgnieRFExceptionHandler.class);
+	private static Logger	logger	= LoggerFactory.getLogger(AgnieRFExceptionHandler.class);
 
 	public ServerFailure createServerFailure(Throwable throwable) {
 		throwable.printStackTrace();
-		logger.error(throwable);
+		logger.error("server error:", throwable);
 		return new ServerFailure((throwable == null ? null : throwable.getMessage()), (throwable == null ? null : throwable.getClass().getName()), null, true);
 	}
 

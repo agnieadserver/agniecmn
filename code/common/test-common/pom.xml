@@ -64,10 +64,6 @@
 					<artifactId>guice-persist</artifactId>
 				</exclusion>
 				<exclusion>
-					<groupId>log4j</groupId>
-					<artifactId>log4j</artifactId>
-				</exclusion>
-				<exclusion>
 					<groupId>org.apache.commons</groupId>
 					<artifactId>commons-jexl</artifactId>
 				</exclusion>

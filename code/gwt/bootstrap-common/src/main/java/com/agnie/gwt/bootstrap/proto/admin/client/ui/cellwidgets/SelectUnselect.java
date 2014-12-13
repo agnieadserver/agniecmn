@@ -161,4 +161,8 @@ public class SelectUnselect<ENTITY extends SelectEntity> extends Composite {
 	public List<ENTITY> getSelectedItems() {
 		return selectedListDP.getList();
 	}
+
+	public void setSelectedItems(List<ENTITY> list) {
+		available.setSelectedEntities(list);
+	}
 }

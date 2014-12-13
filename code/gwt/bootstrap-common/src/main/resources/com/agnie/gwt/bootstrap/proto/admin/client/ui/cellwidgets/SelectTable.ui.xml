@@ -21,18 +21,18 @@
 			margin-bottom: 0px !important;
 		}
 		
-		.heading {
-			padding-bottom: 0px;
-			min-height: 70px;
+		.panel-container {
+			border: solid gray 2px;
 		}
 		
-		.footer {
-			padding-top: 0px;
+		.search-panel {
+			margin-bottom: 5px;
 		}
 		</ui:style>
 	<g:HTMLPanel addStyleNames="panel">
-		<header class="panel-heading {style.heading}" ui:field="header">
-			<p:SearchBox ui:field="search" placeHolder="{msg.label_search}">
+		<div class="panel-body {style.panel-container}">
+			<p:SearchBox ui:field="search" placeHolder="{msg.label_search}"
+				addStyleNames="{style.search-panel}">
 			</p:SearchBox>
 			<div>
 				<g:Anchor ui:field="clear" addStyleNames="{style.clear-selction}"
@@ -42,15 +42,9 @@
 				<g:Anchor ui:field="remove" addStyleNames="{style.clear-selction}"
 					text="{msg.label_remove_selected}"></g:Anchor>
 			</div>
-		</header>
-		<form>
-			<div class="panel-body">
-				<b.t:CellTable ui:field="table" addStyleNames="{style.cell-table}">
-				</b.t:CellTable>
-			</div>
-			<footer class="panel-footer {style.footer}">
-				<gc:SimplePager ui:field="pager"></gc:SimplePager>
-			</footer>
-		</form>
+			<b.t:CellTable ui:field="table" addStyleNames="{style.cell-table}">
+			</b.t:CellTable>
+			<gc:SimplePager ui:field="pager"></gc:SimplePager>
+		</div>
 	</g:HTMLPanel>
 </ui:UiBinder> 

@@ -19,7 +19,6 @@ import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckboxCell;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.SearchBox;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.shared.GWT;
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -65,9 +64,6 @@ public class SelectTable<ENTITY extends SelectEntity> extends Composite {
 	interface SelectTableStyle extends CssResource {
 		String pagination();
 
-		String heading();
-
-		String footer();
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -87,8 +83,6 @@ public class SelectTable<ENTITY extends SelectEntity> extends Composite {
 	SearchBox						search;
 	@UiField
 	SelectTableStyle				style;
-	@UiField
-	Element							header;
 	@UiField(provided = true)
 	SimplePager						pager;
 	private EventBus				eventBus		= new SimpleEventBus();
@@ -190,11 +184,15 @@ public class SelectTable<ENTITY extends SelectEntity> extends Composite {
 		for (Iterator<ENTITY> iterator = entities.iterator(); iterator.hasNext();) {
 			ENTITY entity = iterator.next();
 			selectionModel.setSelected(entity, true);
+			eventBus.fireEvent(new RecordSelectEvent<SelectEntity>(entity, true));
 		}
+		table.redraw();
 	}
 
 	public void setSelected(ENTITY entity, boolean selected) {
 		selectionModel.setSelected(entity, selected);
+		eventBus.fireEvent(new RecordSelectEvent<SelectEntity>(entity, true));
+		table.redraw();
 	}
 
 	/**
@@ -259,11 +257,6 @@ public class SelectTable<ENTITY extends SelectEntity> extends Composite {
 	 */
 	public void setClear(boolean flag) {
 		clear.setVisible(flag);
-		if (!flag) {
-			header.removeClassName(style.heading());
-		} else {
-			header.addClassName(style.heading());
-		}
 	}
 
 	/**

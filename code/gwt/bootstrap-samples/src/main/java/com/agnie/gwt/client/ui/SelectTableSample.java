@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.agnie.gwt.bootstrap.proto.admin.client.ui.cellwidgets.SelectUnselect;
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckBoxType;
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.cellwidgets.SelectTable;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -29,24 +30,24 @@ import com.google.gwt.view.client.ListDataProvider;
  * @author Pandurang Patil 27-Nov-2014
  *
  */
-public class SelectUnselectSample extends Composite {
+public class SelectTableSample extends Composite {
 
 	private static SelectUnselectSampleUiBinder	uiBinder	= GWT.create(SelectUnselectSampleUiBinder.class);
 
-	interface SelectUnselectSampleUiBinder extends UiBinder<Widget, SelectUnselectSample> {
+	interface SelectUnselectSampleUiBinder extends UiBinder<Widget, SelectTableSample> {
 	}
 
 	@UiField(provided = true)
-	SelectUnselect<User>	selectUnselect;
+	SelectTable<User>	selectTable;
 
 	@UiField
-	Button					check;
+	Button				check;
 
 	@UiField
-	Button					addSelected;
-	List<User>				data;
+	Button				addSelected;
+	List<User>			data;
 
-	public SelectUnselectSample() {
+	public SelectTableSample() {
 		ListDataProvider<User> listDataProvider = new ListDataProvider<User>();
 		data = listDataProvider.getList();
 		Random ran = new Random();
@@ -59,26 +60,27 @@ public class SelectUnselectSample extends Composite {
 				return object;
 			}
 		};
-		selectUnselect = new SelectUnselect<User>(7, column);
-		selectUnselect.setAvailableDataProvider(listDataProvider);
-		// selectUnselect.setSelectedDataProvider(listDataProvider);
+		selectTable = new SelectTable<User>(7, true, CheckBoxType.PRIMARY, column);
+		selectTable.setDataProvider(listDataProvider);
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 
 	public void setSelected() {
 		List<User> selected = new ArrayList<User>();
-		selected.add(data.get(0));
-		selected.add(data.get(3));
-		selected.add(data.get(5));
-		selected.add(data.get(15));
-		selected.add(data.get(17));
-		selectUnselect.setSelectedItems(selected);
+		selected.add(new User(1));
+		selected.add(new User(4));
+		// selected.add(new User(8));
+		// selected.add(new User(15));
+		// selected.add(new User(18));
+		selectTable.setSelected(new User(1), true);
+		selectTable.setSelected(new User(4), true);
+		selectTable.setSelected(new User(8), true);
+		selectTable.setSelected(new User(15), true);
 	}
 
 	@UiHandler("check")
 	public void clickEvent(ClickEvent event) {
-		List<User> selected = selectUnselect.getSelectedItems();
-		Window.alert("Count - " + selected.size());
+		Window.alert("Selected items count - '" + selectTable.getSelectedEntities().size());
 	}
 
 	@UiHandler("addSelected")

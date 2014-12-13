@@ -15,10 +15,10 @@
 									<a href="#" class="fa fa-times"></a>
 								</div>
 
-								<h2 class="panel-title">Select Unselect Widget</h2>
+								<h2 class="panel-title">Select Table</h2>
 							</header>
 							<div class="panel-body">
-								<cw:SelectUnselect ui:field="selectUnselect"></cw:SelectUnselect>
+								<cw:SelectTable ui:field="selectTable"></cw:SelectTable>
 							</div>
 							<div class="panel-footer">
 								<g:Button ui:field="check">Check</g:Button>

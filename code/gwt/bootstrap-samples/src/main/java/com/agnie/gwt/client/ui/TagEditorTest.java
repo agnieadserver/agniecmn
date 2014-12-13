@@ -49,11 +49,11 @@ public class TagEditorTest extends Composite {
 
 	public TagEditorTest() {
 		initWidget(uiBinder.createAndBindUi(this));
-		tageditor.addTagElement(new TagElement("( os =~ [ 'linux', 'mac' ] )"));
-		tageditor.addTagElement(new TagElement(" && "));
-		tageditor.addTagElement(new TagElement(" ( "));
-		tageditor.addTagElement(new TagElement("( browser =~ [ 'Chrome', 'Msie' ] || country == 'India' )"));
-		tageditor.addTagElement(new TagElement(" ) "));
+		tageditor.addTagElement(new TagElement("( os =~ [ 'linux', 'mac' ] )"), false);
+		tageditor.addTagElement(new TagElement(" && "), false);
+		tageditor.addTagElement(new TagElement(" ( "), false);
+		tageditor.addTagElement(new TagElement("( browser =~ [ 'Chrome', 'Msie' ] || country == 'India' )"), false);
+		tageditor.addTagElement(new TagElement(" ) "), true);
 		tageditor.addSelectionHandler(new SelectionEventHandler() {
 
 			@Override
@@ -70,7 +70,7 @@ public class TagEditorTest extends Composite {
 
 	@UiHandler("add")
 	public void addHandler(ClickEvent event) {
-		tageditor.addTagElement(new TagElement(input.getValue()));
+		tageditor.addTagElement(new TagElement(input.getValue()), true);
 	}
 
 	@UiHandler("error")

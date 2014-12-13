@@ -60,7 +60,7 @@ public class TagEditor extends UlHTMLPanel {
 	 * @param element
 	 */
 	@SuppressWarnings("deprecation")
-	public void addTagElement(TagElement element) {
+	public void addTagElement(TagElement element, boolean setfocus) {
 		int oldFocusIndex = focusIndex;
 		blurLastElement();
 		element.setEventBus(privateEventBus);
@@ -79,7 +79,9 @@ public class TagEditor extends UlHTMLPanel {
 		super.insert(element, getElement(), insertionIndex, true);
 		allList.add(insertionIndex, element);
 		list.add((insertionIndex == 0 ? insertionIndex : insertionIndex / 2), element);
-		element.setFocus();
+		if (setfocus) {
+			element.setFocus();
+		}
 	}
 
 	/**

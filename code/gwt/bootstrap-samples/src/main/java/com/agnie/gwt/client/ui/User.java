@@ -23,6 +23,14 @@ public class User implements SelectEntity {
 
 	/**
 	 * @param id
+	 */
+	public User(Integer id) {
+		super();
+		this.id = id;
+	}
+
+	/**
+	 * @param id
 	 * @param name
 	 * @param age
 	 * @param description

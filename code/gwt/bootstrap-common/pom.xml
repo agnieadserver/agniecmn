@@ -45,6 +45,11 @@
 			<artifactId>commons</artifactId>
 			<version>${agnie.common.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.googlecode.gwtupload</groupId>
+			<artifactId>gwtupload</artifactId>
+			<version>1.0.1</version>
+		</dependency>
 	</dependencies>
 
 

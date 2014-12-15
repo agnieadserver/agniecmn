@@ -71,6 +71,11 @@
 			<artifactId>gwt-charts</artifactId>
 			<version>0.9.10</version>
 		</dependency>
+		<dependency>
+			<groupId>com.googlecode.gwtupload</groupId>
+			<artifactId>gwtupload</artifactId>
+			<version>1.0.1</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<!-- Generate compiled stuff in the folder used for developing mode -->

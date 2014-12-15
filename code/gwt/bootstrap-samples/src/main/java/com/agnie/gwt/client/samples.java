@@ -23,6 +23,7 @@ import com.agnie.gwt.bootstrap.proto.admin.client.ui.RadioButton;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.SearchBox;
 import com.agnie.gwt.client.ui.CellTableSample;
 import com.agnie.gwt.client.ui.CodeEditorSample;
+import com.agnie.gwt.client.ui.GWTUploadSample;
 import com.agnie.gwt.client.ui.ListBoxSample;
 import com.agnie.gwt.client.ui.SamplePage;
 import com.agnie.gwt.client.ui.SelectTableSample;
@@ -93,8 +94,13 @@ public class samples implements EntryPoint {
 		// sampleListBox();
 		// tagEditor();
 		// customCheckBox();
-		selectUnselectSample();
+		// selectUnselectSample();
 		// selectTableSample();
+		uploadSample();
+	}
+
+	public void uploadSample() {
+		RootPanel.get().add(new GWTUploadSample());
 	}
 
 	public void selectUnselectSample() {

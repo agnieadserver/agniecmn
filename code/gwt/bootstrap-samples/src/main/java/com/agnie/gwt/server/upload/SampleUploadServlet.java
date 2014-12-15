@@ -50,6 +50,7 @@ public class SampleUploadServlet extends UploadAction {
 	 */
 	@Override
 	public String executeAction(HttpServletRequest request, List<FileItem> sessionFiles) throws UploadActionException {
+		System.out.println("Sessionid -----------------------------------" + request.getParameter("sessionid"));
 		String response = "";
 		for (FileItem item : sessionFiles) {
 			if (false == item.isFormField()) {

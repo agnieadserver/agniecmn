@@ -59,6 +59,7 @@ public class GWTUploadSample extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 		singleUploader.setValidExtensions("jpg", "gif", "png");
 		singleUploader.setAutoSubmit(true);
+		singleUploader.setServletPath("file.aguplod?sessionid=pandurang");
 		// singleUploader.addStatusBar(status);
 		singleUploader.addOnFinishUploadHandler(onFinishUploaderHandler);
 	}

@@ -59,6 +59,10 @@ public class SearchBox extends Composite {
 
 	}
 
+	public void setText(String text) {
+		input.setText(text);
+	}
+
 	/**
 	 * Set Focus to the TextBox
 	 */

@@ -15,7 +15,6 @@ import java.util.Set;
 import org.gwtbootstrap3.client.ui.gwt.CellTable;
 
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckBoxType;
-import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckboxCell;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.SearchBox;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.shared.GWT;
@@ -33,9 +32,7 @@ import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.AbstractDataProvider;
 import com.google.gwt.view.client.DefaultSelectionEventManager;
@@ -278,10 +275,7 @@ public class SelectTable<ENTITY extends SelectEntity> extends Composite {
 	}
 
 	public void setEmptyMessage(String message) {
-		VerticalPanel panel = new VerticalPanel();
 		Label label = new Label(message);
-		panel.add(label);
-		panel.setCellHorizontalAlignment(label, HasHorizontalAlignment.ALIGN_CENTER);
 		table.setEmptyTableWidget(label);
 	}
 }

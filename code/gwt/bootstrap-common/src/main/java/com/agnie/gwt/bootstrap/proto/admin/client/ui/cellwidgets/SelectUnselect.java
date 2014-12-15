@@ -105,12 +105,6 @@ public class SelectUnselect<ENTITY extends SelectEntity> extends Composite {
 					selectedList.remove(entity);
 					available.setSelected(entity, false);
 				}
-				eventBus.fireEvent(new ChangeEvent(SelectUnselect.this));
-			}
-		});
-		selected.addRemoveClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
 				clearSelectedDescription();
 				eventBus.fireEvent(new ChangeEvent(SelectUnselect.this));
 			}

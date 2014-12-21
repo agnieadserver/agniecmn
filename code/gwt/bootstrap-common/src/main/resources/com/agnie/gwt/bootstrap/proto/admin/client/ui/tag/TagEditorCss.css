@@ -1,14 +1,27 @@
 /**
  * Styles of the tagedit inputsforms
  */
+.hide {
+	display: none;
+}
+
+.readonly {
+	background-color: gray;
+	color: white;
+	padding: 5px;
+}
+
+.tageditor {
+	border: 2px solid gray;
+	border-radius: 4px;
+}
+
 .tagedit-list {
 	background-color: white;
 	padding: 5px;
-	border: 2px solid gray;
 	overflow: auto;
 	min-height: 25px;
 	list-style-type: none;
-	border-radius: 4px;
 }
 
 .tagedit-list li.tagedit-listelement {

@@ -22,6 +22,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -36,16 +37,20 @@ public class TagEditorTest extends Composite {
 	}
 
 	@UiField
-	TagEditor	tageditor;
+	TagEditor		tageditor;
 
 	@UiField
-	TextBox		input;
+	TextBox			input;
 	@UiField
-	Button		add;
+	Button			add;
 	@UiField
-	Button		error;
+	Button			error;
 	@UiField
-	Button		fixerror;
+	Button			fixerror;
+	@UiField
+	ToggleButton	toggleReadOnly;
+
+	boolean			lastReadOnlyMode	= false;
 
 	public TagEditorTest() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -66,6 +71,12 @@ public class TagEditorTest extends Composite {
 				}
 			}
 		});
+	}
+
+	@UiHandler("toggleReadOnly")
+	public void toggleReadOnlyHandler(ClickEvent event) {
+		lastReadOnlyMode = !lastReadOnlyMode;
+		tageditor.setReadOnlyMode(lastReadOnlyMode);
 	}
 
 	@UiHandler("add")

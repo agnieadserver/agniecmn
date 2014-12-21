@@ -44,7 +44,7 @@ public class TagElement extends Composite implements FocusElement {
 	SpanElement							display;
 	LiHTMLPanel							root;
 	private SimpleEventBus				privateEventBus;
-	private TagEditor					editor;
+	private Editor						editor;
 
 	public TagElement() {
 		this("");
@@ -71,7 +71,7 @@ public class TagElement extends Composite implements FocusElement {
 	 * 
 	 * @param editor
 	 */
-	void setEditor(TagEditor editor) {
+	void setEditor(Editor editor) {
 		this.editor = editor;
 		focusinput.addKeyDownHandler(editor.keyDownHandler);
 	}

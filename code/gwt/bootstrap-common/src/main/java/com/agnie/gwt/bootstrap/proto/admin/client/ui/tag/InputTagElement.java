@@ -23,7 +23,7 @@ public class InputTagElement extends LiHTMLPanel implements FocusElement {
 	private static TagResources	resource	= TagResources.INSTANCE;
 	TextBox						focusinput	= new TextBox();
 	private SimpleEventBus		privateEventBus;
-	private TagEditor			editor;
+	private Editor				editor;
 
 	public InputTagElement() {
 		this("");
@@ -34,7 +34,7 @@ public class InputTagElement extends LiHTMLPanel implements FocusElement {
 		add(focusinput);
 		addStyleName(resource.css().tageditListelement());
 		focusinput.setStyleName(resource.css().tageditListPlaceholder());
-		focusinput.addKeyPressHandler(TagEditor.restrictKeyPressHandler);
+		focusinput.addKeyPressHandler(Editor.restrictKeyPressHandler);
 		focusinput.addFocusHandler(new FocusHandler() {
 
 			@Override
@@ -49,7 +49,7 @@ public class InputTagElement extends LiHTMLPanel implements FocusElement {
 		this.privateEventBus = eventBus;
 	}
 
-	void setEditor(TagEditor editor) {
+	void setEditor(Editor editor) {
 		this.editor = editor;
 		focusinput.addKeyDownHandler(editor.keyDownHandler);
 	}

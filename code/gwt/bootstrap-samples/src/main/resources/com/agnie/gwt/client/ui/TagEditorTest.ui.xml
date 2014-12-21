@@ -10,5 +10,6 @@
 		<g:Button text="Add" ui:field="add"></g:Button>
 		<g:Button text="Error" ui:field="error"></g:Button>
 		<g:Button text="Fix Error" ui:field="fixerror"></g:Button>
+		<g:ToggleButton text="Toggle Read" ui:field="toggleReadOnly"></g:ToggleButton>
 	</g:HTMLPanel>
 </ui:UiBinder> 

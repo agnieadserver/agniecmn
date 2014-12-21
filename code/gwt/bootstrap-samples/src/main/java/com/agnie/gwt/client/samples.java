@@ -92,11 +92,11 @@ public class samples implements EntryPoint {
 
 		// checkChartFromWidget();
 		// sampleListBox();
-		// tagEditor();
+		tagEditor();
 		// customCheckBox();
 		// selectUnselectSample();
 		// selectTableSample();
-		uploadSample();
+		// uploadSample();
 	}
 
 	public void uploadSample() {

@@ -9,17 +9,23 @@
 package com.agnie.gwt.common.client.mvp;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.Event.NativePreviewEvent;
+import com.google.gwt.user.client.Event.NativePreviewHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.Widget;
 
 public abstract class AppController<PLACE extends Enum<PLACE>> implements ValueChangeHandler<String> {
 
-	private Class<PLACE>		placeType;
-	private Place<PLACE>		lastPlace;
-	private PlaceManager<PLACE>	placeMgr;
+	protected Class<PLACE>			placeType;
+	protected Place<PLACE>			lastPlace;
+	protected PlaceManager<PLACE>	placeMgr;
+	protected MainView				currentView;
+	protected HandlerRegistration	defaultSubmitHandler;
 
 	public AppController(Class<PLACE> placeType) {
 
@@ -27,6 +33,7 @@ public abstract class AppController<PLACE extends Enum<PLACE>> implements ValueC
 		this.placeType = placeType;
 		History.addValueChangeHandler(this);
 		placeMgr = new PlaceManager<PLACE>(this, placeType);
+		defaultSubmitHandler = Event.addNativePreviewHandler(submitHandler);
 	}
 
 	public PlaceManager<PLACE> getPlaceManager() {
@@ -42,11 +49,12 @@ public abstract class AppController<PLACE extends Enum<PLACE>> implements ValueC
 	}
 
 	public void onValueChange(ValueChangeEvent<String> event) {
-		if (checkIfWeCanProceed()) {
+		if (currentView == null || currentView.shouldWeProceed()) {
 			String token = event.getValue();
 			GWT.log("AppContorller on value change Stringtoken==" + token);
 			if (token != null) {
 				Presenter presenter = getPresenterForPlace(placeMgr.getTokenToPlace(placeType, token));
+				currentView = presenter.getMainView();
 				if (presenter != null) {
 					processRequest(presenter);
 				}
@@ -64,26 +72,25 @@ public abstract class AppController<PLACE extends Enum<PLACE>> implements ValueC
 		presenter.postRender();
 	}
 
-	protected boolean checkIfWeCanProceed() {
-		HTMLPanel contentPanel = getMainContentRootPanel();
-		if (contentPanel != null) {
-			for (int index = 0; index < contentPanel.getWidgetCount(); index++) {
-				Widget widget = contentPanel.getWidget(index);
-				if (widget instanceof MainView) {
-					MainView priviousDisplay = (MainView) widget;
-					boolean resp = priviousDisplay.shouldWeProceed();
-					if (!resp)
-						return false;
-				}
-			}
-		}
-		return true;
-	}
-
 	public void setLastPlace(Place<PLACE> place) {
 
 		this.lastPlace = place;
 	}
+
+	private NativePreviewHandler	submitHandler	= new NativePreviewHandler() {
+
+														@Override
+														public void onPreviewNativeEvent(NativePreviewEvent event) {
+															if (event.getTypeInt() == Event.ONKEYPRESS) {
+																if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
+																	GWT.log("Default Enter key press event occured...");
+																	if (currentView != null) {
+																		currentView.defaultEnterPressed();
+																	}
+																}
+															}
+														}
+													};
 
 	protected abstract HTMLPanel getMainContentRootPanel();
 

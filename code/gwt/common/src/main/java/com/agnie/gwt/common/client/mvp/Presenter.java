@@ -14,4 +14,6 @@ public abstract interface Presenter {
 	public abstract void postRender();
 
 	public boolean checkPermission(String permission);
+
+	public MainView getMainView();
 }

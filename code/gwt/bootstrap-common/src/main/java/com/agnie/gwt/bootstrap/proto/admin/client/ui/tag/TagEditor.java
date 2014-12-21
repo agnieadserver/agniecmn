@@ -44,9 +44,9 @@ public class TagEditor extends Composite {
 		setReadOnlyVisible(readOnlyMode);
 	}
 
-	public void setReadOnlyMode(boolean readOnly) {
-		readOnlyMode = readOnly;
-		if (readOnly) {
+	public void setDisable(boolean disable) {
+		readOnlyMode = disable;
+		if (disable) {
 			editor.setVisible(false);
 		} else {
 			editor.setVisible(true);

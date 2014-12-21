@@ -76,7 +76,7 @@ public class TagEditorTest extends Composite {
 	@UiHandler("toggleReadOnly")
 	public void toggleReadOnlyHandler(ClickEvent event) {
 		lastReadOnlyMode = !lastReadOnlyMode;
-		tageditor.setReadOnlyMode(lastReadOnlyMode);
+		tageditor.setDisable(lastReadOnlyMode);
 	}
 
 	@UiHandler("add")

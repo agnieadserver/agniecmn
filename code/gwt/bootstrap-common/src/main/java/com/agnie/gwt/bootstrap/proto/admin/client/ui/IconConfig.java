@@ -12,6 +12,7 @@ import org.gwtbootstrap3.client.ui.constants.IconFlip;
 import org.gwtbootstrap3.client.ui.constants.IconRotate;
 import org.gwtbootstrap3.client.ui.constants.IconSize;
 import org.gwtbootstrap3.client.ui.constants.IconType;
+import org.gwtbootstrap3.client.ui.constants.Styles;
 
 /**
  * @author Pandurang Patil 28-Nov-2014
@@ -23,19 +24,22 @@ public class IconConfig {
 	private IconSize	size;
 	private IconFlip	flip;
 	private IconRotate	rotate;
-
-	public IconConfig(IconType type, IconSize size, IconFlip flip, IconRotate rotate) {
-		this.type = type;
-		this.size = size;
-		this.flip = flip;
-		this.rotate = rotate;
-	}
+	private boolean		spin	= false;
+	private String		color;
 
 	/**
 	 * @return the type
 	 */
 	public IconType getType() {
 		return type;
+	}
+
+	/**
+	 * @param type
+	 *            the type to set
+	 */
+	public void setType(IconType type) {
+		this.type = type;
 	}
 
 	/**
@@ -46,6 +50,14 @@ public class IconConfig {
 	}
 
 	/**
+	 * @param size
+	 *            the size to set
+	 */
+	public void setSize(IconSize size) {
+		this.size = size;
+	}
+
+	/**
 	 * @return the flip
 	 */
 	public IconFlip getFlip() {
@@ -53,10 +65,60 @@ public class IconConfig {
 	}
 
 	/**
+	 * @param flip
+	 *            the flip to set
+	 */
+	public void setFlip(IconFlip flip) {
+		this.flip = flip;
+	}
+
+	/**
 	 * @return the rotate
 	 */
 	public IconRotate getRotate() {
 		return rotate;
+	}
+
+	/**
+	 * @param rotate
+	 *            the rotate to set
+	 */
+	public void setRotate(IconRotate rotate) {
+		this.rotate = rotate;
+	}
+
+	/**
+	 * @return the color
+	 */
+	public String getColor() {
+		return color;
+	}
+
+	/**
+	 * @param color
+	 *            the color to set
+	 */
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	/**
+	 * @return the spin
+	 */
+	public boolean isSpin() {
+		return spin;
+	}
+
+	public String spinClass() {
+		return (spin ? Styles.ICON_SPIN : "");
+	}
+
+	/**
+	 * @param spin
+	 *            the spin to set
+	 */
+	public void setSpin(boolean spin) {
+		this.spin = spin;
 	}
 
 }

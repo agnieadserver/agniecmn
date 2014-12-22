@@ -2,5 +2,6 @@
 	<ui:with field='icon'
 		type="com.agnie.gwt.bootstrap.proto.admin.client.ui.IconConfig" />
 	<i
-		class="fa {icon.getType.getCssName} {icon.getFlip.getCssName} {icon.getRotate.getCssName} {icon.getSize.getCssName}"></i>
+		class="fa {icon.getType.getCssName} {icon.getFlip.getCssName} {icon.getRotate.getCssName} {icon.getSize.getCssName} {icon.spinClass}"
+		style="color: {icon.getColor};"></i>
 </ui:UiBinder>  

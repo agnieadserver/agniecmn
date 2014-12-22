@@ -2,12 +2,14 @@
 	<ui:with field='icon'
 		type="com.agnie.gwt.bootstrap.proto.admin.client.ui.IconConfig" />
 	<div>
-		<i
-			class="fa {icon.getType.getCssName} {icon.getFlip.getCssName} {icon.getRotate.getCssName} {icon.getSize.getCssName} {icon.spinClass}"
-			style="color: {icon.getColor};"></i>
-	</div>
-	<div>
-		<ui:text from="{icon.getDesc}"></ui:text>
+		<div>
+			<i
+				class="fa {icon.getType.getCssName} {icon.getFlip.getCssName} {icon.getRotate.getCssName} {icon.getSize.getCssName} {icon.spinClass}"
+				style="color: {icon.getColor};"></i>
+		</div>
+		<div>
+			<ui:text from="{icon.getDesc}"></ui:text>
+		</div>
 	</div>
 
 </ui:UiBinder>  

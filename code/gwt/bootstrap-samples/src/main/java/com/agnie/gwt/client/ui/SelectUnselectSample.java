@@ -44,6 +44,8 @@ public class SelectUnselectSample extends Composite {
 
 	@UiField
 	Button					addSelected;
+	@UiField
+	Button					disable;
 	List<User>				data;
 
 	public SelectUnselectSample() {
@@ -84,5 +86,13 @@ public class SelectUnselectSample extends Composite {
 	@UiHandler("addSelected")
 	public void addSelectedEvent(ClickEvent event) {
 		setSelected();
+	}
+
+	@UiHandler("disable")
+	public void disableHandler(ClickEvent event) {
+		if (selectUnselect.isDisabled())
+			selectUnselect.setDisabled(false);
+		else
+			selectUnselect.setDisabled(true);
 	}
 }

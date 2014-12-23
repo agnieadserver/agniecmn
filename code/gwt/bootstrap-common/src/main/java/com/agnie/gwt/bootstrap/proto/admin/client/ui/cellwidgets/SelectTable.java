@@ -83,6 +83,7 @@ public class SelectTable<ENTITY extends SelectEntity> extends Composite {
 	@UiField(provided = true)
 	SimplePager						pager;
 	private EventBus				eventBus		= new SimpleEventBus();
+	private boolean					disabled		= false;
 
 	public SelectTable(Integer pageSize, Column<ENTITY, ENTITY> dispColumn) {
 		this(pageSize, false, CheckBoxType.DEFAULT, dispColumn);
@@ -100,7 +101,7 @@ public class SelectTable<ENTITY extends SelectEntity> extends Composite {
 		selectionModel = new MultiSelectionModel<ENTITY>(SELECTION_ENTITY_KEY_PROVIDER);
 
 		if (checkBoxSelection) {
-			Column<ENTITY, Boolean> checkColumn = new Column<ENTITY, Boolean>(new CheckboxCell(true, false, type)) {
+			Column<ENTITY, Boolean> checkColumn = new Column<ENTITY, Boolean>(new SelectTableCheckBoxCell(true, false, type, this)) {
 				@Override
 				public Boolean getValue(ENTITY object) {
 					return selectionModel.isSelected(object);
@@ -277,5 +278,25 @@ public class SelectTable<ENTITY extends SelectEntity> extends Composite {
 	public void setEmptyMessage(String message) {
 		Label label = new Label(message);
 		table.setEmptyTableWidget(label);
+	}
+
+	/**
+	 * @return the disabled
+	 */
+	public boolean isDisabled() {
+		return disabled;
+	}
+
+	/**
+	 * @param disabled
+	 *            the disabled to set
+	 */
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+		this.remove.setEnabled(!disabled);
+	}
+
+	public void redraw() {
+		table.redraw();
 	}
 }

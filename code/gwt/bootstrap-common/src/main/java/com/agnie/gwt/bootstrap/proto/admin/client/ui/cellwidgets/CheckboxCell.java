@@ -25,16 +25,16 @@ import com.google.gwt.safehtml.shared.SafeHtmlUtils;
  */
 public class CheckboxCell extends com.google.gwt.cell.client.CheckboxCell {
 
-	CheckBoxType			type;
+	CheckBoxType				type;
 	/**
 	 * An html string representation of a checked input box.
 	 */
-	private final SafeHtml	INPUT_CHECKED;
+	protected final SafeHtml	INPUT_CHECKED;
 
 	/**
 	 * An html string representation of an unchecked input box.
 	 */
-	private final SafeHtml	INPUT_UNCHECKED;
+	protected final SafeHtml	INPUT_UNCHECKED;
 
 	/**
 	 * 

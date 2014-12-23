@@ -65,6 +65,7 @@ public class SelectUnselect<ENTITY extends SelectEntity> extends Composite {
 	SelectUnselectStyle			style;
 	ListDataProvider<ENTITY>	selectedListDP;
 	EventBus					eventBus	= new SimpleEventBus();
+	private boolean				disabled	= false;
 
 	public SelectUnselect(final Integer pageSize, Column<ENTITY, ENTITY> dispColumn) {
 		available = new SelectTable<ENTITY>(pageSize, true, CheckBoxType.PRIMARY, dispColumn);
@@ -100,13 +101,15 @@ public class SelectUnselect<ENTITY extends SelectEntity> extends Composite {
 		selected.addRemoveClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				for (Iterator<ENTITY> iterator = selected.getSelectedEntities().iterator(); iterator.hasNext();) {
-					ENTITY entity = (ENTITY) iterator.next();
-					selectedList.remove(entity);
-					available.setSelected(entity, false);
+				if (!disabled) {
+					for (Iterator<ENTITY> iterator = selected.getSelectedEntities().iterator(); iterator.hasNext();) {
+						ENTITY entity = (ENTITY) iterator.next();
+						selectedList.remove(entity);
+						available.setSelected(entity, false);
+					}
+					clearSelectedDescription();
+					eventBus.fireEvent(new ChangeEvent(SelectUnselect.this));
 				}
-				clearSelectedDescription();
-				eventBus.fireEvent(new ChangeEvent(SelectUnselect.this));
 			}
 		});
 		selected.addClearClickHandler(new ClickHandler() {
@@ -159,4 +162,25 @@ public class SelectUnselect<ENTITY extends SelectEntity> extends Composite {
 	public void setSelectedItems(List<ENTITY> list) {
 		available.setSelectedEntities(list);
 	}
+
+	/**
+	 * @return the disabled
+	 */
+	public boolean isDisabled() {
+		return disabled;
+	}
+
+	/**
+	 * @param disabled
+	 *            the disabled to set
+	 */
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+		resetAll.setEnabled(!disabled);
+		available.setDisabled(disabled);
+		available.redraw();
+		selected.setDisabled(disabled);
+		selected.redraw();
+	}
+
 }

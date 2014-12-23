@@ -16,6 +16,7 @@ import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckBoxType;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.cellwidgets.SelectTable;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -45,6 +46,9 @@ public class SelectTableSample extends Composite {
 
 	@UiField
 	Button				addSelected;
+	@UiField
+	Button				disable;
+
 	List<User>			data;
 
 	public SelectTableSample() {
@@ -63,6 +67,15 @@ public class SelectTableSample extends Composite {
 		selectTable = new SelectTable<User>(7, true, CheckBoxType.PRIMARY, column);
 		selectTable.setDataProvider(listDataProvider);
 		initWidget(uiBinder.createAndBindUi(this));
+
+		selectTable.addRemoveClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				Window.alert("Remove Clicked");
+			}
+		});
 	}
 
 	public void setSelected() {
@@ -86,5 +99,14 @@ public class SelectTableSample extends Composite {
 	@UiHandler("addSelected")
 	public void addSelectedEvent(ClickEvent event) {
 		setSelected();
+	}
+
+	@UiHandler("disable")
+	public void disableHandler(ClickEvent event) {
+		if (selectTable.isDisabled())
+			selectTable.setDisabled(false);
+		else
+			selectTable.setDisabled(true);
+		selectTable.redraw();
 	}
 }

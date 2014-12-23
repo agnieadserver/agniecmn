@@ -23,6 +23,7 @@
 							<div class="panel-footer">
 								<g:Button ui:field="check">Check</g:Button>
 								<g:Button ui:field="addSelected">Add Selected</g:Button>
+								<g:Button ui:field="disable">Toggle Disable</g:Button>
 							</div>
 						</g:HTMLPanel>
 					</b:Column>

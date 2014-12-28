@@ -131,15 +131,19 @@ public class SelectUnselect<ENTITY extends SelectEntity> extends Composite {
 
 	@UiHandler("resetAll")
 	public void resetAllHandler(ClickEvent event) {
-		selectedListDP.getList().clear();
-		available.clearSelection();
-		selected.clearSelection();
-		clearSelectedDescription();
+		clearAll();
 		eventBus.fireEvent(new ChangeEvent(this));
 	}
 
 	public String getSearchString() {
 		return available.getSearchText();
+	}
+
+	public void clearAll() {
+		selectedListDP.getList().clear();
+		available.clearSelection();
+		selected.clearSelection();
+		clearSelectedDescription();
 	}
 
 	void clearSelectedDescription() {

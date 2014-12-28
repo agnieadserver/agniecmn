@@ -7,7 +7,7 @@
 				class="fa {icon.getType.getCssName} {icon.getFlip.getCssName} {icon.getRotate.getCssName} {icon.getSize.getCssName} {icon.spinClass}"
 				style="color: {icon.getColor};"></i>
 		</div>
-		<div>
+		<div style="color: {icon.getColor};">
 			<ui:text from="{icon.getDesc}"></ui:text>
 		</div>
 	</div>

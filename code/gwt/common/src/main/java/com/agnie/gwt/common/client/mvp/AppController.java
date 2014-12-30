@@ -17,7 +17,6 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Event.NativePreviewEvent;
 import com.google.gwt.user.client.Event.NativePreviewHandler;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.ui.HTMLPanel;
 
 public abstract class AppController<PLACE extends Enum<PLACE>> implements ValueChangeHandler<String> {
 
@@ -91,8 +90,6 @@ public abstract class AppController<PLACE extends Enum<PLACE>> implements ValueC
 															}
 														}
 													};
-
-	protected abstract HTMLPanel getMainContentRootPanel();
 
 	protected abstract PLACE getDefaultPlace();
 

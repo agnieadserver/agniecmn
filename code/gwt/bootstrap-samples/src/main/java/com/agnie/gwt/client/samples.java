@@ -16,6 +16,7 @@ import org.gwtbootstrap3.client.ui.Button;
 import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartColumn;
 import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartEntity;
 import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartValue;
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.Account;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckBox;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckBoxType;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.PieChartWidget;
@@ -87,16 +88,15 @@ public class samples implements EntryPoint {
 		// codeEditorSample();
 		// searchWidgettest();
 		// checkChartPanel();
-
 		// RootPanel.get().add(countWidget);
-
 		// checkChartFromWidget();
 		// sampleListBox();
 		// tagEditor();
 		// customCheckBox();
-		selectUnselectSample();
+		// selectUnselectSample();
 		// selectTableSample();
 		// uploadSample();
+		createAccountWidget();
 	}
 
 	public void uploadSample() {
@@ -225,5 +225,12 @@ public class samples implements EntryPoint {
 
 	private void searchWidgettest() {
 		RootPanel.get().add(new SearchBox());
+	}
+
+	private void createAccountWidget() {
+		Account account = new Account();
+		account.setName("Raj Gaurav ");
+		RootPanel.get().add(account);
+
 	}
 }

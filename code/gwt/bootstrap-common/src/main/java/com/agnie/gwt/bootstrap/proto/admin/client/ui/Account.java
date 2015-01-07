@@ -5,8 +5,6 @@ import org.gwtbootstrap3.client.ui.Anchor;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.dom.client.SpanElement;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
@@ -61,9 +59,8 @@ public class Account extends Composite implements AccountsI {
 	}
 
 	@Override
-	public HandlerRegistration addLogoutHandler(ClickHandler handler) {
-
-		return logout.addClickHandler(handler);
+	public void setLogoutUrl(String urlLogout) {
+		logout.setHref(urlLogout);
 	}
 
 }

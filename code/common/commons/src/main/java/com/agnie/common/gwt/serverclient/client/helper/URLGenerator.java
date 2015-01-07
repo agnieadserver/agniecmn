@@ -169,7 +169,7 @@ public class URLGenerator {
 		if (baseUrl.contains(QueryString.QUESTION_MARK.getKey()))
 			qpexists = true;
 		String param = Window.Location.getHash();
-		if (param != null) {
+		if (param != null && !param.isEmpty()) {
 			if (!qpexists) {
 				url.append(QueryString.QUESTION_MARK.getKey());
 				qpexists = true;

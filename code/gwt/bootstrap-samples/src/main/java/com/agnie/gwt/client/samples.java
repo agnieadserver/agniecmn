@@ -84,7 +84,7 @@ public class samples implements EntryPoint {
 	public void onModuleLoad() {
 		// samplePageTest();
 		// cellTableTest();
-		// toggleSample();
+		toggleSample();
 		// codeEditorSample();
 		// searchWidgettest();
 		// checkChartPanel();
@@ -96,7 +96,7 @@ public class samples implements EntryPoint {
 		// selectUnselectSample();
 		// selectTableSample();
 		// uploadSample();
-		createAccountWidget();
+		// createAccountWidget();
 	}
 
 	public void uploadSample() {

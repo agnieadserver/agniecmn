@@ -17,7 +17,7 @@ public abstract class URLInfoBaseImpl implements URLInfo {
 	 * @return base URL without path
 	 */
 	public String getRootHostURL() {
-		String url = (getProtocol().contains("HTTPS") || getProtocol().contains("https") ? "https" : "http");
+		String url = (isSecure() ? "https" : "http");
 		url += "://" + getHost();
 		return url;
 	}
@@ -34,5 +34,15 @@ public abstract class URLInfoBaseImpl implements URLInfo {
 			return url + "/" + PROD_ROOT_CONTEXT;
 		}
 		return url;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.agnie.common.gwt.serverclient.client.helper.URLInfo#isSecure()
+	 */
+	@Override
+	public boolean isSecure() {
+		return (getProtocol().contains("HTTPS") || getProtocol().contains("https"));
 	}
 }

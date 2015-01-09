@@ -15,7 +15,11 @@ import org.gwtbootstrap3.client.ui.constants.Styles;
 import org.gwtbootstrap3.client.ui.constants.Toggle;
 import org.gwtbootstrap3.client.ui.gwt.HTMLPanel;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.user.client.Event;
 
 /**
  * @author Pandurang Patil 27-Aug-2014
@@ -40,6 +44,7 @@ public class BigToggleButton extends HTMLPanel implements HasDataToggle {
 	}
 
 	private void init() {
+		this.sinkEvents(Event.ONCLICK);
 		setStyleName(ProtoStyles.AG_BIG_BUTTON);
 		addStyleName(ProtoStyles.BLUE);
 		addStyleName(Styles.BTN);
@@ -62,6 +67,10 @@ public class BigToggleButton extends HTMLPanel implements HasDataToggle {
 	@Override
 	public Toggle getDataToggle() {
 		return dataToggle.getDataToggle();
+	}
+
+	public HandlerRegistration addClickHandler(ClickHandler handler) {
+		return this.addHandler(handler, ClickEvent.getType());
 	}
 
 }

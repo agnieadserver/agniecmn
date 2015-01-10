@@ -53,7 +53,7 @@ public class TestURLInfoImpl extends URLInfoBaseImpl {
 	}
 
 	public String getHost() {
-		return url.getHost() + ":" + url.getPort();
+		return url.getHost() + ((url.getPort() == -1 || (isSecure() && url.getPort() == 443) || ((!isSecure() && url.getPort() == 80))) ? "" : ":" + url.getPort());
 	}
 
 	public String getUTF8EncodedURL(String url) {

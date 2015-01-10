@@ -13,12 +13,14 @@ import org.gwtbootstrap3.client.ui.TabListItem;
 import org.gwtbootstrap3.client.ui.constants.IconType;
 
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.AnchorListItem;
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.EntierScreenFrontPanel;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.NavVerticalBarNav;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -35,18 +37,19 @@ public class SamplePage extends Composite {
 	}
 
 	@UiField
-	TabListItem			tab1;
+	TabListItem				tab1;
 
 	@UiField
-	Button				clickme;
+	Button					clickme;
 
 	@UiField
-	NavVerticalBarNav	navbar;
+	NavVerticalBarNav		navbar;
 
 	@UiField
-	Button				addmenu;
+	Button					addmenu;
 
-	int					counter	= 1;
+	int						counter		= 1;
+	EntierScreenFrontPanel	entirePanel	= new EntierScreenFrontPanel("200px");
 
 	public SamplePage() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -78,5 +81,19 @@ public class SamplePage extends Composite {
 				tab1.showTab(false);
 			}
 		});
+		Button hide = new Button("Hide Entire Screen");
+		entirePanel.addContent(hide);
+		hide.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				entirePanel.hide();
+			}
+		});
+	}
+
+	@UiHandler("showEntireScreen")
+	public void showHandler(ClickEvent event) {
+		entirePanel.show();
 	}
 }

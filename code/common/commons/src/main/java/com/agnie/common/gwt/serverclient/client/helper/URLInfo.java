@@ -106,4 +106,6 @@ public interface URLInfo {
 	 * @return referrer URL
 	 */
 	String getReferrer();
+
+	boolean isSecure();
 }

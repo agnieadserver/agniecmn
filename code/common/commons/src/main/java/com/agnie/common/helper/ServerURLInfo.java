@@ -46,7 +46,6 @@ public class ServerURLInfo extends URLInfoBaseImpl {
 		return request.getParameterValues(name);
 	}
 
-	@SuppressWarnings("unchecked")
 	public Set<String> getParameterKeySet() {
 		return request.getParameterMap().keySet();
 	}
@@ -64,7 +63,8 @@ public class ServerURLInfo extends URLInfoBaseImpl {
 		if (proxyServer != null && !proxyServer.isEmpty())
 			return proxyServer;
 		else
-			return request.getServerName() + ":" + request.getServerPort();
+			return request.getServerName()
+					+ ((request.getServerPort() <= 0 || (isSecure() && request.getServerPort() == 443) || ((!isSecure() && request.getServerPort() == 80))) ? "" : ":" + request.getServerPort());
 	}
 
 	public String decodeUTF8URL(String encodedUrl) {

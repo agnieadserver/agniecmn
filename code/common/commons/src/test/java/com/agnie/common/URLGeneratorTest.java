@@ -23,7 +23,31 @@ import com.agnie.common.helper.TestURLInfoImpl;
 
 public class URLGeneratorTest {
 
-	// http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&param2=value2&param1=value11#sample=test
+	@Test
+	public void rootContextTest() throws MalformedURLException {
+		String url = "http://localhost/userapp/login.jsp";
+		String expectedUrl = "http://localhost/userapp";
+		URLInfo ui = new TestURLInfoImpl(url);
+		Assert.assertEquals(expectedUrl, ui.getRootContextURL());
+		
+		url = "http://localhost:8080/userapp/login.jsp";
+		expectedUrl = "http://localhost:8080/userapp";
+		ui = new TestURLInfoImpl(url);
+		Assert.assertEquals(expectedUrl, ui.getRootContextURL());
+		
+		url = "https://localhost:8080/userapp/login.jsp";
+		expectedUrl = "https://localhost:8080/userapp";
+		ui = new TestURLInfoImpl(url);
+		Assert.assertEquals(expectedUrl, ui.getRootContextURL());
+		
+		url = "https://localhost/userapp/login.jsp";
+		expectedUrl = "https://localhost/userapp";
+		ui = new TestURLInfoImpl(url);
+		Assert.assertEquals(expectedUrl, ui.getRootContextURL());
+
+	}
+
+	// http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&param1=value1&param2=value2&param1=value11#sample=test
 	@Test
 	public void simpleChangeLocaleURLTest() throws MalformedURLException {
 		String url = "http://localhost:8080/useradmin/login.jsp";
@@ -53,26 +77,26 @@ public class URLGeneratorTest {
 
 	@Test
 	public void nextLevelChangeLocalURLTest() throws MalformedURLException {
-		String url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997";
-		String expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&locale=mr";
+		String url = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997";
+		String expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&locale=mr";
 		URLInfo ui = new TestURLInfoImpl(url);
 		URLGenerator ug = new URLGenerator();
 		String changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		Assert.assertEquals(expectedUrl, changedUrl);
 
-		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&locale=en";
+		url = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&locale=en";
 		ui = new TestURLInfoImpl(url);
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		Assert.assertEquals(expectedUrl, changedUrl);
 
-		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&locale=en#sample=test";
-		expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&locale=mr#sample=test";
+		url = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&locale=en#sample=test";
+		expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&locale=mr#sample=test";
 		ui = new TestURLInfoImpl(url);
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		Assert.assertEquals(expectedUrl, changedUrl);
 
-		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997#sample=test";
-		expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&locale=mr#sample=test";
+		url = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997#sample=test";
+		expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&locale=mr#sample=test";
 		ui = new TestURLInfoImpl(url);
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		Assert.assertEquals(expectedUrl, changedUrl);
@@ -81,29 +105,29 @@ public class URLGeneratorTest {
 	@Test
 	public void thirdLevelChangeLocalURLTest() throws MalformedURLException {
 
-		String url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1";
-		String expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&locale=mr";
+		String url = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&param1=value1";
+		String expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&param1=value1&locale=mr";
 		URLInfo ui = new TestURLInfoImpl(url);
 		URLGenerator ug = new URLGenerator();
 		String changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		// System.out.println(changedUrl);
 		Assert.assertEquals(expectedUrl, changedUrl);
 
-		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&locale=en";
+		url = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&param1=value1&locale=en";
 		ui = new TestURLInfoImpl(url);
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		// System.out.println(changedUrl);
 		Assert.assertEquals(expectedUrl, changedUrl);
 
-		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&locale=en#sample=test";
-		expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&locale=mr#sample=test";
+		url = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&param1=value1&locale=en#sample=test";
+		expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&param1=value1&locale=mr#sample=test";
 		ui = new TestURLInfoImpl(url);
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		// System.out.println(changedUrl);
 		Assert.assertEquals(expectedUrl, changedUrl);
 
-		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1#sample=test";
-		expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&locale=mr#sample=test";
+		url = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&param1=value1#sample=test";
+		expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&param1=value1&locale=mr#sample=test";
 		ui = new TestURLInfoImpl(url);
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		// System.out.println(changedUrl);
@@ -112,29 +136,29 @@ public class URLGeneratorTest {
 
 	@Test
 	public void forthLevelChangeLocalURLTest() throws MalformedURLException {
-		String url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&param2=value2";
-		String expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&param2=value2&locale=mr";
+		String url = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&param1=value1&param2=value2";
+		String expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&param1=value1&param2=value2&locale=mr";
 		URLInfo ui = new TestURLInfoImpl(url);
 		URLGenerator ug = new URLGenerator();
 		String changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		// System.out.println(changedUrl);
 		Assert.assertEquals(expectedUrl, changedUrl);
 
-		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&param2=value2&locale=en";
+		url = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&param1=value1&param2=value2&locale=en";
 		ui = new TestURLInfoImpl(url);
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		// System.out.println(changedUrl);
 		Assert.assertEquals(expectedUrl, changedUrl);
 
-		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&param2=value2&locale=en#sample=test";
-		expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&param2=value2&locale=mr#sample=test";
+		url = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&param1=value1&param2=value2&locale=en#sample=test";
+		expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&param1=value1&param2=value2&locale=mr#sample=test";
 		ui = new TestURLInfoImpl(url);
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		// System.out.println(changedUrl);
 		Assert.assertEquals(expectedUrl, changedUrl);
 
-		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&param2=value2#sample=test";
-		expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&param2=value2&locale=mr#sample=test";
+		url = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&param1=value1&param2=value2#sample=test";
+		expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&param1=value1&param2=value2&locale=mr#sample=test";
 		ui = new TestURLInfoImpl(url);
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		// System.out.println(changedUrl);
@@ -143,29 +167,29 @@ public class URLGeneratorTest {
 
 	@Test
 	public void fifthLevelChangeLocalURLTest() throws MalformedURLException {
-		String url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&param2=value2&param1=value11";
-		String expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&param1=value11&param2=value2&locale=mr";
+		String url = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&param1=value1&param2=value2&param1=value11";
+		String expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&param1=value1&param1=value11&param2=value2&locale=mr";
 		URLInfo ui = new TestURLInfoImpl(url);
 		URLGenerator ug = new URLGenerator();
 		String changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		// System.out.println(changedUrl);
 		Assert.assertEquals(expectedUrl, changedUrl);
 
-		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&param2=value2&param1=value11&locale=en";
+		url = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&param1=value1&param2=value2&param1=value11&locale=en";
 		ui = new TestURLInfoImpl(url);
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		// System.out.println(changedUrl);
 		Assert.assertEquals(expectedUrl, changedUrl);
 
-		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&param2=value2&param1=value11&locale=en#sample=test";
-		expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&param1=value11&param2=value2&locale=mr#sample=test";
+		url = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&param1=value1&param2=value2&param1=value11&locale=en#sample=test";
+		expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&param1=value1&param1=value11&param2=value2&locale=mr#sample=test";
 		ui = new TestURLInfoImpl(url);
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		// System.out.println(changedUrl);
 		Assert.assertEquals(expectedUrl, changedUrl);
 
-		url = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&param2=value2&param1=value11#sample=test";
-		expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.server=127.0.0.1:9997&param1=value1&param1=value11&param2=value2&locale=mr#sample=test";
+		url = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&param1=value1&param2=value2&param1=value11#sample=test";
+		expectedUrl = "http://localhost:8080/useradmin/login.jsp?gwt.codesvr=127.0.0.1:9997&param1=value1&param1=value11&param2=value2&locale=mr#sample=test";
 		ui = new TestURLInfoImpl(url);
 		changedUrl = ug.getChangeLocaleURL(ui, "mr");
 		// System.out.println(changedUrl);

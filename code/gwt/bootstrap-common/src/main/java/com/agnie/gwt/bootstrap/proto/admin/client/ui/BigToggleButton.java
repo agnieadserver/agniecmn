@@ -43,12 +43,15 @@ public class BigToggleButton extends HTMLPanel implements HasDataToggle {
 		init();
 	}
 
+	boolean	isActive	= false;
+
 	private void init() {
 		this.sinkEvents(Event.ONCLICK);
 		setStyleName(ProtoStyles.AG_BIG_BUTTON);
 		addStyleName(ProtoStyles.BLUE);
 		addStyleName(Styles.BTN);
 		addStyleName(Styles.BTN_BLOCK);
+		addClickHandler(clickHandler);
 	}
 
 	public void setActive(boolean flag) {
@@ -71,6 +74,18 @@ public class BigToggleButton extends HTMLPanel implements HasDataToggle {
 
 	public HandlerRegistration addClickHandler(ClickHandler handler) {
 		return this.addHandler(handler, ClickEvent.getType());
+	}
+
+	ClickHandler	clickHandler	= new ClickHandler() {
+
+										@Override
+										public void onClick(ClickEvent event) {
+											isActive = !isActive;
+										}
+									};
+
+	public boolean getValue() {
+		return isActive;
 	}
 
 }

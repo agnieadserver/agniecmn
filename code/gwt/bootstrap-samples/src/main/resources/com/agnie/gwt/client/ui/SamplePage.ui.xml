@@ -517,6 +517,8 @@
 							</b:Column>
 						</b:Row>
 					</b:Container>
+					<b:Button ui:field="showEntireScreen" type="SUCCESS"
+						text="Show Entire Screen" dataLoadingText="Show..."></b:Button>
 				</section>
 			</div>
 		</section>

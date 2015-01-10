@@ -20,6 +20,7 @@ import com.google.gwt.user.client.Command;
  *
  */
 public class ProtoAdmin implements EntryPoint {
+
 	public void onModuleLoad() {
 		// NOTE: we have to defer the loading of following script to make sure bootstrap scripts are fully loaded first
 		// and then these scripts are loaded. Other wise you will see few events are not fired.

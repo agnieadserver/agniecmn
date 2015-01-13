@@ -82,7 +82,7 @@ public class samples implements EntryPoint {
 	}
 
 	public void onModuleLoad() {
-		samplePageTest();
+		// samplePageTest();
 		// cellTableTest();
 		// toggleSample();
 		// codeEditorSample();
@@ -96,7 +96,7 @@ public class samples implements EntryPoint {
 		// selectUnselectSample();
 		// selectTableSample();
 		// uploadSample();
-		// createAccountWidget();
+		createAccountWidget();
 	}
 
 	public void uploadSample() {
@@ -230,6 +230,7 @@ public class samples implements EntryPoint {
 	private void createAccountWidget() {
 		Account account = new Account();
 		account.setName("Raj Gaurav ");
+		account.setTimeZone("Asia/Calcutta");
 		RootPanel.get().add(account);
 
 	}

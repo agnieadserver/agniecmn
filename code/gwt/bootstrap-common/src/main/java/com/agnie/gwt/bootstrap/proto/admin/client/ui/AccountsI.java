@@ -15,4 +15,6 @@ public interface AccountsI extends IsWidget {
 	void setUpdatePasswordURL(String updatePasswordURL);
 
 	HandlerRegistration addLogoutHandler(ClickHandler handler);
+
+	void setTimeZone(String timeZone);
 }

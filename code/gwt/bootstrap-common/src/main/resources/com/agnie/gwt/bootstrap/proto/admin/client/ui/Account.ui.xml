@@ -3,7 +3,10 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:b='urn:import:org.gwtbootstrap3.client.ui'
 	xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html">
 	<ui:style>
-	
+		.marginCSS{
+		float=right;
+		}
+
 	</ui:style>
 	<ui:with field='msg'
 		type='com.agnie.gwt.bootstrap.proto.admin.client.Messages' />
@@ -13,9 +16,11 @@
 				<img class="img-circle" ui:field="image_user" data-lock-picture="images/!logged-user.jpg" />
 			</figure>
 			<div class="profile-info">
-
 				<span ui:field="name" class="name">John Doe Junior</span>
+				<span style="color:black; font-weight: bold; font-size:80%;">Time Zone:</span>
+				<span style="color:black; font-size:80%;" ui:field="timezone"></span>
 			</div>
+
 
 			<i class="fa custom-caret"></i>
 		</a>
@@ -24,7 +29,6 @@
 			<ul class="list-unstyled">
 				<li class="divider"></li>
 				<li>
-
 					<b:Anchor ui:field="myprofile" text="{msg.label_myprofile}"
 						icon="USER">
 					</b:Anchor>

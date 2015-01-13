@@ -18,7 +18,7 @@ public class Account extends Composite implements AccountsI {
 	Anchor							myprofile;
 
 	@UiField
-	Anchor							updateprofile;
+	Anchor							updatePassword;
 
 	@UiField
 	Anchor							logout;
@@ -45,19 +45,26 @@ public class Account extends Composite implements AccountsI {
 
 	@Override
 	public void setProfileImage(String profileURL) {
-		image_user.setSrc(profileURL);
+		if (profileURL != null && !profileURL.isEmpty())
+			image_user.setSrc(profileURL);
 	}
 
 	@Override
 	public void setMyProfileUrl(String myProfileURL) {
 		myprofile.setHref(myProfileURL);
-
 	}
 
 	@Override
 	public void setUpdatePasswordURL(String updatePasswordURL) {
-		updateprofile.setHref(updatePasswordURL);
+		updatePassword.setHref(updatePasswordURL);
+	}
 
+	public HandlerRegistration addMyProfileHandler(ClickHandler handler) {
+		return myprofile.addClickHandler(handler);
+	}
+
+	public HandlerRegistration addUpdatePasswordHandler(ClickHandler handler) {
+		return updatePassword.addClickHandler(handler);
 	}
 
 	@Override

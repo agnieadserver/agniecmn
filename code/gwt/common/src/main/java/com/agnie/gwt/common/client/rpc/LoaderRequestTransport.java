@@ -60,6 +60,7 @@ public class LoaderRequestTransport extends DefaultRequestTransport {
 			public void onTransportFailure(final ServerFailure failure) {
 				GWT.log("rpc returned");
 				loader.hide();
+				onTransportFailure(failure);
 				receiver.onTransportFailure(failure);
 			}
 
@@ -90,10 +91,18 @@ public class LoaderRequestTransport extends DefaultRequestTransport {
 
 			@Override
 			public void onError(Request request, Throwable exception) {
+				onError(request, exception);
 				callback.onError(request, exception);
-
 			}
 		};
 		return newCallback;
+	}
+
+	public void onTransportFailure(final ServerFailure failure) {
+
+	}
+
+	protected void onError(Request request, Throwable exception) {
+
 	}
 }

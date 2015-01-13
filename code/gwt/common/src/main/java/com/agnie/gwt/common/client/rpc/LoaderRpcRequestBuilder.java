@@ -63,6 +63,7 @@ public class LoaderRpcRequestBuilder extends RpcRequestBuilder {
 		public void onError(Request request, Throwable exception) {
 			loader.hide();
 			callback.onError(request, exception);
+			onError(request, exception);
 		}
 
 	}
@@ -87,5 +88,9 @@ public class LoaderRpcRequestBuilder extends RpcRequestBuilder {
 	protected void doFinish(RequestBuilder rb) {
 		super.doFinish(rb);
 		rb.setCallback(new RequestCallbackWrapper(rb.getCallback()));
+	}
+
+	public void onError(Request request, Throwable exception) {
+
 	}
 }

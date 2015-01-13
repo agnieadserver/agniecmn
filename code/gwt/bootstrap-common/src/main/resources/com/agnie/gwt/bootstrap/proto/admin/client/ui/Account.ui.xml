@@ -3,20 +3,17 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:b='urn:import:org.gwtbootstrap3.client.ui'
 	xmlns:b.html="urn:import:org.gwtbootstrap3.client.ui.html">
 	<ui:style>
-
-
+	
 	</ui:style>
 	<ui:with field='msg'
 		type='com.agnie.gwt.bootstrap.proto.admin.client.Messages' />
 	<g:HTMLPanel addStyleNames="userbox">
 		<a href="#" data-toggle="dropdown">
 			<figure class="profile-picture">
-				<img class="img-circle" ui:field="image_user"
-					data-lock-picture="assets/images/!logged-user.jpg" />
+				<img class="img-circle" ui:field="image_user" data-lock-picture="images/!logged-user.jpg" />
 			</figure>
-			<div class="profile-info" data-lock-name="John Doe"
-				data-lock-email="johndoe@okler.com">
-				
+			<div class="profile-info">
+
 				<span ui:field="name" class="name">John Doe Junior</span>
 			</div>
 
@@ -28,20 +25,21 @@
 				<li class="divider"></li>
 				<li>
 
-					<b:Anchor ui:field="myprofile" text="{msg.msg_myprofile}"
+					<b:Anchor ui:field="myprofile" text="{msg.label_myprofile}"
 						icon="USER">
 					</b:Anchor>
 					<!-- <a role="menuitem" tabindex="-1" href="pages-user-profile.html"> 
 						<i class="fa fa-user"></i> My Profile </a> -->
 				</li>
 				<li>
-					<b:Anchor ui:field="updateprofile" text="{msg.msg_updateprofile}"
+					<b:Anchor ui:field="updatePassword" text="{msg.label_update_password}"
 						icon="LOCK"></b:Anchor>
 					<!-- <a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"> 
 						<i class="fa fa-lock"></i> Update Profile </a> -->
 				</li>
 				<li>
-					<b:Anchor ui:field="logout" text="{msg.msg_logout}" icon="POWER_OFF"></b:Anchor>
+					<b:Anchor ui:field="logout" text="{msg.label_logout}"
+						icon="POWER_OFF"></b:Anchor>
 					<!-- <a role="menuitem" tabindex="-1" href="pages-signin.html"> <i class="fa 
 						fa-power-off"></i> Logout </a> -->
 				</li>

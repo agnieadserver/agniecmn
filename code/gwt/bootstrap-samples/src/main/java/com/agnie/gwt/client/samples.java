@@ -236,6 +236,7 @@ public class samples implements EntryPoint {
 	private void createAccountWidget() {
 		Account account = new Account();
 		account.setName("Raj Gaurav ");
+		account.setTimeZone("Asia/Calcutta");
 		RootPanel.get().add(account);
 
 	}

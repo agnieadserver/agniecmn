@@ -27,6 +27,9 @@ public class Account extends Composite implements AccountsI {
 	SpanElement						name;
 
 	@UiField
+	SpanElement						timezone;
+
+	@UiField
 	ImageElement					image_user;
 
 	private static AccountUiBinder	uiBinder	= GWT.create(AccountUiBinder.class);
@@ -41,6 +44,11 @@ public class Account extends Composite implements AccountsI {
 	@Override
 	public void setName(String name) {
 		this.name.setInnerHTML(name);
+	}
+
+	@Override
+	public void setTimeZone(String str) {
+		this.timezone.setInnerHTML(str);
 	}
 
 	@Override

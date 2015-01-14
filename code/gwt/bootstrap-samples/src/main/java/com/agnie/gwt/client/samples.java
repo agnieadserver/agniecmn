@@ -30,6 +30,7 @@ import com.agnie.gwt.client.ui.SamplePage;
 import com.agnie.gwt.client.ui.SelectTableSample;
 import com.agnie.gwt.client.ui.SelectUnselectSample;
 import com.agnie.gwt.client.ui.TagEditorTest;
+import com.agnie.gwt.client.ui.TimeZoneSample;
 import com.agnie.gwt.client.ui.ToggleSample;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
@@ -82,7 +83,7 @@ public class samples implements EntryPoint {
 	}
 
 	public void onModuleLoad() {
-		samplePageTest();
+		// samplePageTest();
 		// cellTableTest();
 		// toggleSample();
 		// codeEditorSample();
@@ -97,6 +98,11 @@ public class samples implements EntryPoint {
 		// selectTableSample();
 		// uploadSample();
 		// createAccountWidget();
+		timeZoneSample();
+	}
+
+	public void timeZoneSample() {
+		RootPanel.get().add(new TimeZoneSample());
 	}
 
 	public void uploadSample() {

@@ -33,6 +33,7 @@ import com.agnie.gwt.client.ui.SamplePage;
 import com.agnie.gwt.client.ui.SelectTableSample;
 import com.agnie.gwt.client.ui.SelectUnselectSample;
 import com.agnie.gwt.client.ui.TagEditorTest;
+import com.agnie.gwt.client.ui.TimeZoneSample;
 import com.agnie.gwt.client.ui.ToggleSample;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
@@ -102,6 +103,7 @@ public class samples implements EntryPoint {
 		// uploadSample();
 		// createAccountWidget();
 
+
 		sampleDatePickerTest();
 	}
 
@@ -111,6 +113,13 @@ public class samples implements EntryPoint {
 				.getDateFormat());
 		dateTimePicker.setMinDate(fmt.format(new Date()));
 		RootPanel.get().add(dateTimePicker);
+
+		timeZoneSample();
+	}
+
+	public void timeZoneSample() {
+		RootPanel.get().add(new TimeZoneSample());
+
 	}
 
 	public void uploadSample() {
@@ -123,8 +132,7 @@ public class samples implements EntryPoint {
 		// sus.setSelected();
 	}
 
-	public void selectTableSample() {
-		RootPanel.get().add(new SelectTableSample());
+	public void selectTableSample() ootPanel.get().add(new SelectTableSample());
 	}
 
 	public void customCheckBox() {

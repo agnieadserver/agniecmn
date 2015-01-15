@@ -8,7 +8,9 @@
  ******************************************************************************/
 package com.agnie.gwt.client;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.gwtbootstrap3.client.ui.Button;
@@ -17,6 +19,7 @@ import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartColumn;
 import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartEntity;
 import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartValue;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.Account;
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.AgnieDateTimePicker;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckBox;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckBoxType;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.PieChartWidget;
@@ -37,6 +40,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.googlecode.gwt.charts.client.ChartLoader;
@@ -50,7 +54,7 @@ import com.googlecode.gwt.charts.client.corechart.PieChartOptions;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class samples implements EntryPoint {
-	SamplePage	page	= new SamplePage();
+	SamplePage page = new SamplePage();
 
 	public void samplePageTest() {
 		Button addME = new Button("Add Me");
@@ -96,7 +100,17 @@ public class samples implements EntryPoint {
 		// selectUnselectSample();
 		// selectTableSample();
 		// uploadSample();
-		createAccountWidget();
+		// createAccountWidget();
+
+		sampleDatePickerTest();
+	}
+
+	private void sampleDatePickerTest() {
+		AgnieDateTimePicker dateTimePicker = new AgnieDateTimePicker();
+		DateTimeFormat fmt = DateTimeFormat.getFormat(dateTimePicker
+				.getDateFormat());
+		dateTimePicker.setMinDate(fmt.format(new Date()));
+		RootPanel.get().add(dateTimePicker);
 	}
 
 	public void uploadSample() {

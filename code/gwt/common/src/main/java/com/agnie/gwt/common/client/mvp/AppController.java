@@ -56,6 +56,9 @@ public abstract class AppController<PLACE extends Enum<PLACE>> implements ValueC
 				currentView = presenter.getMainView();
 				if (presenter != null) {
 					processRequest(presenter);
+					if (currentView != null) {
+						currentView.setDefaultFocus();
+					}
 				}
 			}
 		} else {

@@ -8,18 +8,20 @@
  ******************************************************************************/
 package com.agnie.gwt.client;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.gwtbootstrap3.client.ui.Button;
+import org.gwtbootstrap3.extras.datetimepicker.client.ui.DateTimePicker;
+import org.gwtbootstrap3.extras.datetimepicker.client.ui.base.constants.DateTimePickerView;
+import org.gwtbootstrap3.extras.datetimepicker.client.ui.base.events.ChangeDateEvent;
+import org.gwtbootstrap3.extras.datetimepicker.client.ui.base.events.ChangeDateHandler;
 
 import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartColumn;
 import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartEntity;
 import com.agnie.gwt.bootstrap.proto.admin.client.entity.ChartValue;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.Account;
-import com.agnie.gwt.bootstrap.proto.admin.client.ui.AgnieDateTimePicker;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckBox;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckBoxType;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.PieChartWidget;
@@ -41,7 +43,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.googlecode.gwt.charts.client.ChartLoader;
@@ -55,7 +56,7 @@ import com.googlecode.gwt.charts.client.corechart.PieChartOptions;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class samples implements EntryPoint {
-	SamplePage page = new SamplePage();
+	SamplePage	page	= new SamplePage();
 
 	public void samplePageTest() {
 		Button addME = new Button("Add Me");
@@ -103,17 +104,27 @@ public class samples implements EntryPoint {
 		// uploadSample();
 		// createAccountWidget();
 
-
 		sampleDatePickerTest();
 	}
 
 	private void sampleDatePickerTest() {
-		AgnieDateTimePicker dateTimePicker = new AgnieDateTimePicker();
-		DateTimeFormat fmt = DateTimeFormat.getFormat(dateTimePicker
-				.getDateFormat());
-		dateTimePicker.setMinDate(fmt.format(new Date()));
+		final DateTimePicker dateTimePicker = new DateTimePicker();
+		final DateTimePicker dateTimePicker1 = new DateTimePicker();
+		dateTimePicker.setMaxView(DateTimePickerView.MONTH);
+		dateTimePicker1.setMaxView(DateTimePickerView.MONTH);
+		dateTimePicker.setFormat("dd-M-yyyy");
 		RootPanel.get().add(dateTimePicker);
+		RootPanel.get().add(dateTimePicker1);
+		dateTimePicker.setStartDate(new Date());
 
+		dateTimePicker.addChangeDateHandler(new ChangeDateHandler() {
+
+			@Override
+			public void onChangeDate(ChangeDateEvent evt) {
+				dateTimePicker1.setValue(null);
+				dateTimePicker1.setStartDate(dateTimePicker.getValue());
+			}
+		});
 		timeZoneSample();
 	}
 
@@ -132,7 +143,8 @@ public class samples implements EntryPoint {
 		// sus.setSelected();
 	}
 
-	public void selectTableSample() ootPanel.get().add(new SelectTableSample());
+	public void selectTableSample() {
+		RootPanel.get().add(new SelectTableSample());
 	}
 
 	public void customCheckBox() {

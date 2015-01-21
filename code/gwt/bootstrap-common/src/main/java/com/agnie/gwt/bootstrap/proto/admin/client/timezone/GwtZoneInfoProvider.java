@@ -9,7 +9,7 @@ import com.google.gwt.i18n.client.TimeZone;
 import com.google.gwt.i18n.client.TimeZoneInfo;
 import com.google.gwt.i18n.client.constants.TimeZoneConstants;
 
-class GwtZoneInfoProvider {
+public class GwtZoneInfoProvider {
 
 	private TimeZoneConstants				timeZoneConstants;
 	private Map<String, TimeZoneContainer>	map	= new HashMap<String, TimeZoneContainer>();

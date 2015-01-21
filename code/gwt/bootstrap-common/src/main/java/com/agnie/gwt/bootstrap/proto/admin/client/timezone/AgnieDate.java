@@ -204,6 +204,10 @@ public class AgnieDate implements Cloneable, Comparable<AgnieDate>, Serializable
 		fixDaylightSavings(hours);
 	}
 
+	public String getAdSirverDateString() {
+		return padTwo(jsdate.getDate()) + "-" + StringData.MONTHS[jsdate.getMonth()] + "-" + jsdate.getFullYear() + " " + padTwo(jsdate.getHours()) + ":" + padTwo(jsdate.getMinutes());
+	}
+
 	public String toGMTString() {
 		return jsdate.getUTCDate() + " " + StringData.MONTHS[jsdate.getUTCMonth()] + " " + jsdate.getUTCFullYear() + " " + padTwo(jsdate.getUTCHours()) + ":" + padTwo(jsdate.getUTCMinutes()) + ":"
 				+ padTwo(jsdate.getUTCSeconds()) + " GMT";

@@ -26,7 +26,8 @@ import com.google.gwt.user.client.Event;
  *
  */
 public class BigToggleButton extends HTMLPanel implements HasDataToggle {
-	protected DataToggleMixin<BigToggleButton>	dataToggle	= new DataToggleMixin<BigToggleButton>(this);
+	protected DataToggleMixin<BigToggleButton> dataToggle = new DataToggleMixin<BigToggleButton>(
+			this);
 
 	public BigToggleButton(SafeHtml safeHtml) {
 		super(safeHtml);
@@ -43,7 +44,7 @@ public class BigToggleButton extends HTMLPanel implements HasDataToggle {
 		init();
 	}
 
-	boolean	isActive	= false;
+	boolean isActive = false;
 
 	private void init() {
 		this.sinkEvents(Event.ONCLICK);
@@ -76,16 +77,20 @@ public class BigToggleButton extends HTMLPanel implements HasDataToggle {
 		return this.addHandler(handler, ClickEvent.getType());
 	}
 
-	ClickHandler	clickHandler	= new ClickHandler() {
+	ClickHandler clickHandler = new ClickHandler() {
 
-										@Override
-										public void onClick(ClickEvent event) {
-											isActive = !isActive;
-										}
-									};
+		@Override
+		public void onClick(ClickEvent event) {
+			isActive = !isActive;
+		}
+	};
 
 	public boolean getValue() {
 		return isActive;
+	}
+
+	public void setValue(boolean state) {
+		isActive = state;
 	}
 
 }

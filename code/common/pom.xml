@@ -63,6 +63,8 @@
 		<module>commons</module>
 		<module>test-common</module>
 		<module>tools-common</module>
+		<module>ag-mb-common</module>
+		<module>reporting-common</module>
 	</modules>
 	<build>
 		<plugins>

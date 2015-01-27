@@ -45,12 +45,11 @@ public class Account extends Composite implements AccountsI {
 		initWidget(uiBinder.createAndBindUi(this));
 		Timer timer = new Timer() {
 			public void run() {
-				timezone.setInnerHTML(DateTimeFormat
-						.getFormat("dd EEE MMM yyyy - hh:mm:ss")
-						.format(new Date()).split("-")[0]);
+				timezone.setInnerHTML(DateTimeFormat.getFormat(
+						"dd EEE MMM yyyy - H:mm:ss").format(new Date()));
 			}
 		};
-		timer.schedule(1000);
+		timer.scheduleRepeating(1000);
 	}
 
 	@Override

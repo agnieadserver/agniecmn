@@ -56,7 +56,7 @@ import com.googlecode.gwt.charts.client.corechart.PieChartOptions;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class samples implements EntryPoint {
-	SamplePage	page	= new SamplePage();
+	SamplePage page = new SamplePage();
 
 	public void samplePageTest() {
 		Button addME = new Button("Add Me");
@@ -102,9 +102,9 @@ public class samples implements EntryPoint {
 		// selectUnselectSample();
 		// selectTableSample();
 		// uploadSample();
-		// createAccountWidget();
+		createAccountWidget();
 
-		sampleDatePickerTest();
+		// sampleDatePickerTest();
 	}
 
 	private void sampleDatePickerTest() {

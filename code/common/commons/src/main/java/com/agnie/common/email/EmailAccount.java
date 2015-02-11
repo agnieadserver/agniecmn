@@ -19,6 +19,7 @@ public class EmailAccount {
 	private String	from;
 	// From Name that should be used while sending the email
 	private String	fromName;
+	private String	replyTo;
 
 	/**
 	 * @return the username
@@ -86,6 +87,21 @@ public class EmailAccount {
 	public void setFromName(String fromName) {
 
 		this.fromName = fromName;
+	}
+
+	/**
+	 * @return the replyTo
+	 */
+	public String getReplyTo() {
+		return replyTo;
+	}
+
+	/**
+	 * @param replyTo
+	 *            the replyTo to set
+	 */
+	public void setReplyTo(String replyTo) {
+		this.replyTo = replyTo;
 	}
 
 }

@@ -143,6 +143,8 @@ public class GmailSender implements MailSender, ShutdownHook {
 			iad.setPersonal(acc.getFromName());
 			MimeMessage msg = new MimeMessage(session);
 			msg.setFrom(iad);
+			Address[] replyToAdds = InternetAddress.parse(acc.getReplyTo());
+			msg.setReplyTo(replyToAdds);
 			msg.setSubject(email.getSubject());
 			Recipient recipient = email.getRecipient();
 			msg.setRecipients(Message.RecipientType.TO, recipient.get(Message.RecipientType.TO));

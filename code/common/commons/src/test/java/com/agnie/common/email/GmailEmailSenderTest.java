@@ -42,7 +42,7 @@ public class GmailEmailSenderTest {
 			Map<String, String> variables = new HashMap<String, String>();
 			variables.put("test", "Junit");
 
-			mailSender.sendMail(new Email("verifier", new Recipient("mail@agnie.co.in"), MSG_SUB, msgTpl.getMessage(variables)));
+			mailSender.sendMail(new Email("verifier", new Recipient("pandurang.patil@gmail.com"), MSG_SUB, msgTpl.getMessage(variables)));
 			Assert.assertTrue(true);
 		} catch (Exception e) {
 			e.printStackTrace();

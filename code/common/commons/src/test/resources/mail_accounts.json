@@ -4,6 +4,7 @@
         "username":"mail@agnie.co.in",
         "password":"mailAGNIE",
         "from":"mail@agnie.co.in",
-        "fromName":"Agnie Support" 
+        "fromName":"Agnie Support",
+        "replyTo":"root@agnie.net"
     }
 }

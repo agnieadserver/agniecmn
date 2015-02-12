@@ -16,22 +16,23 @@ import com.google.inject.Singleton;
 @Singleton
 public class URLGenerator {
 
-	public static final String	USER_ADMIN_ROOT_ENDPOINT	= "3a.root.endpoint";
-	public static final String	BILLING_APP_ENDPOINT		= "billing.root.endpoint";
-	public static final String	RECAPTCHA_PUBLIC_KEY		= "recaptch.public.key";
-	public static final String	RECAPTCHA_PRIVATE_KEY		= "recaptch.private.key";
+	public static final String	USER_ADMIN_ROOT_ENDPOINT		= "3a.root.endpoint";
+	public static final String	USER_ADMIN_REST_ROOT_ENDPOINT	= "3a.root.rest.endpoint";
+	public static final String	BILLING_APP_ENDPOINT			= "billing.root.endpoint";
+	public static final String	RECAPTCHA_PUBLIC_KEY			= "recaptch.public.key";
+	public static final String	RECAPTCHA_PRIVATE_KEY			= "recaptch.private.key";
 
 	/*
 	 * TODO Initialize through maven build variables.
 	 */
 	// public final String LOGIN_REQUEST = "3a4users/login.jsp" production value would have one more level of structure,
 	// values need to be initialized through maven parameteres
-	public static final String	USERADMIN					= "3a." + URLInfoBaseImpl.AGNIE_BASE_DOMAIN;
-	public static final String	BILLING						= "billing." + URLInfoBaseImpl.AGNIE_BASE_DOMAIN;
-	public static final String	HASH_CHANGE_PASS			= "#CHANGE_PASS";
-	public static final String	HASH_UPDATE_PROFILE			= "#UPDATE_PROFILE";
-	public static final String	LANDING_PAGE				= "landing.jsp";
-	public static final String	LOGIN_REQUEST				= "login.jsp";
+	public static final String	USERADMIN						= "3a." + URLInfoBaseImpl.AGNIE_BASE_DOMAIN;
+	public static final String	BILLING							= "billing." + URLInfoBaseImpl.AGNIE_BASE_DOMAIN;
+	public static final String	HASH_CHANGE_PASS				= "#CHANGE_PASS";
+	public static final String	HASH_UPDATE_PROFILE				= "#UPDATE_PROFILE";
+	public static final String	LANDING_PAGE					= "landing.jsp";
+	public static final String	LOGIN_REQUEST					= "login.jsp";
 
 	@Inject
 	private URLConfiguration	urlConf;

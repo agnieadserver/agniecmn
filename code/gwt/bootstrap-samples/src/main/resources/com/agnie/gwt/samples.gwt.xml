@@ -14,6 +14,9 @@
 	<inherits name="com.agnie.gwt.codemirror.keymap.vim" />
 	<inherits name="com.googlecode.gwt.charts.Charts" />
 	<inherits name="com.agnie.gwt.bootstrap.extras.Extras" />
+	<inherits name="com.agnie.gwt.bootstrap.extras.Extras" />
+	<inherits name="com.agnie.gwt.common.AgnieCommon" />
+
 	<!-- Include GWTUpload library -->
 	<inherits name="gwtupload.GWTUpload" />
 	<!-- Load dinamically predefined styles in the library when the application 

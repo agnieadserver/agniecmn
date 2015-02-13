@@ -12,8 +12,7 @@ import com.agnie.common.gwt.serverclient.client.enums.QueryString;
 import com.agnie.common.gwt.serverclient.client.helper.URLGenerator;
 import com.agnie.common.gwt.serverclient.client.helper.URLInfo;
 import com.agnie.common.gwt.serverclient.client.injector.CommonServerClientModule;
-import com.agnie.gwt.common.client.widget.Loader;
-import com.agnie.gwt.common.client.widget.LoaderResources;
+import com.agnie.gwt.common.client.widget.LoaderWidget;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestCallback;
@@ -33,76 +32,68 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
 @Singleton
 public class LoaderRequestTransport extends DefaultRequestTransport {
 
-	@Inject
-	@Named(CommonServerClientModule.CURRENT_APP_DOMAIN)
-	String			appDomain;
-	@Inject
-	URLGenerator	urlGenerator;
-	@Inject
-	URLInfo			urlInfo;
+    @Inject
+    @Named(CommonServerClientModule.CURRENT_APP_DOMAIN)
+    String       appDomain;
+    @Inject
+    URLGenerator urlGenerator;
+    @Inject
+    URLInfo      urlInfo;
 
-	private Loader	loader;
+    @Inject
+    LoaderWidget loader;
 
-	public LoaderRequestTransport(Loader loader) {
-		this.loader = loader;
-		loader.hide();
-	}
+    @Override
+    public void send(final String payload, final TransportReceiver receiver) {
+        GWT.log("making rpc");
+        final TransportReceiver proxy = new TransportReceiver() {
+            @Override
+            public void onTransportFailure(final ServerFailure failure) {
+                GWT.log("rpc returned");
+                loader.setVisible(false);
+                onTransportFailure(failure);
+                receiver.onTransportFailure(failure);
+            }
 
-	public LoaderRequestTransport() {
-		this(new Loader(LoaderResources.INSTANCE.communicating()));
-	}
+            @Override
+            public void onTransportSuccess(final String payload) {
+                loader.setVisible(false);
+                GWT.log("rpc returned");
+                receiver.onTransportSuccess(payload);
+            }
+        };
+        loader.setVisible(true);
+        super.send(payload, proxy);
+    }
 
-	@Override
-	public void send(final String payload, final TransportReceiver receiver) {
-		GWT.log("making rpc");
-		final TransportReceiver proxy = new TransportReceiver() {
-			@Override
-			public void onTransportFailure(final ServerFailure failure) {
-				GWT.log("rpc returned");
-				loader.hide();
-				onTransportFailure(failure);
-				receiver.onTransportFailure(failure);
-			}
+    protected RequestCallback createRequestCallback(final TransportReceiver receiver) {
+        final RequestCallback callback = super.createRequestCallback(receiver);
+        RequestCallback newCallback = new RequestCallback() {
 
-			@Override
-			public void onTransportSuccess(final String payload) {
-				loader.hide();
-				GWT.log("rpc returned");
-				receiver.onTransportSuccess(payload);
-			}
-		};
-		loader.show();
-		super.send(payload, proxy);
-	}
+            @Override
+            public void onResponseReceived(Request request, Response response) {
+                if (Response.SC_UNAUTHORIZED == response.getStatusCode()) {
+                    GWT.log("User session timed out or user logged out");
+                    Window.Location.assign(urlGenerator.getClientSideLoginURL(urlInfo, appDomain, urlInfo.getParameter(QueryString.GWT_DEV_MODE.getKey())));
+                } else {
+                    callback.onResponseReceived(request, response);
+                }
+            }
 
-	protected RequestCallback createRequestCallback(final TransportReceiver receiver) {
-		final RequestCallback callback = super.createRequestCallback(receiver);
-		RequestCallback newCallback = new RequestCallback() {
+            @Override
+            public void onError(Request request, Throwable exception) {
+                onError(request, exception);
+                callback.onError(request, exception);
+            }
+        };
+        return newCallback;
+    }
 
-			@Override
-			public void onResponseReceived(Request request, Response response) {
-				if (Response.SC_UNAUTHORIZED == response.getStatusCode()) {
-					GWT.log("User session timed out or user logged out");
-					Window.Location.assign(urlGenerator.getClientSideLoginURL(urlInfo, appDomain, urlInfo.getParameter(QueryString.GWT_DEV_MODE.getKey())));
-				} else {
-					callback.onResponseReceived(request, response);
-				}
-			}
+    public void onTransportFailure(final ServerFailure failure) {
 
-			@Override
-			public void onError(Request request, Throwable exception) {
-				onError(request, exception);
-				callback.onError(request, exception);
-			}
-		};
-		return newCallback;
-	}
+    }
 
-	public void onTransportFailure(final ServerFailure failure) {
+    protected void onError(Request request, Throwable exception) {
 
-	}
-
-	protected void onError(Request request, Throwable exception) {
-
-	}
+    }
 }

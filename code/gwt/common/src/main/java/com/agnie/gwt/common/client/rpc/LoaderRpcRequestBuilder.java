@@ -12,7 +12,7 @@ import com.agnie.common.gwt.serverclient.client.enums.QueryString;
 import com.agnie.common.gwt.serverclient.client.helper.URLGenerator;
 import com.agnie.common.gwt.serverclient.client.helper.URLInfo;
 import com.agnie.common.gwt.serverclient.client.injector.CommonServerClientModule;
-import com.agnie.gwt.common.client.widget.Loader;
+import com.agnie.gwt.common.client.widget.LoaderWidget;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestBuilder;
@@ -30,67 +30,58 @@ import com.google.inject.name.Named;
  */
 @Singleton
 public class LoaderRpcRequestBuilder extends RpcRequestBuilder {
-	@Inject
-	@Named(CommonServerClientModule.CURRENT_APP_DOMAIN)
-	String			appDomain;
-	@Inject
-	URLGenerator	urlGenerator;
-	@Inject
-	URLInfo			urlInfo;
+    @Inject
+    @Named(CommonServerClientModule.CURRENT_APP_DOMAIN)
+    String       appDomain;
+    @Inject
+    URLGenerator urlGenerator;
+    @Inject
+    URLInfo      urlInfo;
+    @Inject
+    LoaderWidget loader;
 
-	private Loader	loader;
+    private class RequestCallbackWrapper implements RequestCallback {
 
-	private class RequestCallbackWrapper implements RequestCallback {
+        private RequestCallback callback;
 
-		private RequestCallback	callback;
+        RequestCallbackWrapper(RequestCallback aCallback) {
+            this.callback = aCallback;
+        }
 
-		RequestCallbackWrapper(RequestCallback aCallback) {
-			this.callback = aCallback;
-		}
+        @Override
+        public void onResponseReceived(Request request, Response response) {
+            loader.setVisible(false);
+            if (Response.SC_UNAUTHORIZED == response.getStatusCode()) {
+                GWT.log("User session timed out or user logged out");
+                Window.Location.assign(urlGenerator.getClientSideLoginURL(urlInfo, appDomain, urlInfo.getParameter(QueryString.GWT_DEV_MODE.getKey())));
+            } else {
+                callback.onResponseReceived(request, response);
+            }
+        }
 
-		@Override
-		public void onResponseReceived(Request request, Response response) {
-			loader.hide();
-			if (Response.SC_UNAUTHORIZED == response.getStatusCode()) {
-				GWT.log("User session timed out or user logged out");
-				Window.Location.assign(urlGenerator.getClientSideLoginURL(urlInfo, appDomain, urlInfo.getParameter(QueryString.GWT_DEV_MODE.getKey())));
-			} else {
-				callback.onResponseReceived(request, response);
-			}
-		}
+        @Override
+        public void onError(Request request, Throwable exception) {
+            loader.setVisible(false);
+            callback.onError(request, exception);
+            onError(request, exception);
+        }
 
-		@Override
-		public void onError(Request request, Throwable exception) {
-			loader.hide();
-			callback.onError(request, exception);
-			onError(request, exception);
-		}
+    }
 
-	}
+    @Override
+    protected RequestBuilder doCreate(String serviceEntryPoint) {
+        RequestBuilder rb = super.doCreate(serviceEntryPoint);
+        this.loader.setVisible(true);
+        return rb;
+    }
 
-	public LoaderRpcRequestBuilder(Loader loader) {
-		this.loader = loader;
-		loader.hide();
-	}
+    @Override
+    protected void doFinish(RequestBuilder rb) {
+        super.doFinish(rb);
+        rb.setCallback(new RequestCallbackWrapper(rb.getCallback()));
+    }
 
-	public LoaderRpcRequestBuilder() {
-		this(new Loader());
-	}
+    public void onError(Request request, Throwable exception) {
 
-	@Override
-	protected RequestBuilder doCreate(String serviceEntryPoint) {
-		RequestBuilder rb = super.doCreate(serviceEntryPoint);
-		loader.show();
-		return rb;
-	}
-
-	@Override
-	protected void doFinish(RequestBuilder rb) {
-		super.doFinish(rb);
-		rb.setCallback(new RequestCallbackWrapper(rb.getCallback()));
-	}
-
-	public void onError(Request request, Throwable exception) {
-
-	}
+    }
 }

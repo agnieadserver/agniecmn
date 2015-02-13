@@ -3,13 +3,16 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
 	.blockimage {
-		display: block;
-		margin-left: auto;
-		margin-right: auto;
 		width: 224px;
 		padding: 3px 12px;
 		background-color: yellow;
 		border-radius: 0px 0px 6px 6px;
+		z-index: 99999;
+		top: 0px;
+		position: fixed;
+		display: block;
+		left: 50%;
+		margin: 0px 0px 0px -10%;;
 	}
 	</ui:style>
 	<g:HTMLPanel addStyleNames="{style.blockimage}">

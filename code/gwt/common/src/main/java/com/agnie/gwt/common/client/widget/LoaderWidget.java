@@ -8,12 +8,15 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Singleton;
 
 /**
  * @author rajgaurav
  *
  */
+@Singleton
 public class LoaderWidget extends Composite {
 
     static {
@@ -32,6 +35,8 @@ public class LoaderWidget extends Composite {
 
         image = new Image(LoaderResources.INSTANCE.communicating());
         initWidget(uiBinder.createAndBindUi(this));
+        RootPanel.get().add(this);
+        this.setVisible(false);
     }
 
 }

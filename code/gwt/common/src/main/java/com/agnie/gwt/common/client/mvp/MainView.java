@@ -9,9 +9,11 @@
 package com.agnie.gwt.common.client.mvp;
 
 public interface MainView {
-	boolean shouldWeProceed();
+    boolean shouldWeProceed();
 
-	void setDefaultFocus();
+    void setDefaultFocus();
 
-	void defaultEnterPressed();
+    void setBrowserTabActive(boolean state);
+
+    void defaultEnterPressed();
 }

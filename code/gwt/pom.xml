@@ -4,7 +4,7 @@
 	<groupId>com.agnie.gwt</groupId>
 	<artifactId>gwt</artifactId>
 	<packaging>pom</packaging>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.1</version>
 	<name>GWT Libraries</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,7 +21,7 @@
 
 	<scm>
 		<developerConnection>scm:git:git@bitbucket.org:pandurangpatil/agniecmn.git</developerConnection>
-		<tag>HEAD</tag>
+		<tag>gwt-1.1</tag>
 	</scm>
 	<contributors>
 		<contributor>

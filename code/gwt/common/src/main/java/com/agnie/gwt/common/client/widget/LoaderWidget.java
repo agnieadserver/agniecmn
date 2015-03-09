@@ -3,11 +3,9 @@
  */
 package com.agnie.gwt.common.client.widget;
 
-import com.agnie.gwt.common.client.mvp.MainView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -19,7 +17,7 @@ import com.google.inject.Singleton;
  *
  */
 @Singleton
-public class LoaderWidget extends Composite implements MainView {
+public class LoaderWidget extends Composite {
 
     static {
         LoaderResources.INSTANCE.css().ensureInjected();
@@ -38,31 +36,7 @@ public class LoaderWidget extends Composite implements MainView {
         image = new Image(LoaderResources.INSTANCE.communicating());
         initWidget(uiBinder.createAndBindUi(this));
         RootPanel.get().add(this);
-        this.setVisible(true);
-    }
-
-    @Override
-    public boolean shouldWeProceed() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public void setDefaultFocus() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void setBrowserTabActive(boolean state) {
-
-        System.out.println("Alert Value instead" + state);
-    }
-
-    @Override
-    public void defaultEnterPressed() {
-        // TODO Auto-generated method stub
-
+        this.setVisible(false);
     }
 
 }

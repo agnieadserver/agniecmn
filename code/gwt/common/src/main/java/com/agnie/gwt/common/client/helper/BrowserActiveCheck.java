@@ -1,7 +1,9 @@
 package com.agnie.gwt.common.client.helper;
 
 import com.agnie.gwt.common.client.mvp.MainView;
+import com.google.inject.Singleton;
 
+@Singleton
 public class BrowserActiveCheck {
 
     private MainView mainView;
@@ -35,7 +37,7 @@ public class BrowserActiveCheck {
                                           // if the page is shown, play the video
                                           var that = this;
                                           function handleVisibilityChange() {
-                                                  that.@com.agnie.gwt.common.client.helper.BrowserActiveCheck::changeSate(Ljava/lang/Boolean;)($doc[hidden]);
+                                                  that.@com.agnie.gwt.common.client.helper.BrowserActiveCheck::changeSate(Ljava/lang/String;)($doc[hidden]);
                                                   if ($doc[hidden]) {
                                                   // pause State
                                                    console.log("Pause State");
@@ -54,12 +56,12 @@ public class BrowserActiveCheck {
                                           }
                                             }-*/;
 
-    public void changeSate(Boolean state) {
-
+    public void changeSate(String state) {
         if (this.mainView != null) {
-            this.mainView.setBrowserTabActive(state);
+            if (state.equals("true"))
+                this.mainView.setBrowserTabActive(true);
+            else
+                this.mainView.setBrowserTabActive(false);
         }
-
     }
-
 }

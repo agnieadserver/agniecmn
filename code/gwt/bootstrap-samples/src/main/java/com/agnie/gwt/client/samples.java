@@ -37,14 +37,25 @@ import com.agnie.gwt.client.ui.SelectUnselectSample;
 import com.agnie.gwt.client.ui.TagEditorTest;
 import com.agnie.gwt.client.ui.TimeZoneSample;
 import com.agnie.gwt.client.ui.ToggleSample;
+import com.agnie.gwt.common.client.helper.BrowserActiveCheck;
 import com.agnie.gwt.common.client.widget.LoaderWidget;
+import com.gargoylesoftware.htmlunit.javascript.host.MouseEvent;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.logging.client.ConsoleLogHandler;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.googlecode.gwt.charts.client.ChartLoader;
 import com.googlecode.gwt.charts.client.ChartPackage;
@@ -104,9 +115,11 @@ public class samples implements EntryPoint {
         // selectTableSample();
         // uploadSample();
         // createAccountWidget();
-
         // sampleDatePickerTest();
-        RootPanel.get().add(new LoaderWidget());
+        LoaderWidget loaderWidget = new LoaderWidget();
+        BrowserActiveCheck check = new BrowserActiveCheck();
+        check.setActiveListner();
+        RootPanel.get().add(loaderWidget);
     }
 
     private void sampleDatePickerTest() {

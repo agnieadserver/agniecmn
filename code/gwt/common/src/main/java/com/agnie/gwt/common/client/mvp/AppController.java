@@ -8,6 +8,7 @@
  ******************************************************************************/
 package com.agnie.gwt.common.client.mvp;
 
+import com.agnie.gwt.common.client.helper.BrowserActiveCheck;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -28,6 +29,8 @@ public abstract class AppController<PLACE extends Enum<PLACE>> implements ValueC
     protected MainView            currentView;
     protected HandlerRegistration defaultSubmitHandler;
 
+    protected BrowserActiveCheck  browserActiveListner;
+
     public AppController(Class<PLACE> placeType) {
 
         GWT.log(placeType.getName().toString() + "<--" + placeType);
@@ -35,6 +38,8 @@ public abstract class AppController<PLACE extends Enum<PLACE>> implements ValueC
         History.addValueChangeHandler(this);
         placeMgr = new PlaceManager<PLACE>(this, placeType);
         defaultSubmitHandler = Event.addNativePreviewHandler(submitHandler);
+        browserActiveListner = new BrowserActiveCheck();
+        browserActiveListner.setActiveListner();
     }
 
     public PlaceManager<PLACE> getPlaceManager() {
@@ -60,6 +65,7 @@ public abstract class AppController<PLACE extends Enum<PLACE>> implements ValueC
                     processRequest(presenter);
                     if (currentView != null) {
                         currentView.setDefaultFocus();
+                        browserActiveListner.setMainView(currentView);
                     }
                 }
             }
@@ -100,5 +106,4 @@ public abstract class AppController<PLACE extends Enum<PLACE>> implements ValueC
 
     protected abstract Presenter getPresenterForPlace(Place<PLACE> place);
 
-   
 }

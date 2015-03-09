@@ -6,7 +6,7 @@ public class BrowserActiveCheck {
 
     private MainView mainView;
 
-    public BrowserActiveCheck(MainView mainView) {
+    public void setMainView(MainView mainView) {
         this.mainView = mainView;
     }
 
@@ -33,7 +33,9 @@ public class BrowserActiveCheck {
                                           }
                                           // If the page is hidden, pause the video;
                                           // if the page is shown, play the video
+                                          var that = this;
                                           function handleVisibilityChange() {
+                                                  that.@com.agnie.gwt.common.client.helper.BrowserActiveCheck::changeSate(Ljava/lang/Boolean;)($doc[hidden]);
                                                   if ($doc[hidden]) {
                                                   // pause State
                                                    console.log("Pause State");
@@ -42,7 +44,6 @@ public class BrowserActiveCheck {
                                                    console.log("Play State");
                                                   }
                                           }
-
                                           // Warn if the browser doesn't support addEventListener or the Page Visibility API
                                           if (typeof $doc.addEventListener === "undefined" || 
                                           typeof $doc[hidden] === "undefined") {
@@ -52,5 +53,13 @@ public class BrowserActiveCheck {
                                           $doc.addEventListener(visibilityChange, handleVisibilityChange, false);
                                           }
                                             }-*/;
+
+    public void changeSate(Boolean state) {
+
+        if (this.mainView != null) {
+            this.mainView.setBrowserTabActive(state);
+        }
+
+    }
 
 }

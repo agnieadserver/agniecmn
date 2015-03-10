@@ -37,14 +37,17 @@ public class BrowserActiveCheck {
                                           // if the page is shown, play the video
                                           var that = this;
                                           function handleVisibilityChange() {
-                                                  that.@com.agnie.gwt.common.client.helper.BrowserActiveCheck::changeSate(Ljava/lang/String;)($doc[hidden]);
+                                          var valueInString;
                                                   if ($doc[hidden]) {
                                                   // pause State
-                                                   console.log("Pause State");
+                                                   valueInString = "false";
+                                          //       console.log("Pause State");
                                                   } else {
                                                   // play state
-                                                   console.log("Play State");
+                                                   valueInString = "true";
+                                          //      console.log("Play State");
                                                   }
+                                                  that.@com.agnie.gwt.common.client.helper.BrowserActiveCheck::changeSate(Ljava/lang/String;)(valueInString);
                                           }
                                           // Warn if the browser doesn't support addEventListener or the Page Visibility API
                                           if (typeof $doc.addEventListener === "undefined" || 

@@ -29,7 +29,9 @@
 	</select>
 	<select id="getAllTest" parameterType="com.springriver.example.mybatis.bean.Input"
 		resultType="com.springriver.example.mybatis.bean.Category">
-		<bind name="search" value="'%' + _parameter.getName() + '%'" />
+		<if test="_parameter.getName() != null">
+			<bind name="search" value="'%' + _parameter.getName() + '%'" />
+		</if>
 		select category_id as categoryId,name as
 		c_name,
 		age as c_age,
@@ -39,7 +41,7 @@
 		description as c_describe
 		from category
 		<where>
-			<if test="name != null">
+			<if test="search != null">
 				name like #{search}
 			</if>
 			<if test="age != null">

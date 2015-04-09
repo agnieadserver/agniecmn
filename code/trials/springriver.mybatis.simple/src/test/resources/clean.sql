@@ -1,1 +1,1 @@
-truncate table test.category;
+delete from test.category;

@@ -20,7 +20,7 @@ public class CatgegoryManager {
 
             return categoryMapper.selectCategoryById(id);
         } catch (Throwable ex) {
-            System.out.println("Error Found " + ex.getMessage());
+            System.out.println("Error Found child1" + ex.getMessage());
             return null;
         } finally {
             sqlSession.close();
@@ -78,6 +78,9 @@ public class CatgegoryManager {
 
         try {
             CategoryAllMapper allMapper = sqlSession.getMapper(CategoryAllMapper.class);
+
+            // There are other ways to do this e.g. putting '%'|| #{name} ||'%' inside mapper.xml but by this way
+            // through sql injection someone can perform sql injection
             return allMapper.getAllTest(new Input(name, age, type));
         } catch (Throwable ex) {
             System.out.println("Error Found " + ex.getMessage());

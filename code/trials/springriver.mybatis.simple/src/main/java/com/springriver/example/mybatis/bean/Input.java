@@ -1,7 +1,7 @@
 package com.springriver.example.mybatis.bean;
 
 public class Input {
-    String  name;
+    String  search;
     Integer age;
     String  type;
 
@@ -9,17 +9,17 @@ public class Input {
     }
 
     public Input(String name, Integer age, String type) {
-        this.name = name;
+        this.search = name;
         this.age = age;
         this.type = type;
     }
 
     public String getName() {
-        return name;
+        return search;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.search = name;
     }
 
     public Integer getAge() {

@@ -287,7 +287,7 @@
 									<p:NavListDropDown>
 										<p:ParentAnchor icon="ENVELOPE_SQUARE" text="Parent"></p:ParentAnchor>
 										<p:NavDropDownMenu>
-											<p:AnchorListItem>Child 1</p:AnchorListItem>
+											<p:AnchorListItem>Child 8</p:AnchorListItem>
 											<p:AnchorListItem>Child 2</p:AnchorListItem>
 										</p:NavDropDownMenu>
 									</p:NavListDropDown>

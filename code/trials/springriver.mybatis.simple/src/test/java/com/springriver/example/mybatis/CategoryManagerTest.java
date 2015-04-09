@@ -87,7 +87,7 @@ public class CategoryManagerTest {
         Assert.assertEquals("Active", category.getStatus());
         Assert.assertEquals(4, CatgegoryManager.getALLTestElements("Raj Gaurav", null, null).size());
         Assert.assertEquals(3, CatgegoryManager.getALLElements(null, null, "Active", "name", 2, 3, SortOrder.ASC).size());
-        Assert.assertEquals(12, CatgegoryManager.getALLTestElements("Raj", null, null).size());
+        Assert.assertEquals(20, CatgegoryManager.getALLTestElements("Guru", null, null).size());
         Assert.assertEquals("Raj", CatgegoryManager.getALLElements(null, null, "Active", "name", 3, 3, SortOrder.ASC).get(1).getName());
         List<Category> list = CatgegoryManager.getALLElementsWithoutPaging(null, null, "Active", "name", SortOrder.DESC);
         for (int i = 0; i < list.size(); i++) {

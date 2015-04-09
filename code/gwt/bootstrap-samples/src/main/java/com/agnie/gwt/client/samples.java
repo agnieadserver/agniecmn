@@ -13,7 +13,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.gwtbootstrap3.client.ui.Button;
-import org.gwtbootstrap3.client.ui.html.Text;
 import org.gwtbootstrap3.extras.datetimepicker.client.ui.DateTimePicker;
 import org.gwtbootstrap3.extras.datetimepicker.client.ui.base.constants.DateTimePickerView;
 import org.gwtbootstrap3.extras.datetimepicker.client.ui.base.events.ChangeDateEvent;
@@ -38,9 +37,6 @@ import com.agnie.gwt.client.ui.SelectUnselectSample;
 import com.agnie.gwt.client.ui.TagEditorTest;
 import com.agnie.gwt.client.ui.TimeZoneSample;
 import com.agnie.gwt.client.ui.ToggleSample;
-import com.agnie.gwt.common.client.helper.BrowserActiveCheck;
-import com.agnie.gwt.common.client.mvp.MainView;
-import com.agnie.gwt.common.client.widget.LoaderWidget;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -49,6 +45,7 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.datepicker.client.DateBox;
 import com.googlecode.gwt.charts.client.ChartLoader;
 import com.googlecode.gwt.charts.client.ChartPackage;
 import com.googlecode.gwt.charts.client.ColumnType;
@@ -94,7 +91,7 @@ public class samples implements EntryPoint {
     public void onModuleLoad() {
         // samplePageTest();
         // cellTableTest();
-        // toggleSample();
+        toggleSample();
         // codeEditorSample();
         // searchWidgettest();
         // checkChartPanel();
@@ -108,12 +105,9 @@ public class samples implements EntryPoint {
         // uploadSample();
         // createAccountWidget();
         // sampleDatePickerTest();
-        LoaderWidget loaderWidget = new LoaderWidget();
-        BrowserActiveCheck check = new BrowserActiveCheck();
-        check.setMainView((MainView) loaderWidget);
-        check.setActiveListner();
-        RootPanel.get().add(loaderWidget);
-        RootPanel.get().add(new Text("Helllo World!!!"));
+        // DateBox dateBox = new DateBox();
+        // dateBox.setValue(new Date());
+        // RootPanel.get().add(dateBox);
     }
 
     private void sampleDatePickerTest() {

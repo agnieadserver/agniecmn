@@ -281,7 +281,6 @@
 
 					<div class="nano">
 						<div class="nano-content">
-							<p:NavVerticalBar>
 								<p:NavVerticalBarNav ui:field="navbar">
 									<p:AnchorListItem active="true" icon="HOME">Dashboard</p:AnchorListItem>
 									<p:AnchorListItem icon="COMPASS">Direction</p:AnchorListItem>
@@ -293,7 +292,6 @@
 										</p:NavDropDownMenu>
 									</p:NavListDropDown>
 								</p:NavVerticalBarNav>
-							</p:NavVerticalBar>
 						</div>
 					</div>
 				</aside>

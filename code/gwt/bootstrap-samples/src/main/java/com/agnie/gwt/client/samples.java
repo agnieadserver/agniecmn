@@ -81,7 +81,18 @@ public class samples implements EntryPoint {
     }
 
     public void toggleSample() {
-        RootPanel.get().add(new ToggleSample());
+        Button btn = new Button("For texct");
+        RootPanel.get().add(btn);
+
+        btn.addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event) {
+                RootPanel.get().add(new ToggleSample());
+
+            }
+        });
+
     }
 
     public void codeEditorSample() {

@@ -284,11 +284,11 @@
 								<p:NavVerticalBarNav ui:field="navbar">
 									<p:AnchorListItem active="true" icon="HOME">Dashboard</p:AnchorListItem>
 									<p:AnchorListItem icon="COMPASS">Direction</p:AnchorListItem>
-									<p:NavListDropDown>
+									<p:NavListDropDown ui:field="sample">
 										<p:ParentAnchor icon="ENVELOPE_SQUARE" text="Parent"></p:ParentAnchor>
 										<p:NavDropDownMenu>
 											<p:AnchorListItem>Child 1</p:AnchorListItem>
-											<p:AnchorListItem>Child 2</p:AnchorListItem>
+											<p:AnchorListItem>Child 4</p:AnchorListItem>
 										</p:NavDropDownMenu>
 									</p:NavListDropDown>
 								</p:NavVerticalBarNav>

@@ -11,9 +11,6 @@ package com.agnie.gwt.bootstrap.proto.admin.client.ui;
 import org.gwtbootstrap3.client.ui.base.AbstractListItem;
 
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -26,24 +23,22 @@ public class NavListDropDown extends AbstractListItem {
 
     public NavListDropDown() {
         setStyleName(ProtoStyles.NAV_PARENT);
-        sinkEvents(Event.ONCLICK);
-        addHandler(new ClickHandler() {
-
-            @Override
-            public void onClick(ClickEvent event) {
-                state = !state;
-                if (state) {
-                    getElement().setClassName("nav-parent nav-expanded");
-                } else {
-                    getElement().setClassName("nav-parent");
-                }
-            }
-        }, ClickEvent.getType());
     }
 
     @Override
     public void add(final Widget child) {
 
         add(child, (Element) getElement());
+    }
+
+    public void onClickHandleEvent() {
+        state = !state;
+        if (state) {
+            getElement().setClassName("nav-parent nav-expanded");
+
+        } else {
+            getElement().setClassName("nav-parent");
+
+        }
     }
 }

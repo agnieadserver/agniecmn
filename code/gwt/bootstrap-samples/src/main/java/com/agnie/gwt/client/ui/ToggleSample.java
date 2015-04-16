@@ -8,14 +8,11 @@
  ******************************************************************************/
 package com.agnie.gwt.client.ui;
 
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.AnchorListItem;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.NavListDropDown;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -28,6 +25,9 @@ public class ToggleSample extends Composite {
     @UiField
     NavListDropDown                        sample;
 
+    @UiField
+    AnchorListItem                         sa;
+
     boolean                                state    = false;
     private static CellTableSampleUiBinder uiBinder = GWT.create(CellTableSampleUiBinder.class);
 
@@ -36,18 +36,7 @@ public class ToggleSample extends Composite {
 
     public ToggleSample() {
         initWidget(uiBinder.createAndBindUi(this));
-        sample.sinkEvents(Event.ONCLICK);
-        sample.addHandler(new ClickHandler() {
+        sa.setTitle("Moka");
 
-            @Override
-            public void onClick(ClickEvent event) {
-                state = !state;
-                if (state) {
-                    sample.getElement().setClassName("nav-parent nav-expanded");
-                } else {
-                    sample.getElement().setClassName("nav-parent");
-                }
-            }
-        }, ClickEvent.getType());
     }
 }

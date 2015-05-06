@@ -74,12 +74,6 @@ public class CategoryManagerTest {
     @Test
     public void testUpdateUser() {
 
-        // INSERT INTO test.category VALUES (1,'Apolo',26,1000,'Active','Super');
-        // INSERT INTO test.category VALUES (2,'Raj Gaurav',27,2000,'InActive','Max');
-        // INSERT INTO test.category VALUES (3,'Mohan',28,3000,'InActive','Awesome');
-        // INSERT INTO test.category VALUES (4,'Prank',29,4000,'Active','Moka');
-        // INSERT INTO test.category VALUES (5,'Habib',30,5000,'InActive','Des');
-
         Category category = CatgegoryManager.selectCategoryById(1);
         Assert.assertNotNull(category);
         Assert.assertEquals("Apolo", category.getName());
@@ -87,7 +81,7 @@ public class CategoryManagerTest {
         Assert.assertEquals("Active", category.getStatus());
         Assert.assertEquals(4, CatgegoryManager.getALLTestElements("Raj Gaurav", null, null).size());
         Assert.assertEquals(3, CatgegoryManager.getALLElements(null, null, "Active", "name", 2, 3, SortOrder.ASC).size());
-        Assert.assertEquals(20, CatgegoryManager.getALLTestElements("Guru", null, null).size());
+        Assert.assertEquals(4, CatgegoryManager.getALLTestElements("Guru", null, null).size());
         Assert.assertEquals("Raj", CatgegoryManager.getALLElements(null, null, "Active", "name", 3, 3, SortOrder.ASC).get(1).getName());
         List<Category> list = CatgegoryManager.getALLElementsWithoutPaging(null, null, "Active", "name", SortOrder.DESC);
         for (int i = 0; i < list.size(); i++) {

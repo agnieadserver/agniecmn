@@ -34,10 +34,10 @@ public class NavListDropDown extends AbstractListItem {
     public void onClickHandleEvent() {
         state = !state;
         if (state) {
-            getElement().setClassName("nav-parent nav-expanded");
+            getElement().addClassName("nav-parent nav-expanded");
 
         } else {
-            getElement().setClassName("nav-parent");
+            getElement().removeClassName("nav-parent nav-expanded");
 
         }
     }

@@ -15,13 +15,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Place<PLACE extends Enum<PLACE>> {
+	public static final String	HASH_PARAM_SEPERATOR	= "!";
+	public static final String	PARAM_SEPERATOR			= "$";
+	public static final String	KEY_VALUE_SEPERATOR		= "~";
+	private Map<String, String>	parameters				= new HashMap<String, String>();
 
-	private Map<String, String> parameters = new HashMap<String, String>();
-
-	private PLACE place;
+	private PLACE				place;
 
 	public Place(PLACE place) {
-		
+
 		this.place = place;
 	}
 
@@ -40,11 +42,9 @@ public class Place<PLACE extends Enum<PLACE>> {
 	public void setParameters(String token) {
 
 		if (token != null) {
-			for (String singToken : token.split("&")) {
+			for (String singToken : token.split("\\" + PARAM_SEPERATOR)) {
 				if (!singToken.isEmpty()) {
-					parameters.put(singToken.substring(0,
-							singToken.indexOf('=')), singToken.substring(
-							singToken.indexOf('=') + 1, singToken.length()));
+					parameters.put(singToken.substring(0, singToken.indexOf(KEY_VALUE_SEPERATOR)), singToken.substring(singToken.indexOf(KEY_VALUE_SEPERATOR) + 1, singToken.length()));
 				}
 			}
 		}
@@ -54,16 +54,16 @@ public class Place<PLACE extends Enum<PLACE>> {
 	public String toString() {
 		StringBuffer string = new StringBuffer(place.name());
 		if (parameters.size() > 0) {
-			string.append(":");
+			string.append(HASH_PARAM_SEPERATOR);
 			boolean first = true;
 			for (String key : parameters.keySet()) {
 				if (first) {
 					first = false;
 				} else {
-					string.append("&");
+					string.append(PARAM_SEPERATOR);
 				}
 				string.append(key);
-				string.append("=");
+				string.append(KEY_VALUE_SEPERATOR);
 				string.append(parameters.get(key));
 			}
 		}

@@ -101,7 +101,7 @@ public class SelectTable<ENTITY extends SelectEntity> extends Composite {
 		selectionModel = new MultiSelectionModel<ENTITY>(SELECTION_ENTITY_KEY_PROVIDER);
 
 		if (checkBoxSelection) {
-			Column<ENTITY, Boolean> checkColumn = new Column<ENTITY, Boolean>(new SelectTableCheckBoxCell(true, false, type, this)) {
+			Column<ENTITY, Boolean> checkColumn = new Column<ENTITY, Boolean>(new SelectTableCheckBoxCell(true, true, type, this)) {
 				@Override
 				public Boolean getValue(ENTITY object) {
 					return selectionModel.isSelected(object);
@@ -111,6 +111,7 @@ public class SelectTable<ENTITY extends SelectEntity> extends Composite {
 
 				@Override
 				public void update(int index, ENTITY object, Boolean value) {
+					selectionModel.setSelected(object, value);
 					eventBus.fireEvent(new RecordSelectEvent<SelectEntity>(object, value));
 				}
 			});
@@ -128,7 +129,7 @@ public class SelectTable<ENTITY extends SelectEntity> extends Composite {
 		table.setHover(true);
 		table.setPageSize(pageSize);
 		if (checkBoxSelection) {
-			table.setSelectionModel(selectionModel, DefaultSelectionEventManager.<ENTITY> createCheckboxManager());
+			table.setSelectionModel(selectionModel, DefaultSelectionEventManager.<ENTITY> createDefaultManager());
 		} else {
 			table.setSelectionModel(selectionModel);
 		}

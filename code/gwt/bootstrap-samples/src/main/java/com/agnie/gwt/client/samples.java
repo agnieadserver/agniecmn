@@ -29,6 +29,7 @@ import com.agnie.gwt.bootstrap.proto.admin.client.ui.RadioButton;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.SearchBox;
 import com.agnie.gwt.client.ui.CellTableSample;
 import com.agnie.gwt.client.ui.CodeEditorSample;
+import com.agnie.gwt.client.ui.CollapsePanelWidget;
 import com.agnie.gwt.client.ui.GWTUploadSample;
 import com.agnie.gwt.client.ui.ListBoxSample;
 import com.agnie.gwt.client.ui.SamplePage;
@@ -102,7 +103,7 @@ public class samples implements EntryPoint {
     public void onModuleLoad() {
         // samplePageTest();
         // cellTableTest();
-        toggleSample();
+        // toggleSample();
         // codeEditorSample();
         // searchWidgettest();
         // checkChartPanel();
@@ -119,6 +120,13 @@ public class samples implements EntryPoint {
         // DateBox dateBox = new DateBox();
         // dateBox.setValue(new Date());
         // RootPanel.get().add(dateBox);
+
+        collapsePanelExample();
+    }
+
+    private void collapsePanelExample() {
+
+        RootPanel.get().add(new CollapsePanelWidget());
     }
 
     private void sampleDatePickerTest() {

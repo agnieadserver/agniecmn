@@ -6,3 +6,29 @@
 	border-color: black;
 	margin-left: 400px;
 }
+
+.down:after {
+	content: " ";
+	display: inline-block;
+	width: 0;
+	height: 0;
+	margin-left: 10px;
+	vertical-align: middle;
+	border-top: 15px solid;
+	border-right: 8px solid transparent;
+	border-left: 8px solid transparent;
+	color: #ff4405;
+}
+
+.up:after {
+	content: " ";
+	display: inline-block;
+	width: 0;
+	height: 0;
+	margin-left: 10px;
+	vertical-align: middle;
+	border-bottom: 15px solid;
+	border-right: 8px solid transparent;
+	border-left: 8px solid transparent;
+	color: #ff4405;
+}

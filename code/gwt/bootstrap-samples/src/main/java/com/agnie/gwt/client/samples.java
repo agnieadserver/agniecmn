@@ -46,7 +46,6 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.datepicker.client.DateBox;
 import com.googlecode.gwt.charts.client.ChartLoader;
 import com.googlecode.gwt.charts.client.ChartPackage;
 import com.googlecode.gwt.charts.client.ColumnType;
@@ -58,6 +57,7 @@ import com.googlecode.gwt.charts.client.corechart.PieChartOptions;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class samples implements EntryPoint {
+
     SamplePage page = new SamplePage();
 
     public void samplePageTest() {
@@ -120,7 +120,6 @@ public class samples implements EntryPoint {
         // DateBox dateBox = new DateBox();
         // dateBox.setValue(new Date());
         // RootPanel.get().add(dateBox);
-
         collapsePanelExample();
     }
 

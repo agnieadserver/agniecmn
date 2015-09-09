@@ -5,7 +5,8 @@
 	xmlns:slider="urn:import:org.gwtbootstrap3.extras.slider.client.ui"
 	xmlns:p='urn:import:com.agnie.gwt.bootstrap.proto.admin.client.ui'
 	xmlns:b='urn:import:org.gwtbootstrap3.client.ui' xmlns:t='urn:import:org.gwtbootstrap3.client.ui.html'
-	xmlns:b.t='urn:import:org.gwtbootstrap3.client.ui.gwt'>
+	xmlns:b.t='urn:import:org.gwtbootstrap3.client.ui.gwt'
+	xmlns:anchorW='urn:import:com.agnie.gwt.bootstrap.proto.admin.client.ui.cellwidgets'>
 	<ui:style>
 	.important {
 		font-weight: bold;
@@ -13,13 +14,10 @@
 	</ui:style>
 	<g:HTMLPanel>
 		<b:Panel>
-
-
 			<b:Heading size="H3">
-				<b:Anchor dataToggle="COLLAPSE" dataTarget="#collapseGeneral"
-					ui:field="anchor" text="Details" addStyleNames="down" />
+				<anchorW:AnchorCollapse dataToggle="COLLAPSE"
+					ui:field="anchor" dataTarget="#collapseGeneral" text="Details"></anchorW:AnchorCollapse>
 			</b:Heading>
-
 			<b:PanelCollapse b:id="collapseGeneral">
 				<b:FormGroup>
 					<b:FormLabel addStyleNames="col-md-2 mb-xs mt-xs"> Sample Name *: </b:FormLabel>

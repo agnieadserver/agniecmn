@@ -21,17 +21,18 @@ public class AnchorCollapse extends Anchor {
 
             @Override
             public void onClick(ClickEvent event) {
-                isCollapsed = !isCollapsed;
-                setCollapse(isCollapsed);
+                setCollapse(!isCollapsed);
             }
         });
     }
 
     public void setCollapse(boolean state) {
+        isCollapsed = state;
         if (state) {
-            AnchorCollapse.this.setStyleName("up");
-        } else {
             AnchorCollapse.this.setStyleName("down");
+        } else {
+            AnchorCollapse.this.setStyleName("up");
+
         }
     }
 

@@ -75,7 +75,7 @@ public class SelectUnselect<ENTITY extends SelectEntity> extends Composite {
 		final List<ENTITY> selectedList = selectedListDP.getList();
 		available.addRecordSelectHandler(new RecordSelectEventHandler<ENTITY>() {
 			@Override
-			public void onSelection(RecordSelectEvent<ENTITY> event) {
+			public void onSelection(final RecordSelectEvent<ENTITY> event) {
 				if (event.getUserAction() && !selectedList.contains(event.getEntity())) {
 					selectedList.add(event.getEntity());
 				} else if (!event.getUserAction()) {
@@ -104,9 +104,14 @@ public class SelectUnselect<ENTITY extends SelectEntity> extends Composite {
 				if (!disabled) {
 					for (Iterator<ENTITY> iterator = selected.getSelectedEntities().iterator(); iterator.hasNext();) {
 						ENTITY entity = (ENTITY) iterator.next();
-						selectedList.remove(entity);
 						available.setSelected(entity, false);
+						// NOTE: Ideally above available.setSelected should fire record selection change event on
+						// available list and it should have taken cared to remove the given entity from selected list
+						// as well. However some how it is not working as expected. Hence manually removing it from
+						// selected list from here.
+						selectedList.remove(entity);
 					}
+					selected.clearSelection();
 					clearSelectedDescription();
 					eventBus.fireEvent(new ChangeEvent(SelectUnselect.this));
 				}

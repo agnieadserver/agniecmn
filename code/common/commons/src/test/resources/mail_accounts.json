@@ -1,9 +1,9 @@
 {
     "verifier":
     {
-        "username":"mail@agnie.co.in",
+        "username":"mail@agnie.net",
         "password":"mailAGNIE",
-        "from":"mail@agnie.co.in",
+        "from":"mail@agnie.net",
         "fromName":"Agnie Support",
         "replyTo":"root@agnie.net"
     }

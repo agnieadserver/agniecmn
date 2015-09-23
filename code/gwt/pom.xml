@@ -23,6 +23,7 @@
 		<developerConnection>scm:git:git@bitbucket.org:pandurangpatil/agniecmn.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
+
 	<contributors>
 		<contributor>
 			<name>Pandurang Patil</name>

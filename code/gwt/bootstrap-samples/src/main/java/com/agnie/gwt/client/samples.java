@@ -26,6 +26,8 @@ import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckBox;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckBoxType;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.PieChartWidget;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.RadioButton;
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.RichPasswordBox;
+import com.agnie.gwt.bootstrap.proto.admin.client.ui.RichTextBox;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.SearchBox;
 import com.agnie.gwt.client.ui.CellTableSample;
 import com.agnie.gwt.client.ui.CodeEditorSample;
@@ -38,6 +40,7 @@ import com.agnie.gwt.client.ui.SelectUnselectSample;
 import com.agnie.gwt.client.ui.TagEditorTest;
 import com.agnie.gwt.client.ui.TimeZoneSample;
 import com.agnie.gwt.client.ui.ToggleSample;
+import com.agnie.gwt.client.ui.sampleLoginPage;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -120,13 +123,22 @@ public class samples implements EntryPoint {
         // DateBox dateBox = new DateBox();
         // dateBox.setValue(new Date());
         // RootPanel.get().add(dateBox);
-        collapsePanelExample();
+//        collapsePanelExample();
+        SampleLoginPage();
+        
+        
     }
-
+    private void SampleLoginPage() {
+        sampleLoginPage lp = new sampleLoginPage();
+        RootPanel.get().add(lp);
+    }
+    
+    
     private void collapsePanelExample() {
 
         RootPanel.get().add(new CollapsePanelWidget());
     }
+    
 
     private void sampleDatePickerTest() {
         final DateTimePicker dateTimePicker = new DateTimePicker();

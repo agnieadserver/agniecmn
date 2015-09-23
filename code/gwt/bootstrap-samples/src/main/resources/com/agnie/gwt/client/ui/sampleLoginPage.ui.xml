@@ -1,0 +1,25 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:lgn="urn:import:com.agnie.gwt.bootstrap.proto.admin.client.ui">
+	<ui:style>
+	.body {
+		background-color: white;
+		color: #76838f;
+		line-height: 1.57142857;
+		font-family: Roboto, sans-serif;
+		font-weight: 300;
+		width: 300px;
+		padding: 50px 40px 40px;
+		border-radius: 5px 5px 5px 5px;
+		font-size: 14px;
+		border-width: 0;
+		position: absolute;
+		display: block;
+		margin: 0 auto;
+	}
+	</ui:style>
+	<g:HTMLPanel ui:field="panel" addStyleNames="{style.body}">
+		<lgn:RichTextBox label="Email"></lgn:RichTextBox>
+		<lgn:RichPasswordBox label="Password"></lgn:RichPasswordBox>
+	</g:HTMLPanel>
+</ui:UiBinder> 

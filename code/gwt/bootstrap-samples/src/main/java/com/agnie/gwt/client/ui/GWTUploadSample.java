@@ -36,62 +36,62 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class GWTUploadSample extends Composite {
 
-	private static GWTUploadSampleUiBinder	uiBinder	= GWT.create(GWTUploadSampleUiBinder.class);
+    private static GWTUploadSampleUiBinder uiBinder = GWT.create(GWTUploadSampleUiBinder.class);
 
-	interface GWTUploadSampleUiBinder extends UiBinder<Widget, GWTUploadSample> {
-	}
+    interface GWTUploadSampleUiBinder extends UiBinder<Widget, GWTUploadSample> {
+    }
 
-	@UiField(provided = true)
-	SingleUploader	singleUploader;
-	@UiField
-	HTMLPanel		display;
+    @UiField(provided = true)
+    SingleUploader singleUploader;
+    @UiField
+    HTMLPanel      display;
 
-	public GWTUploadSample() {
-		ProgressBar pb = new ProgressBar();
-		pb.setProgressBarType(ProgressBarType.SUCCESS);
-		pb.setActive(true);
-		pb.setType(ProgressType.STRIPED);
-		pb.setSize("200px", "7px");
-		Button btn = new Button("Upload");
-		btn.setType(ButtonType.DEFAULT);
-		singleUploader = new SingleUploader(FileInputType.CUSTOM, pb, btn);
-		singleUploader.setFileInput(new ButtonFileInput(ButtonType.SUCCESS));
-		initWidget(uiBinder.createAndBindUi(this));
-		singleUploader.setValidExtensions("jpg", "gif", "png");
-		singleUploader.setAutoSubmit(true);
-		singleUploader.setServletPath("file.aguplod?sessionid=pandurang");
-		// singleUploader.addStatusBar(status);
-		singleUploader.addOnFinishUploadHandler(onFinishUploaderHandler);
-	}
+    public GWTUploadSample() {
+        ProgressBar pb = new ProgressBar();
+        pb.setProgressBarType(ProgressBarType.SUCCESS);
+        pb.setActive(true);
+        pb.setType(ProgressType.STRIPED);
+        pb.setSize("200px", "7px");
+        Button btn = new Button("Upload");
+        btn.setType(ButtonType.DEFAULT);
+        singleUploader = new SingleUploader(FileInputType.CUSTOM, pb, btn);
+        singleUploader.setFileInput(new ButtonFileInput(ButtonType.SUCCESS));
+        initWidget(uiBinder.createAndBindUi(this));
+        singleUploader.setValidExtensions("jpg", "gif", "png");
+        singleUploader.setAutoSubmit(true);
+        singleUploader.setServletPath("file.aguplod?sessionid=pandurang");
+        // singleUploader.addStatusBar(status);
+        singleUploader.addOnFinishUploadHandler(onFinishUploaderHandler);
+    }
 
-	OnLoadPreloadedImageHandler					showImage				= new OnLoadPreloadedImageHandler() {
-																			public void onLoad(PreloadedImage img) {
-																				display.add(img);
-																			}
-																		};
-	// Load the image in the document and in the case of success attach it to the viewer
-	private IUploader.OnFinishUploaderHandler	onFinishUploaderHandler	= new IUploader.OnFinishUploaderHandler() {
-																			public void onFinish(IUploader uploader) {
-																				if (uploader.getStatus() == Status.SUCCESS) {
-																					GWT.log("File Url:" + uploader.fileUrl());
-																					new PreloadedImage(uploader.fileUrl(), showImage);
+    OnLoadPreloadedImageHandler               showImage               = new OnLoadPreloadedImageHandler() {
+                                                                          public void onLoad(PreloadedImage img) {
+                                                                              display.add(img);
+                                                                          }
+                                                                      };
+    // Load the image in the document and in the case of success attach it to the viewer
+    private IUploader.OnFinishUploaderHandler onFinishUploaderHandler = new IUploader.OnFinishUploaderHandler() {
+                                                                          public void onFinish(IUploader uploader) {
+                                                                              if (uploader.getStatus() == Status.SUCCESS) {
+                                                                                  GWT.log("File Url:" + uploader.fileUrl());
+                                                                                  new PreloadedImage(uploader.fileUrl(), showImage);
 
-																					// The server sends useful
-																					// information to the client by
-																					// default
-																					UploadedInfo info = uploader.getServerInfo();
-																					GWT.log("File name " + info.name);
-																					GWT.log("File content-type " + info.ctype);
-																					GWT.log("File size " + info.size);
+                                                                                  // The server sends useful
+                                                                                  // information to the client by
+                                                                                  // default
+                                                                                  UploadedInfo info = uploader.getServerInfo();
+                                                                                  GWT.log("File name " + info.name);
+                                                                                  GWT.log("File content-type " + info.ctype);
+                                                                                  GWT.log("File size " + info.size);
 
-																					// You can send any customized
-																					// message and parse it
-																					GWT.log("Server message " + info.message);
-																					GWT.log(uploader.getServerMessage().getMessage());
-																				} else if (uploader.getStatus() == Status.ERROR) {
-																					GWT.log(uploader.getServerRawResponse());
-																				}
-																			}
-																		};
+                                                                                  // You can send any customized
+                                                                                  // message and parse it
+                                                                                  GWT.log("Server message " + info.message);
+                                                                                  GWT.log(uploader.getServerMessage().getMessage());
+                                                                              } else if (uploader.getStatus() == Status.ERROR) {
+                                                                                  GWT.log(uploader.getServerRawResponse());
+                                                                              }
+                                                                          }
+                                                                      };
 
 }

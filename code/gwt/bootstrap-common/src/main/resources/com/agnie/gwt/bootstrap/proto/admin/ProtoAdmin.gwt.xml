@@ -21,5 +21,8 @@
 
 	<!-- Theme Custom CSS -->
 	<stylesheet src="assets/stylesheets/theme-custom.css" />
+	
+	<stylesheet src="assets/stylesheets/rich-text-box.css" />
+	
 
 </module>

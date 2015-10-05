@@ -8,54 +8,17 @@
  ******************************************************************************/
 package com.agnie.gwt.bootstrap.proto.admin.client.ui;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.LabelElement;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.PasswordTextBox;
-import com.google.gwt.user.client.ui.Widget;
+public class RichPasswordBox extends RichTextBox {
 
-/**
- * @author Ganesh Dawar
- *
- *         3:55:53 pm
- */
-public class RichPasswordBox extends Composite {
-    @UiField
-    LabelElement                           label;
-    @UiField
-    PasswordTextBox                        input;
+	public RichPasswordBox() {
+		this("");
+	}
 
-    private static RichPasswordBoxUiBinder uiBinder = GWT.create(RichPasswordBoxUiBinder.class);
-
-    interface RichPasswordBoxUiBinder extends UiBinder<Widget, RichPasswordBox> {
-    }
-
-    public RichPasswordBox() {
-        this("");
-    }
-
-    public RichPasswordBox(String label) {
-        initWidget(uiBinder.createAndBindUi(this));
-        input.addKeyUpHandler(new KeyUpHandler() {
-
-            @Override
-            public void onKeyUp(KeyUpEvent event) {
-                if (input.getValue() != "") {
-                    input.removeStyleName("empty");
-                } else {
-                    input.addStyleName("empty");
-                }
-            }
-        });
-
-        setLabel(label);
-    }
-
-    public void setLabel(String label) {
-        this.label.setInnerText(label);
-    }
+	/**
+	 * @param label
+	 */
+	public RichPasswordBox(String label) {
+		super(label);
+		input.getElement().setAttribute("type", "password");
+	}
 }

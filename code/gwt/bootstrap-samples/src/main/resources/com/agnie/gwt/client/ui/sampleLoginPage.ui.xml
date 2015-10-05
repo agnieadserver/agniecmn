@@ -19,7 +19,8 @@
 	}
 	</ui:style>
 	<g:HTMLPanel ui:field="panel" addStyleNames="{style.body}">
-		<lgn:RichTextBox label="Email"></lgn:RichTextBox>
-		<lgn:RichPasswordBox label="Password"></lgn:RichPasswordBox>
+		<lgn:RichTextBox label="Email" ui:field="emailField"></lgn:RichTextBox>
+		<lgn:RichPasswordBox label="Password" ui:field="pwdField"></lgn:RichPasswordBox>
+		<g:Button ui:field="login"> Login</g:Button>
 	</g:HTMLPanel>
 </ui:UiBinder> 

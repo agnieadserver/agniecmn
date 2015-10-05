@@ -1,14 +1,148 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
-	<ui:style>
-	.containerPanel{
-		position:relative;
-		margin-top:40px;	
-	}
-	</ui:style>
-	<g:HTMLPanel addStyleNames="form-group form-material floating {style.containerPanel}">
-		<g:TextBox ui:field="input" addStyleNames="form-control empty"></g:TextBox>
-		<label class="floating-label" ui:field="label"></label>
+	<ui:style
+		type="com.agnie.gwt.bootstrap.proto.admin.client.ui.RichTextBox.MyStyle">
+		.containerPanel {
+			position: relative;
+			margin-top: 20px;
+		}
+		
+		.floating-label {
+			font-size: 14px;
+			top: 0;
+			position: absolute;
+			left: 0;
+		}
+		
+		.form-control {
+			display: block;
+			width: 100%;
+			height: 36px;
+			padding: 6px 15px;
+			font-size: 14px;
+			line-height: 1.57142857;
+			color: #76838f;
+			background-color: #fff;
+			background-image: none;
+			border: 1px solid #e4eaec;
+			border-radius: 3px;
+			-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+			box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+			-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
+				ease-in-out .15s;
+			-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
+				.15s;
+			transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+		}
+		
+		.form-material .form-control {
+			padding: 0;
+			-webkit-background-size: 0 2px, 100% 1px;
+			background-size: 0 2px, 100% 1px;
+			background-repeat: no-repeat;
+			background-position: center bottom, center
+				literal("-webkit-calc(100% - 1px)");
+			background-position: center bottom, center literal("calc(100% - 1px)");
+			background-color: transparent;
+			background-color: rgba(0, 0, 0, 0);
+			-webkit-transition: background literal("0s ease-out");
+			-o-transition: background literal("0s ease-out");
+			transition: background literal("0s ease-out");
+		}
+		
+		.form-material .form-control, .form-material .form-control:focus {
+			float: none;
+			border: 0;
+			-webkit-box-shadow: none;
+			box-shadow: none;
+			border-radius: 0;
+		}
+		
+		.form-material .success.form-control, .form-material .success.form-control:focus
+			{
+			background-image: -webkit-gradient(linear, left top, left bottom, from(#62a8ea),
+				to(#62a8ea)),
+				-webkit-gradient(linear, left top, left bottom, from(#e4eaec),
+				to(#e4eaec));
+			background-image: -webkit-linear-gradient(#62a8ea, #62a8ea),
+				-webkit-linear-gradient(#e4eaec, #e4eaec);
+			background-image: -o-linear-gradient(#62a8ea, #62a8ea),
+				-o-linear-gradient(#e4eaec, #e4eaec);
+			background-image: linear-gradient(#62a8ea, #62a8ea),
+				linear-gradient(#e4eaec, #e4eaec);
+		}
+		
+		.form-material .error.form-control, .form-material .error.form-control:focus
+			{
+			background-image: -webkit-gradient(linear, left top, left bottom, from(red),
+				to(red)),
+				-webkit-gradient(linear, left top, left bottom, from(#e4eaec),
+				to(#e4eaec));
+			background-image: -webkit-linear-gradient(red, red),
+				-webkit-linear-gradient(#e4eaec, #e4eaec);
+			background-image: -o-linear-gradient(red, red),
+				-o-linear-gradient(#e4eaec, #e4eaec);
+			background-image: linear-gradient(red, red),
+				linear-gradient(#e4eaec, #e4eaec);
+		}
+		
+		.form-material .form-control:focus {
+			outline: 0;
+			-webkit-background-size: 100% 2px, 100% 1px;
+			background-size: 100% 2px, 100% 1px;
+			-webkit-transition-duration: .3s;
+			-o-transition-duration: .3s;
+			transition-duration: .3s;
+		}
+		
+		.form-material .form-control+.floating-label {
+			font-size: 14px;
+			top: 8px;
+		}
+		
+		.form-material label {
+			color: #a3afb7;
+			font-weight: 300;
+		}
+		
+		.form-material .floating-label {
+			font-size: 14px;
+			color: #76838f;
+			position: absolute;
+			pointer-events: none;
+			left: 0;
+			-webkit-transition: .3s ease all;
+			-o-transition: .3s ease all;
+			transition: .3s ease all;
+		}
+		
+		.form-material .form-control:focus+.floating-label, .form-material .notempty.floating-label
+			{
+			top: -11.2px;
+			font-size: 11.2px;
+			font-weight: 500;
+		}
+		
+		.form-material .success.form-control:focus+.floating-label {
+			color: #62a8ea;
+		}
+		
+		.form-material .error.form-control+.floating-label, .form-material .error.form-control:focus+.floating-label
+			{
+			color: red;
+		}
+		
+		label.error {
+			color: #E74C3C !important;
+			font-size: smaller;
+			font-style: italic;
+		}
+		</ui:style>
+	<g:HTMLPanel
+		addStyleNames="form-group floating {style.form-material} {style.containerPanel}">
+		<g:TextBox ui:field="input" addStyleNames="{style.form-control} {style.success}"></g:TextBox>
+		<label class="{style.floating-label}" ui:field="label"></label>
+		<label ui:field="errorMessage" class="{style.error}"></label>
 	</g:HTMLPanel>
 </ui:UiBinder> 

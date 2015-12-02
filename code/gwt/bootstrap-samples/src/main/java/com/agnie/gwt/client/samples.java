@@ -37,6 +37,7 @@ import com.agnie.gwt.client.ui.TagEditorTest;
 import com.agnie.gwt.client.ui.TimeZoneSample;
 import com.agnie.gwt.client.ui.ToggleSample;
 import com.agnie.gwt.client.ui.sampleLoginPage;
+import com.agnie.gwt.common.client.widget.LoaderWidget;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -109,8 +110,8 @@ public class samples implements EntryPoint {
 		// RootPanel.get().add(countWidget);
 		// checkChartFromWidget();
 		// geoChartCheck();
-//		columnChartCheck();
-		stckedColumnChartCheck();
+		// columnChartCheck();
+		// stckedColumnChartCheck();
 		// sampleListBox();
 		// tagEditor();
 		// customCheckBox();
@@ -124,6 +125,13 @@ public class samples implements EntryPoint {
 		// RootPanel.get().add(dateBox);
 		// collapsePanelExample();
 		// SampleLoginPage();
+		loaderWidgetTest();
+	}
+
+	private void loaderWidgetTest() {
+		LoaderWidget lw = new LoaderWidget();
+		lw.setVisible(true);
+		RootPanel.get().add(lw);
 
 	}
 

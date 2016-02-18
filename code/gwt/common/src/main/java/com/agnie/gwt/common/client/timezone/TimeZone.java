@@ -1,4 +1,4 @@
-package com.agnie.gwt.bootstrap.proto.admin.client.timezone;
+package com.agnie.gwt.common.client.timezone;
 
 import java.util.ArrayList;
 import java.util.Date;

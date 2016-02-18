@@ -8,9 +8,9 @@
  ******************************************************************************/
 package com.agnie.gwt.client.ui;
 
-import com.agnie.gwt.bootstrap.proto.admin.client.timezone.AgnieDate;
-import com.agnie.gwt.bootstrap.proto.admin.client.timezone.SecondsChangeEvent;
-import com.agnie.gwt.bootstrap.proto.admin.client.timezone.SecondsChangeHandler;
+import com.agnie.gwt.common.client.timezone.AgnieDate;
+import com.agnie.gwt.common.client.timezone.SecondsChangeEvent;
+import com.agnie.gwt.common.client.timezone.SecondsChangeHandler;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.uibinder.client.UiBinder;

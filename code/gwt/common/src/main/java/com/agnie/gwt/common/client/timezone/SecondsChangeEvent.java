@@ -6,7 +6,7 @@
  * may be covered by Indian and Foreign Patents, patents in process, and are protected by trade secret or copyright law. Dissemination of this information 
  * or reproduction of this material is strictly forbidden unless prior written permission is obtained from AGNIE MEDIA SOFTWARE PRIVATE LIMITED.
  ******************************************************************************/
-package com.agnie.gwt.bootstrap.proto.admin.client.timezone;
+package com.agnie.gwt.common.client.timezone;
 
 import com.google.gwt.event.shared.GwtEvent;
 

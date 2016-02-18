@@ -119,13 +119,13 @@ public class samples implements EntryPoint {
 		// selectTableSample();
 		// uploadSample();
 		// createAccountWidget();
-		// sampleDatePickerTest();
+		sampleDatePickerTest();
 		// DateBox dateBox = new DateBox();
 		// dateBox.setValue(new Date());
 		// RootPanel.get().add(dateBox);
 		// collapsePanelExample();
 		// SampleLoginPage();
-		loaderWidgetTest();
+		// loaderWidgetTest();
 	}
 
 	private void loaderWidgetTest() {

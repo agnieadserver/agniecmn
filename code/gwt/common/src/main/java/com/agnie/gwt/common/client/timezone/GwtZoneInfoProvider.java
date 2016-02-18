@@ -1,4 +1,4 @@
-package com.agnie.gwt.bootstrap.proto.admin.client.timezone;
+package com.agnie.gwt.common.client.timezone;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -128,7 +128,6 @@ public class GwtZoneInfoProvider {
 		add(timeZoneConstants.australiaHobart());
 		add(timeZoneConstants.americaJuneau());
 		add(timeZoneConstants.americaInuvik());
-		add(timeZoneConstants.americaMontreal());
 		add(timeZoneConstants.asiaSeoul());
 		add(timeZoneConstants.indianComoro());
 		add(timeZoneConstants.europeParis());
@@ -341,7 +340,6 @@ public class GwtZoneInfoProvider {
 		add(timeZoneConstants.europeSimferopol());
 		add(timeZoneConstants.africaBlantyre());
 		add(timeZoneConstants.americaDetroit());
-		add(timeZoneConstants.americaShiprock());
 		add(timeZoneConstants.americaGrenada());
 		add(timeZoneConstants.americaIndianaPetersburg());
 		add(timeZoneConstants.asiaPontianak());

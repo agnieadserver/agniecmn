@@ -1,4 +1,4 @@
-package com.agnie.gwt.bootstrap.proto.admin.client.timezone;
+package com.agnie.gwt.common.client.timezone;
 
 import com.google.gwt.i18n.client.TimeZone;
 import com.google.gwt.i18n.client.TimeZoneInfo;

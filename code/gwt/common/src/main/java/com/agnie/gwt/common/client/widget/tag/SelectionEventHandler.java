@@ -6,29 +6,16 @@
  * may be covered by Indian and Foreign Patents, patents in process, and are protected by trade secret or copyright law. Dissemination of this information 
  * or reproduction of this material is strictly forbidden unless prior written permission is obtained from AGNIE MEDIA SOFTWARE PRIVATE LIMITED.
  ******************************************************************************/
-package com.agnie.gwt.bootstrap.proto.admin.client.ui;
+package com.agnie.gwt.common.client.widget.tag;
 
-import com.google.gwt.safehtml.shared.SafeHtml;
-import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.event.shared.EventHandler;
 
 /**
- * @author Pandurang Patil 25-Nov-2014
+ * 
+ * @author Pandurang Patil 26-Nov-2014
  *
  */
-public class LiHTMLPanel extends HTMLPanel {
+public interface SelectionEventHandler extends EventHandler {
 
-	/**
-	 * @param safeHtml
-	 */
-	public LiHTMLPanel(SafeHtml safeHtml) {
-		this(safeHtml.asString());
-	}
-
-	/**
-	 * @param html
-	 */
-	public LiHTMLPanel(String html) {
-		super("li", html);
-	}
-
+	void onSelection(SelectionEvent event);
 }

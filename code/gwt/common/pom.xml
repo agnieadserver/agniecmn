@@ -118,6 +118,7 @@
                         <cssFile>com/agnie/gwt/common/client/widget/DandDDragCss.css</cssFile>
                         <cssFile>com/agnie/gwt/common/client/widget/DandDCss.css</cssFile>
                         <cssFile>com/agnie/gwt/common/client/widget/FormPanelCss.css</cssFile>
+                        <cssFile>com/agnie/gwt/common/client/widget/tag/TagEditorCss.css</cssFile>
                     </cssFiles>
                 </configuration>
             </plugin>

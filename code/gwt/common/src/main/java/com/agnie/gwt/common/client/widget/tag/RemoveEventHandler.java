@@ -6,7 +6,7 @@
  * may be covered by Indian and Foreign Patents, patents in process, and are protected by trade secret or copyright law. Dissemination of this information 
  * or reproduction of this material is strictly forbidden unless prior written permission is obtained from AGNIE MEDIA SOFTWARE PRIVATE LIMITED.
  ******************************************************************************/
-package com.agnie.gwt.bootstrap.proto.admin.client.ui.tag;
+package com.agnie.gwt.common.client.widget.tag;
 
 import com.google.gwt.event.shared.EventHandler;
 
@@ -15,7 +15,7 @@ import com.google.gwt.event.shared.EventHandler;
  * @author Pandurang Patil 26-Nov-2014
  *
  */
-public interface SelectionEventHandler extends EventHandler {
+public interface RemoveEventHandler extends EventHandler {
 
-	void onSelection(SelectionEvent event);
+	void onRemove(RemoveEvent event);
 }

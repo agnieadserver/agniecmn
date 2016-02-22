@@ -8,12 +8,12 @@
  ******************************************************************************/
 package com.agnie.gwt.client.ui;
 
-import com.agnie.gwt.bootstrap.proto.admin.client.ui.tag.FocusElement;
-import com.agnie.gwt.bootstrap.proto.admin.client.ui.tag.InputTagElement;
-import com.agnie.gwt.bootstrap.proto.admin.client.ui.tag.SelectionEvent;
-import com.agnie.gwt.bootstrap.proto.admin.client.ui.tag.SelectionEventHandler;
-import com.agnie.gwt.bootstrap.proto.admin.client.ui.tag.TagEditor;
-import com.agnie.gwt.bootstrap.proto.admin.client.ui.tag.TagElement;
+import com.agnie.gwt.common.client.widget.tag.FocusElement;
+import com.agnie.gwt.common.client.widget.tag.InputTagElement;
+import com.agnie.gwt.common.client.widget.tag.SelectionEvent;
+import com.agnie.gwt.common.client.widget.tag.SelectionEventHandler;
+import com.agnie.gwt.common.client.widget.tag.TagEditor;
+import com.agnie.gwt.common.client.widget.tag.TagElement;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;

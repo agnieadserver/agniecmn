@@ -6,7 +6,7 @@
  * may be covered by Indian and Foreign Patents, patents in process, and are protected by trade secret or copyright law. Dissemination of this information 
  * or reproduction of this material is strictly forbidden unless prior written permission is obtained from AGNIE MEDIA SOFTWARE PRIVATE LIMITED.
  ******************************************************************************/
-package com.agnie.gwt.bootstrap.proto.admin.client.ui.tag;
+package com.agnie.gwt.common.client.widget.tag;
 
 import com.google.gwt.event.shared.GwtEvent;
 
@@ -15,16 +15,16 @@ import com.google.gwt.event.shared.GwtEvent;
  * @author Pandurang Patil 26-Nov-2014
  *
  */
-public class SelectionEvent extends GwtEvent<SelectionEventHandler> {
+public class RemoveEvent extends GwtEvent<RemoveEventHandler> {
 
-	public static Type<SelectionEventHandler>	TYPE	= new Type<SelectionEventHandler>();
+	public static Type<RemoveEventHandler>	TYPE	= new Type<RemoveEventHandler>();
 
-	FocusElement								element;
+	TagElement								element;
 
 	/**
 	 * @param element
 	 */
-	public SelectionEvent(FocusElement element) {
+	public RemoveEvent(TagElement element) {
 		super();
 		this.element = element;
 	}
@@ -32,17 +32,18 @@ public class SelectionEvent extends GwtEvent<SelectionEventHandler> {
 	/**
 	 * @return the element
 	 */
-	public FocusElement getElement() {
+	public TagElement getElement() {
 		return element;
 	}
 
 	@Override
-	public com.google.gwt.event.shared.GwtEvent.Type<SelectionEventHandler> getAssociatedType() {
+	public com.google.gwt.event.shared.GwtEvent.Type<RemoveEventHandler> getAssociatedType() {
 		return TYPE;
 	}
 
 	@Override
-	protected void dispatch(SelectionEventHandler handler) {
-		handler.onSelection(this);
+	protected void dispatch(RemoveEventHandler handler) {
+		handler.onRemove(this);
 	}
+
 }

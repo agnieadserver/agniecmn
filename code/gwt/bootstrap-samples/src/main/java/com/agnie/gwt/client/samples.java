@@ -113,13 +113,13 @@ public class samples implements EntryPoint {
 		// columnChartCheck();
 		// stckedColumnChartCheck();
 		// sampleListBox();
-		// tagEditor();
+		tagEditor();
 		// customCheckBox();
 		// selectUnselectSample();
 		// selectTableSample();
 		// uploadSample();
 		// createAccountWidget();
-		sampleDatePickerTest();
+		// sampleDatePickerTest();
 		// DateBox dateBox = new DateBox();
 		// dateBox.setValue(new Date());
 		// RootPanel.get().add(dateBox);

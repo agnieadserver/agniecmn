@@ -23,6 +23,7 @@
 	overflow: auto;
 	min-height: 25px;
 	list-style-type: none;
+	margin: 0px;
 }
 
 .tagedit-list li.tagedit-listelement {

@@ -9,6 +9,7 @@
 package com.agnie.gwt.bootstrap.proto.admin.client.ui.cellwidgets;
 
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckBoxType;
+import com.agnie.gwt.common.client.widget.select.SelectEntity;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;

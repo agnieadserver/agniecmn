@@ -31,6 +31,7 @@ public class InputTagElement extends LiHTMLPanel implements FocusElement {
 	public InputTagElement(String html) {
 		super(html);
 		add(focusinput);
+		focusinput.getElement().setAttribute("style", "border-bottom: none; max-height: 25px; box-shadow: none;");
 		addStyleName(resource.css().tageditListelement());
 		focusinput.setStyleName(resource.css().tageditListPlaceholder());
 		focusinput.addKeyPressHandler(Editor.restrictKeyPressHandler);

@@ -8,7 +8,7 @@
  ******************************************************************************/
 package com.agnie.gwt.client.ui;
 
-import com.agnie.gwt.bootstrap.proto.admin.client.ui.cellwidgets.SelectEntity;
+import com.agnie.gwt.common.client.widget.select.SelectEntity;
 
 /**
  * @author Pandurang Patil 28-Nov-2014

@@ -16,6 +16,9 @@ import org.gwtbootstrap3.client.ui.gwt.CellTable;
 
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckBoxType;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.SearchBox;
+import com.agnie.gwt.common.client.widget.select.RecordSelectEvent;
+import com.agnie.gwt.common.client.widget.select.RecordSelectEventHandler;
+import com.agnie.gwt.common.client.widget.select.SelectEntity;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Style.Unit;

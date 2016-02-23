@@ -15,6 +15,9 @@ import org.gwtbootstrap3.client.ui.Button;
 
 import com.agnie.gwt.bootstrap.proto.admin.client.Messages;
 import com.agnie.gwt.bootstrap.proto.admin.client.ui.CheckBoxType;
+import com.agnie.gwt.common.client.widget.select.RecordSelectEvent;
+import com.agnie.gwt.common.client.widget.select.RecordSelectEventHandler;
+import com.agnie.gwt.common.client.widget.select.SelectEntity;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.event.dom.client.ClickEvent;

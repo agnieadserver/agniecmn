@@ -10,8 +10,6 @@ package com.agnie.gwt.common.client.mvp;
 
 import com.agnie.gwt.common.client.helper.BrowserActiveCheck;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
@@ -23,87 +21,95 @@ import com.google.gwt.user.client.History;
 
 public abstract class AppController<PLACE extends Enum<PLACE>> implements ValueChangeHandler<String> {
 
-    protected Class<PLACE>        placeType;
-    protected Place<PLACE>        lastPlace;
-    protected PlaceManager<PLACE> placeMgr;
-    protected MainView            currentView;
-    protected HandlerRegistration defaultSubmitHandler;
+	protected Class<PLACE>			placeType;
+	protected Place<PLACE>			lastPlace;
+	protected PlaceManager<PLACE>	placeMgr;
+	protected MainView				currentView;
+	protected HandlerRegistration	defaultSubmitHandler;
+	protected CurrentViewManager	currentViewMgr;
+	protected BrowserActiveCheck	browserActiveListner;
 
-    protected BrowserActiveCheck  browserActiveListner;
+	public AppController(Class<PLACE> placeType) {
+		this(placeType, null);
+	}
 
-    public AppController(Class<PLACE> placeType) {
+	public AppController(Class<PLACE> placeType, CurrentViewManager currentViewMgr) {
+		this.currentViewMgr = currentViewMgr;
+		GWT.log(placeType.getName().toString() + "<--" + placeType);
+		this.placeType = placeType;
+		History.addValueChangeHandler(this);
+		placeMgr = new PlaceManager<PLACE>(this, placeType);
+		defaultSubmitHandler = Event.addNativePreviewHandler(submitHandler);
+		browserActiveListner = new BrowserActiveCheck();
+		browserActiveListner.setActiveListner();
+	}
 
-        GWT.log(placeType.getName().toString() + "<--" + placeType);
-        this.placeType = placeType;
-        History.addValueChangeHandler(this);
-        placeMgr = new PlaceManager<PLACE>(this, placeType);
-        defaultSubmitHandler = Event.addNativePreviewHandler(submitHandler);
-        browserActiveListner = new BrowserActiveCheck();
-        browserActiveListner.setActiveListner();
-    }
+	public PlaceManager<PLACE> getPlaceManager() {
+		return placeMgr;
+	}
 
-    public PlaceManager<PLACE> getPlaceManager() {
-        return placeMgr;
-    }
+	public void go() {
+		if ("".equals(History.getToken())) {
+			History.newItem(new Place<PLACE>(getDefaultPlace()).toString());
+		} else {
+			History.fireCurrentHistoryState();
+		}
+	}
 
-    public void go() {
-        if ("".equals(History.getToken())) {
-            History.newItem(new Place<PLACE>(getDefaultPlace()).toString());
-        } else {
-            History.fireCurrentHistoryState();
-        }
-    }
+	public void onValueChange(ValueChangeEvent<String> event) {
+		if (currentView == null || currentView.shouldWeProceed()) {
+			String token = event.getValue();
+			GWT.log("AppContorller on value change Stringtoken==" + token);
+			if (token != null) {
+				Presenter presenter = getPresenterForPlace(placeMgr.getTokenToPlace(placeType, token));
+				currentView = presenter.getMainView();
+				if (currentViewMgr != null) {
+					currentViewMgr.setCurrentView(currentView);
+				}
+				if (presenter != null) {
+					processRequest(presenter);
+					if (currentView != null) {
+						currentView.setDefaultFocus();
+						browserActiveListner.setMainView(currentView);
+					}
+				}
+			}
+		} else {
 
-    public void onValueChange(ValueChangeEvent<String> event) {
-        if (currentView == null || currentView.shouldWeProceed()) {
-            String token = event.getValue();
-            GWT.log("AppContorller on value change Stringtoken==" + token);
-            if (token != null) {
-                Presenter presenter = getPresenterForPlace(placeMgr.getTokenToPlace(placeType, token));
-                currentView = presenter.getMainView();
-                if (presenter != null) {
-                    processRequest(presenter);
-                    if (currentView != null) {
-                        currentView.setDefaultFocus();
-                        browserActiveListner.setMainView(currentView);
-                    }
-                }
-            }
-        } else {
+			GWT.log("reached in Appcontroler class");
+			// Just roll back the history token to the one from which page change action is initiated.
+			History.newItem(lastPlace.toString(), false);
+		}
+	}
 
-            GWT.log("reached in Appcontroler class");
-            // Just roll back the history token to the one from which page change action is initiated.
-            History.newItem(lastPlace.toString(), false);
-        }
-    }
+	@SuppressWarnings("deprecation")
+	public void processRequest(Presenter presenter) {
+		presenter.go();
+		presenter.postRender();
+	}
 
-    public void processRequest(Presenter presenter) {
-        presenter.go();
-        presenter.postRender();
-    }
+	public void setLastPlace(Place<PLACE> place) {
 
-    public void setLastPlace(Place<PLACE> place) {
+		this.lastPlace = place;
+	}
 
-        this.lastPlace = place;
-    }
+	private NativePreviewHandler	submitHandler	= new NativePreviewHandler() {
 
-    private NativePreviewHandler submitHandler = new NativePreviewHandler() {
+														@Override
+														public void onPreviewNativeEvent(NativePreviewEvent event) {
+															if (event.getTypeInt() == Event.ONKEYPRESS) {
+																if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
+																	GWT.log("Default Enter key press event occured...");
+																	if (currentView != null) {
+																		currentView.defaultEnterPressed();
+																	}
+																}
+															}
+														}
+													};
 
-                                                   @Override
-                                                   public void onPreviewNativeEvent(NativePreviewEvent event) {
-                                                       if (event.getTypeInt() == Event.ONKEYPRESS) {
-                                                           if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
-                                                               GWT.log("Default Enter key press event occured...");
-                                                               if (currentView != null) {
-                                                                   currentView.defaultEnterPressed();
-                                                               }
-                                                           }
-                                                       }
-                                                   }
-                                               };
+	protected abstract PLACE getDefaultPlace();
 
-    protected abstract PLACE getDefaultPlace();
-
-    protected abstract Presenter getPresenterForPlace(Place<PLACE> place);
+	protected abstract Presenter getPresenterForPlace(Place<PLACE> place);
 
 }

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<!-- POM file generated with GWT webAppCreator -->
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.agnie.sample</groupId>
+	<artifactId>demo</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>Demo Web App</name>
+
+	<properties>
+		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
+		<gwt-material.version>1.5.0-SNAPSHOT</gwt-material.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jzmq.lib>/usr/local/share/java/zmq.jar</jzmq.lib>
+		<kafka.version>0.8.1.1</kafka.version>
+		<avro.version>1.7.7</avro.version>
+		<hbase.version>0.98.4-hadoop2</hbase.version>
+		<hadoop.version>2.2.0</hadoop.version>
+		<camus.kafka.coders.version>0.1.0-SNAPSHOT</camus.kafka.coders.version>
+		<!-- Convenience property to set the GWT version -->
+		<gwtVersion>2.7.0</gwtVersion>
+		<gwtpluginVersion>2.7.0</gwtpluginVersion>
+		<google.guice>3.0</google.guice>
+		<apache.httpcomponents>4.3</apache.httpcomponents>
+		<ua.detector.version>2014.10</ua.detector.version>
+		<jersey.version>1.18</jersey.version>
+		<!-- GWT needs at least java 1.5 -->
+		<agnie.common.version>1.3-SNAPSHOT</agnie.common.version>
+		<agnie.gwt.common.version>1.2-SNAPSHOT</agnie.gwt.common.version>
+		<agnie.3a.version>1.1</agnie.3a.version>
+		<agnie.ua.service.client.version>1.1</agnie.ua.service.client.version>
+		<agnie.billing.service.client.version>1.1</agnie.billing.service.client.version>
+		<agnie.adsirver.common.version>1.0-SNAPSHOT</agnie.adsirver.common.version>
+		<agnie.adserver.version>1.0-SNAPSHOT</agnie.adserver.version>
+		<agnie.tracker.version>1.0-SNAPSHOT</agnie.tracker.version>
+		<agnie.data.pipeline.version>1.0-SNAPSHOT</agnie.data.pipeline.version>
+		<agnie.admanager.version>1.0-SNAPSHOT</agnie.admanager.version>		
+	</properties>
+	<!-- Note : zmq.jar dependency is getting added through json-service-common -->
+	<dependencies>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>${gwtVersion}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwtVersion}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-codeserver</artifactId>
+			<version>${gwtVersion}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt.inject</groupId>
+			<artifactId>gin</artifactId>
+			<version>2.1.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.gwtmaterialdesign</groupId>
+			<artifactId>gwt-material</artifactId>
+			<version>${gwt-material.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.gwtmaterialdesign</groupId>
+			<artifactId>gwt-material-addins</artifactId>
+			<version>${gwt-material.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.gwtmaterialdesign</groupId>
+			<artifactId>gwt-material-themes</artifactId>
+			<version>${gwt-material.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.agnie.gwt</groupId>
+			<artifactId>agnie-gwt-common</artifactId>
+			<version>${agnie.gwt.common.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<!-- Generate compiled stuff in the folder used for developing mode -->
+		<outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
+		<plugins>
+			<!-- GWT Maven Plugin -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>${gwtpluginVersion}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>test</goal>
+							<!-- <goal>i18n</goal> -->
+							<!-- <goal>generateAsync</goal> -->
+						</goals>
+					</execution>
+					<execution>
+						<id>css-generation</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>css</goal>
+						</goals>
+					</execution>
+				</executions>
+				<!-- Plugin configuration. There are many available options, see gwt-maven-plugin 
+					documentation at codehaus.org -->
+				<configuration>
+					<runTarget>adsirver.html</runTarget>
+					<hostedWebapp>${webappDirectory}</hostedWebapp>
+					<!-- <i18nMessagesBundles> <i18nMessagesBundle>com.agnie.admanager.main.client.Messages</i18nMessagesBundle> 
+						<i18nMessagesBundle>com.agnie.admanager.registration.client.Messages</i18nMessagesBundle> 
+						</i18nMessagesBundles> <cssFiles> <cssFile>com/agnie/admanager/main/client/ui/widgets/query/TargetVar.css</cssFile> 
+						</cssFiles> -->
+					<!--cssFiles>
+						<cssFile>com/agnie/viralmint/client/view/widgets/query/TargetVar.css</cssFile>
+					</cssFiles-->
+				</configuration>
+			</plugin>
+
+			<!-- Copy static web files before executing gwt:run -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>exploded</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<webappDirectory>${webappDirectory}</webappDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

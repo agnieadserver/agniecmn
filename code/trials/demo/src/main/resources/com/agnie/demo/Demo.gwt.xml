@@ -6,11 +6,12 @@
 	<inherits name="com.google.gwt.resources.Resources" />
 	<inherits name="com.google.gwt.inject.Inject" />
 	<inherits name="com.agnie.gwt.common.AgnieCommon" />
-	<inherits name="gwt.material.design.GwtMaterialWithJQueryDebug" />
-	<inherits name="gwt.material.design.addins.GWTMaterialAddins" />
-	<inherits name="gwt.material.design.themes.GwtMaterialThemeBrown" />
+	<inherits name="gwt.material.design.GwtMaterialTable" />
+	<inherits name="gwt.material.design.addins.GwtMaterialAddins" />
 	<entry-point class='com.agnie.demo.client.Demo' />
 	<source path='client' />
 	<set-configuration-property name="CssResource.enableGss"
 		value="true" />
+	<set-configuration-property name="user.agent.runtimeWarning"
+		value="false" />
 </module>

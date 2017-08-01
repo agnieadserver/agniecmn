@@ -12,6 +12,8 @@ import com.agnie.demo.client.injector.DemoInjector;
 import com.agnie.demo.client.mvp.DemoAppController;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.user.client.Command;
 
 /**
  * @author Pandurang Patil 26-Jan-2017 - 4:13:40 pm
@@ -20,9 +22,13 @@ import com.google.gwt.core.client.GWT;
 public class Demo implements EntryPoint {
 
     public void onModuleLoad() {
-        DemoInjector injector = GWT.create(DemoInjector.class);
-        DemoAppController controller = injector.getAppController();
-        controller.go();
+        Scheduler.get().scheduleDeferred(new Command() {
+            public void execute() {
+                DemoInjector injector = GWT.create(DemoInjector.class);
+                DemoAppController controller = injector.getAppController();
+                controller.go();
+            }
+        });
     }
 
 }

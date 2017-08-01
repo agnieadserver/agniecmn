@@ -8,16 +8,20 @@
  ******************************************************************************/
 package com.agnie.demo.client.view;
 
+import gwt.material.design.client.ui.MaterialButton;
+import gwt.material.design.client.ui.MaterialListBox;
+import gwt.material.design.client.ui.MaterialToast;
+
 import com.agnie.demo.client.injector.DemoInjector;
 import com.agnie.demo.client.mvp.DemoPlaceToken;
 import com.agnie.gwt.common.client.mvp.MainView;
 import com.agnie.gwt.common.client.mvp.Place;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -36,10 +40,12 @@ public class ListView extends Composite implements MainView {
     }
 
     @UiField
-    Button       create;
+    MaterialButton  create;
+    @UiField
+    MaterialListBox test;
 
     @Inject
-    DemoInjector injector;
+    DemoInjector    injector;
 
     public ListView() {
         initWidget(uiBinder.createAndBindUi(this));
@@ -48,6 +54,12 @@ public class ListView extends Composite implements MainView {
     @UiHandler("create")
     public void createHandler(ClickEvent event) {
         injector.getAppController().go(new Place<DemoPlaceToken>(DemoPlaceToken.CREATE));
+    }
+
+    @UiHandler("test")
+    public void addTestHandler(ValueChangeEvent<String> event) {
+        GWT.log("event is getting fired");
+        MaterialToast.fireToast("I Love Material Design - " + event.getValue());
     }
 
     /*

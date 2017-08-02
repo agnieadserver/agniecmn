@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.agnie.gwt</groupId>
 	<artifactId>gwt</artifactId>
@@ -15,7 +16,7 @@
 		<!-- GWT needs at least java 1.5 -->
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
-		<agnie.common.version>1.2</agnie.common.version>
+		<agnie.common.version>1.3-SNAPSHOT</agnie.common.version>
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
 	</properties>
 
@@ -121,15 +122,15 @@
 		</profile>
 	</profiles>
 	<distributionManagement>
-                <repository>
-                        <id>agnie-mirror</id>
-                        <name>agnie-local-repo-releases</name>
-                        <url>https://arti.agnie.net/artifactory/list/libs-release-local</url>
-                </repository>
-                <snapshotRepository>
-                        <id>agnie-mirror</id>
-                        <name>agnie-local-repo-snapshots</name>
-                        <url>https://arti.agnie.net/artifactory/list/libs-snapshot-local</url>
-                </snapshotRepository>
+		<repository>
+			<id>agnie-mirror</id>
+			<name>agnie-local-repo-releases</name>
+			<url>https://arti.agnie.net/artifactory/list/libs-release-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>agnie-mirror</id>
+			<name>agnie-local-repo-snapshots</name>
+			<url>https://arti.agnie.net/artifactory/list/libs-snapshot-local</url>
+		</snapshotRepository>
 	</distributionManagement>
 </project>

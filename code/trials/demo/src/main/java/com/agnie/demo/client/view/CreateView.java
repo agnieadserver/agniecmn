@@ -35,20 +35,20 @@ public class CreateView extends Composite implements MainView {
     interface CreateViewUiBinder extends UiBinder<Widget, CreateView> {
     }
 
-    @UiField
-    Button       back;
+   // @UiField
+  //  Button       back;
     @Inject
     DemoInjector injector;
 
     public CreateView() {
         initWidget(uiBinder.createAndBindUi(this));
     }
-
+/*
     @UiHandler("back")
     public void backHandler(ClickEvent event) {
         injector.getAppController().go(new Place<DemoPlaceToken>(DemoPlaceToken.LIST));
     }
-
+*/
     /*
      * (non-Javadoc)
      * 

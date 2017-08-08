@@ -26,7 +26,7 @@ public abstract class BasePresenter implements Presenter {
 
     public boolean go() {
         header.clear();
-        header.add(new Label("---------------------Demo HEADER ------------------"));
+        //header.add(new Label("---------------------Demo HEADER ------------------"));
         return true;
     }
 

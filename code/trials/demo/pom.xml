@@ -11,7 +11,7 @@
 
 	<properties>
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
-		<gwt-material.version>2.0-rc3</gwt-material.version>
+		<gwt-material.version>2.0-rc5</gwt-material.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jzmq.lib>/usr/local/share/java/zmq.jar</jzmq.lib>
 		<kafka.version>0.8.1.1</kafka.version>
@@ -37,7 +37,7 @@
 		<agnie.tracker.version>1.0-SNAPSHOT</agnie.tracker.version>
 		<agnie.data.pipeline.version>1.0-SNAPSHOT</agnie.data.pipeline.version>
 		<agnie.admanager.version>1.0-SNAPSHOT</agnie.admanager.version>
-		<gwt-material.other.version>1.0-rc3</gwt-material.other.version>
+		<gwt-material.other.version>2.0-rc5</gwt-material.other.version>
 	</properties>
 	<!-- Note : zmq.jar dependency is getting added through json-service-common -->
 	<dependencies>

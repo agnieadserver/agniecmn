@@ -41,8 +41,8 @@ public class ListView extends Composite implements MainView {
 
     @UiField
     MaterialButton  create;
-    @UiField
-    MaterialListBox test;
+  //  @UiField
+ //   MaterialListBox test;
 
     @Inject
     DemoInjector    injector;
@@ -56,7 +56,7 @@ public class ListView extends Composite implements MainView {
         injector.getAppController().go(new Place<DemoPlaceToken>(DemoPlaceToken.CREATE));
     }
 
-    @UiHandler("test")
+  //  @UiHandler("test")
     public void addTestHandler(ValueChangeEvent<String> event) {
         GWT.log("event is getting fired");
         MaterialToast.fireToast("I Love Material Design - " + event.getValue());

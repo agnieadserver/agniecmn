@@ -13,7 +13,7 @@
 					<m:MaterialLink iconType="ACCOUNT_CIRCLE" iconPosition="LEFT" text="Account"><m:MaterialBadge text="1New" textColor="WHITE" backgroundColor="BLUE"></m:MaterialBadge></m:MaterialLink>
 				</m:MaterialNavSection>
 			</m:MaterialNavBar>
-			<m:MaterialSideNav m:id="sidenav" backgroundColor="RED" showOnAttach="true" alwaysShowActivator="true" type="FIXED" shadow="0"  width="200"  top="64">
+			<m:MaterialSideNav m:id="sidenavFixed" backgroundColor="RED" showOnAttach="true" alwaysShowActivator="true"  shadow="0"  width="200"  top="64">
 				<m:MaterialLink text="agnie1"></m:MaterialLink>
 				<m:MaterialLink text="agnie2"></m:MaterialLink>
 				<m:MaterialLink text="agnie3"></m:MaterialLink>
@@ -26,8 +26,7 @@
 			</m:MaterialNavBar>	
 		</m:MaterialHeader>
 		<m:MaterialContainer >
-			<g:Button ui:field="create">Create</g:Button>
-			<m:MaterialButton text="Create" waves="DEFAULT" backgroundColor="WHITE" textColor="BLACK"></m:MaterialButton>
+			<m:MaterialButton ui:field="create" text="Create" waves="DEFAULT" backgroundColor="WHITE" textColor="BLACK"></m:MaterialButton>
 		</m:MaterialContainer>
 	</m:MaterialPanel>
 

@@ -8,47 +8,83 @@
  ******************************************************************************/
 package com.agnie.demo.client.view;
 
+import gwt.material.design.client.ui.MaterialButton;
+import gwt.material.design.client.ui.MaterialListBox;
+import gwt.material.design.client.ui.MaterialTextArea;
+import gwt.material.design.client.ui.MaterialTextBox;
+import gwt.material.design.client.ui.MaterialToast;
+import gwt.material.design.client.ui.html.Option;
+
 import com.agnie.demo.client.injector.DemoInjector;
 import com.agnie.demo.client.mvp.DemoPlaceToken;
 import com.agnie.gwt.common.client.mvp.MainView;
 import com.agnie.gwt.common.client.mvp.Place;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import gwt.material.design.client.ui.MaterialButton;
-
 /**
- * @author Pandurang Patil 26-Jan-2017 - 6:56:47 pm
+ * @author Pandurang Patil 26-Jan-2017 - 5:07:05 pm
  *
  */
 @Singleton
-public class CreateView extends Composite implements MainView {
+public class PersonView extends Composite implements MainView {
 
-    private static CreateViewUiBinder uiBinder = GWT.create(CreateViewUiBinder.class);
+    private static ListViewUiBinder uiBinder = GWT.create(ListViewUiBinder.class);
 
-    interface CreateViewUiBinder extends UiBinder<Widget, CreateView> {
+    interface ListViewUiBinder extends UiBinder<Widget, PersonView> {
     }
 
     @UiField
     MaterialButton  create;
-    @Inject
-    DemoInjector injector;
+    @UiField
+    MaterialTextBox fName;
+    @UiField
+    MaterialTextBox lName;
+    @UiField
+    MaterialTextArea adress;
+    @UiField
+    MaterialTextBox email;
+    @UiField
+    MaterialTextBox phone;
+    @UiField
+    MaterialListBox list;
+    
+  //  @UiField
+ //   MaterialListBox test;
 
-    public CreateView() {
+    @Inject
+    DemoInjector    injector;
+
+    public PersonView() {
         initWidget(uiBinder.createAndBindUi(this));
     }
 
     @UiHandler("create")
-    public void backHandler(ClickEvent event) {
-        injector.getAppController().go(new Place<DemoPlaceToken>(DemoPlaceToken.CREATEPERSON));
+    public void addCreateHandler(ClickEvent event) {
+    	GWT.log("Create Person event is getting fired");
+        //Option option6 = new Option();
+        //option6.setValue("option6");
+        list.addItem("option6");
+    	 MaterialToast.fireToast("Material Design Person ");
+    }
+
+  
+    
+    
+    
+    
+    //  @UiHandler("test")
+    public void addTestHandler(ValueChangeEvent<String> event) {
+        GWT.log("event is getting fired");
+        MaterialToast.fireToast("I Love Material Design - " + event.getValue());
     }
 
     /*

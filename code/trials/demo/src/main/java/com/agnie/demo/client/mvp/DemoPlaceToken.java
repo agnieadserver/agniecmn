@@ -13,5 +13,5 @@ package com.agnie.demo.client.mvp;
  *
  */
 public enum DemoPlaceToken {
-    LIST, CREATE;
+    LIST, CREATE, CREATEPERSON;
 }

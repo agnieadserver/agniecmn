@@ -9,6 +9,7 @@
 package com.agnie.demo.client.mvp;
 
 import com.agnie.demo.client.injector.DemoInjector;
+import com.agnie.demo.client.presenter.CreatePersonPresenter;
 import com.agnie.demo.client.presenter.CreatePresenter;
 import com.agnie.demo.client.presenter.ListPresenter;
 import com.agnie.gwt.common.client.mvp.AppController;
@@ -33,6 +34,8 @@ public class DemoAppController extends AppController<DemoPlaceToken> {
     ListPresenter   listPresenter;
     @Inject
     CreatePresenter createPresenter;
+    @Inject
+    CreatePersonPresenter createPersonPresenter;
 
     /**
      * @param placeType
@@ -69,6 +72,9 @@ public class DemoAppController extends AppController<DemoPlaceToken> {
             case CREATE:
                 presenter = createPresenter;
                 break;
+            case CREATEPERSON:
+                presenter = createPersonPresenter;
+                break;                
             default:
                 break;
             }

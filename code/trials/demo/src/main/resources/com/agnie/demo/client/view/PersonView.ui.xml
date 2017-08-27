@@ -1,7 +1,9 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui"
-	xmlns:m="urn:import:gwt.material.design.client.ui" xmlns:ma="urn:import:gwt.material.design.addins.client">
+	xmlns:m="urn:import:gwt.material.design.client.ui"
+	xmlns:ma="urn:import:gwt.material.design.addins.client"
+	>
 	<ui:style>
 	
 	</ui:style>
@@ -28,8 +30,29 @@
             <m:MaterialLink iconType="INFO_OUTLINE" text="Spam"/>
         </m:MaterialSideNavDrawer>
 		<m:MaterialContainer >
-			<m:MaterialRow textAlign="LEFT" paddingTop="80" paddingLeft="300">
-				<m:MaterialButton ui:field="create" text="Create" waves="DEFAULT" backgroundColor="WHITE" textColor="BLACK"></m:MaterialButton>
+			<m:MaterialRow textAlign="CENTER" paddingTop="80" paddingLeft="300">
+				<m:MaterialTextBox ui:field="fName" placeholder="FirstName" iconType="ACCOUNT_CIRCLE"></m:MaterialTextBox>
+				<m:MaterialTextBox ui:field="lName" placeholder="LastName" iconType="ACCOUNT_CIRCLE"></m:MaterialTextBox>
+			</m:MaterialRow>
+			<m:MaterialRow textAlign="CENTER" paddingTop="0" paddingLeft="300">
+				<m:MaterialTextBox ui:field="email"  placeholder="Email" iconType="ACCOUNT_CIRCLE"></m:MaterialTextBox>
+			</m:MaterialRow>
+			<m:MaterialRow textAlign="CENTER" paddingTop="0" paddingLeft="300">
+				<m:MaterialTextArea ui:field="adress" placeholder="Adress" iconType="ACCOUNT_CIRCLE"></m:MaterialTextArea>
+			</m:MaterialRow>	
+			<m:MaterialRow textAlign="CENTER" paddingTop="0" paddingLeft="300">
+				<m:MaterialTextBox ui:field="phone" label="mobile" placeholder="Mobile" iconType="PHONE" length="10"/>
+			</m:MaterialRow>
+			<m:MaterialRow textAlign="CENTER" paddingTop="0" paddingLeft="300">
+				<m:MaterialListBox ui:field="list"  placeholder="List">
+					<m:html.Option text="Option 1" />
+					<m:html.Option text="Option 2"/>
+					<m:html.Option text="Option 3"/>
+					<m:html.Option text="Option 4"/>
+				</m:MaterialListBox>
+			</m:MaterialRow>
+			<m:MaterialRow textAlign="CENTER" paddingTop="0" paddingLeft="300">
+				<m:MaterialButton ui:field="create" text="Submit" waves="DEFAULT" backgroundColor="WHITE" textColor="BLACK"></m:MaterialButton>
 			</m:MaterialRow>
 		</m:MaterialContainer>
 	</m:MaterialPanel>

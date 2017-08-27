@@ -30,6 +30,9 @@
         </m:MaterialSideNav>
 		<m:MaterialContainer >
 			<m:MaterialLabel text="Main Content" textAlign="CENTER"></m:MaterialLabel>
+			<m:MaterialRow textAlign="LEFT" paddingTop="80" paddingLeft="300">
+				<m:MaterialButton ui:field="create" text="Create" waves="DEFAULT" backgroundColor="WHITE" textColor="BLACK"></m:MaterialButton>
+			</m:MaterialRow>
 		</m:MaterialContainer>
 	</m:MaterialPanel>
 </ui:UiBinder> 

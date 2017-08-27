@@ -9,10 +9,10 @@
 	<url>http://agnie.net/</url>
 
 	<properties>
-		<maven.compiler.source>1.7</maven.compiler.source>
-		<maven.compiler.target>1.7</maven.compiler.target>
-		<gwtVersion>2.6.1</gwtVersion>
-		<gwtpluginVersion>2.6.1</gwtpluginVersion>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<gwtVersion>2.8.0</gwtVersion>
+		<gwtpluginVersion>2.8.0</gwtpluginVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 

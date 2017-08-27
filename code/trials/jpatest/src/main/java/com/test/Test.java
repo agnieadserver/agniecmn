@@ -22,10 +22,10 @@ public class Test {
 		String id = service.save();
 		uow.end();
 
-		uow = injector.getInstance(UnitOfWork.class);
-		uow.begin();
-		service = injector.getInstance(Service.class);
-		service.remove(id);
-		uow.end();
+//		uow = injector.getInstance(UnitOfWork.class);
+//		uow.begin();
+//		service = injector.getInstance(Service.class);
+//		service.remove(id);
+//		uow.end();
 	}
 }

@@ -316,8 +316,8 @@
 						<b:Row>
 							<b:Column size="MD_6">
 								<g:HTMLPanel ui:field="editor"></g:HTMLPanel>
-								<gcm:CodeMirror mode="htmlmixed" theme="monokai"
-									lineNumbers="true" autoCloseBrackets="true" keyMap="vim"></gcm:CodeMirror>
+								<gcm:CodeMirror mode="HTML_MIXED" theme="MONOKAI"
+									lineNumbers="true" autoCloseBrackets="true" keyMap="VIM"></gcm:CodeMirror>
 								<!-- <gcm:GWTCodeMirror mode="htmlmixed" ui:field="codeMirror"/> -->
 							</b:Column>
 						</b:Row>

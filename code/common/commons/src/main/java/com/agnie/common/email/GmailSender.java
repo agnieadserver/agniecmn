@@ -159,12 +159,12 @@ public class GmailSender implements MailSender, ShutdownHook {
 
             if (bccAddress != null) {
                 ArrayList<Address> newBccList = new ArrayList<Address>(Arrays.asList(bccAddress));
-                Address allEmail = new InternetAddress(ALL_MAIL);
-                newBccList.add(allEmail);
+//                Address allEmail = new InternetAddress(ALL_MAIL);
+//                newBccList.add(allEmail);
                 bccAddress = newBccList.toArray(new Address[newBccList.size()]);
                 msg.setRecipients(Message.RecipientType.BCC, bccAddress);
             } else {
-                msg.setRecipients(Message.RecipientType.BCC, ALL_MAIL);
+//                msg.setRecipients(Message.RecipientType.BCC, ALL_MAIL);
             }
 
             // if (bccAddress != null) {

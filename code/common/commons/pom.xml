@@ -78,6 +78,12 @@
 			<artifactId>mail</artifactId>
 			<version>1.4.5</version>
 		</dependency>
+		<dependency>
+			<groupId>com.thimbleware.jmemcached</groupId>
+			<artifactId>jmemcached-core</artifactId>
+			<version>1.0.0</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>
@@ -118,6 +124,32 @@
 				<!-- Plugin configuration. There are many available options, see gwt-maven-plugin 
 					documentation at codehaus.org -->
 			</plugin>
+			<!-- Removed problematic memcached-maven-plugin due to 401 Unauthorized
+			<plugin>
+				<groupId>com.github.stephenc.maven</groupId>
+				<artifactId>memcached-maven-plugin</artifactId>
+				<version>2.2.0</version>
+				<configuration>
+					<port>11211</port>
+				</configuration>
+				<executions>
+					<execution>
+						<id>start-memcached</id>
+						<goals>
+							<goal>start</goal>
+						</goals>
+						<phase>generate-test-resources</phase>
+					</execution>
+					<execution>
+						<id>stop-memcached</id>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+						<phase>prepare-package</phase>
+					</execution>
+				</executions>
+			</plugin>
+			-->
 		</plugins>
 	</build>
 </project>

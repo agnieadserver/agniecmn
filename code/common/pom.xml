@@ -74,16 +74,16 @@
 			</plugin>
 		</plugins>
 	</build>
-	<distributionManagement>
+	<repositories>
 		<repository>
-			<id>agnie-mirror</id>
-			<name>agnie-local-repo-releases</name>
-			<url>https://arti.agnie.net/artifactory/list/libs-release-local</url>
+			<id>github</id>
+			<url>https://maven.pkg.github.com/agnieadserver/adserver</url>
 		</repository>
-		<snapshotRepository>
-			<id>agnie-mirror</id>
-			<name>agnie-local-repo-snapshots</name>
-			<url>https://arti.agnie.net/artifactory/list/libs-snapshot-local</url>
-		</snapshotRepository>
-	</distributionManagement>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>github</id>
+			<url>https://maven.pkg.github.com/agnieadserver/adserver</url>
+		</pluginRepository>
+	</pluginRepositories>	
 </project>

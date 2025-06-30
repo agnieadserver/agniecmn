@@ -9,18 +9,53 @@
 package com.agnie.common.cache;
 
 import junit.framework.Assert;
-
+import java.net.InetSocketAddress;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.junit.Test;
 
 import com.agnie.common.shutdown.ShutdownProcessor;
+import com.thimbleware.jmemcached.CacheImpl;
+import com.thimbleware.jmemcached.Key;
+import com.thimbleware.jmemcached.LocalCacheElement;
+import com.thimbleware.jmemcached.MemCacheDaemon;
+import com.thimbleware.jmemcached.storage.CacheStorage;
+import com.thimbleware.jmemcached.storage.hash.ConcurrentLinkedHashMap;
 
 public class MemCachedTest {
 
+    private static MemCacheDaemon<LocalCacheElement> daemon;
+    private static final String MEMCACHED_HOST = "127.0.0.1";
+    private static final int MEMCACHED_PORT = 11211; // Standard Memcached port
+
+    @BeforeClass
+    public static void setUpClass() {
+        daemon = new MemCacheDaemon<LocalCacheElement>();
+
+        // Use ConcurrentLinkedHashMap as the cache storage
+        CacheStorage<Key, LocalCacheElement> storage = ConcurrentLinkedHashMap.create(
+            ConcurrentLinkedHashMap.EvictionPolicy.LRU,
+            1000, // Max items
+            1024 * 1024 // Max bytes (1MB)
+        );
+        daemon.setCache(new CacheImpl(storage));
+        daemon.setAddr(new InetSocketAddress(MEMCACHED_HOST, MEMCACHED_PORT));
+        daemon.setBinary(false); // spymemcached by default uses text protocol
+        daemon.start();
+    }
+
+    @AfterClass
+    public static void tearDownClass() {
+        if (daemon != null && daemon.isRunning()) {
+            daemon.stop();
+        }
+    }
+
 	@Test
 	public void firstTest() {
-		CacheService service = new MemCacheService("127.0.0.1:11211", new ShutdownProcessor());
+		CacheService service = new MemCacheService(MEMCACHED_HOST + ":" + MEMCACHED_PORT, new ShutdownProcessor());
 		UserBean user = new UserBean();
 		user.setFname("fname");
 		user.setLname("lname");

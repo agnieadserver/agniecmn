@@ -32,11 +32,11 @@ public class SimpleJdbcIteratorTest {
 			conn = JDBCUtil.getConnection();
 			StringBuffer create = new StringBuffer();
 			create.append("CREATE  TABLE SIMPLE_ITERATOR_TEST ( ");
-			create.append("`id` INT NOT NULL AUTO_INCREMENT , ");
+			create.append("`id` INT NOT NULL AUTO_INCREMENT , "); // Reverted to AUTO_INCREMENT
 			create.append("`company` VARCHAR(250) NULL , ");
 			create.append("`location` VARCHAR(250) NULL , ");
-			create.append("PRIMARY KEY (`id`) ) ");
-			create.append("ENGINE = InnoDB ");
+			create.append("PRIMARY KEY (`id`) ) "); // Re-added explicit PRIMARY KEY
+			// create.append("ENGINE = InnoDB "); // Removed MySQL specific engine
 			Statement stmt = null;
 			try {
 				stmt = conn.createStatement();
@@ -73,7 +73,8 @@ public class SimpleJdbcIteratorTest {
 		SimpleJDBCTableIterator<SimpleCompany> itr;
 		List<SimpleCompany> actual = new ArrayList<SimpleCompany>();
 		try {
-			itr = new SimpleJDBCTableIterator<SimpleCompany>(SimpleCompany.class, JDBCUtil.getConnection(), "SELECT * FROM SIMPLE_ITERATOR_TEST");
+			// Reverted to backticked name in SELECT
+			itr = new SimpleJDBCTableIterator<SimpleCompany>(SimpleCompany.class, JDBCUtil.getConnection(), "SELECT * FROM `SIMPLE_ITERATOR_TEST`");
 			int count = 0;
 			while (itr.hasNext()) {
 				SimpleCompany com = itr.next();
@@ -117,6 +118,7 @@ public class SimpleJdbcIteratorTest {
 			Statement stmt = null;
 			try {
 				stmt = conn.createStatement();
+				// Reverted to backticked names
 				stmt.addBatch("INSERT INTO SIMPLE_ITERATOR_TEST ( `company`, `location`) VALUES  ( 'Tata Motors', 'Bhosari' )");
 				stmt.addBatch("INSERT INTO SIMPLE_ITERATOR_TEST ( `company`, `location`) VALUES  ( 'BMW', 'Chakan' )");
 				stmt.addBatch("INSERT INTO SIMPLE_ITERATOR_TEST ( `company`, `location`) VALUES  ( 'Volvo', 'Benglore' )");

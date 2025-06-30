@@ -11,20 +11,37 @@ package com.agnie.common.util.jdbc;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
+// ResourceBundle is no longer needed for H2 in-memory DB
+// import java.util.ResourceBundle;
 
 public class JDBCUtil {
 
-	public static Connection getConnection() throws SQLException {
-		Connection conn = null;
-		ResourceBundle resource = ResourceBundle.getBundle("testdbserver");
-		String server = resource.getString("server.host");
-		String port = resource.getString("server.port");
-		String database = resource.getString("database");
-		String username = resource.getString("username");
-		String password = resource.getString("password");
+	// H2 In-memory database URL.
+	// MODE=MYSQL for MySQL compatibility.
+	// DB_CLOSE_DELAY=-1 to keep the DB alive for the duration of the JVM.
+	// DATABASE_TO_UPPER=FALSE to preserve identifier case.
+	private static final String H2_JDBC_URL = "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;MODE=MYSQL;DATABASE_TO_UPPER=FALSE";
+	private static final String H2_USER = "sa";
+	private static final String H2_PASSWORD = "";
 
-		conn = DriverManager.getConnection("jdbc:mysql://" + server + ":" + port + "/" + database, username, password);
+	public static Connection getConnection() throws SQLException {
+		try {
+			// Load the H2 driver
+			Class.forName("org.h2.Driver");
+		} catch (ClassNotFoundException e) {
+			throw new SQLException("H2 JDBC Driver not found", e);
+		}
+
+		// ResourceBundle resource = ResourceBundle.getBundle("testdbserver"); // No longer needed
+		// String server = resource.getString("server.host"); // No longer needed
+		// String port = resource.getString("server.port"); // No longer needed
+		// String database = resource.getString("database"); // No longer needed
+		// String username = resource.getString("username"); // No longer needed
+		// String password = resource.getString("password"); // No longer needed
+
+		// conn = DriverManager.getConnection("jdbc:mysql://" + server + ":" + port + "/" + database, username, password); // Old MySQL connection
+
+		Connection conn = DriverManager.getConnection(H2_JDBC_URL, H2_USER, H2_PASSWORD);
 		return conn;
 	}
 

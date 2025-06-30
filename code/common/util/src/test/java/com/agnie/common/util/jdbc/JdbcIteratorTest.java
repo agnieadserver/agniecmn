@@ -33,14 +33,14 @@ public class JdbcIteratorTest {
 			conn = JDBCUtil.getConnection();
 			StringBuffer create = new StringBuffer();
 			create.append("CREATE  TABLE ITERATOR_TEST ( ");
-			create.append("`id` INT NOT NULL AUTO_INCREMENT , ");
+			create.append("`id` INT NOT NULL AUTO_INCREMENT , "); // Reverted to AUTO_INCREMENT
 			create.append("`WrapperColName` VARCHAR(250) NULL , ");
 			create.append("`SingleColumn` VARCHAR(250) NULL , ");
 			create.append("`Fname` VARCHAR(45) NULL , ");
 			create.append("`Lname` VARCHAR(45) NULL , ");
 			create.append("`Age` FLOAT NULL , ");
-			create.append("PRIMARY KEY (`id`) ) ");
-			create.append("ENGINE = InnoDB ");
+			create.append("PRIMARY KEY (`id`) ) "); // Re-added explicit PRIMARY KEY
+			// create.append("ENGINE = InnoDB "); // Removed MySQL specific engine
 			Statement stmt = null;
 			try {
 				stmt = conn.createStatement();
@@ -77,7 +77,8 @@ public class JdbcIteratorTest {
 		JDBCTableIterator<MultiColWrapperBean> itr;
 		MultiColWrapperBean actual = null;
 		try {
-			itr = new JDBCTableIterator<MultiColWrapperBean>(MultiColWrapperBean.class, JDBCUtil.getConnection(), "SELECT * FROM ITERATOR_TEST");
+			// Reverted to backticked name in SELECT
+			itr = new JDBCTableIterator<MultiColWrapperBean>(MultiColWrapperBean.class, JDBCUtil.getConnection(), "SELECT * FROM `ITERATOR_TEST`");
 			int count = 0;
 			while (itr.hasNext()) {
 				actual = itr.next();
@@ -137,6 +138,7 @@ public class JdbcIteratorTest {
 			Statement stmt = null;
 			try {
 				stmt = conn.createStatement();
+				// Reverted to backticked names
 				stmt.addBatch("INSERT INTO ITERATOR_TEST ( `WrapperColName`, `SingleColumn`, `Fname`, `Lname`, `Age`) VALUES  ( 'WrapperSomething',  'Something', 'Pranoti',  'Patil', 30 )");
 				stmt.addBatch("INSERT INTO ITERATOR_TEST ( `WrapperColName`, `SingleColumn`, `Fname`, `Lname`, `Age`) VALUES  ( 'WrapperSomething',  'Something', 'Pandurang',  'Patil', 30 )");
 				stmt.addBatch("INSERT INTO ITERATOR_TEST ( `WrapperColName`, `SingleColumn`, `Fname`, `Lname`, `Age`) VALUES  ( 'WrapperSomething',  '2nd Something', 'Pranoti1',  'Patil1', 31 )");
